@@ -6,14 +6,6 @@ from typing import Optional
 
 import httpx
 
-from .name import (
-    NameResource,
-    AsyncNameResource,
-    NameResourceWithRawResponse,
-    AsyncNameResourceWithRawResponse,
-    NameResourceWithStreamingResponse,
-    AsyncNameResourceWithStreamingResponse,
-)
 from .users import (
     UsersResource,
     AsyncUsersResource,
@@ -46,10 +38,6 @@ __all__ = ["AppsResource", "AsyncAppsResource"]
 
 
 class AppsResource(SyncAPIResource):
-    @cached_property
-    def name(self) -> NameResource:
-        return NameResource(self._client)
-
     @cached_property
     def users(self) -> UsersResource:
         return UsersResource(self._client)
@@ -105,43 +93,6 @@ class AppsResource(SyncAPIResource):
             cast_to=App,
         )
 
-    def retrieve(
-        self,
-        app_id: str,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> App:
-        """
-        Get an App by ID
-
-        Args: app_id (uuid.UUID): The ID of the app
-
-        Returns: schemas.App: App object
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not app_id:
-            raise ValueError(f"Expected a non-empty value for `app_id` but received {app_id!r}")
-        return self._get(
-            f"/apps/{app_id}",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=App,
-        )
-
     def update(
         self,
         app_id: str,
@@ -189,6 +140,80 @@ class AppsResource(SyncAPIResource):
             cast_to=App,
         )
 
+    def get(
+        self,
+        app_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> App:
+        """
+        Get an App by ID
+
+        Args: app_id (uuid.UUID): The ID of the app
+
+        Returns: schemas.App: App object
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not app_id:
+            raise ValueError(f"Expected a non-empty value for `app_id` but received {app_id!r}")
+        return self._get(
+            f"/apps/{app_id}",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=App,
+        )
+
+    def get_by_name(
+        self,
+        name: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> App:
+        """
+        Get an App by Name
+
+        Args: app_name (str): The name of the app
+
+        Returns: schemas.App: App object
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not name:
+            raise ValueError(f"Expected a non-empty value for `name` but received {name!r}")
+        return self._get(
+            f"/apps/name/{name}",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=App,
+        )
+
     def get_or_create(
         self,
         name: str,
@@ -228,10 +253,6 @@ class AppsResource(SyncAPIResource):
 
 
 class AsyncAppsResource(AsyncAPIResource):
-    @cached_property
-    def name(self) -> AsyncNameResource:
-        return AsyncNameResource(self._client)
-
     @cached_property
     def users(self) -> AsyncUsersResource:
         return AsyncUsersResource(self._client)
@@ -287,43 +308,6 @@ class AsyncAppsResource(AsyncAPIResource):
             cast_to=App,
         )
 
-    async def retrieve(
-        self,
-        app_id: str,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> App:
-        """
-        Get an App by ID
-
-        Args: app_id (uuid.UUID): The ID of the app
-
-        Returns: schemas.App: App object
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not app_id:
-            raise ValueError(f"Expected a non-empty value for `app_id` but received {app_id!r}")
-        return await self._get(
-            f"/apps/{app_id}",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=App,
-        )
-
     async def update(
         self,
         app_id: str,
@@ -365,6 +349,80 @@ class AsyncAppsResource(AsyncAPIResource):
                 },
                 app_update_params.AppUpdateParams,
             ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=App,
+        )
+
+    async def get(
+        self,
+        app_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> App:
+        """
+        Get an App by ID
+
+        Args: app_id (uuid.UUID): The ID of the app
+
+        Returns: schemas.App: App object
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not app_id:
+            raise ValueError(f"Expected a non-empty value for `app_id` but received {app_id!r}")
+        return await self._get(
+            f"/apps/{app_id}",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=App,
+        )
+
+    async def get_by_name(
+        self,
+        name: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> App:
+        """
+        Get an App by Name
+
+        Args: app_name (str): The name of the app
+
+        Returns: schemas.App: App object
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not name:
+            raise ValueError(f"Expected a non-empty value for `name` but received {name!r}")
+        return await self._get(
+            f"/apps/name/{name}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -416,19 +474,18 @@ class AppsResourceWithRawResponse:
         self.create = to_raw_response_wrapper(
             apps.create,
         )
-        self.retrieve = to_raw_response_wrapper(
-            apps.retrieve,
-        )
         self.update = to_raw_response_wrapper(
             apps.update,
+        )
+        self.get = to_raw_response_wrapper(
+            apps.get,
+        )
+        self.get_by_name = to_raw_response_wrapper(
+            apps.get_by_name,
         )
         self.get_or_create = to_raw_response_wrapper(
             apps.get_or_create,
         )
-
-    @cached_property
-    def name(self) -> NameResourceWithRawResponse:
-        return NameResourceWithRawResponse(self._apps.name)
 
     @cached_property
     def users(self) -> UsersResourceWithRawResponse:
@@ -442,19 +499,18 @@ class AsyncAppsResourceWithRawResponse:
         self.create = async_to_raw_response_wrapper(
             apps.create,
         )
-        self.retrieve = async_to_raw_response_wrapper(
-            apps.retrieve,
-        )
         self.update = async_to_raw_response_wrapper(
             apps.update,
+        )
+        self.get = async_to_raw_response_wrapper(
+            apps.get,
+        )
+        self.get_by_name = async_to_raw_response_wrapper(
+            apps.get_by_name,
         )
         self.get_or_create = async_to_raw_response_wrapper(
             apps.get_or_create,
         )
-
-    @cached_property
-    def name(self) -> AsyncNameResourceWithRawResponse:
-        return AsyncNameResourceWithRawResponse(self._apps.name)
 
     @cached_property
     def users(self) -> AsyncUsersResourceWithRawResponse:
@@ -468,19 +524,18 @@ class AppsResourceWithStreamingResponse:
         self.create = to_streamed_response_wrapper(
             apps.create,
         )
-        self.retrieve = to_streamed_response_wrapper(
-            apps.retrieve,
-        )
         self.update = to_streamed_response_wrapper(
             apps.update,
+        )
+        self.get = to_streamed_response_wrapper(
+            apps.get,
+        )
+        self.get_by_name = to_streamed_response_wrapper(
+            apps.get_by_name,
         )
         self.get_or_create = to_streamed_response_wrapper(
             apps.get_or_create,
         )
-
-    @cached_property
-    def name(self) -> NameResourceWithStreamingResponse:
-        return NameResourceWithStreamingResponse(self._apps.name)
 
     @cached_property
     def users(self) -> UsersResourceWithStreamingResponse:
@@ -494,19 +549,18 @@ class AsyncAppsResourceWithStreamingResponse:
         self.create = async_to_streamed_response_wrapper(
             apps.create,
         )
-        self.retrieve = async_to_streamed_response_wrapper(
-            apps.retrieve,
-        )
         self.update = async_to_streamed_response_wrapper(
             apps.update,
+        )
+        self.get = async_to_streamed_response_wrapper(
+            apps.get,
+        )
+        self.get_by_name = async_to_streamed_response_wrapper(
+            apps.get_by_name,
         )
         self.get_or_create = async_to_streamed_response_wrapper(
             apps.get_or_create,
         )
-
-    @cached_property
-    def name(self) -> AsyncNameResourceWithStreamingResponse:
-        return AsyncNameResourceWithStreamingResponse(self._apps.name)
 
     @cached_property
     def users(self) -> AsyncUsersResourceWithStreamingResponse:

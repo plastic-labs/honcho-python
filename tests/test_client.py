@@ -17,7 +17,6 @@ from respx import MockRouter
 from pydantic import ValidationError
 
 from honcho import Honcho, AsyncHoncho, APIResponseValidationError
-from honcho._client import Honcho, AsyncHoncho
 from honcho._models import BaseModel, FinalRequestOptions
 from honcho._constants import RAW_RESPONSE_HEADER
 from honcho._exceptions import APIStatusError, APITimeoutError, APIResponseValidationError

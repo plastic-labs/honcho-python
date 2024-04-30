@@ -5,7 +5,7 @@ description = "The official Python library for the honcho API"
 dynamic = ["readme"]
 license = "Apache-2.0"
 authors = [
-{ name = "Honcho", email = "dev-feedback@honcho.com" },
+{ name = "Honcho", email = "hello@plasticlabs.ai" },
 ]
 dependencies = [
     "httpx>=0.23.0, <1",
