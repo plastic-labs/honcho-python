@@ -8,14 +8,6 @@ from .apps import (
     AppsResourceWithStreamingResponse,
     AsyncAppsResourceWithStreamingResponse,
 )
-from .name import (
-    NameResource,
-    AsyncNameResource,
-    NameResourceWithRawResponse,
-    AsyncNameResourceWithRawResponse,
-    NameResourceWithStreamingResponse,
-    AsyncNameResourceWithStreamingResponse,
-)
 from .users import (
     UsersResource,
     AsyncUsersResource,
@@ -26,12 +18,6 @@ from .users import (
 )
 
 __all__ = [
-    "NameResource",
-    "AsyncNameResource",
-    "NameResourceWithRawResponse",
-    "AsyncNameResourceWithRawResponse",
-    "NameResourceWithStreamingResponse",
-    "AsyncNameResourceWithStreamingResponse",
     "UsersResource",
     "AsyncUsersResource",
     "UsersResourceWithRawResponse",

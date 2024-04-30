@@ -9,15 +9,10 @@ from honcho.types import App
 Methods:
 
 - <code title="post /apps">client.apps.<a href="./src/honcho/resources/apps/apps.py">create</a>(\*\*<a href="src/honcho/types/app_create_params.py">params</a>) -> <a href="./src/honcho/types/app.py">App</a></code>
-- <code title="get /apps/{app_id}">client.apps.<a href="./src/honcho/resources/apps/apps.py">retrieve</a>(app_id) -> <a href="./src/honcho/types/app.py">App</a></code>
 - <code title="put /apps/{app_id}">client.apps.<a href="./src/honcho/resources/apps/apps.py">update</a>(app_id, \*\*<a href="src/honcho/types/app_update_params.py">params</a>) -> <a href="./src/honcho/types/app.py">App</a></code>
+- <code title="get /apps/{app_id}">client.apps.<a href="./src/honcho/resources/apps/apps.py">get</a>(app_id) -> <a href="./src/honcho/types/app.py">App</a></code>
+- <code title="get /apps/name/{name}">client.apps.<a href="./src/honcho/resources/apps/apps.py">get_by_name</a>(name) -> <a href="./src/honcho/types/app.py">App</a></code>
 - <code title="get /apps/get_or_create/{name}">client.apps.<a href="./src/honcho/resources/apps/apps.py">get_or_create</a>(name) -> <a href="./src/honcho/types/app.py">App</a></code>
-
-## Name
-
-Methods:
-
-- <code title="get /apps/name/{name}">client.apps.name.<a href="./src/honcho/resources/apps/name.py">retrieve</a>(name) -> <a href="./src/honcho/types/app.py">App</a></code>
 
 ## Users
 
