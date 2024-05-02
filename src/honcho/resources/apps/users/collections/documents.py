@@ -45,7 +45,7 @@ class DocumentsResource(SyncAPIResource):
         app_id: str,
         user_id: str,
         content: str,
-        metadata: Optional[object] | NotGiven = NOT_GIVEN,
+        metadata: Optional[document_create_params.Metadata] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -136,7 +136,7 @@ class DocumentsResource(SyncAPIResource):
         user_id: str,
         collection_id: str,
         content: Optional[str] | NotGiven = NOT_GIVEN,
-        metadata: Optional[object] | NotGiven = NOT_GIVEN,
+        metadata: Optional[document_update_params.Metadata] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -297,7 +297,7 @@ class AsyncDocumentsResource(AsyncAPIResource):
         app_id: str,
         user_id: str,
         content: str,
-        metadata: Optional[object] | NotGiven = NOT_GIVEN,
+        metadata: Optional[document_create_params.Metadata] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -388,7 +388,7 @@ class AsyncDocumentsResource(AsyncAPIResource):
         user_id: str,
         collection_id: str,
         content: Optional[str] | NotGiven = NOT_GIVEN,
-        metadata: Optional[object] | NotGiven = NOT_GIVEN,
+        metadata: Optional[document_update_params.Metadata] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,

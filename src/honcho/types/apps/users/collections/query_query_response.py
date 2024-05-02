@@ -4,6 +4,6 @@ from typing import List
 
 from .document import Document
 
-__all__ = ["QueryListResponse"]
+__all__ = ["QueryQueryResponse"]
 
-QueryListResponse = List[Document]
+QueryQueryResponse = List[Document]

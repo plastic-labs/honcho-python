@@ -5,7 +5,7 @@ from __future__ import annotations
 from typing import Optional
 from typing_extensions import Required, TypedDict
 
-__all__ = ["MetamessageUpdateParams"]
+__all__ = ["MetamessageUpdateParams", "Metadata"]
 
 
 class MetamessageUpdateParams(TypedDict, total=False):
@@ -17,6 +17,10 @@ class MetamessageUpdateParams(TypedDict, total=False):
 
     message_id: Required[str]
 
-    metadata: Optional[object]
+    metadata: Optional[Metadata]
 
     metamessage_type: Optional[str]
+
+
+class Metadata(TypedDict, total=False):
+    pass

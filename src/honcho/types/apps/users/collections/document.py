@@ -4,7 +4,11 @@ from datetime import datetime
 
 from ....._models import BaseModel
 
-__all__ = ["Document"]
+__all__ = ["Document", "Metadata"]
+
+
+class Metadata(BaseModel):
+    pass
 
 
 class Document(BaseModel):
@@ -16,4 +20,4 @@ class Document(BaseModel):
 
     created_at: datetime
 
-    metadata: object
+    metadata: Metadata

@@ -5,10 +5,14 @@ from __future__ import annotations
 from typing import Optional
 from typing_extensions import TypedDict
 
-__all__ = ["AppUpdateParams"]
+__all__ = ["AppUpdateParams", "Metadata"]
 
 
 class AppUpdateParams(TypedDict, total=False):
-    metadata: Optional[object]
+    metadata: Optional[Metadata]
 
     name: Optional[str]
+
+
+class Metadata(TypedDict, total=False):
+    pass

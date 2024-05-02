@@ -5,10 +5,10 @@ from __future__ import annotations
 from typing import Optional
 from typing_extensions import Required, TypedDict
 
-__all__ = ["QueryListParams"]
+__all__ = ["QueryQueryParams"]
 
 
-class QueryListParams(TypedDict, total=False):
+class QueryQueryParams(TypedDict, total=False):
     app_id: Required[str]
 
     user_id: Required[str]
