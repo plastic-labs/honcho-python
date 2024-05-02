@@ -35,13 +35,14 @@ from ....._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
+from .....pagination import SyncPage, AsyncPage
 from ....._base_client import (
+    AsyncPaginator,
     make_request_options,
 )
 from .....types.apps.users import session_chat_params, session_list_params, session_create_params, session_update_params
 from .....types.apps.users.session import Session
 from .....types.apps.users.agent_chat import AgentChat
-from .....types.apps.users.page_session import PageSession
 
 __all__ = ["SessionsResource", "AsyncSessionsResource"]
 
@@ -115,53 +116,6 @@ class SessionsResource(SyncAPIResource):
             cast_to=Session,
         )
 
-    def retrieve(
-        self,
-        session_id: str,
-        *,
-        app_id: str,
-        user_id: str,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> Session:
-        """
-        Get a specific session for a user by ID
-
-        Args: app_id (uuid.UUID): The ID of the app representing the client application
-        using honcho user_id (uuid.UUID): The User ID representing the user, managed by
-        the user session_id (uuid.UUID): The ID of the Session to retrieve
-
-        Returns: schemas.Session: The Session object of the requested Session
-
-        Raises: HTTPException: If the session is not found
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not app_id:
-            raise ValueError(f"Expected a non-empty value for `app_id` but received {app_id!r}")
-        if not user_id:
-            raise ValueError(f"Expected a non-empty value for `user_id` but received {user_id!r}")
-        if not session_id:
-            raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
-        return self._get(
-            f"/apps/{app_id}/users/{user_id}/sessions/{session_id}",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=Session,
-        )
-
     def update(
         self,
         session_id: str,
@@ -227,7 +181,7 @@ class SessionsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> PageSession:
+    ) -> SyncPage[Session]:
         """
         Get All Sessions for a User
 
@@ -255,8 +209,9 @@ class SessionsResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `app_id` but received {app_id!r}")
         if not user_id:
             raise ValueError(f"Expected a non-empty value for `user_id` but received {user_id!r}")
-        return self._get(
+        return self._get_api_list(
             f"/apps/{app_id}/users/{user_id}/sessions",
+            page=SyncPage[Session],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -274,7 +229,7 @@ class SessionsResource(SyncAPIResource):
                     session_list_params.SessionListParams,
                 ),
             ),
-            cast_to=PageSession,
+            model=Session,
         )
 
     def delete(
@@ -368,6 +323,53 @@ class SessionsResource(SyncAPIResource):
             cast_to=AgentChat,
         )
 
+    def get(
+        self,
+        session_id: str,
+        *,
+        app_id: str,
+        user_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> Session:
+        """
+        Get a specific session for a user by ID
+
+        Args: app_id (uuid.UUID): The ID of the app representing the client application
+        using honcho user_id (uuid.UUID): The User ID representing the user, managed by
+        the user session_id (uuid.UUID): The ID of the Session to retrieve
+
+        Returns: schemas.Session: The Session object of the requested Session
+
+        Raises: HTTPException: If the session is not found
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not app_id:
+            raise ValueError(f"Expected a non-empty value for `app_id` but received {app_id!r}")
+        if not user_id:
+            raise ValueError(f"Expected a non-empty value for `user_id` but received {user_id!r}")
+        if not session_id:
+            raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
+        return self._get(
+            f"/apps/{app_id}/users/{user_id}/sessions/{session_id}",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=Session,
+        )
+
 
 class AsyncSessionsResource(AsyncAPIResource):
     @cached_property
@@ -438,53 +440,6 @@ class AsyncSessionsResource(AsyncAPIResource):
             cast_to=Session,
         )
 
-    async def retrieve(
-        self,
-        session_id: str,
-        *,
-        app_id: str,
-        user_id: str,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> Session:
-        """
-        Get a specific session for a user by ID
-
-        Args: app_id (uuid.UUID): The ID of the app representing the client application
-        using honcho user_id (uuid.UUID): The User ID representing the user, managed by
-        the user session_id (uuid.UUID): The ID of the Session to retrieve
-
-        Returns: schemas.Session: The Session object of the requested Session
-
-        Raises: HTTPException: If the session is not found
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not app_id:
-            raise ValueError(f"Expected a non-empty value for `app_id` but received {app_id!r}")
-        if not user_id:
-            raise ValueError(f"Expected a non-empty value for `user_id` but received {user_id!r}")
-        if not session_id:
-            raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
-        return await self._get(
-            f"/apps/{app_id}/users/{user_id}/sessions/{session_id}",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=Session,
-        )
-
     async def update(
         self,
         session_id: str,
@@ -533,7 +488,7 @@ class AsyncSessionsResource(AsyncAPIResource):
             cast_to=Session,
         )
 
-    async def list(
+    def list(
         self,
         user_id: str,
         *,
@@ -550,7 +505,7 @@ class AsyncSessionsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> PageSession:
+    ) -> AsyncPaginator[Session, AsyncPage[Session]]:
         """
         Get All Sessions for a User
 
@@ -578,14 +533,15 @@ class AsyncSessionsResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `app_id` but received {app_id!r}")
         if not user_id:
             raise ValueError(f"Expected a non-empty value for `user_id` but received {user_id!r}")
-        return await self._get(
+        return self._get_api_list(
             f"/apps/{app_id}/users/{user_id}/sessions",
+            page=AsyncPage[Session],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=await async_maybe_transform(
+                query=maybe_transform(
                     {
                         "filter": filter,
                         "is_active": is_active,
@@ -597,7 +553,7 @@ class AsyncSessionsResource(AsyncAPIResource):
                     session_list_params.SessionListParams,
                 ),
             ),
-            cast_to=PageSession,
+            model=Session,
         )
 
     async def delete(
@@ -691,6 +647,53 @@ class AsyncSessionsResource(AsyncAPIResource):
             cast_to=AgentChat,
         )
 
+    async def get(
+        self,
+        session_id: str,
+        *,
+        app_id: str,
+        user_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> Session:
+        """
+        Get a specific session for a user by ID
+
+        Args: app_id (uuid.UUID): The ID of the app representing the client application
+        using honcho user_id (uuid.UUID): The User ID representing the user, managed by
+        the user session_id (uuid.UUID): The ID of the Session to retrieve
+
+        Returns: schemas.Session: The Session object of the requested Session
+
+        Raises: HTTPException: If the session is not found
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not app_id:
+            raise ValueError(f"Expected a non-empty value for `app_id` but received {app_id!r}")
+        if not user_id:
+            raise ValueError(f"Expected a non-empty value for `user_id` but received {user_id!r}")
+        if not session_id:
+            raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
+        return await self._get(
+            f"/apps/{app_id}/users/{user_id}/sessions/{session_id}",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=Session,
+        )
+
 
 class SessionsResourceWithRawResponse:
     def __init__(self, sessions: SessionsResource) -> None:
@@ -698,9 +701,6 @@ class SessionsResourceWithRawResponse:
 
         self.create = to_raw_response_wrapper(
             sessions.create,
-        )
-        self.retrieve = to_raw_response_wrapper(
-            sessions.retrieve,
         )
         self.update = to_raw_response_wrapper(
             sessions.update,
@@ -713,6 +713,9 @@ class SessionsResourceWithRawResponse:
         )
         self.chat = to_raw_response_wrapper(
             sessions.chat,
+        )
+        self.get = to_raw_response_wrapper(
+            sessions.get,
         )
 
     @cached_property
@@ -731,9 +734,6 @@ class AsyncSessionsResourceWithRawResponse:
         self.create = async_to_raw_response_wrapper(
             sessions.create,
         )
-        self.retrieve = async_to_raw_response_wrapper(
-            sessions.retrieve,
-        )
         self.update = async_to_raw_response_wrapper(
             sessions.update,
         )
@@ -745,6 +745,9 @@ class AsyncSessionsResourceWithRawResponse:
         )
         self.chat = async_to_raw_response_wrapper(
             sessions.chat,
+        )
+        self.get = async_to_raw_response_wrapper(
+            sessions.get,
         )
 
     @cached_property
@@ -763,9 +766,6 @@ class SessionsResourceWithStreamingResponse:
         self.create = to_streamed_response_wrapper(
             sessions.create,
         )
-        self.retrieve = to_streamed_response_wrapper(
-            sessions.retrieve,
-        )
         self.update = to_streamed_response_wrapper(
             sessions.update,
         )
@@ -777,6 +777,9 @@ class SessionsResourceWithStreamingResponse:
         )
         self.chat = to_streamed_response_wrapper(
             sessions.chat,
+        )
+        self.get = to_streamed_response_wrapper(
+            sessions.get,
         )
 
     @cached_property
@@ -795,9 +798,6 @@ class AsyncSessionsResourceWithStreamingResponse:
         self.create = async_to_streamed_response_wrapper(
             sessions.create,
         )
-        self.retrieve = async_to_streamed_response_wrapper(
-            sessions.retrieve,
-        )
         self.update = async_to_streamed_response_wrapper(
             sessions.update,
         )
@@ -809,6 +809,9 @@ class AsyncSessionsResourceWithStreamingResponse:
         )
         self.chat = async_to_streamed_response_wrapper(
             sessions.chat,
+        )
+        self.get = async_to_streamed_response_wrapper(
+            sessions.get,
         )
 
     @cached_property

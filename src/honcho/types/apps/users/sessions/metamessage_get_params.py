@@ -4,10 +4,10 @@ from __future__ import annotations
 
 from typing_extensions import Required, TypedDict
 
-__all__ = ["MetamessageRetrieveParams"]
+__all__ = ["MetamessageGetParams"]
 
 
-class MetamessageRetrieveParams(TypedDict, total=False):
+class MetamessageGetParams(TypedDict, total=False):
     app_id: Required[str]
 
     user_id: Required[str]

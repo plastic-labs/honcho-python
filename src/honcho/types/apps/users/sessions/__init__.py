@@ -9,7 +9,7 @@ from .page_metamessage import PageMetamessage as PageMetamessage
 from .message_list_params import MessageListParams as MessageListParams
 from .message_create_params import MessageCreateParams as MessageCreateParams
 from .message_update_params import MessageUpdateParams as MessageUpdateParams
+from .metamessage_get_params import MetamessageGetParams as MetamessageGetParams
 from .metamessage_list_params import MetamessageListParams as MetamessageListParams
 from .metamessage_create_params import MetamessageCreateParams as MetamessageCreateParams
 from .metamessage_update_params import MetamessageUpdateParams as MetamessageUpdateParams
-from .metamessage_retrieve_params import MetamessageRetrieveParams as MetamessageRetrieveParams

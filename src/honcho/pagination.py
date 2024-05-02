@@ -1,6 +1,6 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import List, Union, Generic, TypeVar, Optional, cast
+from typing import List, Generic, TypeVar, Optional, cast
 from typing_extensions import override
 
 from ._base_client import BasePage, PageInfo, BaseSyncPage, BaseAsyncPage
@@ -11,11 +11,11 @@ _T = TypeVar("_T")
 
 
 class SyncPage(BaseSyncPage[_T], BasePage[_T], Generic[_T]):
-    total: Union[int, object, None] = None
+    total: Optional[int] = None
     items: List[_T]
-    page: Union[int, object, None] = None
-    size: Union[int, object, None] = None
-    pages: Union[int, object, None] = None
+    page: Optional[int] = None
+    size: Optional[int] = None
+    pages: Optional[int] = None
 
     @override
     def _get_page_items(self) -> List[_T]:
@@ -39,11 +39,11 @@ class SyncPage(BaseSyncPage[_T], BasePage[_T], Generic[_T]):
 
 
 class AsyncPage(BaseAsyncPage[_T], BasePage[_T], Generic[_T]):
-    total: Union[int, object, None] = None
+    total: Optional[int] = None
     items: List[_T]
-    page: Union[int, object, None] = None
-    size: Union[int, object, None] = None
-    pages: Union[int, object, None] = None
+    page: Optional[int] = None
+    size: Optional[int] = None
+    pages: Optional[int] = None
 
     @override
     def _get_page_items(self) -> List[_T]:
