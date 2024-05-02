@@ -19,12 +19,13 @@ from ....._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
+from .....pagination import SyncPage, AsyncPage
 from ....._base_client import (
+    AsyncPaginator,
     make_request_options,
 )
 from .....types.apps.users.sessions import message_list_params, message_create_params, message_update_params
 from .....types.apps.users.sessions.message import Message
-from .....types.apps.users.sessions.page_message import PageMessage
 
 __all__ = ["MessagesResource", "AsyncMessagesResource"]
 
@@ -98,48 +99,6 @@ class MessagesResource(SyncAPIResource):
             cast_to=Message,
         )
 
-    def retrieve(
-        self,
-        message_id: str,
-        *,
-        app_id: str,
-        user_id: str,
-        session_id: str,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> Message:
-        """
-        Get Message
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not app_id:
-            raise ValueError(f"Expected a non-empty value for `app_id` but received {app_id!r}")
-        if not user_id:
-            raise ValueError(f"Expected a non-empty value for `user_id` but received {user_id!r}")
-        if not session_id:
-            raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
-        if not message_id:
-            raise ValueError(f"Expected a non-empty value for `message_id` but received {message_id!r}")
-        return self._get(
-            f"/apps/{app_id}/users/{user_id}/sessions/{session_id}/messages/{message_id}",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=Message,
-        )
-
     def update(
         self,
         message_id: str,
@@ -200,7 +159,7 @@ class MessagesResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> PageMessage:
+    ) -> SyncPage[Message]:
         """
         Get all messages for a session
 
@@ -232,8 +191,9 @@ class MessagesResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `user_id` but received {user_id!r}")
         if not session_id:
             raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
-        return self._get(
+        return self._get_api_list(
             f"/apps/{app_id}/users/{user_id}/sessions/{session_id}/messages",
+            page=SyncPage[Message],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -249,7 +209,49 @@ class MessagesResource(SyncAPIResource):
                     message_list_params.MessageListParams,
                 ),
             ),
-            cast_to=PageMessage,
+            model=Message,
+        )
+
+    def get(
+        self,
+        message_id: str,
+        *,
+        app_id: str,
+        user_id: str,
+        session_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> Message:
+        """
+        Get Message
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not app_id:
+            raise ValueError(f"Expected a non-empty value for `app_id` but received {app_id!r}")
+        if not user_id:
+            raise ValueError(f"Expected a non-empty value for `user_id` but received {user_id!r}")
+        if not session_id:
+            raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
+        if not message_id:
+            raise ValueError(f"Expected a non-empty value for `message_id` but received {message_id!r}")
+        return self._get(
+            f"/apps/{app_id}/users/{user_id}/sessions/{session_id}/messages/{message_id}",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=Message,
         )
 
 
@@ -322,48 +324,6 @@ class AsyncMessagesResource(AsyncAPIResource):
             cast_to=Message,
         )
 
-    async def retrieve(
-        self,
-        message_id: str,
-        *,
-        app_id: str,
-        user_id: str,
-        session_id: str,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> Message:
-        """
-        Get Message
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not app_id:
-            raise ValueError(f"Expected a non-empty value for `app_id` but received {app_id!r}")
-        if not user_id:
-            raise ValueError(f"Expected a non-empty value for `user_id` but received {user_id!r}")
-        if not session_id:
-            raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
-        if not message_id:
-            raise ValueError(f"Expected a non-empty value for `message_id` but received {message_id!r}")
-        return await self._get(
-            f"/apps/{app_id}/users/{user_id}/sessions/{session_id}/messages/{message_id}",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=Message,
-        )
-
     async def update(
         self,
         message_id: str,
@@ -408,7 +368,7 @@ class AsyncMessagesResource(AsyncAPIResource):
             cast_to=Message,
         )
 
-    async def list(
+    def list(
         self,
         session_id: str,
         *,
@@ -424,7 +384,7 @@ class AsyncMessagesResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> PageMessage:
+    ) -> AsyncPaginator[Message, AsyncPage[Message]]:
         """
         Get all messages for a session
 
@@ -456,14 +416,15 @@ class AsyncMessagesResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `user_id` but received {user_id!r}")
         if not session_id:
             raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
-        return await self._get(
+        return self._get_api_list(
             f"/apps/{app_id}/users/{user_id}/sessions/{session_id}/messages",
+            page=AsyncPage[Message],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=await async_maybe_transform(
+                query=maybe_transform(
                     {
                         "filter": filter,
                         "page": page,
@@ -473,7 +434,49 @@ class AsyncMessagesResource(AsyncAPIResource):
                     message_list_params.MessageListParams,
                 ),
             ),
-            cast_to=PageMessage,
+            model=Message,
+        )
+
+    async def get(
+        self,
+        message_id: str,
+        *,
+        app_id: str,
+        user_id: str,
+        session_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> Message:
+        """
+        Get Message
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not app_id:
+            raise ValueError(f"Expected a non-empty value for `app_id` but received {app_id!r}")
+        if not user_id:
+            raise ValueError(f"Expected a non-empty value for `user_id` but received {user_id!r}")
+        if not session_id:
+            raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
+        if not message_id:
+            raise ValueError(f"Expected a non-empty value for `message_id` but received {message_id!r}")
+        return await self._get(
+            f"/apps/{app_id}/users/{user_id}/sessions/{session_id}/messages/{message_id}",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=Message,
         )
 
 
@@ -484,14 +487,14 @@ class MessagesResourceWithRawResponse:
         self.create = to_raw_response_wrapper(
             messages.create,
         )
-        self.retrieve = to_raw_response_wrapper(
-            messages.retrieve,
-        )
         self.update = to_raw_response_wrapper(
             messages.update,
         )
         self.list = to_raw_response_wrapper(
             messages.list,
+        )
+        self.get = to_raw_response_wrapper(
+            messages.get,
         )
 
 
@@ -502,14 +505,14 @@ class AsyncMessagesResourceWithRawResponse:
         self.create = async_to_raw_response_wrapper(
             messages.create,
         )
-        self.retrieve = async_to_raw_response_wrapper(
-            messages.retrieve,
-        )
         self.update = async_to_raw_response_wrapper(
             messages.update,
         )
         self.list = async_to_raw_response_wrapper(
             messages.list,
+        )
+        self.get = async_to_raw_response_wrapper(
+            messages.get,
         )
 
 
@@ -520,14 +523,14 @@ class MessagesResourceWithStreamingResponse:
         self.create = to_streamed_response_wrapper(
             messages.create,
         )
-        self.retrieve = to_streamed_response_wrapper(
-            messages.retrieve,
-        )
         self.update = to_streamed_response_wrapper(
             messages.update,
         )
         self.list = to_streamed_response_wrapper(
             messages.list,
+        )
+        self.get = to_streamed_response_wrapper(
+            messages.get,
         )
 
 
@@ -538,12 +541,12 @@ class AsyncMessagesResourceWithStreamingResponse:
         self.create = async_to_streamed_response_wrapper(
             messages.create,
         )
-        self.retrieve = async_to_streamed_response_wrapper(
-            messages.retrieve,
-        )
         self.update = async_to_streamed_response_wrapper(
             messages.update,
         )
         self.list = async_to_streamed_response_wrapper(
             messages.list,
+        )
+        self.get = async_to_streamed_response_wrapper(
+            messages.get,
         )

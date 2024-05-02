@@ -19,17 +19,18 @@ from ....._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
+from .....pagination import SyncPage, AsyncPage
 from ....._base_client import (
+    AsyncPaginator,
     make_request_options,
 )
 from .....types.apps.users.sessions import (
+    metamessage_get_params,
     metamessage_list_params,
     metamessage_create_params,
     metamessage_update_params,
-    metamessage_retrieve_params,
 )
 from .....types.apps.users.sessions.metamessage import Metamessage
-from .....types.apps.users.sessions.page_metamessage import PageMetamessage
 
 __all__ = ["MetamessagesResource", "AsyncMetamessagesResource"]
 
@@ -105,63 +106,6 @@ class MetamessagesResource(SyncAPIResource):
             cast_to=Metamessage,
         )
 
-    def retrieve(
-        self,
-        metamessage_id: str,
-        *,
-        app_id: str,
-        user_id: str,
-        session_id: str,
-        message_id: str,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> Metamessage:
-        """
-        Get a specific Metamessage by ID
-
-        Args: app_id (uuid.UUID): The ID of the app representing the client application
-        using honcho user_id (str): The User ID representing the user, managed by the
-        user session_id (int): The ID of the Session to retrieve
-
-        Returns: schemas.Session: The Session object of the requested Session
-
-        Raises: HTTPException: If the session is not found
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not app_id:
-            raise ValueError(f"Expected a non-empty value for `app_id` but received {app_id!r}")
-        if not user_id:
-            raise ValueError(f"Expected a non-empty value for `user_id` but received {user_id!r}")
-        if not session_id:
-            raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
-        if not metamessage_id:
-            raise ValueError(f"Expected a non-empty value for `metamessage_id` but received {metamessage_id!r}")
-        return self._get(
-            f"/apps/{app_id}/users/{user_id}/sessions/{session_id}/metamessages/{metamessage_id}",
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform(
-                    {"message_id": message_id}, metamessage_retrieve_params.MetamessageRetrieveParams
-                ),
-            ),
-            cast_to=Metamessage,
-        )
-
     def update(
         self,
         metamessage_id: str,
@@ -233,7 +177,7 @@ class MetamessagesResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> PageMetamessage:
+    ) -> SyncPage[Metamessage]:
         """
         Get all messages for a session
 
@@ -265,8 +209,9 @@ class MetamessagesResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `user_id` but received {user_id!r}")
         if not session_id:
             raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
-        return self._get(
+        return self._get_api_list(
             f"/apps/{app_id}/users/{user_id}/sessions/{session_id}/metamessages",
+            page=SyncPage[Metamessage],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -284,7 +229,62 @@ class MetamessagesResource(SyncAPIResource):
                     metamessage_list_params.MetamessageListParams,
                 ),
             ),
-            cast_to=PageMetamessage,
+            model=Metamessage,
+        )
+
+    def get(
+        self,
+        metamessage_id: str,
+        *,
+        app_id: str,
+        user_id: str,
+        session_id: str,
+        message_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> Metamessage:
+        """
+        Get a specific Metamessage by ID
+
+        Args: app_id (uuid.UUID): The ID of the app representing the client application
+        using honcho user_id (str): The User ID representing the user, managed by the
+        user session_id (int): The ID of the Session to retrieve
+
+        Returns: schemas.Session: The Session object of the requested Session
+
+        Raises: HTTPException: If the session is not found
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not app_id:
+            raise ValueError(f"Expected a non-empty value for `app_id` but received {app_id!r}")
+        if not user_id:
+            raise ValueError(f"Expected a non-empty value for `user_id` but received {user_id!r}")
+        if not session_id:
+            raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
+        if not metamessage_id:
+            raise ValueError(f"Expected a non-empty value for `metamessage_id` but received {metamessage_id!r}")
+        return self._get(
+            f"/apps/{app_id}/users/{user_id}/sessions/{session_id}/metamessages/{metamessage_id}",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform({"message_id": message_id}, metamessage_get_params.MetamessageGetParams),
+            ),
+            cast_to=Metamessage,
         )
 
 
@@ -359,63 +359,6 @@ class AsyncMetamessagesResource(AsyncAPIResource):
             cast_to=Metamessage,
         )
 
-    async def retrieve(
-        self,
-        metamessage_id: str,
-        *,
-        app_id: str,
-        user_id: str,
-        session_id: str,
-        message_id: str,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> Metamessage:
-        """
-        Get a specific Metamessage by ID
-
-        Args: app_id (uuid.UUID): The ID of the app representing the client application
-        using honcho user_id (str): The User ID representing the user, managed by the
-        user session_id (int): The ID of the Session to retrieve
-
-        Returns: schemas.Session: The Session object of the requested Session
-
-        Raises: HTTPException: If the session is not found
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not app_id:
-            raise ValueError(f"Expected a non-empty value for `app_id` but received {app_id!r}")
-        if not user_id:
-            raise ValueError(f"Expected a non-empty value for `user_id` but received {user_id!r}")
-        if not session_id:
-            raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
-        if not metamessage_id:
-            raise ValueError(f"Expected a non-empty value for `metamessage_id` but received {metamessage_id!r}")
-        return await self._get(
-            f"/apps/{app_id}/users/{user_id}/sessions/{session_id}/metamessages/{metamessage_id}",
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=await async_maybe_transform(
-                    {"message_id": message_id}, metamessage_retrieve_params.MetamessageRetrieveParams
-                ),
-            ),
-            cast_to=Metamessage,
-        )
-
     async def update(
         self,
         metamessage_id: str,
@@ -469,7 +412,7 @@ class AsyncMetamessagesResource(AsyncAPIResource):
             cast_to=Metamessage,
         )
 
-    async def list(
+    def list(
         self,
         session_id: str,
         *,
@@ -487,7 +430,7 @@ class AsyncMetamessagesResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> PageMetamessage:
+    ) -> AsyncPaginator[Metamessage, AsyncPage[Metamessage]]:
         """
         Get all messages for a session
 
@@ -519,14 +462,15 @@ class AsyncMetamessagesResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `user_id` but received {user_id!r}")
         if not session_id:
             raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
-        return await self._get(
+        return self._get_api_list(
             f"/apps/{app_id}/users/{user_id}/sessions/{session_id}/metamessages",
+            page=AsyncPage[Metamessage],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=await async_maybe_transform(
+                query=maybe_transform(
                     {
                         "filter": filter,
                         "message_id": message_id,
@@ -538,7 +482,64 @@ class AsyncMetamessagesResource(AsyncAPIResource):
                     metamessage_list_params.MetamessageListParams,
                 ),
             ),
-            cast_to=PageMetamessage,
+            model=Metamessage,
+        )
+
+    async def get(
+        self,
+        metamessage_id: str,
+        *,
+        app_id: str,
+        user_id: str,
+        session_id: str,
+        message_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> Metamessage:
+        """
+        Get a specific Metamessage by ID
+
+        Args: app_id (uuid.UUID): The ID of the app representing the client application
+        using honcho user_id (str): The User ID representing the user, managed by the
+        user session_id (int): The ID of the Session to retrieve
+
+        Returns: schemas.Session: The Session object of the requested Session
+
+        Raises: HTTPException: If the session is not found
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not app_id:
+            raise ValueError(f"Expected a non-empty value for `app_id` but received {app_id!r}")
+        if not user_id:
+            raise ValueError(f"Expected a non-empty value for `user_id` but received {user_id!r}")
+        if not session_id:
+            raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
+        if not metamessage_id:
+            raise ValueError(f"Expected a non-empty value for `metamessage_id` but received {metamessage_id!r}")
+        return await self._get(
+            f"/apps/{app_id}/users/{user_id}/sessions/{session_id}/metamessages/{metamessage_id}",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {"message_id": message_id}, metamessage_get_params.MetamessageGetParams
+                ),
+            ),
+            cast_to=Metamessage,
         )
 
 
@@ -549,14 +550,14 @@ class MetamessagesResourceWithRawResponse:
         self.create = to_raw_response_wrapper(
             metamessages.create,
         )
-        self.retrieve = to_raw_response_wrapper(
-            metamessages.retrieve,
-        )
         self.update = to_raw_response_wrapper(
             metamessages.update,
         )
         self.list = to_raw_response_wrapper(
             metamessages.list,
+        )
+        self.get = to_raw_response_wrapper(
+            metamessages.get,
         )
 
 
@@ -567,14 +568,14 @@ class AsyncMetamessagesResourceWithRawResponse:
         self.create = async_to_raw_response_wrapper(
             metamessages.create,
         )
-        self.retrieve = async_to_raw_response_wrapper(
-            metamessages.retrieve,
-        )
         self.update = async_to_raw_response_wrapper(
             metamessages.update,
         )
         self.list = async_to_raw_response_wrapper(
             metamessages.list,
+        )
+        self.get = async_to_raw_response_wrapper(
+            metamessages.get,
         )
 
 
@@ -585,14 +586,14 @@ class MetamessagesResourceWithStreamingResponse:
         self.create = to_streamed_response_wrapper(
             metamessages.create,
         )
-        self.retrieve = to_streamed_response_wrapper(
-            metamessages.retrieve,
-        )
         self.update = to_streamed_response_wrapper(
             metamessages.update,
         )
         self.list = to_streamed_response_wrapper(
             metamessages.list,
+        )
+        self.get = to_streamed_response_wrapper(
+            metamessages.get,
         )
 
 
@@ -603,12 +604,12 @@ class AsyncMetamessagesResourceWithStreamingResponse:
         self.create = async_to_streamed_response_wrapper(
             metamessages.create,
         )
-        self.retrieve = async_to_streamed_response_wrapper(
-            metamessages.retrieve,
-        )
         self.update = async_to_streamed_response_wrapper(
             metamessages.update,
         )
         self.list = async_to_streamed_response_wrapper(
             metamessages.list,
+        )
+        self.get = async_to_streamed_response_wrapper(
+            metamessages.get,
         )
