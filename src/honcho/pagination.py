@@ -5,14 +5,14 @@ from typing_extensions import override
 
 from ._base_client import BasePage, PageInfo, BaseSyncPage, BaseAsyncPage
 
-__all__ = ["SyncHonchoPage", "AsyncHonchoPage"]
+__all__ = ["SyncPage", "AsyncPage"]
 
 _T = TypeVar("_T")
 
 
-class SyncHonchoPage(BaseSyncPage[_T], BasePage[_T], Generic[_T]):
+class SyncPage(BaseSyncPage[_T], BasePage[_T], Generic[_T]):
+    total: Union[int, str, None] = None
     items: List[_T]
-    total: Union[int, object, None] = None
     page: Union[int, object, None] = None
     size: Union[int, object, None] = None
     pages: Union[int, object, None] = None
@@ -38,9 +38,9 @@ class SyncHonchoPage(BaseSyncPage[_T], BasePage[_T], Generic[_T]):
         return PageInfo(params={"page": current_page + 1})
 
 
-class AsyncHonchoPage(BaseAsyncPage[_T], BasePage[_T], Generic[_T]):
+class AsyncPage(BaseAsyncPage[_T], BasePage[_T], Generic[_T]):
+    total: Union[int, str, None] = None
     items: List[_T]
-    total: Union[int, object, None] = None
     page: Union[int, object, None] = None
     size: Union[int, object, None] = None
     pages: Union[int, object, None] = None

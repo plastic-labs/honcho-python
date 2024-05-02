@@ -22,8 +22,8 @@ from ....._response import (
 from ....._base_client import (
     make_request_options,
 )
-from .....types.apps.users.collections import query_list_params
-from .....types.apps.users.collections.query_list_response import QueryListResponse
+from .....types.apps.users.collections import query_query_params
+from .....types.apps.users.collections.query_query_response import QueryQueryResponse
 
 __all__ = ["QueryResource", "AsyncQueryResource"]
 
@@ -37,7 +37,7 @@ class QueryResource(SyncAPIResource):
     def with_streaming_response(self) -> QueryResourceWithStreamingResponse:
         return QueryResourceWithStreamingResponse(self)
 
-    def list(
+    def query(
         self,
         collection_id: str,
         *,
@@ -52,7 +52,7 @@ class QueryResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> QueryListResponse:
+    ) -> QueryQueryResponse:
         """
         Query Documents
 
@@ -84,10 +84,10 @@ class QueryResource(SyncAPIResource):
                         "filter": filter,
                         "top_k": top_k,
                     },
-                    query_list_params.QueryListParams,
+                    query_query_params.QueryQueryParams,
                 ),
             ),
-            cast_to=QueryListResponse,
+            cast_to=QueryQueryResponse,
         )
 
 
@@ -100,7 +100,7 @@ class AsyncQueryResource(AsyncAPIResource):
     def with_streaming_response(self) -> AsyncQueryResourceWithStreamingResponse:
         return AsyncQueryResourceWithStreamingResponse(self)
 
-    async def list(
+    async def query(
         self,
         collection_id: str,
         *,
@@ -115,7 +115,7 @@ class AsyncQueryResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> QueryListResponse:
+    ) -> QueryQueryResponse:
         """
         Query Documents
 
@@ -147,10 +147,10 @@ class AsyncQueryResource(AsyncAPIResource):
                         "filter": filter,
                         "top_k": top_k,
                     },
-                    query_list_params.QueryListParams,
+                    query_query_params.QueryQueryParams,
                 ),
             ),
-            cast_to=QueryListResponse,
+            cast_to=QueryQueryResponse,
         )
 
 
@@ -158,8 +158,8 @@ class QueryResourceWithRawResponse:
     def __init__(self, query: QueryResource) -> None:
         self._query = query
 
-        self.list = to_raw_response_wrapper(
-            query.list,
+        self.query = to_raw_response_wrapper(
+            query.query,
         )
 
 
@@ -167,8 +167,8 @@ class AsyncQueryResourceWithRawResponse:
     def __init__(self, query: AsyncQueryResource) -> None:
         self._query = query
 
-        self.list = async_to_raw_response_wrapper(
-            query.list,
+        self.query = async_to_raw_response_wrapper(
+            query.query,
         )
 
 
@@ -176,8 +176,8 @@ class QueryResourceWithStreamingResponse:
     def __init__(self, query: QueryResource) -> None:
         self._query = query
 
-        self.list = to_streamed_response_wrapper(
-            query.list,
+        self.query = to_streamed_response_wrapper(
+            query.query,
         )
 
 
@@ -185,6 +185,6 @@ class AsyncQueryResourceWithStreamingResponse:
     def __init__(self, query: AsyncQueryResource) -> None:
         self._query = query
 
-        self.list = async_to_streamed_response_wrapper(
-            query.list,
+        self.query = async_to_streamed_response_wrapper(
+            query.query,
         )

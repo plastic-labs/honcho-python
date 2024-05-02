@@ -4,7 +4,11 @@ from datetime import datetime
 
 from ....._models import BaseModel
 
-__all__ = ["Message"]
+__all__ = ["Message", "Metadata"]
+
+
+class Metadata(BaseModel):
+    pass
 
 
 class Message(BaseModel):
@@ -16,6 +20,6 @@ class Message(BaseModel):
 
     is_user: bool
 
-    metadata: object
+    metadata: Metadata
 
     session_id: str

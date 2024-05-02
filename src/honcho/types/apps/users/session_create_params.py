@@ -5,7 +5,7 @@ from __future__ import annotations
 from typing import Optional
 from typing_extensions import Required, TypedDict
 
-__all__ = ["SessionCreateParams"]
+__all__ = ["SessionCreateParams", "Metadata"]
 
 
 class SessionCreateParams(TypedDict, total=False):
@@ -13,4 +13,8 @@ class SessionCreateParams(TypedDict, total=False):
 
     location_id: Required[str]
 
-    metadata: Optional[object]
+    metadata: Optional[Metadata]
+
+
+class Metadata(TypedDict, total=False):
+    pass

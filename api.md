@@ -114,9 +114,9 @@ Methods:
 Types:
 
 ```python
-from honcho.types.apps.users.collections import QueryListResponse
+from honcho.types.apps.users.collections import QueryQueryResponse
 ```
 
 Methods:
 
-- <code title="get /apps/{app_id}/users/{user_id}/collections/{collection_id}/query">client.apps.users.collections.query.<a href="./src/honcho/resources/apps/users/collections/query.py">list</a>(collection_id, \*, app_id, user_id, \*\*<a href="src/honcho/types/apps/users/collections/query_list_params.py">params</a>) -> <a href="./src/honcho/types/apps/users/collections/query_list_response.py">QueryListResponse</a></code>
+- <code title="get /apps/{app_id}/users/{user_id}/collections/{collection_id}/query">client.apps.users.collections.query.<a href="./src/honcho/resources/apps/users/collections/query.py">query</a>(collection_id, \*, app_id, user_id, \*\*<a href="src/honcho/types/apps/users/collections/query_query_params.py">params</a>) -> <a href="./src/honcho/types/apps/users/collections/query_query_response.py">QueryQueryResponse</a></code>
