@@ -11,7 +11,7 @@ _T = TypeVar("_T")
 
 
 class SyncPage(BaseSyncPage[_T], BasePage[_T], Generic[_T]):
-    total: Union[int, str, None] = None
+    total: Union[int, object, None] = None
     items: List[_T]
     page: Union[int, object, None] = None
     size: Union[int, object, None] = None
@@ -39,7 +39,7 @@ class SyncPage(BaseSyncPage[_T], BasePage[_T], Generic[_T]):
 
 
 class AsyncPage(BaseAsyncPage[_T], BasePage[_T], Generic[_T]):
-    total: Union[int, str, None] = None
+    total: Union[int, object, None] = None
     items: List[_T]
     page: Union[int, object, None] = None
     size: Union[int, object, None] = None
