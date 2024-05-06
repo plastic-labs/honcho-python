@@ -6,22 +6,6 @@ from typing import Optional
 
 import httpx
 
-from .name import (
-    NameResource,
-    AsyncNameResource,
-    NameResourceWithRawResponse,
-    AsyncNameResourceWithRawResponse,
-    NameResourceWithStreamingResponse,
-    AsyncNameResourceWithStreamingResponse,
-)
-from .query import (
-    QueryResource,
-    AsyncQueryResource,
-    QueryResourceWithRawResponse,
-    AsyncQueryResourceWithRawResponse,
-    QueryResourceWithStreamingResponse,
-    AsyncQueryResourceWithStreamingResponse,
-)
 from .documents import (
     DocumentsResource,
     AsyncDocumentsResource,
@@ -58,14 +42,6 @@ class CollectionsResource(SyncAPIResource):
     @cached_property
     def documents(self) -> DocumentsResource:
         return DocumentsResource(self._client)
-
-    @cached_property
-    def query(self) -> QueryResource:
-        return QueryResource(self._client)
-
-    @cached_property
-    def name(self) -> NameResource:
-        return NameResource(self._client)
 
     @cached_property
     def with_raw_response(self) -> CollectionsResourceWithRawResponse:
@@ -353,14 +329,6 @@ class AsyncCollectionsResource(AsyncAPIResource):
     @cached_property
     def documents(self) -> AsyncDocumentsResource:
         return AsyncDocumentsResource(self._client)
-
-    @cached_property
-    def query(self) -> AsyncQueryResource:
-        return AsyncQueryResource(self._client)
-
-    @cached_property
-    def name(self) -> AsyncNameResource:
-        return AsyncNameResource(self._client)
 
     @cached_property
     def with_raw_response(self) -> AsyncCollectionsResourceWithRawResponse:
@@ -671,14 +639,6 @@ class CollectionsResourceWithRawResponse:
     def documents(self) -> DocumentsResourceWithRawResponse:
         return DocumentsResourceWithRawResponse(self._collections.documents)
 
-    @cached_property
-    def query(self) -> QueryResourceWithRawResponse:
-        return QueryResourceWithRawResponse(self._collections.query)
-
-    @cached_property
-    def name(self) -> NameResourceWithRawResponse:
-        return NameResourceWithRawResponse(self._collections.name)
-
 
 class AsyncCollectionsResourceWithRawResponse:
     def __init__(self, collections: AsyncCollectionsResource) -> None:
@@ -706,14 +666,6 @@ class AsyncCollectionsResourceWithRawResponse:
     @cached_property
     def documents(self) -> AsyncDocumentsResourceWithRawResponse:
         return AsyncDocumentsResourceWithRawResponse(self._collections.documents)
-
-    @cached_property
-    def query(self) -> AsyncQueryResourceWithRawResponse:
-        return AsyncQueryResourceWithRawResponse(self._collections.query)
-
-    @cached_property
-    def name(self) -> AsyncNameResourceWithRawResponse:
-        return AsyncNameResourceWithRawResponse(self._collections.name)
 
 
 class CollectionsResourceWithStreamingResponse:
@@ -743,14 +695,6 @@ class CollectionsResourceWithStreamingResponse:
     def documents(self) -> DocumentsResourceWithStreamingResponse:
         return DocumentsResourceWithStreamingResponse(self._collections.documents)
 
-    @cached_property
-    def query(self) -> QueryResourceWithStreamingResponse:
-        return QueryResourceWithStreamingResponse(self._collections.query)
-
-    @cached_property
-    def name(self) -> NameResourceWithStreamingResponse:
-        return NameResourceWithStreamingResponse(self._collections.name)
-
 
 class AsyncCollectionsResourceWithStreamingResponse:
     def __init__(self, collections: AsyncCollectionsResource) -> None:
@@ -778,11 +722,3 @@ class AsyncCollectionsResourceWithStreamingResponse:
     @cached_property
     def documents(self) -> AsyncDocumentsResourceWithStreamingResponse:
         return AsyncDocumentsResourceWithStreamingResponse(self._collections.documents)
-
-    @cached_property
-    def query(self) -> AsyncQueryResourceWithStreamingResponse:
-        return AsyncQueryResourceWithStreamingResponse(self._collections.query)
-
-    @cached_property
-    def name(self) -> AsyncNameResourceWithStreamingResponse:
-        return AsyncNameResourceWithStreamingResponse(self._collections.name)
