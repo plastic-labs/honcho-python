@@ -1,5 +1,13 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
+from .name import (
+    NameResource,
+    AsyncNameResource,
+    NameResourceWithRawResponse,
+    AsyncNameResourceWithRawResponse,
+    NameResourceWithStreamingResponse,
+    AsyncNameResourceWithStreamingResponse,
+)
 from .query import (
     QueryResource,
     AsyncQueryResource,
@@ -38,6 +46,12 @@ __all__ = [
     "AsyncQueryResourceWithRawResponse",
     "QueryResourceWithStreamingResponse",
     "AsyncQueryResourceWithStreamingResponse",
+    "NameResource",
+    "AsyncNameResource",
+    "NameResourceWithRawResponse",
+    "AsyncNameResourceWithRawResponse",
+    "NameResourceWithStreamingResponse",
+    "AsyncNameResourceWithStreamingResponse",
     "CollectionsResource",
     "AsyncCollectionsResource",
     "CollectionsResourceWithRawResponse",
