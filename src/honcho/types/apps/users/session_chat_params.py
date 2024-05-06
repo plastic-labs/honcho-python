@@ -4,10 +4,10 @@ from __future__ import annotations
 
 from typing_extensions import Required, TypedDict
 
-__all__ = ["ChatStreamParams"]
+__all__ = ["SessionChatParams"]
 
 
-class ChatStreamParams(TypedDict, total=False):
+class SessionChatParams(TypedDict, total=False):
     app_id: Required[str]
 
     user_id: Required[str]

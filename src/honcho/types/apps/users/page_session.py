@@ -11,10 +11,10 @@ __all__ = ["PageSession"]
 class PageSession(BaseModel):
     items: List[Session]
 
-    page: Optional[int] = None
+    page: int
 
-    size: Optional[int] = None
+    size: int
 
-    total: Optional[int] = None
+    total: int
 
     pages: Optional[int] = None

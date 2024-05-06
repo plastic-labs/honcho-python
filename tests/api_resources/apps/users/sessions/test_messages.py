@@ -9,10 +9,8 @@ import pytest
 
 from honcho import Honcho, AsyncHoncho
 from tests.utils import assert_matches_type
-from honcho.types.apps.users.sessions import (
-    Message,
-    PageMessage,
-)
+from honcho.pagination import SyncPage, AsyncPage
+from honcho.types.apps.users.sessions import Message
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -196,7 +194,7 @@ class TestMessages:
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
-        assert_matches_type(PageMessage, message, path=["response"])
+        assert_matches_type(SyncPage[Message], message, path=["response"])
 
     @parametrize
     def test_method_list_with_all_params(self, client: Honcho) -> None:
@@ -209,7 +207,7 @@ class TestMessages:
             reverse=True,
             size=1,
         )
-        assert_matches_type(PageMessage, message, path=["response"])
+        assert_matches_type(SyncPage[Message], message, path=["response"])
 
     @parametrize
     def test_raw_response_list(self, client: Honcho) -> None:
@@ -222,7 +220,7 @@ class TestMessages:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         message = response.parse()
-        assert_matches_type(PageMessage, message, path=["response"])
+        assert_matches_type(SyncPage[Message], message, path=["response"])
 
     @parametrize
     def test_streaming_response_list(self, client: Honcho) -> None:
@@ -235,7 +233,7 @@ class TestMessages:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             message = response.parse()
-            assert_matches_type(PageMessage, message, path=["response"])
+            assert_matches_type(SyncPage[Message], message, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -516,7 +514,7 @@ class TestAsyncMessages:
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
-        assert_matches_type(PageMessage, message, path=["response"])
+        assert_matches_type(AsyncPage[Message], message, path=["response"])
 
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncHoncho) -> None:
@@ -529,7 +527,7 @@ class TestAsyncMessages:
             reverse=True,
             size=1,
         )
-        assert_matches_type(PageMessage, message, path=["response"])
+        assert_matches_type(AsyncPage[Message], message, path=["response"])
 
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncHoncho) -> None:
@@ -542,7 +540,7 @@ class TestAsyncMessages:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         message = await response.parse()
-        assert_matches_type(PageMessage, message, path=["response"])
+        assert_matches_type(AsyncPage[Message], message, path=["response"])
 
     @parametrize
     async def test_streaming_response_list(self, async_client: AsyncHoncho) -> None:
@@ -555,7 +553,7 @@ class TestAsyncMessages:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             message = await response.parse()
-            assert_matches_type(PageMessage, message, path=["response"])
+            assert_matches_type(AsyncPage[Message], message, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
