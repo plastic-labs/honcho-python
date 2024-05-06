@@ -43,12 +43,13 @@ from ....._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
+from .....pagination import SyncPage, AsyncPage
 from ....._base_client import (
+    AsyncPaginator,
     make_request_options,
 )
 from .....types.apps.users import collection_list_params, collection_create_params, collection_update_params
 from .....types.apps.users.collection import Collection
-from .....types.apps.users.page_collection import PageCollection
 
 __all__ = ["CollectionsResource", "AsyncCollectionsResource"]
 
@@ -119,45 +120,6 @@ class CollectionsResource(SyncAPIResource):
             cast_to=Collection,
         )
 
-    def retrieve(
-        self,
-        collection_id: str,
-        *,
-        app_id: str,
-        user_id: str,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> Collection:
-        """
-        Get Collection By Id
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not app_id:
-            raise ValueError(f"Expected a non-empty value for `app_id` but received {app_id!r}")
-        if not user_id:
-            raise ValueError(f"Expected a non-empty value for `user_id` but received {user_id!r}")
-        if not collection_id:
-            raise ValueError(f"Expected a non-empty value for `collection_id` but received {collection_id!r}")
-        return self._get(
-            f"/apps/{app_id}/users/{user_id}/collections/{collection_id}",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=Collection,
-        )
-
     def update(
         self,
         collection_id: str,
@@ -221,7 +183,7 @@ class CollectionsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> PageCollection:
+    ) -> SyncPage[Collection]:
         """
         Get All Collections for a User
 
@@ -248,8 +210,9 @@ class CollectionsResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `app_id` but received {app_id!r}")
         if not user_id:
             raise ValueError(f"Expected a non-empty value for `user_id` but received {user_id!r}")
-        return self._get(
+        return self._get_api_list(
             f"/apps/{app_id}/users/{user_id}/collections",
+            page=SyncPage[Collection],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -265,7 +228,7 @@ class CollectionsResource(SyncAPIResource):
                     collection_list_params.CollectionListParams,
                 ),
             ),
-            cast_to=PageCollection,
+            model=Collection,
         )
 
     def delete(
@@ -305,6 +268,84 @@ class CollectionsResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=object,
+        )
+
+    def get(
+        self,
+        collection_id: str,
+        *,
+        app_id: str,
+        user_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> Collection:
+        """
+        Get Collection By Id
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not app_id:
+            raise ValueError(f"Expected a non-empty value for `app_id` but received {app_id!r}")
+        if not user_id:
+            raise ValueError(f"Expected a non-empty value for `user_id` but received {user_id!r}")
+        if not collection_id:
+            raise ValueError(f"Expected a non-empty value for `collection_id` but received {collection_id!r}")
+        return self._get(
+            f"/apps/{app_id}/users/{user_id}/collections/{collection_id}",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=Collection,
+        )
+
+    def get_by_name(
+        self,
+        name: str,
+        *,
+        app_id: str,
+        user_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> Collection:
+        """
+        Get Collection By Name
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not app_id:
+            raise ValueError(f"Expected a non-empty value for `app_id` but received {app_id!r}")
+        if not user_id:
+            raise ValueError(f"Expected a non-empty value for `user_id` but received {user_id!r}")
+        if not name:
+            raise ValueError(f"Expected a non-empty value for `name` but received {name!r}")
+        return self._get(
+            f"/apps/{app_id}/users/{user_id}/collections/name/{name}",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=Collection,
         )
 
 
@@ -374,45 +415,6 @@ class AsyncCollectionsResource(AsyncAPIResource):
             cast_to=Collection,
         )
 
-    async def retrieve(
-        self,
-        collection_id: str,
-        *,
-        app_id: str,
-        user_id: str,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> Collection:
-        """
-        Get Collection By Id
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not app_id:
-            raise ValueError(f"Expected a non-empty value for `app_id` but received {app_id!r}")
-        if not user_id:
-            raise ValueError(f"Expected a non-empty value for `user_id` but received {user_id!r}")
-        if not collection_id:
-            raise ValueError(f"Expected a non-empty value for `collection_id` but received {collection_id!r}")
-        return await self._get(
-            f"/apps/{app_id}/users/{user_id}/collections/{collection_id}",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=Collection,
-        )
-
     async def update(
         self,
         collection_id: str,
@@ -461,7 +463,7 @@ class AsyncCollectionsResource(AsyncAPIResource):
             cast_to=Collection,
         )
 
-    async def list(
+    def list(
         self,
         user_id: str,
         *,
@@ -476,7 +478,7 @@ class AsyncCollectionsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> PageCollection:
+    ) -> AsyncPaginator[Collection, AsyncPage[Collection]]:
         """
         Get All Collections for a User
 
@@ -503,14 +505,15 @@ class AsyncCollectionsResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `app_id` but received {app_id!r}")
         if not user_id:
             raise ValueError(f"Expected a non-empty value for `user_id` but received {user_id!r}")
-        return await self._get(
+        return self._get_api_list(
             f"/apps/{app_id}/users/{user_id}/collections",
+            page=AsyncPage[Collection],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=await async_maybe_transform(
+                query=maybe_transform(
                     {
                         "filter": filter,
                         "page": page,
@@ -520,7 +523,7 @@ class AsyncCollectionsResource(AsyncAPIResource):
                     collection_list_params.CollectionListParams,
                 ),
             ),
-            cast_to=PageCollection,
+            model=Collection,
         )
 
     async def delete(
@@ -562,6 +565,84 @@ class AsyncCollectionsResource(AsyncAPIResource):
             cast_to=object,
         )
 
+    async def get(
+        self,
+        collection_id: str,
+        *,
+        app_id: str,
+        user_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> Collection:
+        """
+        Get Collection By Id
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not app_id:
+            raise ValueError(f"Expected a non-empty value for `app_id` but received {app_id!r}")
+        if not user_id:
+            raise ValueError(f"Expected a non-empty value for `user_id` but received {user_id!r}")
+        if not collection_id:
+            raise ValueError(f"Expected a non-empty value for `collection_id` but received {collection_id!r}")
+        return await self._get(
+            f"/apps/{app_id}/users/{user_id}/collections/{collection_id}",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=Collection,
+        )
+
+    async def get_by_name(
+        self,
+        name: str,
+        *,
+        app_id: str,
+        user_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> Collection:
+        """
+        Get Collection By Name
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not app_id:
+            raise ValueError(f"Expected a non-empty value for `app_id` but received {app_id!r}")
+        if not user_id:
+            raise ValueError(f"Expected a non-empty value for `user_id` but received {user_id!r}")
+        if not name:
+            raise ValueError(f"Expected a non-empty value for `name` but received {name!r}")
+        return await self._get(
+            f"/apps/{app_id}/users/{user_id}/collections/name/{name}",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=Collection,
+        )
+
 
 class CollectionsResourceWithRawResponse:
     def __init__(self, collections: CollectionsResource) -> None:
@@ -569,9 +650,6 @@ class CollectionsResourceWithRawResponse:
 
         self.create = to_raw_response_wrapper(
             collections.create,
-        )
-        self.retrieve = to_raw_response_wrapper(
-            collections.retrieve,
         )
         self.update = to_raw_response_wrapper(
             collections.update,
@@ -581,6 +659,12 @@ class CollectionsResourceWithRawResponse:
         )
         self.delete = to_raw_response_wrapper(
             collections.delete,
+        )
+        self.get = to_raw_response_wrapper(
+            collections.get,
+        )
+        self.get_by_name = to_raw_response_wrapper(
+            collections.get_by_name,
         )
 
     @cached_property
@@ -603,9 +687,6 @@ class AsyncCollectionsResourceWithRawResponse:
         self.create = async_to_raw_response_wrapper(
             collections.create,
         )
-        self.retrieve = async_to_raw_response_wrapper(
-            collections.retrieve,
-        )
         self.update = async_to_raw_response_wrapper(
             collections.update,
         )
@@ -614,6 +695,12 @@ class AsyncCollectionsResourceWithRawResponse:
         )
         self.delete = async_to_raw_response_wrapper(
             collections.delete,
+        )
+        self.get = async_to_raw_response_wrapper(
+            collections.get,
+        )
+        self.get_by_name = async_to_raw_response_wrapper(
+            collections.get_by_name,
         )
 
     @cached_property
@@ -636,9 +723,6 @@ class CollectionsResourceWithStreamingResponse:
         self.create = to_streamed_response_wrapper(
             collections.create,
         )
-        self.retrieve = to_streamed_response_wrapper(
-            collections.retrieve,
-        )
         self.update = to_streamed_response_wrapper(
             collections.update,
         )
@@ -647,6 +731,12 @@ class CollectionsResourceWithStreamingResponse:
         )
         self.delete = to_streamed_response_wrapper(
             collections.delete,
+        )
+        self.get = to_streamed_response_wrapper(
+            collections.get,
+        )
+        self.get_by_name = to_streamed_response_wrapper(
+            collections.get_by_name,
         )
 
     @cached_property
@@ -669,9 +759,6 @@ class AsyncCollectionsResourceWithStreamingResponse:
         self.create = async_to_streamed_response_wrapper(
             collections.create,
         )
-        self.retrieve = async_to_streamed_response_wrapper(
-            collections.retrieve,
-        )
         self.update = async_to_streamed_response_wrapper(
             collections.update,
         )
@@ -680,6 +767,12 @@ class AsyncCollectionsResourceWithStreamingResponse:
         )
         self.delete = async_to_streamed_response_wrapper(
             collections.delete,
+        )
+        self.get = async_to_streamed_response_wrapper(
+            collections.get,
+        )
+        self.get_by_name = async_to_streamed_response_wrapper(
+            collections.get_by_name,
         )
 
     @cached_property

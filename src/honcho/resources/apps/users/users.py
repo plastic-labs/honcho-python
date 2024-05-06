@@ -43,13 +43,14 @@ from ...._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
+from ....pagination import SyncPage, AsyncPage
 from ....types.apps import user_list_params, user_create_params, user_update_params
 from ...._base_client import (
+    AsyncPaginator,
     make_request_options,
 )
 from .sessions.sessions import SessionsResource, AsyncSessionsResource
 from ....types.apps.user import User
-from ....types.apps.page_user import PageUser
 from .collections.collections import CollectionsResource, AsyncCollectionsResource
 
 __all__ = ["UsersResource", "AsyncUsersResource"]
@@ -123,48 +124,6 @@ class UsersResource(SyncAPIResource):
             cast_to=User,
         )
 
-    def retrieve(
-        self,
-        user_id: str,
-        *,
-        app_id: str,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> User:
-        """
-        Get a User
-
-        Args: app_id (uuid.UUID): The ID of the app representing the client application
-        using honcho user_id (str): The User ID representing the user, managed by the
-        user
-
-        Returns: schemas.User: User object
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not app_id:
-            raise ValueError(f"Expected a non-empty value for `app_id` but received {app_id!r}")
-        if not user_id:
-            raise ValueError(f"Expected a non-empty value for `user_id` but received {user_id!r}")
-        return self._get(
-            f"/apps/{app_id}/users/{user_id}",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=User,
-        )
-
     def update(
         self,
         user_id: str,
@@ -230,7 +189,7 @@ class UsersResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> PageUser:
+    ) -> SyncPage[User]:
         """
         Get All Users for an App
 
@@ -254,8 +213,9 @@ class UsersResource(SyncAPIResource):
         """
         if not app_id:
             raise ValueError(f"Expected a non-empty value for `app_id` but received {app_id!r}")
-        return self._get(
+        return self._get_api_list(
             f"/apps/{app_id}/users",
+            page=SyncPage[User],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -271,7 +231,91 @@ class UsersResource(SyncAPIResource):
                     user_list_params.UserListParams,
                 ),
             ),
-            cast_to=PageUser,
+            model=User,
+        )
+
+    def get(
+        self,
+        user_id: str,
+        *,
+        app_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> User:
+        """
+        Get a User
+
+        Args: app_id (uuid.UUID): The ID of the app representing the client application
+        using honcho user_id (str): The User ID representing the user, managed by the
+        user
+
+        Returns: schemas.User: User object
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not app_id:
+            raise ValueError(f"Expected a non-empty value for `app_id` but received {app_id!r}")
+        if not user_id:
+            raise ValueError(f"Expected a non-empty value for `user_id` but received {user_id!r}")
+        return self._get(
+            f"/apps/{app_id}/users/{user_id}",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=User,
+        )
+
+    def get_by_name(
+        self,
+        name: str,
+        *,
+        app_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> User:
+        """
+        Get a User
+
+        Args: app_id (uuid.UUID): The ID of the app representing the client application
+        using honcho user_id (str): The User ID representing the user, managed by the
+        user
+
+        Returns: schemas.User: User object
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not app_id:
+            raise ValueError(f"Expected a non-empty value for `app_id` but received {app_id!r}")
+        if not name:
+            raise ValueError(f"Expected a non-empty value for `name` but received {name!r}")
+        return self._get(
+            f"/apps/{app_id}/users/name/{name}",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=User,
         )
 
     def get_or_create(
@@ -385,48 +429,6 @@ class AsyncUsersResource(AsyncAPIResource):
             cast_to=User,
         )
 
-    async def retrieve(
-        self,
-        user_id: str,
-        *,
-        app_id: str,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> User:
-        """
-        Get a User
-
-        Args: app_id (uuid.UUID): The ID of the app representing the client application
-        using honcho user_id (str): The User ID representing the user, managed by the
-        user
-
-        Returns: schemas.User: User object
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not app_id:
-            raise ValueError(f"Expected a non-empty value for `app_id` but received {app_id!r}")
-        if not user_id:
-            raise ValueError(f"Expected a non-empty value for `user_id` but received {user_id!r}")
-        return await self._get(
-            f"/apps/{app_id}/users/{user_id}",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=User,
-        )
-
     async def update(
         self,
         user_id: str,
@@ -478,7 +480,7 @@ class AsyncUsersResource(AsyncAPIResource):
             cast_to=User,
         )
 
-    async def list(
+    def list(
         self,
         app_id: str,
         *,
@@ -492,7 +494,7 @@ class AsyncUsersResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> PageUser:
+    ) -> AsyncPaginator[User, AsyncPage[User]]:
         """
         Get All Users for an App
 
@@ -516,14 +518,15 @@ class AsyncUsersResource(AsyncAPIResource):
         """
         if not app_id:
             raise ValueError(f"Expected a non-empty value for `app_id` but received {app_id!r}")
-        return await self._get(
+        return self._get_api_list(
             f"/apps/{app_id}/users",
+            page=AsyncPage[User],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=await async_maybe_transform(
+                query=maybe_transform(
                     {
                         "filter": filter,
                         "page": page,
@@ -533,7 +536,91 @@ class AsyncUsersResource(AsyncAPIResource):
                     user_list_params.UserListParams,
                 ),
             ),
-            cast_to=PageUser,
+            model=User,
+        )
+
+    async def get(
+        self,
+        user_id: str,
+        *,
+        app_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> User:
+        """
+        Get a User
+
+        Args: app_id (uuid.UUID): The ID of the app representing the client application
+        using honcho user_id (str): The User ID representing the user, managed by the
+        user
+
+        Returns: schemas.User: User object
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not app_id:
+            raise ValueError(f"Expected a non-empty value for `app_id` but received {app_id!r}")
+        if not user_id:
+            raise ValueError(f"Expected a non-empty value for `user_id` but received {user_id!r}")
+        return await self._get(
+            f"/apps/{app_id}/users/{user_id}",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=User,
+        )
+
+    async def get_by_name(
+        self,
+        name: str,
+        *,
+        app_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> User:
+        """
+        Get a User
+
+        Args: app_id (uuid.UUID): The ID of the app representing the client application
+        using honcho user_id (str): The User ID representing the user, managed by the
+        user
+
+        Returns: schemas.User: User object
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not app_id:
+            raise ValueError(f"Expected a non-empty value for `app_id` but received {app_id!r}")
+        if not name:
+            raise ValueError(f"Expected a non-empty value for `name` but received {name!r}")
+        return await self._get(
+            f"/apps/{app_id}/users/name/{name}",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=User,
         )
 
     async def get_or_create(
@@ -586,14 +673,17 @@ class UsersResourceWithRawResponse:
         self.create = to_raw_response_wrapper(
             users.create,
         )
-        self.retrieve = to_raw_response_wrapper(
-            users.retrieve,
-        )
         self.update = to_raw_response_wrapper(
             users.update,
         )
         self.list = to_raw_response_wrapper(
             users.list,
+        )
+        self.get = to_raw_response_wrapper(
+            users.get,
+        )
+        self.get_by_name = to_raw_response_wrapper(
+            users.get_by_name,
         )
         self.get_or_create = to_raw_response_wrapper(
             users.get_or_create,
@@ -619,14 +709,17 @@ class AsyncUsersResourceWithRawResponse:
         self.create = async_to_raw_response_wrapper(
             users.create,
         )
-        self.retrieve = async_to_raw_response_wrapper(
-            users.retrieve,
-        )
         self.update = async_to_raw_response_wrapper(
             users.update,
         )
         self.list = async_to_raw_response_wrapper(
             users.list,
+        )
+        self.get = async_to_raw_response_wrapper(
+            users.get,
+        )
+        self.get_by_name = async_to_raw_response_wrapper(
+            users.get_by_name,
         )
         self.get_or_create = async_to_raw_response_wrapper(
             users.get_or_create,
@@ -652,14 +745,17 @@ class UsersResourceWithStreamingResponse:
         self.create = to_streamed_response_wrapper(
             users.create,
         )
-        self.retrieve = to_streamed_response_wrapper(
-            users.retrieve,
-        )
         self.update = to_streamed_response_wrapper(
             users.update,
         )
         self.list = to_streamed_response_wrapper(
             users.list,
+        )
+        self.get = to_streamed_response_wrapper(
+            users.get,
+        )
+        self.get_by_name = to_streamed_response_wrapper(
+            users.get_by_name,
         )
         self.get_or_create = to_streamed_response_wrapper(
             users.get_or_create,
@@ -685,14 +781,17 @@ class AsyncUsersResourceWithStreamingResponse:
         self.create = async_to_streamed_response_wrapper(
             users.create,
         )
-        self.retrieve = async_to_streamed_response_wrapper(
-            users.retrieve,
-        )
         self.update = async_to_streamed_response_wrapper(
             users.update,
         )
         self.list = async_to_streamed_response_wrapper(
             users.list,
+        )
+        self.get = async_to_streamed_response_wrapper(
+            users.get,
+        )
+        self.get_by_name = async_to_streamed_response_wrapper(
+            users.get_by_name,
         )
         self.get_or_create = async_to_streamed_response_wrapper(
             users.get_or_create,
