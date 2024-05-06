@@ -6,6 +6,14 @@ from typing import Optional
 
 import httpx
 
+from .chat import (
+    ChatResource,
+    AsyncChatResource,
+    ChatResourceWithRawResponse,
+    AsyncChatResourceWithRawResponse,
+    ChatResourceWithStreamingResponse,
+    AsyncChatResourceWithStreamingResponse,
+)
 from .messages import (
     MessagesResource,
     AsyncMessagesResource,
@@ -38,9 +46,8 @@ from ....._response import (
 from ....._base_client import (
     make_request_options,
 )
-from .....types.apps.users import session_chat_params, session_list_params, session_create_params, session_update_params
+from .....types.apps.users import session_list_params, session_create_params, session_update_params
 from .....types.apps.users.session import Session
-from .....types.apps.users.agent_chat import AgentChat
 from .....types.apps.users.page_session import PageSession
 
 __all__ = ["SessionsResource", "AsyncSessionsResource"]
@@ -54,6 +61,10 @@ class SessionsResource(SyncAPIResource):
     @cached_property
     def metamessages(self) -> MetamessagesResource:
         return MetamessagesResource(self._client)
+
+    @cached_property
+    def chat(self) -> ChatResource:
+        return ChatResource(self._client)
 
     @cached_property
     def with_raw_response(self) -> SessionsResourceWithRawResponse:
@@ -277,50 +288,6 @@ class SessionsResource(SyncAPIResource):
             cast_to=object,
         )
 
-    def chat(
-        self,
-        session_id: str,
-        *,
-        app_id: str,
-        user_id: str,
-        query: str,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> AgentChat:
-        """
-        Get Chat
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not app_id:
-            raise ValueError(f"Expected a non-empty value for `app_id` but received {app_id!r}")
-        if not user_id:
-            raise ValueError(f"Expected a non-empty value for `user_id` but received {user_id!r}")
-        if not session_id:
-            raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
-        return self._get(
-            f"/apps/{app_id}/users/{user_id}/sessions/{session_id}/chat",
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform({"query": query}, session_chat_params.SessionChatParams),
-            ),
-            cast_to=AgentChat,
-        )
-
     def get(
         self,
         session_id: str,
@@ -377,6 +344,10 @@ class AsyncSessionsResource(AsyncAPIResource):
     @cached_property
     def metamessages(self) -> AsyncMetamessagesResource:
         return AsyncMetamessagesResource(self._client)
+
+    @cached_property
+    def chat(self) -> AsyncChatResource:
+        return AsyncChatResource(self._client)
 
     @cached_property
     def with_raw_response(self) -> AsyncSessionsResourceWithRawResponse:
@@ -600,50 +571,6 @@ class AsyncSessionsResource(AsyncAPIResource):
             cast_to=object,
         )
 
-    async def chat(
-        self,
-        session_id: str,
-        *,
-        app_id: str,
-        user_id: str,
-        query: str,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> AgentChat:
-        """
-        Get Chat
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not app_id:
-            raise ValueError(f"Expected a non-empty value for `app_id` but received {app_id!r}")
-        if not user_id:
-            raise ValueError(f"Expected a non-empty value for `user_id` but received {user_id!r}")
-        if not session_id:
-            raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
-        return await self._get(
-            f"/apps/{app_id}/users/{user_id}/sessions/{session_id}/chat",
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=await async_maybe_transform({"query": query}, session_chat_params.SessionChatParams),
-            ),
-            cast_to=AgentChat,
-        )
-
     async def get(
         self,
         session_id: str,
@@ -708,9 +635,6 @@ class SessionsResourceWithRawResponse:
         self.delete = to_raw_response_wrapper(
             sessions.delete,
         )
-        self.chat = to_raw_response_wrapper(
-            sessions.chat,
-        )
         self.get = to_raw_response_wrapper(
             sessions.get,
         )
@@ -722,6 +646,10 @@ class SessionsResourceWithRawResponse:
     @cached_property
     def metamessages(self) -> MetamessagesResourceWithRawResponse:
         return MetamessagesResourceWithRawResponse(self._sessions.metamessages)
+
+    @cached_property
+    def chat(self) -> ChatResourceWithRawResponse:
+        return ChatResourceWithRawResponse(self._sessions.chat)
 
 
 class AsyncSessionsResourceWithRawResponse:
@@ -740,9 +668,6 @@ class AsyncSessionsResourceWithRawResponse:
         self.delete = async_to_raw_response_wrapper(
             sessions.delete,
         )
-        self.chat = async_to_raw_response_wrapper(
-            sessions.chat,
-        )
         self.get = async_to_raw_response_wrapper(
             sessions.get,
         )
@@ -754,6 +679,10 @@ class AsyncSessionsResourceWithRawResponse:
     @cached_property
     def metamessages(self) -> AsyncMetamessagesResourceWithRawResponse:
         return AsyncMetamessagesResourceWithRawResponse(self._sessions.metamessages)
+
+    @cached_property
+    def chat(self) -> AsyncChatResourceWithRawResponse:
+        return AsyncChatResourceWithRawResponse(self._sessions.chat)
 
 
 class SessionsResourceWithStreamingResponse:
@@ -772,9 +701,6 @@ class SessionsResourceWithStreamingResponse:
         self.delete = to_streamed_response_wrapper(
             sessions.delete,
         )
-        self.chat = to_streamed_response_wrapper(
-            sessions.chat,
-        )
         self.get = to_streamed_response_wrapper(
             sessions.get,
         )
@@ -786,6 +712,10 @@ class SessionsResourceWithStreamingResponse:
     @cached_property
     def metamessages(self) -> MetamessagesResourceWithStreamingResponse:
         return MetamessagesResourceWithStreamingResponse(self._sessions.metamessages)
+
+    @cached_property
+    def chat(self) -> ChatResourceWithStreamingResponse:
+        return ChatResourceWithStreamingResponse(self._sessions.chat)
 
 
 class AsyncSessionsResourceWithStreamingResponse:
@@ -804,9 +734,6 @@ class AsyncSessionsResourceWithStreamingResponse:
         self.delete = async_to_streamed_response_wrapper(
             sessions.delete,
         )
-        self.chat = async_to_streamed_response_wrapper(
-            sessions.chat,
-        )
         self.get = async_to_streamed_response_wrapper(
             sessions.get,
         )
@@ -818,3 +745,7 @@ class AsyncSessionsResourceWithStreamingResponse:
     @cached_property
     def metamessages(self) -> AsyncMetamessagesResourceWithStreamingResponse:
         return AsyncMetamessagesResourceWithStreamingResponse(self._sessions.metamessages)
+
+    @cached_property
+    def chat(self) -> AsyncChatResourceWithStreamingResponse:
+        return AsyncChatResourceWithStreamingResponse(self._sessions.chat)

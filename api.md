@@ -25,6 +25,7 @@ from honcho.types.apps import PageUser, User
 Methods:
 
 - <code title="post /apps/{app_id}/users">client.apps.users.<a href="./src/honcho/resources/apps/users/users.py">create</a>(app_id, \*\*<a href="src/honcho/types/apps/user_create_params.py">params</a>) -> <a href="./src/honcho/types/apps/user.py">User</a></code>
+- <code title="get /apps/{app_id}/users/{user_id}">client.apps.users.<a href="./src/honcho/resources/apps/users/users.py">retrieve</a>(user_id, \*, app_id) -> <a href="./src/honcho/types/apps/user.py">User</a></code>
 - <code title="put /apps/{app_id}/users/{user_id}">client.apps.users.<a href="./src/honcho/resources/apps/users/users.py">update</a>(user_id, \*, app_id, \*\*<a href="src/honcho/types/apps/user_update_params.py">params</a>) -> <a href="./src/honcho/types/apps/user.py">User</a></code>
 - <code title="get /apps/{app_id}/users">client.apps.users.<a href="./src/honcho/resources/apps/users/users.py">list</a>(app_id, \*\*<a href="src/honcho/types/apps/user_list_params.py">params</a>) -> <a href="./src/honcho/types/apps/page_user.py">PageUser</a></code>
 - <code title="get /apps/{app_id}/users/get_or_create/{name}">client.apps.users.<a href="./src/honcho/resources/apps/users/users.py">get_or_create</a>(name, \*, app_id) -> <a href="./src/honcho/types/apps/user.py">User</a></code>
@@ -43,7 +44,6 @@ Methods:
 - <code title="put /apps/{app_id}/users/{user_id}/sessions/{session_id}">client.apps.users.sessions.<a href="./src/honcho/resources/apps/users/sessions/sessions.py">update</a>(session_id, \*, app_id, user_id, \*\*<a href="src/honcho/types/apps/users/session_update_params.py">params</a>) -> <a href="./src/honcho/types/apps/users/session.py">Session</a></code>
 - <code title="get /apps/{app_id}/users/{user_id}/sessions">client.apps.users.sessions.<a href="./src/honcho/resources/apps/users/sessions/sessions.py">list</a>(user_id, \*, app_id, \*\*<a href="src/honcho/types/apps/users/session_list_params.py">params</a>) -> <a href="./src/honcho/types/apps/users/page_session.py">PageSession</a></code>
 - <code title="delete /apps/{app_id}/users/{user_id}/sessions/{session_id}">client.apps.users.sessions.<a href="./src/honcho/resources/apps/users/sessions/sessions.py">delete</a>(session_id, \*, app_id, user_id) -> <a href="./src/honcho/types/apps/users/session_delete_response.py">object</a></code>
-- <code title="get /apps/{app_id}/users/{user_id}/sessions/{session_id}/chat">client.apps.users.sessions.<a href="./src/honcho/resources/apps/users/sessions/sessions.py">chat</a>(session_id, \*, app_id, user_id, \*\*<a href="src/honcho/types/apps/users/session_chat_params.py">params</a>) -> <a href="./src/honcho/types/apps/users/agent_chat.py">AgentChat</a></code>
 - <code title="get /apps/{app_id}/users/{user_id}/sessions/{session_id}">client.apps.users.sessions.<a href="./src/honcho/resources/apps/users/sessions/sessions.py">get</a>(session_id, \*, app_id, user_id) -> <a href="./src/honcho/types/apps/users/session.py">Session</a></code>
 
 #### Messages
@@ -76,6 +76,18 @@ Methods:
 - <code title="get /apps/{app_id}/users/{user_id}/sessions/{session_id}/metamessages">client.apps.users.sessions.metamessages.<a href="./src/honcho/resources/apps/users/sessions/metamessages.py">list</a>(session_id, \*, app_id, user_id, \*\*<a href="src/honcho/types/apps/users/sessions/metamessage_list_params.py">params</a>) -> <a href="./src/honcho/types/apps/users/sessions/page_metamessage.py">PageMetamessage</a></code>
 - <code title="get /apps/{app_id}/users/{user_id}/sessions/{session_id}/metamessages/{metamessage_id}">client.apps.users.sessions.metamessages.<a href="./src/honcho/resources/apps/users/sessions/metamessages.py">get</a>(metamessage_id, \*, app_id, user_id, session_id, \*\*<a href="src/honcho/types/apps/users/sessions/metamessage_get_params.py">params</a>) -> <a href="./src/honcho/types/apps/users/sessions/metamessage.py">Metamessage</a></code>
 
+#### Chat
+
+Types:
+
+```python
+from honcho.types.apps.users.sessions import ChatStreamResponse
+```
+
+Methods:
+
+- <code title="get /apps/{app_id}/users/{user_id}/sessions/{session_id}/chat/stream">client.apps.users.sessions.chat.<a href="./src/honcho/resources/apps/users/sessions/chat.py">stream</a>(session_id, \*, app_id, user_id, \*\*<a href="src/honcho/types/apps/users/sessions/chat_stream_params.py">params</a>) -> <a href="./src/honcho/types/apps/users/sessions/chat_stream_response.py">object</a></code>
+
 ### Collections
 
 Types:
@@ -87,6 +99,7 @@ from honcho.types.apps.users import Collection, PageCollection, CollectionDelete
 Methods:
 
 - <code title="post /apps/{app_id}/users/{user_id}/collections">client.apps.users.collections.<a href="./src/honcho/resources/apps/users/collections/collections.py">create</a>(user_id, \*, app_id, \*\*<a href="src/honcho/types/apps/users/collection_create_params.py">params</a>) -> <a href="./src/honcho/types/apps/users/collection.py">Collection</a></code>
+- <code title="get /apps/{app_id}/users/{user_id}/collections/{collection_id}">client.apps.users.collections.<a href="./src/honcho/resources/apps/users/collections/collections.py">retrieve</a>(collection_id, \*, app_id, user_id) -> <a href="./src/honcho/types/apps/users/collection.py">Collection</a></code>
 - <code title="put /apps/{app_id}/users/{user_id}/collections/{collection_id}">client.apps.users.collections.<a href="./src/honcho/resources/apps/users/collections/collections.py">update</a>(collection_id, \*, app_id, user_id, \*\*<a href="src/honcho/types/apps/users/collection_update_params.py">params</a>) -> <a href="./src/honcho/types/apps/users/collection.py">Collection</a></code>
 - <code title="get /apps/{app_id}/users/{user_id}/collections">client.apps.users.collections.<a href="./src/honcho/resources/apps/users/collections/collections.py">list</a>(user_id, \*, app_id, \*\*<a href="src/honcho/types/apps/users/collection_list_params.py">params</a>) -> <a href="./src/honcho/types/apps/users/page_collection.py">PageCollection</a></code>
 - <code title="delete /apps/{app_id}/users/{user_id}/collections/{collection_id}">client.apps.users.collections.<a href="./src/honcho/resources/apps/users/collections/collections.py">delete</a>(collection_id, \*, app_id, user_id) -> <a href="./src/honcho/types/apps/users/collection_delete_response.py">object</a></code>
@@ -118,3 +131,15 @@ from honcho.types.apps.users.collections import QueryQueryResponse
 Methods:
 
 - <code title="get /apps/{app_id}/users/{user_id}/collections/{collection_id}/query">client.apps.users.collections.query.<a href="./src/honcho/resources/apps/users/collections/query.py">query</a>(collection_id, \*, app_id, user_id, \*\*<a href="src/honcho/types/apps/users/collections/query_query_params.py">params</a>) -> <a href="./src/honcho/types/apps/users/collections/query_query_response.py">QueryQueryResponse</a></code>
+
+#### Name
+
+Methods:
+
+- <code title="get /apps/{app_id}/users/{user_id}/collections/name/{name}">client.apps.users.collections.name.<a href="./src/honcho/resources/apps/users/collections/name.py">retrieve</a>(name, \*, app_id, user_id) -> <a href="./src/honcho/types/apps/users/collection.py">Collection</a></code>
+
+### Name
+
+Methods:
+
+- <code title="get /apps/{app_id}/users/name/{name}">client.apps.users.name.<a href="./src/honcho/resources/apps/users/name.py">retrieve</a>(name, \*, app_id) -> <a href="./src/honcho/types/apps/user.py">User</a></code>

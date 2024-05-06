@@ -6,6 +6,14 @@ from typing import Optional
 
 import httpx
 
+from .name import (
+    NameResource,
+    AsyncNameResource,
+    NameResourceWithRawResponse,
+    AsyncNameResourceWithRawResponse,
+    NameResourceWithStreamingResponse,
+    AsyncNameResourceWithStreamingResponse,
+)
 from .query import (
     QueryResource,
     AsyncQueryResource,
@@ -55,6 +63,10 @@ class CollectionsResource(SyncAPIResource):
         return QueryResource(self._client)
 
     @cached_property
+    def name(self) -> NameResource:
+        return NameResource(self._client)
+
+    @cached_property
     def with_raw_response(self) -> CollectionsResourceWithRawResponse:
         return CollectionsResourceWithRawResponse(self)
 
@@ -101,6 +113,45 @@ class CollectionsResource(SyncAPIResource):
                 },
                 collection_create_params.CollectionCreateParams,
             ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=Collection,
+        )
+
+    def retrieve(
+        self,
+        collection_id: str,
+        *,
+        app_id: str,
+        user_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> Collection:
+        """
+        Get Collection By Id
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not app_id:
+            raise ValueError(f"Expected a non-empty value for `app_id` but received {app_id!r}")
+        if not user_id:
+            raise ValueError(f"Expected a non-empty value for `user_id` but received {user_id!r}")
+        if not collection_id:
+            raise ValueError(f"Expected a non-empty value for `collection_id` but received {collection_id!r}")
+        return self._get(
+            f"/apps/{app_id}/users/{user_id}/collections/{collection_id}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -267,6 +318,10 @@ class AsyncCollectionsResource(AsyncAPIResource):
         return AsyncQueryResource(self._client)
 
     @cached_property
+    def name(self) -> AsyncNameResource:
+        return AsyncNameResource(self._client)
+
+    @cached_property
     def with_raw_response(self) -> AsyncCollectionsResourceWithRawResponse:
         return AsyncCollectionsResourceWithRawResponse(self)
 
@@ -313,6 +368,45 @@ class AsyncCollectionsResource(AsyncAPIResource):
                 },
                 collection_create_params.CollectionCreateParams,
             ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=Collection,
+        )
+
+    async def retrieve(
+        self,
+        collection_id: str,
+        *,
+        app_id: str,
+        user_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> Collection:
+        """
+        Get Collection By Id
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not app_id:
+            raise ValueError(f"Expected a non-empty value for `app_id` but received {app_id!r}")
+        if not user_id:
+            raise ValueError(f"Expected a non-empty value for `user_id` but received {user_id!r}")
+        if not collection_id:
+            raise ValueError(f"Expected a non-empty value for `collection_id` but received {collection_id!r}")
+        return await self._get(
+            f"/apps/{app_id}/users/{user_id}/collections/{collection_id}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -476,6 +570,9 @@ class CollectionsResourceWithRawResponse:
         self.create = to_raw_response_wrapper(
             collections.create,
         )
+        self.retrieve = to_raw_response_wrapper(
+            collections.retrieve,
+        )
         self.update = to_raw_response_wrapper(
             collections.update,
         )
@@ -494,6 +591,10 @@ class CollectionsResourceWithRawResponse:
     def query(self) -> QueryResourceWithRawResponse:
         return QueryResourceWithRawResponse(self._collections.query)
 
+    @cached_property
+    def name(self) -> NameResourceWithRawResponse:
+        return NameResourceWithRawResponse(self._collections.name)
+
 
 class AsyncCollectionsResourceWithRawResponse:
     def __init__(self, collections: AsyncCollectionsResource) -> None:
@@ -501,6 +602,9 @@ class AsyncCollectionsResourceWithRawResponse:
 
         self.create = async_to_raw_response_wrapper(
             collections.create,
+        )
+        self.retrieve = async_to_raw_response_wrapper(
+            collections.retrieve,
         )
         self.update = async_to_raw_response_wrapper(
             collections.update,
@@ -520,6 +624,10 @@ class AsyncCollectionsResourceWithRawResponse:
     def query(self) -> AsyncQueryResourceWithRawResponse:
         return AsyncQueryResourceWithRawResponse(self._collections.query)
 
+    @cached_property
+    def name(self) -> AsyncNameResourceWithRawResponse:
+        return AsyncNameResourceWithRawResponse(self._collections.name)
+
 
 class CollectionsResourceWithStreamingResponse:
     def __init__(self, collections: CollectionsResource) -> None:
@@ -527,6 +635,9 @@ class CollectionsResourceWithStreamingResponse:
 
         self.create = to_streamed_response_wrapper(
             collections.create,
+        )
+        self.retrieve = to_streamed_response_wrapper(
+            collections.retrieve,
         )
         self.update = to_streamed_response_wrapper(
             collections.update,
@@ -546,6 +657,10 @@ class CollectionsResourceWithStreamingResponse:
     def query(self) -> QueryResourceWithStreamingResponse:
         return QueryResourceWithStreamingResponse(self._collections.query)
 
+    @cached_property
+    def name(self) -> NameResourceWithStreamingResponse:
+        return NameResourceWithStreamingResponse(self._collections.name)
+
 
 class AsyncCollectionsResourceWithStreamingResponse:
     def __init__(self, collections: AsyncCollectionsResource) -> None:
@@ -553,6 +668,9 @@ class AsyncCollectionsResourceWithStreamingResponse:
 
         self.create = async_to_streamed_response_wrapper(
             collections.create,
+        )
+        self.retrieve = async_to_streamed_response_wrapper(
+            collections.retrieve,
         )
         self.update = async_to_streamed_response_wrapper(
             collections.update,
@@ -571,3 +689,7 @@ class AsyncCollectionsResourceWithStreamingResponse:
     @cached_property
     def query(self) -> AsyncQueryResourceWithStreamingResponse:
         return AsyncQueryResourceWithStreamingResponse(self._collections.query)
+
+    @cached_property
+    def name(self) -> AsyncNameResourceWithStreamingResponse:
+        return AsyncNameResourceWithStreamingResponse(self._collections.name)

@@ -6,6 +6,14 @@ from typing import Optional
 
 import httpx
 
+from .name import (
+    NameResource,
+    AsyncNameResource,
+    NameResourceWithRawResponse,
+    AsyncNameResourceWithRawResponse,
+    NameResourceWithStreamingResponse,
+    AsyncNameResourceWithStreamingResponse,
+)
 from .sessions import (
     SessionsResource,
     AsyncSessionsResource,
@@ -57,6 +65,10 @@ class UsersResource(SyncAPIResource):
         return CollectionsResource(self._client)
 
     @cached_property
+    def name(self) -> NameResource:
+        return NameResource(self._client)
+
+    @cached_property
     def with_raw_response(self) -> UsersResourceWithRawResponse:
         return UsersResourceWithRawResponse(self)
 
@@ -105,6 +117,48 @@ class UsersResource(SyncAPIResource):
                 },
                 user_create_params.UserCreateParams,
             ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=User,
+        )
+
+    def retrieve(
+        self,
+        user_id: str,
+        *,
+        app_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> User:
+        """
+        Get a User
+
+        Args: app_id (uuid.UUID): The ID of the app representing the client application
+        using honcho user_id (str): The User ID representing the user, managed by the
+        user
+
+        Returns: schemas.User: User object
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not app_id:
+            raise ValueError(f"Expected a non-empty value for `app_id` but received {app_id!r}")
+        if not user_id:
+            raise ValueError(f"Expected a non-empty value for `user_id` but received {user_id!r}")
+        return self._get(
+            f"/apps/{app_id}/users/{user_id}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -273,6 +327,10 @@ class AsyncUsersResource(AsyncAPIResource):
         return AsyncCollectionsResource(self._client)
 
     @cached_property
+    def name(self) -> AsyncNameResource:
+        return AsyncNameResource(self._client)
+
+    @cached_property
     def with_raw_response(self) -> AsyncUsersResourceWithRawResponse:
         return AsyncUsersResourceWithRawResponse(self)
 
@@ -321,6 +379,48 @@ class AsyncUsersResource(AsyncAPIResource):
                 },
                 user_create_params.UserCreateParams,
             ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=User,
+        )
+
+    async def retrieve(
+        self,
+        user_id: str,
+        *,
+        app_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> User:
+        """
+        Get a User
+
+        Args: app_id (uuid.UUID): The ID of the app representing the client application
+        using honcho user_id (str): The User ID representing the user, managed by the
+        user
+
+        Returns: schemas.User: User object
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not app_id:
+            raise ValueError(f"Expected a non-empty value for `app_id` but received {app_id!r}")
+        if not user_id:
+            raise ValueError(f"Expected a non-empty value for `user_id` but received {user_id!r}")
+        return await self._get(
+            f"/apps/{app_id}/users/{user_id}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -486,6 +586,9 @@ class UsersResourceWithRawResponse:
         self.create = to_raw_response_wrapper(
             users.create,
         )
+        self.retrieve = to_raw_response_wrapper(
+            users.retrieve,
+        )
         self.update = to_raw_response_wrapper(
             users.update,
         )
@@ -504,6 +607,10 @@ class UsersResourceWithRawResponse:
     def collections(self) -> CollectionsResourceWithRawResponse:
         return CollectionsResourceWithRawResponse(self._users.collections)
 
+    @cached_property
+    def name(self) -> NameResourceWithRawResponse:
+        return NameResourceWithRawResponse(self._users.name)
+
 
 class AsyncUsersResourceWithRawResponse:
     def __init__(self, users: AsyncUsersResource) -> None:
@@ -511,6 +618,9 @@ class AsyncUsersResourceWithRawResponse:
 
         self.create = async_to_raw_response_wrapper(
             users.create,
+        )
+        self.retrieve = async_to_raw_response_wrapper(
+            users.retrieve,
         )
         self.update = async_to_raw_response_wrapper(
             users.update,
@@ -530,6 +640,10 @@ class AsyncUsersResourceWithRawResponse:
     def collections(self) -> AsyncCollectionsResourceWithRawResponse:
         return AsyncCollectionsResourceWithRawResponse(self._users.collections)
 
+    @cached_property
+    def name(self) -> AsyncNameResourceWithRawResponse:
+        return AsyncNameResourceWithRawResponse(self._users.name)
+
 
 class UsersResourceWithStreamingResponse:
     def __init__(self, users: UsersResource) -> None:
@@ -537,6 +651,9 @@ class UsersResourceWithStreamingResponse:
 
         self.create = to_streamed_response_wrapper(
             users.create,
+        )
+        self.retrieve = to_streamed_response_wrapper(
+            users.retrieve,
         )
         self.update = to_streamed_response_wrapper(
             users.update,
@@ -556,6 +673,10 @@ class UsersResourceWithStreamingResponse:
     def collections(self) -> CollectionsResourceWithStreamingResponse:
         return CollectionsResourceWithStreamingResponse(self._users.collections)
 
+    @cached_property
+    def name(self) -> NameResourceWithStreamingResponse:
+        return NameResourceWithStreamingResponse(self._users.name)
+
 
 class AsyncUsersResourceWithStreamingResponse:
     def __init__(self, users: AsyncUsersResource) -> None:
@@ -563,6 +684,9 @@ class AsyncUsersResourceWithStreamingResponse:
 
         self.create = async_to_streamed_response_wrapper(
             users.create,
+        )
+        self.retrieve = async_to_streamed_response_wrapper(
+            users.retrieve,
         )
         self.update = async_to_streamed_response_wrapper(
             users.update,
@@ -581,3 +705,7 @@ class AsyncUsersResourceWithStreamingResponse:
     @cached_property
     def collections(self) -> AsyncCollectionsResourceWithStreamingResponse:
         return AsyncCollectionsResourceWithStreamingResponse(self._users.collections)
+
+    @cached_property
+    def name(self) -> AsyncNameResourceWithStreamingResponse:
+        return AsyncNameResourceWithStreamingResponse(self._users.name)
