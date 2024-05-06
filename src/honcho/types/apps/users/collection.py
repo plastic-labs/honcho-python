@@ -4,11 +4,7 @@ from datetime import datetime
 
 from ...._models import BaseModel
 
-__all__ = ["Collection", "Metadata"]
-
-
-class Metadata(BaseModel):
-    pass
+__all__ = ["Collection"]
 
 
 class Collection(BaseModel):
@@ -16,7 +12,7 @@ class Collection(BaseModel):
 
     created_at: datetime
 
-    metadata: Metadata
+    metadata: object
 
     name: str
 
