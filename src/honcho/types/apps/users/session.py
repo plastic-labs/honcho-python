@@ -4,11 +4,7 @@ from datetime import datetime
 
 from ...._models import BaseModel
 
-__all__ = ["Session", "Metadata"]
-
-
-class Metadata(BaseModel):
-    pass
+__all__ = ["Session"]
 
 
 class Session(BaseModel):
@@ -20,6 +16,6 @@ class Session(BaseModel):
 
     location_id: str
 
-    metadata: Metadata
+    metadata: object
 
     user_id: str

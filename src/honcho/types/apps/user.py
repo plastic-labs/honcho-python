@@ -4,11 +4,7 @@ from datetime import datetime
 
 from ..._models import BaseModel
 
-__all__ = ["User", "Metadata"]
-
-
-class Metadata(BaseModel):
-    pass
+__all__ = ["User"]
 
 
 class User(BaseModel):
@@ -18,4 +14,6 @@ class User(BaseModel):
 
     created_at: datetime
 
-    metadata: Metadata
+    metadata: object
+
+    name: str

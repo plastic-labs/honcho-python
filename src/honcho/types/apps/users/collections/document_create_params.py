@@ -5,7 +5,7 @@ from __future__ import annotations
 from typing import Optional
 from typing_extensions import Required, TypedDict
 
-__all__ = ["DocumentCreateParams", "Metadata"]
+__all__ = ["DocumentCreateParams"]
 
 
 class DocumentCreateParams(TypedDict, total=False):
@@ -15,8 +15,4 @@ class DocumentCreateParams(TypedDict, total=False):
 
     content: Required[str]
 
-    metadata: Optional[Metadata]
-
-
-class Metadata(TypedDict, total=False):
-    pass
+    metadata: Optional[object]

@@ -5,14 +5,10 @@ from __future__ import annotations
 from typing import Optional
 from typing_extensions import Required, TypedDict
 
-__all__ = ["AppCreateParams", "Metadata"]
+__all__ = ["AppCreateParams"]
 
 
 class AppCreateParams(TypedDict, total=False):
     name: Required[str]
 
-    metadata: Optional[Metadata]
-
-
-class Metadata(TypedDict, total=False):
-    pass
+    metadata: Optional[object]
