@@ -1,13 +1,5 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from .name import (
-    NameResource,
-    AsyncNameResource,
-    NameResourceWithRawResponse,
-    AsyncNameResourceWithRawResponse,
-    NameResourceWithStreamingResponse,
-    AsyncNameResourceWithStreamingResponse,
-)
 from .users import (
     UsersResource,
     AsyncUsersResource,
@@ -46,12 +38,6 @@ __all__ = [
     "AsyncCollectionsResourceWithRawResponse",
     "CollectionsResourceWithStreamingResponse",
     "AsyncCollectionsResourceWithStreamingResponse",
-    "NameResource",
-    "AsyncNameResource",
-    "NameResourceWithRawResponse",
-    "AsyncNameResourceWithRawResponse",
-    "NameResourceWithStreamingResponse",
-    "AsyncNameResourceWithStreamingResponse",
     "UsersResource",
     "AsyncUsersResource",
     "UsersResourceWithRawResponse",
