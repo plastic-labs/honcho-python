@@ -53,7 +53,7 @@ Methods:
 - <code title="delete /apps/{app_id}/users/{user_id}/sessions/{session_id}">client.apps.users.sessions.<a href="./src/honcho/resources/apps/users/sessions/sessions.py">delete</a>(session_id, \*, app_id, user_id) -> <a href="./src/honcho/types/apps/users/session_delete_response.py">object</a></code>
 - <code title="get /apps/{app_id}/users/{user_id}/sessions/{session_id}/chat">client.apps.users.sessions.<a href="./src/honcho/resources/apps/users/sessions/sessions.py">chat</a>(session_id, \*, app_id, user_id, \*\*<a href="src/honcho/types/apps/users/session_chat_params.py">params</a>) -> <a href="./src/honcho/types/apps/users/agent_chat.py">AgentChat</a></code>
 - <code title="get /apps/{app_id}/users/{user_id}/sessions/{session_id}">client.apps.users.sessions.<a href="./src/honcho/resources/apps/users/sessions/sessions.py">get</a>(session_id, \*, app_id, user_id) -> <a href="./src/honcho/types/apps/users/session.py">Session</a></code>
-- <code title="get /apps/{app_id}/users/{user_id}/sessions/{session_id}/chat/stream">client.apps.users.sessions.<a href="./src/honcho/resources/apps/users/sessions/sessions.py">stream</a>(session_id, \*, app_id, user_id, \*\*<a href="src/honcho/types/apps/users/session_stream_params.py">params</a>) -> <a href="./src/honcho/types/apps/users/session_stream_response.py">object</a></code>
+- <code title="get /apps/{app_id}/users/{user_id}/sessions/{session_id}/chat/stream">client.apps.users.sessions.<a href="./src/honcho/resources/apps/users/sessions/sessions.py">stream</a>(session_id, \*, app_id, user_id, \*\*<a href="src/honcho/types/apps/users/session_stream_params.py">params</a>) -> str</code>
 
 #### Messages
 
