@@ -6,14 +6,6 @@ from typing import Optional
 
 import httpx
 
-from .name import (
-    NameResource,
-    AsyncNameResource,
-    NameResourceWithRawResponse,
-    AsyncNameResourceWithRawResponse,
-    NameResourceWithStreamingResponse,
-    AsyncNameResourceWithStreamingResponse,
-)
 from .sessions import (
     SessionsResource,
     AsyncSessionsResource,
@@ -64,10 +56,6 @@ class UsersResource(SyncAPIResource):
     @cached_property
     def collections(self) -> CollectionsResource:
         return CollectionsResource(self._client)
-
-    @cached_property
-    def name(self) -> NameResource:
-        return NameResource(self._client)
 
     @cached_property
     def with_raw_response(self) -> UsersResourceWithRawResponse:
@@ -369,10 +357,6 @@ class AsyncUsersResource(AsyncAPIResource):
     @cached_property
     def collections(self) -> AsyncCollectionsResource:
         return AsyncCollectionsResource(self._client)
-
-    @cached_property
-    def name(self) -> AsyncNameResource:
-        return AsyncNameResource(self._client)
 
     @cached_property
     def with_raw_response(self) -> AsyncUsersResourceWithRawResponse:
@@ -697,10 +681,6 @@ class UsersResourceWithRawResponse:
     def collections(self) -> CollectionsResourceWithRawResponse:
         return CollectionsResourceWithRawResponse(self._users.collections)
 
-    @cached_property
-    def name(self) -> NameResourceWithRawResponse:
-        return NameResourceWithRawResponse(self._users.name)
-
 
 class AsyncUsersResourceWithRawResponse:
     def __init__(self, users: AsyncUsersResource) -> None:
@@ -732,10 +712,6 @@ class AsyncUsersResourceWithRawResponse:
     @cached_property
     def collections(self) -> AsyncCollectionsResourceWithRawResponse:
         return AsyncCollectionsResourceWithRawResponse(self._users.collections)
-
-    @cached_property
-    def name(self) -> AsyncNameResourceWithRawResponse:
-        return AsyncNameResourceWithRawResponse(self._users.name)
 
 
 class UsersResourceWithStreamingResponse:
@@ -769,10 +745,6 @@ class UsersResourceWithStreamingResponse:
     def collections(self) -> CollectionsResourceWithStreamingResponse:
         return CollectionsResourceWithStreamingResponse(self._users.collections)
 
-    @cached_property
-    def name(self) -> NameResourceWithStreamingResponse:
-        return NameResourceWithStreamingResponse(self._users.name)
-
 
 class AsyncUsersResourceWithStreamingResponse:
     def __init__(self, users: AsyncUsersResource) -> None:
@@ -804,7 +776,3 @@ class AsyncUsersResourceWithStreamingResponse:
     @cached_property
     def collections(self) -> AsyncCollectionsResourceWithStreamingResponse:
         return AsyncCollectionsResourceWithStreamingResponse(self._users.collections)
-
-    @cached_property
-    def name(self) -> AsyncNameResourceWithStreamingResponse:
-        return AsyncNameResourceWithStreamingResponse(self._users.name)
