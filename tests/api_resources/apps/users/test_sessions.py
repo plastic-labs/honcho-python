@@ -410,7 +410,7 @@ class TestSessions:
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             query="string",
         )
-        assert_matches_type(object, session, path=["response"])
+        assert_matches_type(str, session, path=["response"])
 
     @parametrize
     def test_raw_response_stream(self, client: Honcho) -> None:
@@ -424,7 +424,7 @@ class TestSessions:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         session = response.parse()
-        assert_matches_type(object, session, path=["response"])
+        assert_matches_type(str, session, path=["response"])
 
     @parametrize
     def test_streaming_response_stream(self, client: Honcho) -> None:
@@ -438,7 +438,7 @@ class TestSessions:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             session = response.parse()
-            assert_matches_type(object, session, path=["response"])
+            assert_matches_type(str, session, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -861,7 +861,7 @@ class TestAsyncSessions:
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             query="string",
         )
-        assert_matches_type(object, session, path=["response"])
+        assert_matches_type(str, session, path=["response"])
 
     @parametrize
     async def test_raw_response_stream(self, async_client: AsyncHoncho) -> None:
@@ -875,7 +875,7 @@ class TestAsyncSessions:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         session = await response.parse()
-        assert_matches_type(object, session, path=["response"])
+        assert_matches_type(str, session, path=["response"])
 
     @parametrize
     async def test_streaming_response_stream(self, async_client: AsyncHoncho) -> None:
@@ -889,7 +889,7 @@ class TestAsyncSessions:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             session = await response.parse()
-            assert_matches_type(object, session, path=["response"])
+            assert_matches_type(str, session, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 

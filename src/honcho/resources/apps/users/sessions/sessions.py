@@ -389,7 +389,7 @@ class SessionsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> object:
+    ) -> str:
         """
         Get Chat Stream
 
@@ -408,6 +408,7 @@ class SessionsResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `user_id` but received {user_id!r}")
         if not session_id:
             raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
+        extra_headers = {"Accept": "text/event-stream", **(extra_headers or {})}
         return self._get(
             f"/apps/{app_id}/users/{user_id}/sessions/{session_id}/chat/stream",
             options=make_request_options(
@@ -417,7 +418,7 @@ class SessionsResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform({"query": query}, session_stream_params.SessionStreamParams),
             ),
-            cast_to=object,
+            cast_to=str,
         )
 
 
@@ -757,7 +758,7 @@ class AsyncSessionsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> object:
+    ) -> str:
         """
         Get Chat Stream
 
@@ -776,6 +777,7 @@ class AsyncSessionsResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `user_id` but received {user_id!r}")
         if not session_id:
             raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
+        extra_headers = {"Accept": "text/event-stream", **(extra_headers or {})}
         return await self._get(
             f"/apps/{app_id}/users/{user_id}/sessions/{session_id}/chat/stream",
             options=make_request_options(
@@ -785,7 +787,7 @@ class AsyncSessionsResource(AsyncAPIResource):
                 timeout=timeout,
                 query=await async_maybe_transform({"query": query}, session_stream_params.SessionStreamParams),
             ),
-            cast_to=object,
+            cast_to=str,
         )
 
 
