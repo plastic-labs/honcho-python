@@ -9,9 +9,9 @@ import pytest
 
 from honcho import Honcho, AsyncHoncho
 from tests.utils import assert_matches_type
+from honcho.pagination import SyncPage, AsyncPage
 from honcho.types.apps.users import (
     Collection,
-    PageCollection,
     CollectionQueryResponse,
 )
 
@@ -167,7 +167,7 @@ class TestCollections:
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
-        assert_matches_type(PageCollection, collection, path=["response"])
+        assert_matches_type(SyncPage[Collection], collection, path=["response"])
 
     @parametrize
     def test_method_list_with_all_params(self, client: Honcho) -> None:
@@ -179,7 +179,7 @@ class TestCollections:
             reverse=True,
             size=1,
         )
-        assert_matches_type(PageCollection, collection, path=["response"])
+        assert_matches_type(SyncPage[Collection], collection, path=["response"])
 
     @parametrize
     def test_raw_response_list(self, client: Honcho) -> None:
@@ -191,7 +191,7 @@ class TestCollections:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         collection = response.parse()
-        assert_matches_type(PageCollection, collection, path=["response"])
+        assert_matches_type(SyncPage[Collection], collection, path=["response"])
 
     @parametrize
     def test_streaming_response_list(self, client: Honcho) -> None:
@@ -203,7 +203,7 @@ class TestCollections:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             collection = response.parse()
-            assert_matches_type(PageCollection, collection, path=["response"])
+            assert_matches_type(SyncPage[Collection], collection, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -629,7 +629,7 @@ class TestAsyncCollections:
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
-        assert_matches_type(PageCollection, collection, path=["response"])
+        assert_matches_type(AsyncPage[Collection], collection, path=["response"])
 
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncHoncho) -> None:
@@ -641,7 +641,7 @@ class TestAsyncCollections:
             reverse=True,
             size=1,
         )
-        assert_matches_type(PageCollection, collection, path=["response"])
+        assert_matches_type(AsyncPage[Collection], collection, path=["response"])
 
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncHoncho) -> None:
@@ -653,7 +653,7 @@ class TestAsyncCollections:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         collection = await response.parse()
-        assert_matches_type(PageCollection, collection, path=["response"])
+        assert_matches_type(AsyncPage[Collection], collection, path=["response"])
 
     @parametrize
     async def test_streaming_response_list(self, async_client: AsyncHoncho) -> None:
@@ -665,7 +665,7 @@ class TestAsyncCollections:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             collection = await response.parse()
-            assert_matches_type(PageCollection, collection, path=["response"])
+            assert_matches_type(AsyncPage[Collection], collection, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
