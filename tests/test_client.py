@@ -544,6 +544,14 @@ class TestHoncho:
             client = Honcho(api_key=api_key, _strict_response_validation=True)
             assert client.base_url == "http://localhost:5000/from/env/"
 
+        # explicit environment arg requires explicitness
+        with update_env(HONCHO_BASE_URL="http://localhost:5000/from/env"):
+            with pytest.raises(ValueError, match=r"you must pass base_url=None"):
+                Honcho(api_key=api_key, _strict_response_validation=True, environment="local")
+
+            client = Honcho(base_url=None, api_key=api_key, _strict_response_validation=True, environment="local")
+            assert str(client.base_url).startswith("http://localhost:8000")
+
     @pytest.mark.parametrize(
         "client",
         [
@@ -1228,6 +1236,14 @@ class TestAsyncHoncho:
         with update_env(HONCHO_BASE_URL="http://localhost:5000/from/env"):
             client = AsyncHoncho(api_key=api_key, _strict_response_validation=True)
             assert client.base_url == "http://localhost:5000/from/env/"
+
+        # explicit environment arg requires explicitness
+        with update_env(HONCHO_BASE_URL="http://localhost:5000/from/env"):
+            with pytest.raises(ValueError, match=r"you must pass base_url=None"):
+                AsyncHoncho(api_key=api_key, _strict_response_validation=True, environment="local")
+
+            client = AsyncHoncho(base_url=None, api_key=api_key, _strict_response_validation=True, environment="local")
+            assert str(client.base_url).startswith("http://localhost:8000")
 
     @pytest.mark.parametrize(
         "client",
