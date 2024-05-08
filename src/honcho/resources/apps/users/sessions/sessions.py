@@ -35,9 +35,7 @@ from ....._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from .....pagination import SyncPage, AsyncPage
 from ....._base_client import (
-    AsyncPaginator,
     make_request_options,
 )
 from .....types.apps.users import (
@@ -49,6 +47,7 @@ from .....types.apps.users import (
 )
 from .....types.apps.users.session import Session
 from .....types.apps.users.agent_chat import AgentChat
+from .....types.apps.users.page_session import PageSession
 
 __all__ = ["SessionsResource", "AsyncSessionsResource"]
 
@@ -187,7 +186,7 @@ class SessionsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> SyncPage[Session]:
+    ) -> PageSession:
         """
         Get All Sessions for a User
 
@@ -215,9 +214,8 @@ class SessionsResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `app_id` but received {app_id!r}")
         if not user_id:
             raise ValueError(f"Expected a non-empty value for `user_id` but received {user_id!r}")
-        return self._get_api_list(
+        return self._get(
             f"/apps/{app_id}/users/{user_id}/sessions",
-            page=SyncPage[Session],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -235,7 +233,7 @@ class SessionsResource(SyncAPIResource):
                     session_list_params.SessionListParams,
                 ),
             ),
-            model=Session,
+            cast_to=PageSession,
         )
 
     def delete(
@@ -389,7 +387,7 @@ class SessionsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> str:
+    ) -> object:
         """
         Get Chat Stream
 
@@ -408,7 +406,6 @@ class SessionsResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `user_id` but received {user_id!r}")
         if not session_id:
             raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
-        extra_headers = {"Accept": "text/event-stream", **(extra_headers or {})}
         return self._get(
             f"/apps/{app_id}/users/{user_id}/sessions/{session_id}/chat/stream",
             options=make_request_options(
@@ -418,7 +415,7 @@ class SessionsResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform({"query": query}, session_stream_params.SessionStreamParams),
             ),
-            cast_to=str,
+            cast_to=object,
         )
 
 
@@ -539,7 +536,7 @@ class AsyncSessionsResource(AsyncAPIResource):
             cast_to=Session,
         )
 
-    def list(
+    async def list(
         self,
         user_id: str,
         *,
@@ -556,7 +553,7 @@ class AsyncSessionsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> AsyncPaginator[Session, AsyncPage[Session]]:
+    ) -> PageSession:
         """
         Get All Sessions for a User
 
@@ -584,15 +581,14 @@ class AsyncSessionsResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `app_id` but received {app_id!r}")
         if not user_id:
             raise ValueError(f"Expected a non-empty value for `user_id` but received {user_id!r}")
-        return self._get_api_list(
+        return await self._get(
             f"/apps/{app_id}/users/{user_id}/sessions",
-            page=AsyncPage[Session],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=maybe_transform(
+                query=await async_maybe_transform(
                     {
                         "filter": filter,
                         "is_active": is_active,
@@ -604,7 +600,7 @@ class AsyncSessionsResource(AsyncAPIResource):
                     session_list_params.SessionListParams,
                 ),
             ),
-            model=Session,
+            cast_to=PageSession,
         )
 
     async def delete(
@@ -758,7 +754,7 @@ class AsyncSessionsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> str:
+    ) -> object:
         """
         Get Chat Stream
 
@@ -777,7 +773,6 @@ class AsyncSessionsResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `user_id` but received {user_id!r}")
         if not session_id:
             raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
-        extra_headers = {"Accept": "text/event-stream", **(extra_headers or {})}
         return await self._get(
             f"/apps/{app_id}/users/{user_id}/sessions/{session_id}/chat/stream",
             options=make_request_options(
@@ -787,7 +782,7 @@ class AsyncSessionsResource(AsyncAPIResource):
                 timeout=timeout,
                 query=await async_maybe_transform({"query": query}, session_stream_params.SessionStreamParams),
             ),
-            cast_to=str,
+            cast_to=object,
         )
 
 

@@ -1,5 +1,5 @@
 [project]
-name = "honcho"
+name = "honcho-ai"
 version = "0.0.1-alpha.0"
 description = "The official Python library for the honcho API"
 dynamic = ["readme"]

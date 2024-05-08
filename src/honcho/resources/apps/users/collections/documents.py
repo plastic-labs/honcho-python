@@ -19,13 +19,12 @@ from ....._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from .....pagination import SyncPage, AsyncPage
 from ....._base_client import (
-    AsyncPaginator,
     make_request_options,
 )
 from .....types.apps.users.collections import document_list_params, document_create_params, document_update_params
 from .....types.apps.users.collections.document import Document
+from .....types.apps.users.collections.page_document import PageDocument
 
 __all__ = ["DocumentsResource", "AsyncDocumentsResource"]
 
@@ -154,7 +153,7 @@ class DocumentsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> SyncPage[Document]:
+    ) -> PageDocument:
         """
         Get Documents
 
@@ -177,9 +176,8 @@ class DocumentsResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `user_id` but received {user_id!r}")
         if not collection_id:
             raise ValueError(f"Expected a non-empty value for `collection_id` but received {collection_id!r}")
-        return self._get_api_list(
+        return self._get(
             f"/apps/{app_id}/users/{user_id}/collections/{collection_id}/documents",
-            page=SyncPage[Document],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -195,7 +193,7 @@ class DocumentsResource(SyncAPIResource):
                     document_list_params.DocumentListParams,
                 ),
             ),
-            model=Document,
+            cast_to=PageDocument,
         )
 
     def delete(
@@ -391,7 +389,7 @@ class AsyncDocumentsResource(AsyncAPIResource):
             cast_to=Document,
         )
 
-    def list(
+    async def list(
         self,
         collection_id: str,
         *,
@@ -407,7 +405,7 @@ class AsyncDocumentsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> AsyncPaginator[Document, AsyncPage[Document]]:
+    ) -> PageDocument:
         """
         Get Documents
 
@@ -430,15 +428,14 @@ class AsyncDocumentsResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `user_id` but received {user_id!r}")
         if not collection_id:
             raise ValueError(f"Expected a non-empty value for `collection_id` but received {collection_id!r}")
-        return self._get_api_list(
+        return await self._get(
             f"/apps/{app_id}/users/{user_id}/collections/{collection_id}/documents",
-            page=AsyncPage[Document],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=maybe_transform(
+                query=await async_maybe_transform(
                     {
                         "filter": filter,
                         "page": page,
@@ -448,7 +445,7 @@ class AsyncDocumentsResource(AsyncAPIResource):
                     document_list_params.DocumentListParams,
                 ),
             ),
-            model=Document,
+            cast_to=PageDocument,
         )
 
     async def delete(

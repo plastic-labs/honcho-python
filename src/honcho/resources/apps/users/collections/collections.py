@@ -27,9 +27,7 @@ from ....._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from .....pagination import SyncPage, AsyncPage
 from ....._base_client import (
-    AsyncPaginator,
     make_request_options,
 )
 from .....types.apps.users import (
@@ -39,6 +37,7 @@ from .....types.apps.users import (
     collection_update_params,
 )
 from .....types.apps.users.collection import Collection
+from .....types.apps.users.page_collection import PageCollection
 from .....types.apps.users.collection_query_response import CollectionQueryResponse
 
 __all__ = ["CollectionsResource", "AsyncCollectionsResource"]
@@ -165,7 +164,7 @@ class CollectionsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> SyncPage[Collection]:
+    ) -> PageCollection:
         """
         Get All Collections for a User
 
@@ -192,9 +191,8 @@ class CollectionsResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `app_id` but received {app_id!r}")
         if not user_id:
             raise ValueError(f"Expected a non-empty value for `user_id` but received {user_id!r}")
-        return self._get_api_list(
+        return self._get(
             f"/apps/{app_id}/users/{user_id}/collections",
-            page=SyncPage[Collection],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -210,7 +208,7 @@ class CollectionsResource(SyncAPIResource):
                     collection_list_params.CollectionListParams,
                 ),
             ),
-            model=Collection,
+            cast_to=PageCollection,
         )
 
     def delete(
@@ -490,7 +488,7 @@ class AsyncCollectionsResource(AsyncAPIResource):
             cast_to=Collection,
         )
 
-    def list(
+    async def list(
         self,
         user_id: str,
         *,
@@ -505,7 +503,7 @@ class AsyncCollectionsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> AsyncPaginator[Collection, AsyncPage[Collection]]:
+    ) -> PageCollection:
         """
         Get All Collections for a User
 
@@ -532,15 +530,14 @@ class AsyncCollectionsResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `app_id` but received {app_id!r}")
         if not user_id:
             raise ValueError(f"Expected a non-empty value for `user_id` but received {user_id!r}")
-        return self._get_api_list(
+        return await self._get(
             f"/apps/{app_id}/users/{user_id}/collections",
-            page=AsyncPage[Collection],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=maybe_transform(
+                query=await async_maybe_transform(
                     {
                         "filter": filter,
                         "page": page,
@@ -550,7 +547,7 @@ class AsyncCollectionsResource(AsyncAPIResource):
                     collection_list_params.CollectionListParams,
                 ),
             ),
-            model=Collection,
+            cast_to=PageCollection,
         )
 
     async def delete(

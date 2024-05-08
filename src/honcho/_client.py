@@ -25,7 +25,7 @@ from ._utils import (
 )
 from ._version import __version__
 from ._streaming import Stream as Stream, AsyncStream as AsyncStream
-from ._exceptions import APIStatusError
+from ._exceptions import HonchoError, APIStatusError
 from ._base_client import (
     DEFAULT_MAX_RETRIES,
     SyncAPIClient,
@@ -51,10 +51,12 @@ class Honcho(SyncAPIClient):
     with_streaming_response: HonchoWithStreamedResponse
 
     # client options
+    api_key: str
 
     def __init__(
         self,
         *,
+        api_key: str | None = None,
         base_url: str | httpx.URL | None = None,
         timeout: Union[float, Timeout, None, NotGiven] = NOT_GIVEN,
         max_retries: int = DEFAULT_MAX_RETRIES,
@@ -74,7 +76,18 @@ class Honcho(SyncAPIClient):
         # part of our public interface in the future.
         _strict_response_validation: bool = False,
     ) -> None:
-        """Construct a new synchronous honcho client instance."""
+        """Construct a new synchronous honcho client instance.
+
+        This automatically infers the `api_key` argument from the `HONCHO_AUTH_TOKEN` environment variable if it is not provided.
+        """
+        if api_key is None:
+            api_key = os.environ.get("HONCHO_AUTH_TOKEN")
+        if api_key is None:
+            raise HonchoError(
+                "The api_key client option must be set either by passing api_key to the client or by setting the HONCHO_AUTH_TOKEN environment variable"
+            )
+        self.api_key = api_key
+
         if base_url is None:
             base_url = os.environ.get("HONCHO_BASE_URL")
         if base_url is None:
@@ -102,6 +115,12 @@ class Honcho(SyncAPIClient):
 
     @property
     @override
+    def auth_headers(self) -> dict[str, str]:
+        api_key = self.api_key
+        return {"Authorization": f"Bearer {api_key}"}
+
+    @property
+    @override
     def default_headers(self) -> dict[str, str | Omit]:
         return {
             **super().default_headers,
@@ -112,6 +131,7 @@ class Honcho(SyncAPIClient):
     def copy(
         self,
         *,
+        api_key: str | None = None,
         base_url: str | httpx.URL | None = None,
         timeout: float | Timeout | None | NotGiven = NOT_GIVEN,
         http_client: httpx.Client | None = None,
@@ -145,6 +165,7 @@ class Honcho(SyncAPIClient):
 
         http_client = http_client or self._client
         return self.__class__(
+            api_key=api_key or self.api_key,
             base_url=base_url or self.base_url,
             timeout=self.timeout if isinstance(timeout, NotGiven) else timeout,
             http_client=http_client,
@@ -198,10 +219,12 @@ class AsyncHoncho(AsyncAPIClient):
     with_streaming_response: AsyncHonchoWithStreamedResponse
 
     # client options
+    api_key: str
 
     def __init__(
         self,
         *,
+        api_key: str | None = None,
         base_url: str | httpx.URL | None = None,
         timeout: Union[float, Timeout, None, NotGiven] = NOT_GIVEN,
         max_retries: int = DEFAULT_MAX_RETRIES,
@@ -221,7 +244,18 @@ class AsyncHoncho(AsyncAPIClient):
         # part of our public interface in the future.
         _strict_response_validation: bool = False,
     ) -> None:
-        """Construct a new async honcho client instance."""
+        """Construct a new async honcho client instance.
+
+        This automatically infers the `api_key` argument from the `HONCHO_AUTH_TOKEN` environment variable if it is not provided.
+        """
+        if api_key is None:
+            api_key = os.environ.get("HONCHO_AUTH_TOKEN")
+        if api_key is None:
+            raise HonchoError(
+                "The api_key client option must be set either by passing api_key to the client or by setting the HONCHO_AUTH_TOKEN environment variable"
+            )
+        self.api_key = api_key
+
         if base_url is None:
             base_url = os.environ.get("HONCHO_BASE_URL")
         if base_url is None:
@@ -249,6 +283,12 @@ class AsyncHoncho(AsyncAPIClient):
 
     @property
     @override
+    def auth_headers(self) -> dict[str, str]:
+        api_key = self.api_key
+        return {"Authorization": f"Bearer {api_key}"}
+
+    @property
+    @override
     def default_headers(self) -> dict[str, str | Omit]:
         return {
             **super().default_headers,
@@ -259,6 +299,7 @@ class AsyncHoncho(AsyncAPIClient):
     def copy(
         self,
         *,
+        api_key: str | None = None,
         base_url: str | httpx.URL | None = None,
         timeout: float | Timeout | None | NotGiven = NOT_GIVEN,
         http_client: httpx.AsyncClient | None = None,
@@ -292,6 +333,7 @@ class AsyncHoncho(AsyncAPIClient):
 
         http_client = http_client or self._client
         return self.__class__(
+            api_key=api_key or self.api_key,
             base_url=base_url or self.base_url,
             timeout=self.timeout if isinstance(timeout, NotGiven) else timeout,
             http_client=http_client,
