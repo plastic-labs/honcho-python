@@ -33,6 +33,8 @@ from honcho import Honcho
 client = Honcho(
     # This is the default and can be omitted
     api_key=os.environ.get("HONCHO_AUTH_TOKEN"),
+    # defaults to "local".
+    environment="demo",
 )
 
 app = client.apps.create(
@@ -58,6 +60,8 @@ from honcho import AsyncHoncho
 client = AsyncHoncho(
     # This is the default and can be omitted
     api_key=os.environ.get("HONCHO_AUTH_TOKEN"),
+    # defaults to "local".
+    environment="demo",
 )
 
 
