@@ -35,7 +35,9 @@ from ....._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
+from .....pagination import SyncPage, AsyncPage
 from ....._base_client import (
+    AsyncPaginator,
     make_request_options,
 )
 from .....types.apps.users import (
@@ -47,7 +49,6 @@ from .....types.apps.users import (
 )
 from .....types.apps.users.session import Session
 from .....types.apps.users.agent_chat import AgentChat
-from .....types.apps.users.page_session import PageSession
 
 __all__ = ["SessionsResource", "AsyncSessionsResource"]
 
@@ -186,7 +187,7 @@ class SessionsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> PageSession:
+    ) -> SyncPage[Session]:
         """
         Get All Sessions for a User
 
@@ -214,8 +215,9 @@ class SessionsResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `app_id` but received {app_id!r}")
         if not user_id:
             raise ValueError(f"Expected a non-empty value for `user_id` but received {user_id!r}")
-        return self._get(
+        return self._get_api_list(
             f"/apps/{app_id}/users/{user_id}/sessions",
+            page=SyncPage[Session],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -233,7 +235,7 @@ class SessionsResource(SyncAPIResource):
                     session_list_params.SessionListParams,
                 ),
             ),
-            cast_to=PageSession,
+            model=Session,
         )
 
     def delete(
@@ -536,7 +538,7 @@ class AsyncSessionsResource(AsyncAPIResource):
             cast_to=Session,
         )
 
-    async def list(
+    def list(
         self,
         user_id: str,
         *,
@@ -553,7 +555,7 @@ class AsyncSessionsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> PageSession:
+    ) -> AsyncPaginator[Session, AsyncPage[Session]]:
         """
         Get All Sessions for a User
 
@@ -581,14 +583,15 @@ class AsyncSessionsResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `app_id` but received {app_id!r}")
         if not user_id:
             raise ValueError(f"Expected a non-empty value for `user_id` but received {user_id!r}")
-        return await self._get(
+        return self._get_api_list(
             f"/apps/{app_id}/users/{user_id}/sessions",
+            page=AsyncPage[Session],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=await async_maybe_transform(
+                query=maybe_transform(
                     {
                         "filter": filter,
                         "is_active": is_active,
@@ -600,7 +603,7 @@ class AsyncSessionsResource(AsyncAPIResource):
                     session_list_params.SessionListParams,
                 ),
             ),
-            cast_to=PageSession,
+            model=Session,
         )
 
     async def delete(

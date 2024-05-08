@@ -11,10 +11,10 @@ __all__ = ["PageCollection"]
 class PageCollection(BaseModel):
     items: List[Collection]
 
-    page: Optional[int] = None
+    page: int
 
-    size: Optional[int] = None
+    size: int
 
-    total: Optional[int] = None
+    total: int
 
     pages: Optional[int] = None

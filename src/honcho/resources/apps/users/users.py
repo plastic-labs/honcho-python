@@ -35,13 +35,14 @@ from ...._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
+from ....pagination import SyncPage, AsyncPage
 from ....types.apps import user_list_params, user_create_params, user_update_params
 from ...._base_client import (
+    AsyncPaginator,
     make_request_options,
 )
 from .sessions.sessions import SessionsResource, AsyncSessionsResource
 from ....types.apps.user import User
-from ....types.apps.page_user import PageUser
 from .collections.collections import CollectionsResource, AsyncCollectionsResource
 
 __all__ = ["UsersResource", "AsyncUsersResource"]
@@ -176,7 +177,7 @@ class UsersResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> PageUser:
+    ) -> SyncPage[User]:
         """
         Get All Users for an App
 
@@ -200,8 +201,9 @@ class UsersResource(SyncAPIResource):
         """
         if not app_id:
             raise ValueError(f"Expected a non-empty value for `app_id` but received {app_id!r}")
-        return self._get(
+        return self._get_api_list(
             f"/apps/{app_id}/users",
+            page=SyncPage[User],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -217,7 +219,7 @@ class UsersResource(SyncAPIResource):
                     user_list_params.UserListParams,
                 ),
             ),
-            cast_to=PageUser,
+            model=User,
         )
 
     def get(
@@ -462,7 +464,7 @@ class AsyncUsersResource(AsyncAPIResource):
             cast_to=User,
         )
 
-    async def list(
+    def list(
         self,
         app_id: str,
         *,
@@ -476,7 +478,7 @@ class AsyncUsersResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> PageUser:
+    ) -> AsyncPaginator[User, AsyncPage[User]]:
         """
         Get All Users for an App
 
@@ -500,14 +502,15 @@ class AsyncUsersResource(AsyncAPIResource):
         """
         if not app_id:
             raise ValueError(f"Expected a non-empty value for `app_id` but received {app_id!r}")
-        return await self._get(
+        return self._get_api_list(
             f"/apps/{app_id}/users",
+            page=AsyncPage[User],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=await async_maybe_transform(
+                query=maybe_transform(
                     {
                         "filter": filter,
                         "page": page,
@@ -517,7 +520,7 @@ class AsyncUsersResource(AsyncAPIResource):
                     user_list_params.UserListParams,
                 ),
             ),
-            cast_to=PageUser,
+            model=User,
         )
 
     async def get(
