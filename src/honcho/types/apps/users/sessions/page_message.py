@@ -11,10 +11,10 @@ __all__ = ["PageMessage"]
 class PageMessage(BaseModel):
     items: List[Message]
 
-    page: int
+    page: Optional[int] = None
 
-    size: int
+    size: Optional[int] = None
 
-    total: int
+    total: Optional[int] = None
 
     pages: Optional[int] = None

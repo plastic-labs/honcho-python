@@ -9,8 +9,7 @@ import pytest
 
 from honcho import Honcho, AsyncHoncho
 from tests.utils import assert_matches_type
-from honcho.pagination import SyncPage, AsyncPage
-from honcho.types.apps import User
+from honcho.types.apps import User, PageUser
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -132,7 +131,7 @@ class TestUsers:
         user = client.apps.users.list(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
-        assert_matches_type(SyncPage[User], user, path=["response"])
+        assert_matches_type(PageUser, user, path=["response"])
 
     @parametrize
     def test_method_list_with_all_params(self, client: Honcho) -> None:
@@ -143,7 +142,7 @@ class TestUsers:
             reverse=True,
             size=1,
         )
-        assert_matches_type(SyncPage[User], user, path=["response"])
+        assert_matches_type(PageUser, user, path=["response"])
 
     @parametrize
     def test_raw_response_list(self, client: Honcho) -> None:
@@ -154,7 +153,7 @@ class TestUsers:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         user = response.parse()
-        assert_matches_type(SyncPage[User], user, path=["response"])
+        assert_matches_type(PageUser, user, path=["response"])
 
     @parametrize
     def test_streaming_response_list(self, client: Honcho) -> None:
@@ -165,7 +164,7 @@ class TestUsers:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             user = response.parse()
-            assert_matches_type(SyncPage[User], user, path=["response"])
+            assert_matches_type(PageUser, user, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -438,7 +437,7 @@ class TestAsyncUsers:
         user = await async_client.apps.users.list(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
-        assert_matches_type(AsyncPage[User], user, path=["response"])
+        assert_matches_type(PageUser, user, path=["response"])
 
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncHoncho) -> None:
@@ -449,7 +448,7 @@ class TestAsyncUsers:
             reverse=True,
             size=1,
         )
-        assert_matches_type(AsyncPage[User], user, path=["response"])
+        assert_matches_type(PageUser, user, path=["response"])
 
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncHoncho) -> None:
@@ -460,7 +459,7 @@ class TestAsyncUsers:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         user = await response.parse()
-        assert_matches_type(AsyncPage[User], user, path=["response"])
+        assert_matches_type(PageUser, user, path=["response"])
 
     @parametrize
     async def test_streaming_response_list(self, async_client: AsyncHoncho) -> None:
@@ -471,7 +470,7 @@ class TestAsyncUsers:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             user = await response.parse()
-            assert_matches_type(AsyncPage[User], user, path=["response"])
+            assert_matches_type(PageUser, user, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
