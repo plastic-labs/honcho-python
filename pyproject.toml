@@ -1,6 +1,6 @@
 [project]
 name = "honcho-ai"
-version = "0.0.1-alpha.0"
+version = "0.0.8-alpha.1"
 description = "The official Python library for the honcho API"
 dynamic = ["readme"]
 license = "Apache-2.0"
@@ -39,8 +39,8 @@ classifiers = [
 
 
 [project.urls]
-Homepage = "https://github.com/stainless-sdks/plastic-labs/honcho-python"
-Repository = "https://github.com/stainless-sdks/plastic-labs/honcho-python"
+Homepage = "https://github.com/plastic-labs/honcho-python"
+Repository = "https://github.com/plastic-labs/honcho-python"
 
 
 
@@ -108,7 +108,7 @@ path = "README.md"
 [[tool.hatch.metadata.hooks.fancy-pypi-readme.substitutions]]
 # replace relative links with absolute links
 pattern = '\[(.+?)\]\(((?!https?://)\S+?)\)'
-replacement = '[\1](https://github.com/stainless-sdks/tree/main/\g<2>)'
+replacement = '[\1](https://github.com/plastic-labs/honcho-python/tree/main/\g<2>)'
 
 [tool.black]
 line-length = 120
