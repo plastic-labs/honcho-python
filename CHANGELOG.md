@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.0.9 (2024-05-16)
+
+Full Changelog: [v0.0.8...v0.0.9](https://github.com/plastic-labs/honcho-python/compare/v0.0.8...v0.0.9)
+
+### Chores
+
+* **internal:** version bump ([#8](https://github.com/plastic-labs/honcho-python/issues/8)) ([dac6964](https://github.com/plastic-labs/honcho-python/commit/dac6964e461965e4b111a77b22a508eac849590c))
+
 ## 0.0.8 (2024-05-16)
 
 Full Changelog: [v0.0.8-alpha.1...v0.0.8](https://github.com/plastic-labs/honcho-python/compare/v0.0.8-alpha.1...v0.0.8)
