@@ -13,6 +13,7 @@ from ._qs import Querystring
 from ._types import (
     NOT_GIVEN,
     Omit,
+    Headers,
     Timeout,
     NotGiven,
     Transport,
@@ -25,7 +26,7 @@ from ._utils import (
 )
 from ._version import __version__
 from ._streaming import Stream as Stream, AsyncStream as AsyncStream
-from ._exceptions import HonchoError, APIStatusError
+from ._exceptions import APIStatusError
 from ._base_client import (
     DEFAULT_MAX_RETRIES,
     SyncAPIClient,
@@ -57,7 +58,7 @@ class Honcho(SyncAPIClient):
     with_streaming_response: HonchoWithStreamedResponse
 
     # client options
-    api_key: str
+    api_key: str | None
 
     _environment: Literal["local", "demo"] | NotGiven
 
@@ -91,10 +92,6 @@ class Honcho(SyncAPIClient):
         """
         if api_key is None:
             api_key = os.environ.get("HONCHO_AUTH_TOKEN")
-        if api_key is None:
-            raise HonchoError(
-                "The api_key client option must be set either by passing api_key to the client or by setting the HONCHO_AUTH_TOKEN environment variable"
-            )
         self.api_key = api_key
 
         self._environment = environment
@@ -147,6 +144,8 @@ class Honcho(SyncAPIClient):
     @override
     def auth_headers(self) -> dict[str, str]:
         api_key = self.api_key
+        if api_key is None:
+            return {}
         return {"Authorization": f"Bearer {api_key}"}
 
     @property
@@ -157,6 +156,17 @@ class Honcho(SyncAPIClient):
             "X-Stainless-Async": "false",
             **self._custom_headers,
         }
+
+    @override
+    def _validate_headers(self, headers: Headers, custom_headers: Headers) -> None:
+        if self.api_key and headers.get("Authorization"):
+            return
+        if isinstance(custom_headers.get("Authorization"), Omit):
+            return
+
+        raise TypeError(
+            '"Could not resolve authentication method. Expected the api_key to be set. Or for the `Authorization` headers to be explicitly omitted"'
+        )
 
     def copy(
         self,
@@ -251,7 +261,7 @@ class AsyncHoncho(AsyncAPIClient):
     with_streaming_response: AsyncHonchoWithStreamedResponse
 
     # client options
-    api_key: str
+    api_key: str | None
 
     _environment: Literal["local", "demo"] | NotGiven
 
@@ -285,10 +295,6 @@ class AsyncHoncho(AsyncAPIClient):
         """
         if api_key is None:
             api_key = os.environ.get("HONCHO_AUTH_TOKEN")
-        if api_key is None:
-            raise HonchoError(
-                "The api_key client option must be set either by passing api_key to the client or by setting the HONCHO_AUTH_TOKEN environment variable"
-            )
         self.api_key = api_key
 
         self._environment = environment
@@ -341,6 +347,8 @@ class AsyncHoncho(AsyncAPIClient):
     @override
     def auth_headers(self) -> dict[str, str]:
         api_key = self.api_key
+        if api_key is None:
+            return {}
         return {"Authorization": f"Bearer {api_key}"}
 
     @property
@@ -351,6 +359,17 @@ class AsyncHoncho(AsyncAPIClient):
             "X-Stainless-Async": f"async:{get_async_library()}",
             **self._custom_headers,
         }
+
+    @override
+    def _validate_headers(self, headers: Headers, custom_headers: Headers) -> None:
+        if self.api_key and headers.get("Authorization"):
+            return
+        if isinstance(custom_headers.get("Authorization"), Omit):
+            return
+
+        raise TypeError(
+            '"Could not resolve authentication method. Expected the api_key to be set. Or for the `Authorization` headers to be explicitly omitted"'
+        )
 
     def copy(
         self,
