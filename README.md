@@ -16,7 +16,7 @@ The REST API documentation can be found [on docs.honcho.dev](https://docs.honcho
 
 ```sh
 # install from PyPI
-pip install --pre honcho-ai
+pip install honcho-ai
 ```
 
 ## Usage
