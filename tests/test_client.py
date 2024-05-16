@@ -326,9 +326,15 @@ class TestHoncho:
         request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
         assert request.headers.get("Authorization") == f"Bearer {api_key}"
 
+<<<<<<< HEAD
         with pytest.raises(HonchoError):
             client2 = Honcho(base_url=base_url, api_key=None, _strict_response_validation=True)
             _ = client2
+=======
+        client2 = Honcho(base_url=base_url, api_key=None, _strict_response_validation=True)
+
+        client2._build_request(FinalRequestOptions(method="get", url="/foo"))
+>>>>>>> dac6964 (chore(internal): version bump (#8))
 
     def test_default_query_option(self) -> None:
         client = Honcho(
