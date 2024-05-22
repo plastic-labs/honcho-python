@@ -28,7 +28,7 @@ class TestApps:
     def test_method_create_with_all_params(self, client: Honcho) -> None:
         app = client.apps.create(
             name="string",
-            metadata={},
+            metadata={"foo": "bar"},
         )
         assert_matches_type(App, app, path=["response"])
 
@@ -232,7 +232,7 @@ class TestAsyncApps:
     async def test_method_create_with_all_params(self, async_client: AsyncHoncho) -> None:
         app = await async_client.apps.create(
             name="string",
-            metadata={},
+            metadata={"foo": "bar"},
         )
         assert_matches_type(App, app, path=["response"])
 

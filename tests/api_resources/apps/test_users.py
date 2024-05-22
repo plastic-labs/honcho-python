@@ -31,7 +31,7 @@ class TestUsers:
         user = client.apps.users.create(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             name="string",
-            metadata={},
+            metadata={"foo": "bar"},
         )
         assert_matches_type(User, user, path=["response"])
 
@@ -82,7 +82,7 @@ class TestUsers:
         user = client.apps.users.update(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            metadata={},
+            metadata={"foo": "bar"},
             name="string",
         )
         assert_matches_type(User, user, path=["response"])
@@ -337,7 +337,7 @@ class TestAsyncUsers:
         user = await async_client.apps.users.create(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             name="string",
-            metadata={},
+            metadata={"foo": "bar"},
         )
         assert_matches_type(User, user, path=["response"])
 
@@ -388,7 +388,7 @@ class TestAsyncUsers:
         user = await async_client.apps.users.update(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            metadata={},
+            metadata={"foo": "bar"},
             name="string",
         )
         assert_matches_type(User, user, path=["response"])
