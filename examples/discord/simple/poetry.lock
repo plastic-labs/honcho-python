@@ -308,13 +308,13 @@ files = [
 
 [[package]]
 name = "honcho-ai"
-version = "0.0.8"
+version = "0.0.11"
 description = "The official Python library for the honcho API"
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "honcho_ai-0.0.8-py3-none-any.whl", hash = "sha256:65743b44e6ed7669ea4dcbebda259ff2bbfb6dda5f03832557a2de015b9c4e8b"},
-    {file = "honcho_ai-0.0.8.tar.gz", hash = "sha256:738853659193be6ff57a1e3131bdc052a32d0a987176b3e930b7c8ad9fbfe55f"},
+    {file = "honcho_ai-0.0.11-py3-none-any.whl", hash = "sha256:e872e120125058cc4eac67ae83ec37bb23238f49be026a1c046f24d08d519e4f"},
+    {file = "honcho_ai-0.0.11.tar.gz", hash = "sha256:e0ac527d416e6a0a90a1dc274efe31309bea199d8c0a6a6a3563859ba8696e70"},
 ]
 
 [package.dependencies]
@@ -752,4 +752,4 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.9"
-content-hash = "f20df19880d2c196412fbf75ba69b16ba3bd800eba87ae3f41875a3e52ff6620"
+content-hash = "a97344f70fc98b7ee2a8474af6adda96530b19a65d8d58026a420497d34dd57f"

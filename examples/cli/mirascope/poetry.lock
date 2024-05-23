@@ -2,13 +2,13 @@
 
 [[package]]
 name = "annotated-types"
-version = "0.6.0"
+version = "0.7.0"
 description = "Reusable constraint types to use with typing.Annotated"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "annotated_types-0.6.0-py3-none-any.whl", hash = "sha256:0641064de18ba7a25dee8f96403ebc39113d0cb953a01429249d5c7564666a43"},
-    {file = "annotated_types-0.6.0.tar.gz", hash = "sha256:563339e807e53ffd9c267e99fc6d9ea23eb8443c08f112651963e24e22f84a5d"},
+    {file = "annotated_types-0.7.0-py3-none-any.whl", hash = "sha256:1f02e8b43a8fbbc3f3e0d4f0f4bfc8131bcb4eebe8849b8e5c773f3a1c582a53"},
+    {file = "annotated_types-0.7.0.tar.gz", hash = "sha256:aff07c09a53a08bc8cfccb9c85b05f1aa9a2a6f23728d790723543408344ce89"},
 ]
 
 [[package]]
@@ -104,12 +104,13 @@ files = [
 
 [[package]]
 name = "honcho-ai"
-version = "0.0.8"
+version = "0.0.11"
 description = "The official Python library for the honcho API"
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "honcho_ai-0.0.8.tar.gz", hash = "sha256:9f30a29cfe958767329a681f30bfb8d572a100cfc997370b233321c56e2722a8"},
+    {file = "honcho_ai-0.0.11-py3-none-any.whl", hash = "sha256:e872e120125058cc4eac67ae83ec37bb23238f49be026a1c046f24d08d519e4f"},
+    {file = "honcho_ai-0.0.11.tar.gz", hash = "sha256:e0ac527d416e6a0a90a1dc274efe31309bea199d8c0a6a6a3563859ba8696e70"},
 ]
 
 [package.dependencies]
@@ -119,10 +120,6 @@ httpx = ">=0.23.0,<1"
 pydantic = ">=1.9.0,<3"
 sniffio = "*"
 typing-extensions = ">=4.7,<5"
-
-[package.source]
-type = "file"
-url = "../../../dist/honcho_ai-0.0.8.tar.gz"
 
 [[package]]
 name = "httpcore"
@@ -182,13 +179,13 @@ files = [
 
 [[package]]
 name = "mirascope"
-version = "0.13.2"
+version = "0.13.5"
 description = "An intuitive approach to building with LLMs"
 optional = false
 python-versions = "<4.0,>=3.9"
 files = [
-    {file = "mirascope-0.13.2-py3-none-any.whl", hash = "sha256:c760379411c0b5a4a714705aa5724250aa9e13ef52e075cac5dd1230b4e8e5da"},
-    {file = "mirascope-0.13.2.tar.gz", hash = "sha256:cd2fcdae30d451880784eee0a66ec654c9874a97953955fc57d10b0a34b6b294"},
+    {file = "mirascope-0.13.5-py3-none-any.whl", hash = "sha256:491e6491f9c882225258d63abb3642ee1b29b495300e2c386f549bdb33fa0c30"},
+    {file = "mirascope-0.13.5.tar.gz", hash = "sha256:49a82e7ac4d27c96bf07e9b3fdaa64592a7dc598155254768869e5130c8cb31c"},
 ]
 
 [package.dependencies]
@@ -419,4 +416,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.9"
-content-hash = "0f9c729893d7424dd727d44073430db7009f5c19bfa70902789e671bb975f014"
+content-hash = "a41361b7c62d19b26cce55a946604f3d24617b4f87906342bf77ad029ef1ec56"
