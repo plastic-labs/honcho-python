@@ -41,7 +41,7 @@ class TestMetamessages:
             content="string",
             message_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             metamessage_type="string",
-            metadata={},
+            metadata={"foo": "bar"},
         )
         assert_matches_type(Metamessage, metamessage, path=["response"])
 
@@ -130,7 +130,7 @@ class TestMetamessages:
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             message_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            metadata={},
+            metadata={"foo": "bar"},
             metamessage_type="string",
         )
         assert_matches_type(Metamessage, metamessage, path=["response"])
@@ -386,7 +386,7 @@ class TestAsyncMetamessages:
             content="string",
             message_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             metamessage_type="string",
-            metadata={},
+            metadata={"foo": "bar"},
         )
         assert_matches_type(Metamessage, metamessage, path=["response"])
 
@@ -475,7 +475,7 @@ class TestAsyncMetamessages:
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             message_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            metadata={},
+            metadata={"foo": "bar"},
             metamessage_type="string",
         )
         assert_matches_type(Metamessage, metamessage, path=["response"])
