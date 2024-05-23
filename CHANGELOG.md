@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.0.10 (2024-05-23)
+
+Full Changelog: [v0.0.9...v0.0.10](https://github.com/plastic-labs/honcho-python/compare/v0.0.9...v0.0.10)
+
+### Features
+
+* Release 0.0.10 Demos and LangChain Integration ([#15](https://github.com/plastic-labs/honcho-python/issues/15)) ([1c6f477](https://github.com/plastic-labs/honcho-python/commit/1c6f47742494440a6b820e416aefd105e7b1a3ec))
+
+
+### Chores
+
+* **internal:** version bump ([#13](https://github.com/plastic-labs/honcho-python/issues/13)) ([05a39a1](https://github.com/plastic-labs/honcho-python/commit/05a39a1e3796f7efcc0fd143d6b72478255b88e8))
+
 ## 0.0.9 (2024-05-23)
 
 Full Changelog: [v0.0.8...v0.0.9](https://github.com/plastic-labs/honcho-python/compare/v0.0.8...v0.0.9)
