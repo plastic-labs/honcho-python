@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.0.12 (2024-05-23)
+
+Full Changelog: [v0.0.11...v0.0.12](https://github.com/plastic-labs/honcho-python/compare/v0.0.11...v0.0.12)
+
+### Features
+
+* **api:** update via SDK Studio ([#22](https://github.com/plastic-labs/honcho-python/issues/22)) ([a9e7757](https://github.com/plastic-labs/honcho-python/commit/a9e7757b02f4cd560d12717af38bb85368eed581))
+
+
+### Chores
+
+* **examples:** update honcho package versions to latest ([331ce69](https://github.com/plastic-labs/honcho-python/commit/331ce69e0400690885a9cc62d92a9403e4e3953b))
+
 ## 0.0.11 (2024-05-23)
 
 Full Changelog: [v0.0.10...v0.0.11](https://github.com/plastic-labs/honcho-python/compare/v0.0.10...v0.0.11)
