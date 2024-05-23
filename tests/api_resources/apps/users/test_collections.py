@@ -36,7 +36,7 @@ class TestCollections:
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             name="string",
-            metadata={},
+            metadata={"foo": "bar"},
         )
         assert_matches_type(Collection, collection, path=["response"])
 
@@ -101,7 +101,7 @@ class TestCollections:
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             name="string",
-            metadata={},
+            metadata={"foo": "bar"},
         )
         assert_matches_type(Collection, collection, path=["response"])
 
@@ -498,7 +498,7 @@ class TestAsyncCollections:
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             name="string",
-            metadata={},
+            metadata={"foo": "bar"},
         )
         assert_matches_type(Collection, collection, path=["response"])
 
@@ -563,7 +563,7 @@ class TestAsyncCollections:
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             name="string",
-            metadata={},
+            metadata={"foo": "bar"},
         )
         assert_matches_type(Collection, collection, path=["response"])
 

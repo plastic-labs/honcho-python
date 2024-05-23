@@ -37,7 +37,7 @@ class TestMessages:
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             content="string",
             is_user=True,
-            metadata={},
+            metadata={"foo": "bar"},
         )
         assert_matches_type(Message, message, path=["response"])
 
@@ -119,7 +119,7 @@ class TestMessages:
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            metadata={},
+            metadata={"foo": "bar"},
         )
         assert_matches_type(Message, message, path=["response"])
 
@@ -357,7 +357,7 @@ class TestAsyncMessages:
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             content="string",
             is_user=True,
-            metadata={},
+            metadata={"foo": "bar"},
         )
         assert_matches_type(Message, message, path=["response"])
 
@@ -439,7 +439,7 @@ class TestAsyncMessages:
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            metadata={},
+            metadata={"foo": "bar"},
         )
         assert_matches_type(Message, message, path=["response"])
 
