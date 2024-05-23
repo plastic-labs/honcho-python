@@ -37,7 +37,7 @@ class TestDocuments:
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             content="string",
-            metadata={},
+            metadata={"foo": "bar"},
         )
         assert_matches_type(Document, document, path=["response"])
 
@@ -115,7 +115,7 @@ class TestDocuments:
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             collection_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             content="string",
-            metadata={},
+            metadata={"foo": "bar"},
         )
         assert_matches_type(Document, document, path=["response"])
 
@@ -425,7 +425,7 @@ class TestAsyncDocuments:
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             content="string",
-            metadata={},
+            metadata={"foo": "bar"},
         )
         assert_matches_type(Document, document, path=["response"])
 
@@ -503,7 +503,7 @@ class TestAsyncDocuments:
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             collection_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             content="string",
-            metadata={},
+            metadata={"foo": "bar"},
         )
         assert_matches_type(Document, document, path=["response"])
 

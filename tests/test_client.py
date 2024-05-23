@@ -19,7 +19,7 @@ from pydantic import ValidationError
 from honcho import Honcho, AsyncHoncho, APIResponseValidationError
 from honcho._models import BaseModel, FinalRequestOptions
 from honcho._constants import RAW_RESPONSE_HEADER
-from honcho._exceptions import APIStatusError, APITimeoutError, APIResponseValidationError
+from honcho._exceptions import HonchoError, APIStatusError, APITimeoutError, APIResponseValidationError
 from honcho._base_client import DEFAULT_TIMEOUT, HTTPX_DEFAULT_TIMEOUT, BaseClient, make_request_options
 
 from .utils import update_env
@@ -326,9 +326,9 @@ class TestHoncho:
         request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
         assert request.headers.get("Authorization") == f"Bearer {api_key}"
 
-        client2 = Honcho(base_url=base_url, api_key=None, _strict_response_validation=True)
-
-        client2._build_request(FinalRequestOptions(method="get", url="/foo"))
+        with pytest.raises(HonchoError):
+            client2 = Honcho(base_url=base_url, api_key=None, _strict_response_validation=True)
+            _ = client2
 
     def test_default_query_option(self) -> None:
         client = Honcho(
@@ -1017,9 +1017,9 @@ class TestAsyncHoncho:
         request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
         assert request.headers.get("Authorization") == f"Bearer {api_key}"
 
-        client2 = AsyncHoncho(base_url=base_url, api_key=None, _strict_response_validation=True)
-
-        client2._build_request(FinalRequestOptions(method="get", url="/foo"))
+        with pytest.raises(HonchoError):
+            client2 = AsyncHoncho(base_url=base_url, api_key=None, _strict_response_validation=True)
+            _ = client2
 
     def test_default_query_option(self) -> None:
         client = AsyncHoncho(
