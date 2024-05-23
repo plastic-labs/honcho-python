@@ -29,7 +29,7 @@ from honcho import Honcho
 
 client = Honcho(
     # This is the default and can be omitted
-    api_key=os.environ.get("HONCHO_AUTH_TOKEN"),
+    api_key=os.environ.get("HONCHO_API_KEY"),
     # defaults to "local".
     environment="demo",
 )
@@ -42,7 +42,7 @@ print(app.id)
 
 While you can provide an `api_key` keyword argument,
 we recommend using [python-dotenv](https://pypi.org/project/python-dotenv/)
-to add `HONCHO_AUTH_TOKEN="My API Key"` to your `.env` file
+to add `HONCHO_API_KEY="My API Key"` to your `.env` file
 so that your API Key is not stored in source control.
 
 ## Async usage
@@ -56,7 +56,7 @@ from honcho import AsyncHoncho
 
 client = AsyncHoncho(
     # This is the default and can be omitted
-    api_key=os.environ.get("HONCHO_AUTH_TOKEN"),
+    api_key=os.environ.get("HONCHO_API_KEY"),
     # defaults to "local".
     environment="demo",
 )
