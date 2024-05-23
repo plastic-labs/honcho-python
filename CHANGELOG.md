@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.1.0 (2024-05-23)
+
+Full Changelog: [v0.0.8...v0.1.0](https://github.com/plastic-labs/honcho-python/compare/v0.0.8...v0.1.0)
+
+### Features
+
+* **api:** OpenAPI spec update via Stainless API ([#12](https://github.com/plastic-labs/honcho-python/issues/12)) ([fc9f943](https://github.com/plastic-labs/honcho-python/commit/fc9f943458b81fc897d9643ff3956ed2a859a4e9))
+* **api:** update via SDK Studio ([#11](https://github.com/plastic-labs/honcho-python/issues/11)) ([08b81ed](https://github.com/plastic-labs/honcho-python/commit/08b81edd9a63e10f55575ddd3d7ca542f271aed7))
+
+
+### Chores
+
+* **internal:** version bump ([#8](https://github.com/plastic-labs/honcho-python/issues/8)) ([dac6964](https://github.com/plastic-labs/honcho-python/commit/dac6964e461965e4b111a77b22a508eac849590c))
+
 ## 0.0.8 (2024-05-16)
 
 Full Changelog: [v0.0.8-alpha.1...v0.0.8](https://github.com/plastic-labs/honcho-python/compare/v0.0.8-alpha.1...v0.0.8)
