@@ -67,7 +67,7 @@ class TestApps:
     def test_method_update_with_all_params(self, client: Honcho) -> None:
         app = client.apps.update(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            metadata={},
+            metadata={"foo": "bar"},
             name="string",
         )
         assert_matches_type(App, app, path=["response"])
@@ -271,7 +271,7 @@ class TestAsyncApps:
     async def test_method_update_with_all_params(self, async_client: AsyncHoncho) -> None:
         app = await async_client.apps.update(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            metadata={},
+            metadata={"foo": "bar"},
             name="string",
         )
         assert_matches_type(App, app, path=["response"])

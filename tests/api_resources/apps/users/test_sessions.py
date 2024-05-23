@@ -36,7 +36,7 @@ class TestSessions:
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             location_id="string",
-            metadata={},
+            metadata={"foo": "bar"},
         )
         assert_matches_type(Session, session, path=["response"])
 
@@ -99,7 +99,7 @@ class TestSessions:
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            metadata={},
+            metadata={"foo": "bar"},
         )
         assert_matches_type(Session, session, path=["response"])
 
@@ -487,7 +487,7 @@ class TestAsyncSessions:
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             location_id="string",
-            metadata={},
+            metadata={"foo": "bar"},
         )
         assert_matches_type(Session, session, path=["response"])
 
@@ -550,7 +550,7 @@ class TestAsyncSessions:
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            metadata={},
+            metadata={"foo": "bar"},
         )
         assert_matches_type(Session, session, path=["response"])
 

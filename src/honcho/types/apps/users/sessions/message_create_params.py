@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Optional
+from typing import Dict, Optional
 from typing_extensions import Required, TypedDict
 
 __all__ = ["MessageCreateParams"]
@@ -17,4 +17,4 @@ class MessageCreateParams(TypedDict, total=False):
 
     is_user: Required[bool]
 
-    metadata: Optional[object]
+    metadata: Optional[Dict[str, object]]
