@@ -24,18 +24,18 @@ class TestSessions:
     @parametrize
     def test_method_create(self, client: Honcho) -> None:
         session = client.apps.users.sessions.create(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            location_id="string",
+            location_id="location_id",
         )
         assert_matches_type(Session, session, path=["response"])
 
     @parametrize
     def test_method_create_with_all_params(self, client: Honcho) -> None:
         session = client.apps.users.sessions.create(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            location_id="string",
+            location_id="location_id",
             metadata={"foo": "bar"},
         )
         assert_matches_type(Session, session, path=["response"])
@@ -43,9 +43,9 @@ class TestSessions:
     @parametrize
     def test_raw_response_create(self, client: Honcho) -> None:
         response = client.apps.users.sessions.with_raw_response.create(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            location_id="string",
+            location_id="location_id",
         )
 
         assert response.is_closed is True
@@ -56,9 +56,9 @@ class TestSessions:
     @parametrize
     def test_streaming_response_create(self, client: Honcho) -> None:
         with client.apps.users.sessions.with_streaming_response.create(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            location_id="string",
+            location_id="location_id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -72,22 +72,22 @@ class TestSessions:
     def test_path_params_create(self, client: Honcho) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `app_id` but received ''"):
             client.apps.users.sessions.with_raw_response.create(
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 app_id="",
-                location_id="string",
+                location_id="location_id",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `user_id` but received ''"):
             client.apps.users.sessions.with_raw_response.create(
-                "",
+                user_id="",
                 app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                location_id="string",
+                location_id="location_id",
             )
 
     @parametrize
     def test_method_update(self, client: Honcho) -> None:
         session = client.apps.users.sessions.update(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
@@ -96,7 +96,7 @@ class TestSessions:
     @parametrize
     def test_method_update_with_all_params(self, client: Honcho) -> None:
         session = client.apps.users.sessions.update(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             metadata={"foo": "bar"},
@@ -106,7 +106,7 @@ class TestSessions:
     @parametrize
     def test_raw_response_update(self, client: Honcho) -> None:
         response = client.apps.users.sessions.with_raw_response.update(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
@@ -119,7 +119,7 @@ class TestSessions:
     @parametrize
     def test_streaming_response_update(self, client: Honcho) -> None:
         with client.apps.users.sessions.with_streaming_response.update(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
@@ -135,21 +135,21 @@ class TestSessions:
     def test_path_params_update(self, client: Honcho) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `app_id` but received ''"):
             client.apps.users.sessions.with_raw_response.update(
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 app_id="",
                 user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `user_id` but received ''"):
             client.apps.users.sessions.with_raw_response.update(
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 user_id="",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `session_id` but received ''"):
             client.apps.users.sessions.with_raw_response.update(
-                "",
+                session_id="",
                 app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             )
@@ -157,7 +157,7 @@ class TestSessions:
     @parametrize
     def test_method_list(self, client: Honcho) -> None:
         session = client.apps.users.sessions.list(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(SyncPage[Session], session, path=["response"])
@@ -165,11 +165,11 @@ class TestSessions:
     @parametrize
     def test_method_list_with_all_params(self, client: Honcho) -> None:
         session = client.apps.users.sessions.list(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            filter="string",
+            filter="filter",
             is_active=True,
-            location_id="string",
+            location_id="location_id",
             page=1,
             reverse=True,
             size=1,
@@ -179,7 +179,7 @@ class TestSessions:
     @parametrize
     def test_raw_response_list(self, client: Honcho) -> None:
         response = client.apps.users.sessions.with_raw_response.list(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
 
@@ -191,7 +191,7 @@ class TestSessions:
     @parametrize
     def test_streaming_response_list(self, client: Honcho) -> None:
         with client.apps.users.sessions.with_streaming_response.list(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
             assert not response.is_closed
@@ -206,20 +206,20 @@ class TestSessions:
     def test_path_params_list(self, client: Honcho) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `app_id` but received ''"):
             client.apps.users.sessions.with_raw_response.list(
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 app_id="",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `user_id` but received ''"):
             client.apps.users.sessions.with_raw_response.list(
-                "",
+                user_id="",
                 app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             )
 
     @parametrize
     def test_method_delete(self, client: Honcho) -> None:
         session = client.apps.users.sessions.delete(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
@@ -228,7 +228,7 @@ class TestSessions:
     @parametrize
     def test_raw_response_delete(self, client: Honcho) -> None:
         response = client.apps.users.sessions.with_raw_response.delete(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
@@ -241,7 +241,7 @@ class TestSessions:
     @parametrize
     def test_streaming_response_delete(self, client: Honcho) -> None:
         with client.apps.users.sessions.with_streaming_response.delete(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
@@ -257,21 +257,21 @@ class TestSessions:
     def test_path_params_delete(self, client: Honcho) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `app_id` but received ''"):
             client.apps.users.sessions.with_raw_response.delete(
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 app_id="",
                 user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `user_id` but received ''"):
             client.apps.users.sessions.with_raw_response.delete(
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 user_id="",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `session_id` but received ''"):
             client.apps.users.sessions.with_raw_response.delete(
-                "",
+                session_id="",
                 app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             )
@@ -279,20 +279,20 @@ class TestSessions:
     @parametrize
     def test_method_chat(self, client: Honcho) -> None:
         session = client.apps.users.sessions.chat(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            query="string",
+            query="query",
         )
         assert_matches_type(AgentChat, session, path=["response"])
 
     @parametrize
     def test_raw_response_chat(self, client: Honcho) -> None:
         response = client.apps.users.sessions.with_raw_response.chat(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            query="string",
+            query="query",
         )
 
         assert response.is_closed is True
@@ -303,10 +303,10 @@ class TestSessions:
     @parametrize
     def test_streaming_response_chat(self, client: Honcho) -> None:
         with client.apps.users.sessions.with_streaming_response.chat(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            query="string",
+            query="query",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -320,32 +320,32 @@ class TestSessions:
     def test_path_params_chat(self, client: Honcho) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `app_id` but received ''"):
             client.apps.users.sessions.with_raw_response.chat(
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 app_id="",
                 user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                query="string",
+                query="query",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `user_id` but received ''"):
             client.apps.users.sessions.with_raw_response.chat(
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 user_id="",
-                query="string",
+                query="query",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `session_id` but received ''"):
             client.apps.users.sessions.with_raw_response.chat(
-                "",
+                session_id="",
                 app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                query="string",
+                query="query",
             )
 
     @parametrize
     def test_method_get(self, client: Honcho) -> None:
         session = client.apps.users.sessions.get(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
@@ -354,7 +354,7 @@ class TestSessions:
     @parametrize
     def test_raw_response_get(self, client: Honcho) -> None:
         response = client.apps.users.sessions.with_raw_response.get(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
@@ -367,7 +367,7 @@ class TestSessions:
     @parametrize
     def test_streaming_response_get(self, client: Honcho) -> None:
         with client.apps.users.sessions.with_streaming_response.get(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
@@ -383,21 +383,21 @@ class TestSessions:
     def test_path_params_get(self, client: Honcho) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `app_id` but received ''"):
             client.apps.users.sessions.with_raw_response.get(
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 app_id="",
                 user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `user_id` but received ''"):
             client.apps.users.sessions.with_raw_response.get(
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 user_id="",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `session_id` but received ''"):
             client.apps.users.sessions.with_raw_response.get(
-                "",
+                session_id="",
                 app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             )
@@ -405,20 +405,20 @@ class TestSessions:
     @parametrize
     def test_method_stream(self, client: Honcho) -> None:
         session = client.apps.users.sessions.stream(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            query="string",
+            query="query",
         )
         assert_matches_type(object, session, path=["response"])
 
     @parametrize
     def test_raw_response_stream(self, client: Honcho) -> None:
         response = client.apps.users.sessions.with_raw_response.stream(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            query="string",
+            query="query",
         )
 
         assert response.is_closed is True
@@ -429,10 +429,10 @@ class TestSessions:
     @parametrize
     def test_streaming_response_stream(self, client: Honcho) -> None:
         with client.apps.users.sessions.with_streaming_response.stream(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            query="string",
+            query="query",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -446,26 +446,26 @@ class TestSessions:
     def test_path_params_stream(self, client: Honcho) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `app_id` but received ''"):
             client.apps.users.sessions.with_raw_response.stream(
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 app_id="",
                 user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                query="string",
+                query="query",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `user_id` but received ''"):
             client.apps.users.sessions.with_raw_response.stream(
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 user_id="",
-                query="string",
+                query="query",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `session_id` but received ''"):
             client.apps.users.sessions.with_raw_response.stream(
-                "",
+                session_id="",
                 app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                query="string",
+                query="query",
             )
 
 
@@ -475,18 +475,18 @@ class TestAsyncSessions:
     @parametrize
     async def test_method_create(self, async_client: AsyncHoncho) -> None:
         session = await async_client.apps.users.sessions.create(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            location_id="string",
+            location_id="location_id",
         )
         assert_matches_type(Session, session, path=["response"])
 
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncHoncho) -> None:
         session = await async_client.apps.users.sessions.create(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            location_id="string",
+            location_id="location_id",
             metadata={"foo": "bar"},
         )
         assert_matches_type(Session, session, path=["response"])
@@ -494,9 +494,9 @@ class TestAsyncSessions:
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncHoncho) -> None:
         response = await async_client.apps.users.sessions.with_raw_response.create(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            location_id="string",
+            location_id="location_id",
         )
 
         assert response.is_closed is True
@@ -507,9 +507,9 @@ class TestAsyncSessions:
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncHoncho) -> None:
         async with async_client.apps.users.sessions.with_streaming_response.create(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            location_id="string",
+            location_id="location_id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -523,22 +523,22 @@ class TestAsyncSessions:
     async def test_path_params_create(self, async_client: AsyncHoncho) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `app_id` but received ''"):
             await async_client.apps.users.sessions.with_raw_response.create(
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 app_id="",
-                location_id="string",
+                location_id="location_id",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `user_id` but received ''"):
             await async_client.apps.users.sessions.with_raw_response.create(
-                "",
+                user_id="",
                 app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                location_id="string",
+                location_id="location_id",
             )
 
     @parametrize
     async def test_method_update(self, async_client: AsyncHoncho) -> None:
         session = await async_client.apps.users.sessions.update(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
@@ -547,7 +547,7 @@ class TestAsyncSessions:
     @parametrize
     async def test_method_update_with_all_params(self, async_client: AsyncHoncho) -> None:
         session = await async_client.apps.users.sessions.update(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             metadata={"foo": "bar"},
@@ -557,7 +557,7 @@ class TestAsyncSessions:
     @parametrize
     async def test_raw_response_update(self, async_client: AsyncHoncho) -> None:
         response = await async_client.apps.users.sessions.with_raw_response.update(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
@@ -570,7 +570,7 @@ class TestAsyncSessions:
     @parametrize
     async def test_streaming_response_update(self, async_client: AsyncHoncho) -> None:
         async with async_client.apps.users.sessions.with_streaming_response.update(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
@@ -586,21 +586,21 @@ class TestAsyncSessions:
     async def test_path_params_update(self, async_client: AsyncHoncho) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `app_id` but received ''"):
             await async_client.apps.users.sessions.with_raw_response.update(
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 app_id="",
                 user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `user_id` but received ''"):
             await async_client.apps.users.sessions.with_raw_response.update(
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 user_id="",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `session_id` but received ''"):
             await async_client.apps.users.sessions.with_raw_response.update(
-                "",
+                session_id="",
                 app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             )
@@ -608,7 +608,7 @@ class TestAsyncSessions:
     @parametrize
     async def test_method_list(self, async_client: AsyncHoncho) -> None:
         session = await async_client.apps.users.sessions.list(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(AsyncPage[Session], session, path=["response"])
@@ -616,11 +616,11 @@ class TestAsyncSessions:
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncHoncho) -> None:
         session = await async_client.apps.users.sessions.list(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            filter="string",
+            filter="filter",
             is_active=True,
-            location_id="string",
+            location_id="location_id",
             page=1,
             reverse=True,
             size=1,
@@ -630,7 +630,7 @@ class TestAsyncSessions:
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncHoncho) -> None:
         response = await async_client.apps.users.sessions.with_raw_response.list(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
 
@@ -642,7 +642,7 @@ class TestAsyncSessions:
     @parametrize
     async def test_streaming_response_list(self, async_client: AsyncHoncho) -> None:
         async with async_client.apps.users.sessions.with_streaming_response.list(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
             assert not response.is_closed
@@ -657,20 +657,20 @@ class TestAsyncSessions:
     async def test_path_params_list(self, async_client: AsyncHoncho) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `app_id` but received ''"):
             await async_client.apps.users.sessions.with_raw_response.list(
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 app_id="",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `user_id` but received ''"):
             await async_client.apps.users.sessions.with_raw_response.list(
-                "",
+                user_id="",
                 app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             )
 
     @parametrize
     async def test_method_delete(self, async_client: AsyncHoncho) -> None:
         session = await async_client.apps.users.sessions.delete(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
@@ -679,7 +679,7 @@ class TestAsyncSessions:
     @parametrize
     async def test_raw_response_delete(self, async_client: AsyncHoncho) -> None:
         response = await async_client.apps.users.sessions.with_raw_response.delete(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
@@ -692,7 +692,7 @@ class TestAsyncSessions:
     @parametrize
     async def test_streaming_response_delete(self, async_client: AsyncHoncho) -> None:
         async with async_client.apps.users.sessions.with_streaming_response.delete(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
@@ -708,21 +708,21 @@ class TestAsyncSessions:
     async def test_path_params_delete(self, async_client: AsyncHoncho) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `app_id` but received ''"):
             await async_client.apps.users.sessions.with_raw_response.delete(
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 app_id="",
                 user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `user_id` but received ''"):
             await async_client.apps.users.sessions.with_raw_response.delete(
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 user_id="",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `session_id` but received ''"):
             await async_client.apps.users.sessions.with_raw_response.delete(
-                "",
+                session_id="",
                 app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             )
@@ -730,20 +730,20 @@ class TestAsyncSessions:
     @parametrize
     async def test_method_chat(self, async_client: AsyncHoncho) -> None:
         session = await async_client.apps.users.sessions.chat(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            query="string",
+            query="query",
         )
         assert_matches_type(AgentChat, session, path=["response"])
 
     @parametrize
     async def test_raw_response_chat(self, async_client: AsyncHoncho) -> None:
         response = await async_client.apps.users.sessions.with_raw_response.chat(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            query="string",
+            query="query",
         )
 
         assert response.is_closed is True
@@ -754,10 +754,10 @@ class TestAsyncSessions:
     @parametrize
     async def test_streaming_response_chat(self, async_client: AsyncHoncho) -> None:
         async with async_client.apps.users.sessions.with_streaming_response.chat(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            query="string",
+            query="query",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -771,32 +771,32 @@ class TestAsyncSessions:
     async def test_path_params_chat(self, async_client: AsyncHoncho) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `app_id` but received ''"):
             await async_client.apps.users.sessions.with_raw_response.chat(
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 app_id="",
                 user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                query="string",
+                query="query",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `user_id` but received ''"):
             await async_client.apps.users.sessions.with_raw_response.chat(
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 user_id="",
-                query="string",
+                query="query",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `session_id` but received ''"):
             await async_client.apps.users.sessions.with_raw_response.chat(
-                "",
+                session_id="",
                 app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                query="string",
+                query="query",
             )
 
     @parametrize
     async def test_method_get(self, async_client: AsyncHoncho) -> None:
         session = await async_client.apps.users.sessions.get(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
@@ -805,7 +805,7 @@ class TestAsyncSessions:
     @parametrize
     async def test_raw_response_get(self, async_client: AsyncHoncho) -> None:
         response = await async_client.apps.users.sessions.with_raw_response.get(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
@@ -818,7 +818,7 @@ class TestAsyncSessions:
     @parametrize
     async def test_streaming_response_get(self, async_client: AsyncHoncho) -> None:
         async with async_client.apps.users.sessions.with_streaming_response.get(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
@@ -834,21 +834,21 @@ class TestAsyncSessions:
     async def test_path_params_get(self, async_client: AsyncHoncho) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `app_id` but received ''"):
             await async_client.apps.users.sessions.with_raw_response.get(
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 app_id="",
                 user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `user_id` but received ''"):
             await async_client.apps.users.sessions.with_raw_response.get(
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 user_id="",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `session_id` but received ''"):
             await async_client.apps.users.sessions.with_raw_response.get(
-                "",
+                session_id="",
                 app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             )
@@ -856,20 +856,20 @@ class TestAsyncSessions:
     @parametrize
     async def test_method_stream(self, async_client: AsyncHoncho) -> None:
         session = await async_client.apps.users.sessions.stream(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            query="string",
+            query="query",
         )
         assert_matches_type(object, session, path=["response"])
 
     @parametrize
     async def test_raw_response_stream(self, async_client: AsyncHoncho) -> None:
         response = await async_client.apps.users.sessions.with_raw_response.stream(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            query="string",
+            query="query",
         )
 
         assert response.is_closed is True
@@ -880,10 +880,10 @@ class TestAsyncSessions:
     @parametrize
     async def test_streaming_response_stream(self, async_client: AsyncHoncho) -> None:
         async with async_client.apps.users.sessions.with_streaming_response.stream(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            query="string",
+            query="query",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -897,24 +897,24 @@ class TestAsyncSessions:
     async def test_path_params_stream(self, async_client: AsyncHoncho) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `app_id` but received ''"):
             await async_client.apps.users.sessions.with_raw_response.stream(
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 app_id="",
                 user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                query="string",
+                query="query",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `user_id` but received ''"):
             await async_client.apps.users.sessions.with_raw_response.stream(
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 user_id="",
-                query="string",
+                query="query",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `session_id` but received ''"):
             await async_client.apps.users.sessions.with_raw_response.stream(
-                "",
+                session_id="",
                 app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                query="string",
+                query="query",
             )

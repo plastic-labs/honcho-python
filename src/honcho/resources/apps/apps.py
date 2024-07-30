@@ -30,9 +30,7 @@ from ..._response import (
 )
 from ...types.app import App
 from .users.users import UsersResource, AsyncUsersResource
-from ..._base_client import (
-    make_request_options,
-)
+from ..._base_client import make_request_options
 
 __all__ = ["AppsResource", "AsyncAppsResource"]
 
