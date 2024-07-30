@@ -20,14 +20,14 @@ class TestApps:
     @parametrize
     def test_method_create(self, client: Honcho) -> None:
         app = client.apps.create(
-            name="string",
+            name="name",
         )
         assert_matches_type(App, app, path=["response"])
 
     @parametrize
     def test_method_create_with_all_params(self, client: Honcho) -> None:
         app = client.apps.create(
-            name="string",
+            name="name",
             metadata={"foo": "bar"},
         )
         assert_matches_type(App, app, path=["response"])
@@ -35,7 +35,7 @@ class TestApps:
     @parametrize
     def test_raw_response_create(self, client: Honcho) -> None:
         response = client.apps.with_raw_response.create(
-            name="string",
+            name="name",
         )
 
         assert response.is_closed is True
@@ -46,7 +46,7 @@ class TestApps:
     @parametrize
     def test_streaming_response_create(self, client: Honcho) -> None:
         with client.apps.with_streaming_response.create(
-            name="string",
+            name="name",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -59,23 +59,23 @@ class TestApps:
     @parametrize
     def test_method_update(self, client: Honcho) -> None:
         app = client.apps.update(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(App, app, path=["response"])
 
     @parametrize
     def test_method_update_with_all_params(self, client: Honcho) -> None:
         app = client.apps.update(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             metadata={"foo": "bar"},
-            name="string",
+            name="name",
         )
         assert_matches_type(App, app, path=["response"])
 
     @parametrize
     def test_raw_response_update(self, client: Honcho) -> None:
         response = client.apps.with_raw_response.update(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
 
         assert response.is_closed is True
@@ -86,7 +86,7 @@ class TestApps:
     @parametrize
     def test_streaming_response_update(self, client: Honcho) -> None:
         with client.apps.with_streaming_response.update(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -100,7 +100,7 @@ class TestApps:
     def test_path_params_update(self, client: Honcho) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `app_id` but received ''"):
             client.apps.with_raw_response.update(
-                "",
+                app_id="",
             )
 
     @parametrize
@@ -144,14 +144,14 @@ class TestApps:
     @parametrize
     def test_method_get_by_name(self, client: Honcho) -> None:
         app = client.apps.get_by_name(
-            "string",
+            "name",
         )
         assert_matches_type(App, app, path=["response"])
 
     @parametrize
     def test_raw_response_get_by_name(self, client: Honcho) -> None:
         response = client.apps.with_raw_response.get_by_name(
-            "string",
+            "name",
         )
 
         assert response.is_closed is True
@@ -162,7 +162,7 @@ class TestApps:
     @parametrize
     def test_streaming_response_get_by_name(self, client: Honcho) -> None:
         with client.apps.with_streaming_response.get_by_name(
-            "string",
+            "name",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -182,14 +182,14 @@ class TestApps:
     @parametrize
     def test_method_get_or_create(self, client: Honcho) -> None:
         app = client.apps.get_or_create(
-            "string",
+            "name",
         )
         assert_matches_type(App, app, path=["response"])
 
     @parametrize
     def test_raw_response_get_or_create(self, client: Honcho) -> None:
         response = client.apps.with_raw_response.get_or_create(
-            "string",
+            "name",
         )
 
         assert response.is_closed is True
@@ -200,7 +200,7 @@ class TestApps:
     @parametrize
     def test_streaming_response_get_or_create(self, client: Honcho) -> None:
         with client.apps.with_streaming_response.get_or_create(
-            "string",
+            "name",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -224,14 +224,14 @@ class TestAsyncApps:
     @parametrize
     async def test_method_create(self, async_client: AsyncHoncho) -> None:
         app = await async_client.apps.create(
-            name="string",
+            name="name",
         )
         assert_matches_type(App, app, path=["response"])
 
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncHoncho) -> None:
         app = await async_client.apps.create(
-            name="string",
+            name="name",
             metadata={"foo": "bar"},
         )
         assert_matches_type(App, app, path=["response"])
@@ -239,7 +239,7 @@ class TestAsyncApps:
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncHoncho) -> None:
         response = await async_client.apps.with_raw_response.create(
-            name="string",
+            name="name",
         )
 
         assert response.is_closed is True
@@ -250,7 +250,7 @@ class TestAsyncApps:
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncHoncho) -> None:
         async with async_client.apps.with_streaming_response.create(
-            name="string",
+            name="name",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -263,23 +263,23 @@ class TestAsyncApps:
     @parametrize
     async def test_method_update(self, async_client: AsyncHoncho) -> None:
         app = await async_client.apps.update(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(App, app, path=["response"])
 
     @parametrize
     async def test_method_update_with_all_params(self, async_client: AsyncHoncho) -> None:
         app = await async_client.apps.update(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             metadata={"foo": "bar"},
-            name="string",
+            name="name",
         )
         assert_matches_type(App, app, path=["response"])
 
     @parametrize
     async def test_raw_response_update(self, async_client: AsyncHoncho) -> None:
         response = await async_client.apps.with_raw_response.update(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
 
         assert response.is_closed is True
@@ -290,7 +290,7 @@ class TestAsyncApps:
     @parametrize
     async def test_streaming_response_update(self, async_client: AsyncHoncho) -> None:
         async with async_client.apps.with_streaming_response.update(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -304,7 +304,7 @@ class TestAsyncApps:
     async def test_path_params_update(self, async_client: AsyncHoncho) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `app_id` but received ''"):
             await async_client.apps.with_raw_response.update(
-                "",
+                app_id="",
             )
 
     @parametrize
@@ -348,14 +348,14 @@ class TestAsyncApps:
     @parametrize
     async def test_method_get_by_name(self, async_client: AsyncHoncho) -> None:
         app = await async_client.apps.get_by_name(
-            "string",
+            "name",
         )
         assert_matches_type(App, app, path=["response"])
 
     @parametrize
     async def test_raw_response_get_by_name(self, async_client: AsyncHoncho) -> None:
         response = await async_client.apps.with_raw_response.get_by_name(
-            "string",
+            "name",
         )
 
         assert response.is_closed is True
@@ -366,7 +366,7 @@ class TestAsyncApps:
     @parametrize
     async def test_streaming_response_get_by_name(self, async_client: AsyncHoncho) -> None:
         async with async_client.apps.with_streaming_response.get_by_name(
-            "string",
+            "name",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -386,14 +386,14 @@ class TestAsyncApps:
     @parametrize
     async def test_method_get_or_create(self, async_client: AsyncHoncho) -> None:
         app = await async_client.apps.get_or_create(
-            "string",
+            "name",
         )
         assert_matches_type(App, app, path=["response"])
 
     @parametrize
     async def test_raw_response_get_or_create(self, async_client: AsyncHoncho) -> None:
         response = await async_client.apps.with_raw_response.get_or_create(
-            "string",
+            "name",
         )
 
         assert response.is_closed is True
@@ -404,7 +404,7 @@ class TestAsyncApps:
     @parametrize
     async def test_streaming_response_get_or_create(self, async_client: AsyncHoncho) -> None:
         async with async_client.apps.with_streaming_response.get_or_create(
-            "string",
+            "name",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
