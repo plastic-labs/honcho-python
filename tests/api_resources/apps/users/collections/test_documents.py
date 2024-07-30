@@ -23,20 +23,20 @@ class TestDocuments:
     @parametrize
     def test_method_create(self, client: Honcho) -> None:
         document = client.apps.users.collections.documents.create(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            collection_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            content="string",
+            content="content",
         )
         assert_matches_type(Document, document, path=["response"])
 
     @parametrize
     def test_method_create_with_all_params(self, client: Honcho) -> None:
         document = client.apps.users.collections.documents.create(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            collection_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            content="string",
+            content="content",
             metadata={"foo": "bar"},
         )
         assert_matches_type(Document, document, path=["response"])
@@ -44,10 +44,10 @@ class TestDocuments:
     @parametrize
     def test_raw_response_create(self, client: Honcho) -> None:
         response = client.apps.users.collections.documents.with_raw_response.create(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            collection_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            content="string",
+            content="content",
         )
 
         assert response.is_closed is True
@@ -58,10 +58,10 @@ class TestDocuments:
     @parametrize
     def test_streaming_response_create(self, client: Honcho) -> None:
         with client.apps.users.collections.documents.with_streaming_response.create(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            collection_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            content="string",
+            content="content",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -75,32 +75,32 @@ class TestDocuments:
     def test_path_params_create(self, client: Honcho) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `app_id` but received ''"):
             client.apps.users.collections.documents.with_raw_response.create(
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                collection_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 app_id="",
                 user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                content="string",
+                content="content",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `user_id` but received ''"):
             client.apps.users.collections.documents.with_raw_response.create(
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                collection_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 user_id="",
-                content="string",
+                content="content",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `collection_id` but received ''"):
             client.apps.users.collections.documents.with_raw_response.create(
-                "",
+                collection_id="",
                 app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                content="string",
+                content="content",
             )
 
     @parametrize
     def test_method_update(self, client: Honcho) -> None:
         document = client.apps.users.collections.documents.update(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            document_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             collection_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -110,11 +110,11 @@ class TestDocuments:
     @parametrize
     def test_method_update_with_all_params(self, client: Honcho) -> None:
         document = client.apps.users.collections.documents.update(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            document_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             collection_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            content="string",
+            content="content",
             metadata={"foo": "bar"},
         )
         assert_matches_type(Document, document, path=["response"])
@@ -122,7 +122,7 @@ class TestDocuments:
     @parametrize
     def test_raw_response_update(self, client: Honcho) -> None:
         response = client.apps.users.collections.documents.with_raw_response.update(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            document_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             collection_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -136,7 +136,7 @@ class TestDocuments:
     @parametrize
     def test_streaming_response_update(self, client: Honcho) -> None:
         with client.apps.users.collections.documents.with_streaming_response.update(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            document_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             collection_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -153,7 +153,7 @@ class TestDocuments:
     def test_path_params_update(self, client: Honcho) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `app_id` but received ''"):
             client.apps.users.collections.documents.with_raw_response.update(
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                document_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 app_id="",
                 user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 collection_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -161,7 +161,7 @@ class TestDocuments:
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `user_id` but received ''"):
             client.apps.users.collections.documents.with_raw_response.update(
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                document_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 user_id="",
                 collection_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -169,7 +169,7 @@ class TestDocuments:
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `collection_id` but received ''"):
             client.apps.users.collections.documents.with_raw_response.update(
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                document_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 collection_id="",
@@ -177,7 +177,7 @@ class TestDocuments:
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `document_id` but received ''"):
             client.apps.users.collections.documents.with_raw_response.update(
-                "",
+                document_id="",
                 app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 collection_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -186,7 +186,7 @@ class TestDocuments:
     @parametrize
     def test_method_list(self, client: Honcho) -> None:
         document = client.apps.users.collections.documents.list(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            collection_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
@@ -195,10 +195,10 @@ class TestDocuments:
     @parametrize
     def test_method_list_with_all_params(self, client: Honcho) -> None:
         document = client.apps.users.collections.documents.list(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            collection_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            filter="string",
+            filter="filter",
             page=1,
             reverse=True,
             size=1,
@@ -208,7 +208,7 @@ class TestDocuments:
     @parametrize
     def test_raw_response_list(self, client: Honcho) -> None:
         response = client.apps.users.collections.documents.with_raw_response.list(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            collection_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
@@ -221,7 +221,7 @@ class TestDocuments:
     @parametrize
     def test_streaming_response_list(self, client: Honcho) -> None:
         with client.apps.users.collections.documents.with_streaming_response.list(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            collection_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
@@ -237,21 +237,21 @@ class TestDocuments:
     def test_path_params_list(self, client: Honcho) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `app_id` but received ''"):
             client.apps.users.collections.documents.with_raw_response.list(
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                collection_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 app_id="",
                 user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `user_id` but received ''"):
             client.apps.users.collections.documents.with_raw_response.list(
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                collection_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 user_id="",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `collection_id` but received ''"):
             client.apps.users.collections.documents.with_raw_response.list(
-                "",
+                collection_id="",
                 app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             )
@@ -259,7 +259,7 @@ class TestDocuments:
     @parametrize
     def test_method_delete(self, client: Honcho) -> None:
         document = client.apps.users.collections.documents.delete(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            document_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             collection_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -269,7 +269,7 @@ class TestDocuments:
     @parametrize
     def test_raw_response_delete(self, client: Honcho) -> None:
         response = client.apps.users.collections.documents.with_raw_response.delete(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            document_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             collection_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -283,7 +283,7 @@ class TestDocuments:
     @parametrize
     def test_streaming_response_delete(self, client: Honcho) -> None:
         with client.apps.users.collections.documents.with_streaming_response.delete(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            document_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             collection_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -300,7 +300,7 @@ class TestDocuments:
     def test_path_params_delete(self, client: Honcho) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `app_id` but received ''"):
             client.apps.users.collections.documents.with_raw_response.delete(
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                document_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 app_id="",
                 user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 collection_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -308,7 +308,7 @@ class TestDocuments:
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `user_id` but received ''"):
             client.apps.users.collections.documents.with_raw_response.delete(
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                document_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 user_id="",
                 collection_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -316,7 +316,7 @@ class TestDocuments:
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `collection_id` but received ''"):
             client.apps.users.collections.documents.with_raw_response.delete(
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                document_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 collection_id="",
@@ -324,7 +324,7 @@ class TestDocuments:
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `document_id` but received ''"):
             client.apps.users.collections.documents.with_raw_response.delete(
-                "",
+                document_id="",
                 app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 collection_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -333,7 +333,7 @@ class TestDocuments:
     @parametrize
     def test_method_get(self, client: Honcho) -> None:
         document = client.apps.users.collections.documents.get(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            document_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             collection_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -343,7 +343,7 @@ class TestDocuments:
     @parametrize
     def test_raw_response_get(self, client: Honcho) -> None:
         response = client.apps.users.collections.documents.with_raw_response.get(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            document_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             collection_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -357,7 +357,7 @@ class TestDocuments:
     @parametrize
     def test_streaming_response_get(self, client: Honcho) -> None:
         with client.apps.users.collections.documents.with_streaming_response.get(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            document_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             collection_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -374,7 +374,7 @@ class TestDocuments:
     def test_path_params_get(self, client: Honcho) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `app_id` but received ''"):
             client.apps.users.collections.documents.with_raw_response.get(
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                document_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 app_id="",
                 user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 collection_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -382,7 +382,7 @@ class TestDocuments:
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `user_id` but received ''"):
             client.apps.users.collections.documents.with_raw_response.get(
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                document_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 user_id="",
                 collection_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -390,7 +390,7 @@ class TestDocuments:
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `collection_id` but received ''"):
             client.apps.users.collections.documents.with_raw_response.get(
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                document_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 collection_id="",
@@ -398,7 +398,7 @@ class TestDocuments:
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `document_id` but received ''"):
             client.apps.users.collections.documents.with_raw_response.get(
-                "",
+                document_id="",
                 app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 collection_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -411,20 +411,20 @@ class TestAsyncDocuments:
     @parametrize
     async def test_method_create(self, async_client: AsyncHoncho) -> None:
         document = await async_client.apps.users.collections.documents.create(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            collection_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            content="string",
+            content="content",
         )
         assert_matches_type(Document, document, path=["response"])
 
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncHoncho) -> None:
         document = await async_client.apps.users.collections.documents.create(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            collection_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            content="string",
+            content="content",
             metadata={"foo": "bar"},
         )
         assert_matches_type(Document, document, path=["response"])
@@ -432,10 +432,10 @@ class TestAsyncDocuments:
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncHoncho) -> None:
         response = await async_client.apps.users.collections.documents.with_raw_response.create(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            collection_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            content="string",
+            content="content",
         )
 
         assert response.is_closed is True
@@ -446,10 +446,10 @@ class TestAsyncDocuments:
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncHoncho) -> None:
         async with async_client.apps.users.collections.documents.with_streaming_response.create(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            collection_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            content="string",
+            content="content",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -463,32 +463,32 @@ class TestAsyncDocuments:
     async def test_path_params_create(self, async_client: AsyncHoncho) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `app_id` but received ''"):
             await async_client.apps.users.collections.documents.with_raw_response.create(
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                collection_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 app_id="",
                 user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                content="string",
+                content="content",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `user_id` but received ''"):
             await async_client.apps.users.collections.documents.with_raw_response.create(
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                collection_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 user_id="",
-                content="string",
+                content="content",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `collection_id` but received ''"):
             await async_client.apps.users.collections.documents.with_raw_response.create(
-                "",
+                collection_id="",
                 app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                content="string",
+                content="content",
             )
 
     @parametrize
     async def test_method_update(self, async_client: AsyncHoncho) -> None:
         document = await async_client.apps.users.collections.documents.update(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            document_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             collection_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -498,11 +498,11 @@ class TestAsyncDocuments:
     @parametrize
     async def test_method_update_with_all_params(self, async_client: AsyncHoncho) -> None:
         document = await async_client.apps.users.collections.documents.update(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            document_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             collection_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            content="string",
+            content="content",
             metadata={"foo": "bar"},
         )
         assert_matches_type(Document, document, path=["response"])
@@ -510,7 +510,7 @@ class TestAsyncDocuments:
     @parametrize
     async def test_raw_response_update(self, async_client: AsyncHoncho) -> None:
         response = await async_client.apps.users.collections.documents.with_raw_response.update(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            document_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             collection_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -524,7 +524,7 @@ class TestAsyncDocuments:
     @parametrize
     async def test_streaming_response_update(self, async_client: AsyncHoncho) -> None:
         async with async_client.apps.users.collections.documents.with_streaming_response.update(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            document_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             collection_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -541,7 +541,7 @@ class TestAsyncDocuments:
     async def test_path_params_update(self, async_client: AsyncHoncho) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `app_id` but received ''"):
             await async_client.apps.users.collections.documents.with_raw_response.update(
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                document_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 app_id="",
                 user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 collection_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -549,7 +549,7 @@ class TestAsyncDocuments:
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `user_id` but received ''"):
             await async_client.apps.users.collections.documents.with_raw_response.update(
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                document_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 user_id="",
                 collection_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -557,7 +557,7 @@ class TestAsyncDocuments:
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `collection_id` but received ''"):
             await async_client.apps.users.collections.documents.with_raw_response.update(
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                document_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 collection_id="",
@@ -565,7 +565,7 @@ class TestAsyncDocuments:
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `document_id` but received ''"):
             await async_client.apps.users.collections.documents.with_raw_response.update(
-                "",
+                document_id="",
                 app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 collection_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -574,7 +574,7 @@ class TestAsyncDocuments:
     @parametrize
     async def test_method_list(self, async_client: AsyncHoncho) -> None:
         document = await async_client.apps.users.collections.documents.list(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            collection_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
@@ -583,10 +583,10 @@ class TestAsyncDocuments:
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncHoncho) -> None:
         document = await async_client.apps.users.collections.documents.list(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            collection_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            filter="string",
+            filter="filter",
             page=1,
             reverse=True,
             size=1,
@@ -596,7 +596,7 @@ class TestAsyncDocuments:
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncHoncho) -> None:
         response = await async_client.apps.users.collections.documents.with_raw_response.list(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            collection_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
@@ -609,7 +609,7 @@ class TestAsyncDocuments:
     @parametrize
     async def test_streaming_response_list(self, async_client: AsyncHoncho) -> None:
         async with async_client.apps.users.collections.documents.with_streaming_response.list(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            collection_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
@@ -625,21 +625,21 @@ class TestAsyncDocuments:
     async def test_path_params_list(self, async_client: AsyncHoncho) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `app_id` but received ''"):
             await async_client.apps.users.collections.documents.with_raw_response.list(
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                collection_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 app_id="",
                 user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `user_id` but received ''"):
             await async_client.apps.users.collections.documents.with_raw_response.list(
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                collection_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 user_id="",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `collection_id` but received ''"):
             await async_client.apps.users.collections.documents.with_raw_response.list(
-                "",
+                collection_id="",
                 app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             )
@@ -647,7 +647,7 @@ class TestAsyncDocuments:
     @parametrize
     async def test_method_delete(self, async_client: AsyncHoncho) -> None:
         document = await async_client.apps.users.collections.documents.delete(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            document_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             collection_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -657,7 +657,7 @@ class TestAsyncDocuments:
     @parametrize
     async def test_raw_response_delete(self, async_client: AsyncHoncho) -> None:
         response = await async_client.apps.users.collections.documents.with_raw_response.delete(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            document_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             collection_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -671,7 +671,7 @@ class TestAsyncDocuments:
     @parametrize
     async def test_streaming_response_delete(self, async_client: AsyncHoncho) -> None:
         async with async_client.apps.users.collections.documents.with_streaming_response.delete(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            document_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             collection_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -688,7 +688,7 @@ class TestAsyncDocuments:
     async def test_path_params_delete(self, async_client: AsyncHoncho) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `app_id` but received ''"):
             await async_client.apps.users.collections.documents.with_raw_response.delete(
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                document_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 app_id="",
                 user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 collection_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -696,7 +696,7 @@ class TestAsyncDocuments:
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `user_id` but received ''"):
             await async_client.apps.users.collections.documents.with_raw_response.delete(
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                document_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 user_id="",
                 collection_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -704,7 +704,7 @@ class TestAsyncDocuments:
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `collection_id` but received ''"):
             await async_client.apps.users.collections.documents.with_raw_response.delete(
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                document_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 collection_id="",
@@ -712,7 +712,7 @@ class TestAsyncDocuments:
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `document_id` but received ''"):
             await async_client.apps.users.collections.documents.with_raw_response.delete(
-                "",
+                document_id="",
                 app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 collection_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -721,7 +721,7 @@ class TestAsyncDocuments:
     @parametrize
     async def test_method_get(self, async_client: AsyncHoncho) -> None:
         document = await async_client.apps.users.collections.documents.get(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            document_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             collection_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -731,7 +731,7 @@ class TestAsyncDocuments:
     @parametrize
     async def test_raw_response_get(self, async_client: AsyncHoncho) -> None:
         response = await async_client.apps.users.collections.documents.with_raw_response.get(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            document_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             collection_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -745,7 +745,7 @@ class TestAsyncDocuments:
     @parametrize
     async def test_streaming_response_get(self, async_client: AsyncHoncho) -> None:
         async with async_client.apps.users.collections.documents.with_streaming_response.get(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            document_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             collection_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -762,7 +762,7 @@ class TestAsyncDocuments:
     async def test_path_params_get(self, async_client: AsyncHoncho) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `app_id` but received ''"):
             await async_client.apps.users.collections.documents.with_raw_response.get(
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                document_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 app_id="",
                 user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 collection_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -770,7 +770,7 @@ class TestAsyncDocuments:
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `user_id` but received ''"):
             await async_client.apps.users.collections.documents.with_raw_response.get(
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                document_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 user_id="",
                 collection_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -778,7 +778,7 @@ class TestAsyncDocuments:
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `collection_id` but received ''"):
             await async_client.apps.users.collections.documents.with_raw_response.get(
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                document_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 collection_id="",
@@ -786,7 +786,7 @@ class TestAsyncDocuments:
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `document_id` but received ''"):
             await async_client.apps.users.collections.documents.with_raw_response.get(
-                "",
+                document_id="",
                 app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 collection_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",

@@ -710,7 +710,7 @@ class TestHoncho:
         with pytest.raises(APITimeoutError):
             self.client.post(
                 "/apps",
-                body=cast(object, dict(name="string")),
+                body=cast(object, dict(name="name")),
                 cast_to=httpx.Response,
                 options={"headers": {RAW_RESPONSE_HEADER: "stream"}},
             )
@@ -725,7 +725,7 @@ class TestHoncho:
         with pytest.raises(APIStatusError):
             self.client.post(
                 "/apps",
-                body=cast(object, dict(name="string")),
+                body=cast(object, dict(name="name")),
                 cast_to=httpx.Response,
                 options={"headers": {RAW_RESPONSE_HEADER: "stream"}},
             )
@@ -1415,7 +1415,7 @@ class TestAsyncHoncho:
         with pytest.raises(APITimeoutError):
             await self.client.post(
                 "/apps",
-                body=cast(object, dict(name="string")),
+                body=cast(object, dict(name="name")),
                 cast_to=httpx.Response,
                 options={"headers": {RAW_RESPONSE_HEADER: "stream"}},
             )
@@ -1430,7 +1430,7 @@ class TestAsyncHoncho:
         with pytest.raises(APIStatusError):
             await self.client.post(
                 "/apps",
-                body=cast(object, dict(name="string")),
+                body=cast(object, dict(name="name")),
                 cast_to=httpx.Response,
                 options={"headers": {RAW_RESPONSE_HEADER: "stream"}},
             )

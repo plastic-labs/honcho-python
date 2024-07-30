@@ -37,10 +37,7 @@ from ...._response import (
 )
 from ....pagination import SyncPage, AsyncPage
 from ....types.apps import user_list_params, user_create_params, user_update_params
-from ...._base_client import (
-    AsyncPaginator,
-    make_request_options,
-)
+from ...._base_client import AsyncPaginator, make_request_options
 from .sessions.sessions import SessionsResource, AsyncSessionsResource
 from ....types.apps.user import User
 from .collections.collections import CollectionsResource, AsyncCollectionsResource

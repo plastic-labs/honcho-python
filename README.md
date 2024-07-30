@@ -10,7 +10,7 @@ It is generated with [Stainless](https://www.stainlessapi.com/).
 
 ## Documentation
 
-The REST API documentation can be found [on docs.honcho.dev](https://docs.honcho.dev). The full API of this library can be found in [api.md](api.md).
+The REST API documentation can be found on [docs.honcho.dev](https://docs.honcho.dev). The full API of this library can be found in [api.md](api.md).
 
 ## Installation
 
@@ -35,7 +35,7 @@ client = Honcho(
 )
 
 app = client.apps.create(
-    name="string",
+    name="name",
 )
 print(app.id)
 ```
@@ -64,7 +64,7 @@ client = AsyncHoncho(
 
 async def main() -> None:
     app = await client.apps.create(
-        name="string",
+        name="name",
     )
     print(app.id)
 
@@ -90,14 +90,14 @@ List methods in the Honcho API are paginated.
 This library provides auto-paginating iterators with each list response, so you do not have to request successive pages manually:
 
 ```python
-import honcho
+from honcho import Honcho
 
 client = Honcho()
 
 all_users = []
 # Automatically fetches more pages as needed.
 for user in client.apps.users.list(
-    "REPLACE_ME",
+    app_id="REPLACE_ME",
 ):
     # Do something with user here
     all_users.append(user)
@@ -108,7 +108,7 @@ Or, asynchronously:
 
 ```python
 import asyncio
-import honcho
+from honcho import AsyncHoncho
 
 client = AsyncHoncho()
 
@@ -117,7 +117,7 @@ async def main() -> None:
     all_users = []
     # Iterate through items across all pages, issuing requests as needed.
     async for user in client.apps.users.list(
-        "REPLACE_ME",
+        app_id="REPLACE_ME",
     ):
         all_users.append(user)
     print(all_users)
@@ -130,7 +130,7 @@ Alternatively, you can use the `.has_next_page()`, `.next_page_info()`, or `.get
 
 ```python
 first_page = await client.apps.users.list(
-    "REPLACE_ME",
+    app_id="REPLACE_ME",
 )
 if first_page.has_next_page():
     print(f"will fetch next page using these details: {first_page.next_page_info()}")
@@ -144,7 +144,7 @@ Or just work directly with the returned data:
 
 ```python
 first_page = await client.apps.users.list(
-    "REPLACE_ME",
+    app_id="REPLACE_ME",
 )
 
 print(f"page number: {first_page.page}")  # => "page number: 1"
@@ -171,7 +171,7 @@ client = Honcho()
 
 try:
     client.apps.create(
-        name="string",
+        name="name",
     )
 except honcho.APIConnectionError as e:
     print("The server could not be reached")
@@ -216,7 +216,7 @@ client = Honcho(
 
 # Or, configure per-request:
 client.with_options(max_retries=5).apps.create(
-    name="string",
+    name="name",
 )
 ```
 
@@ -241,7 +241,7 @@ client = Honcho(
 
 # Override per-request:
 client.with_options(timeout=5.0).apps.create(
-    name="string",
+    name="name",
 )
 ```
 
@@ -282,7 +282,7 @@ from honcho import Honcho
 
 client = Honcho()
 response = client.apps.with_raw_response.create(
-    name="string",
+    name="name",
 )
 print(response.headers.get('X-My-Header'))
 
@@ -302,7 +302,7 @@ To stream the response body, use `.with_streaming_response` instead, which requi
 
 ```python
 with client.apps.with_streaming_response.create(
-    name="string",
+    name="name",
 ) as response:
     print(response.headers.get("X-My-Header"))
 
@@ -353,7 +353,7 @@ You can directly override the [httpx client](https://www.python-httpx.org/api/#c
 
 - Support for proxies
 - Custom transports
-- Additional [advanced](https://www.python-httpx.org/advanced/#client-instances) functionality
+- Additional [advanced](https://www.python-httpx.org/advanced/clients/) functionality
 
 ```python
 from honcho import Honcho, DefaultHttpxClient
@@ -366,6 +366,12 @@ client = Honcho(
         transport=httpx.HTTPTransport(local_address="0.0.0.0"),
     ),
 )
+```
+
+You can also customize the client on a per-request basis by using `with_options()`:
+
+```python
+client.with_options(http_client=DefaultHttpxClient(...))
 ```
 
 ### Managing HTTP resources
