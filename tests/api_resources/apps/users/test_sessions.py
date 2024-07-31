@@ -26,7 +26,6 @@ class TestSessions:
         session = client.apps.users.sessions.create(
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            location_id="location_id",
         )
         assert_matches_type(Session, session, path=["response"])
 
@@ -35,7 +34,6 @@ class TestSessions:
         session = client.apps.users.sessions.create(
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            location_id="location_id",
             metadata={"foo": "bar"},
         )
         assert_matches_type(Session, session, path=["response"])
@@ -45,7 +43,6 @@ class TestSessions:
         response = client.apps.users.sessions.with_raw_response.create(
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            location_id="location_id",
         )
 
         assert response.is_closed is True
@@ -58,7 +55,6 @@ class TestSessions:
         with client.apps.users.sessions.with_streaming_response.create(
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            location_id="location_id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -74,14 +70,12 @@ class TestSessions:
             client.apps.users.sessions.with_raw_response.create(
                 user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 app_id="",
-                location_id="location_id",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `user_id` but received ''"):
             client.apps.users.sessions.with_raw_response.create(
                 user_id="",
                 app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                location_id="location_id",
             )
 
     @parametrize
@@ -169,7 +163,6 @@ class TestSessions:
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             filter="filter",
             is_active=True,
-            location_id="location_id",
             page=1,
             reverse=True,
             size=1,
@@ -477,7 +470,6 @@ class TestAsyncSessions:
         session = await async_client.apps.users.sessions.create(
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            location_id="location_id",
         )
         assert_matches_type(Session, session, path=["response"])
 
@@ -486,7 +478,6 @@ class TestAsyncSessions:
         session = await async_client.apps.users.sessions.create(
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            location_id="location_id",
             metadata={"foo": "bar"},
         )
         assert_matches_type(Session, session, path=["response"])
@@ -496,7 +487,6 @@ class TestAsyncSessions:
         response = await async_client.apps.users.sessions.with_raw_response.create(
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            location_id="location_id",
         )
 
         assert response.is_closed is True
@@ -509,7 +499,6 @@ class TestAsyncSessions:
         async with async_client.apps.users.sessions.with_streaming_response.create(
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            location_id="location_id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -525,14 +514,12 @@ class TestAsyncSessions:
             await async_client.apps.users.sessions.with_raw_response.create(
                 user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 app_id="",
-                location_id="location_id",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `user_id` but received ''"):
             await async_client.apps.users.sessions.with_raw_response.create(
                 user_id="",
                 app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                location_id="location_id",
             )
 
     @parametrize
@@ -620,7 +607,6 @@ class TestAsyncSessions:
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             filter="filter",
             is_active=True,
-            location_id="location_id",
             page=1,
             reverse=True,
             size=1,

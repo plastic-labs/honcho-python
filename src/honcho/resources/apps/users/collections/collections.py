@@ -105,8 +105,8 @@ class CollectionsResource(SyncAPIResource):
         *,
         app_id: str,
         user_id: str,
-        name: str,
         metadata: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
+        name: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -136,8 +136,8 @@ class CollectionsResource(SyncAPIResource):
             f"/apps/{app_id}/users/{user_id}/collections/{collection_id}",
             body=maybe_transform(
                 {
-                    "name": name,
                     "metadata": metadata,
+                    "name": name,
                 },
                 collection_update_params.CollectionUpdateParams,
             ),
@@ -445,8 +445,8 @@ class AsyncCollectionsResource(AsyncAPIResource):
         *,
         app_id: str,
         user_id: str,
-        name: str,
         metadata: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
+        name: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -476,8 +476,8 @@ class AsyncCollectionsResource(AsyncAPIResource):
             f"/apps/{app_id}/users/{user_id}/collections/{collection_id}",
             body=await async_maybe_transform(
                 {
-                    "name": name,
                     "metadata": metadata,
+                    "name": name,
                 },
                 collection_update_params.CollectionUpdateParams,
             ),
