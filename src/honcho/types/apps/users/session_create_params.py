@@ -11,6 +11,4 @@ __all__ = ["SessionCreateParams"]
 class SessionCreateParams(TypedDict, total=False):
     app_id: Required[str]
 
-    location_id: Required[str]
-
     metadata: Optional[Dict[str, object]]
