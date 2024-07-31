@@ -15,8 +15,6 @@ class SessionListParams(TypedDict, total=False):
 
     is_active: Optional[bool]
 
-    location_id: Optional[str]
-
     page: int
     """Page number"""
 

@@ -15,8 +15,6 @@ class Session(BaseModel):
 
     is_active: bool
 
-    location_id: str
-
     metadata: Dict[str, object]
 
     user_id: str

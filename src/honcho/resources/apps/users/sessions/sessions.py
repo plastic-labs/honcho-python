@@ -72,7 +72,6 @@ class SessionsResource(SyncAPIResource):
         user_id: str,
         *,
         app_id: str,
-        location_id: str,
         metadata: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -87,7 +86,7 @@ class SessionsResource(SyncAPIResource):
         Args: app_id (uuid.UUID): The ID of the app representing the client application
         using honcho user_id (uuid.UUID): The User ID representing the user, managed by
         the user session (schemas.SessionCreate): The Session object containing any
-        metadata and a location ID
+        metadata
 
         Returns: schemas.Session: The Session object of the new Session
 
@@ -106,13 +105,7 @@ class SessionsResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `user_id` but received {user_id!r}")
         return self._post(
             f"/apps/{app_id}/users/{user_id}/sessions",
-            body=maybe_transform(
-                {
-                    "location_id": location_id,
-                    "metadata": metadata,
-                },
-                session_create_params.SessionCreateParams,
-            ),
+            body=maybe_transform({"metadata": metadata}, session_create_params.SessionCreateParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -174,7 +167,6 @@ class SessionsResource(SyncAPIResource):
         app_id: str,
         filter: Optional[str] | NotGiven = NOT_GIVEN,
         is_active: Optional[bool] | NotGiven = NOT_GIVEN,
-        location_id: Optional[str] | NotGiven = NOT_GIVEN,
         page: int | NotGiven = NOT_GIVEN,
         reverse: Optional[bool] | NotGiven = NOT_GIVEN,
         size: int | NotGiven = NOT_GIVEN,
@@ -190,8 +182,7 @@ class SessionsResource(SyncAPIResource):
 
         Args: app_id (uuid.UUID): The ID of the app representing the client application
         using honcho user_id (uuid.UUID): The User ID representing the user, managed by
-        the user location_id (str, optional): Optional Location ID representing the
-        location of a session
+        the user
 
         Returns: list[schemas.Session]: List of Session objects
 
@@ -224,7 +215,6 @@ class SessionsResource(SyncAPIResource):
                     {
                         "filter": filter,
                         "is_active": is_active,
-                        "location_id": location_id,
                         "page": page,
                         "reverse": reverse,
                         "size": size,
@@ -440,7 +430,6 @@ class AsyncSessionsResource(AsyncAPIResource):
         user_id: str,
         *,
         app_id: str,
-        location_id: str,
         metadata: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -455,7 +444,7 @@ class AsyncSessionsResource(AsyncAPIResource):
         Args: app_id (uuid.UUID): The ID of the app representing the client application
         using honcho user_id (uuid.UUID): The User ID representing the user, managed by
         the user session (schemas.SessionCreate): The Session object containing any
-        metadata and a location ID
+        metadata
 
         Returns: schemas.Session: The Session object of the new Session
 
@@ -474,13 +463,7 @@ class AsyncSessionsResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `user_id` but received {user_id!r}")
         return await self._post(
             f"/apps/{app_id}/users/{user_id}/sessions",
-            body=await async_maybe_transform(
-                {
-                    "location_id": location_id,
-                    "metadata": metadata,
-                },
-                session_create_params.SessionCreateParams,
-            ),
+            body=await async_maybe_transform({"metadata": metadata}, session_create_params.SessionCreateParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -542,7 +525,6 @@ class AsyncSessionsResource(AsyncAPIResource):
         app_id: str,
         filter: Optional[str] | NotGiven = NOT_GIVEN,
         is_active: Optional[bool] | NotGiven = NOT_GIVEN,
-        location_id: Optional[str] | NotGiven = NOT_GIVEN,
         page: int | NotGiven = NOT_GIVEN,
         reverse: Optional[bool] | NotGiven = NOT_GIVEN,
         size: int | NotGiven = NOT_GIVEN,
@@ -558,8 +540,7 @@ class AsyncSessionsResource(AsyncAPIResource):
 
         Args: app_id (uuid.UUID): The ID of the app representing the client application
         using honcho user_id (uuid.UUID): The User ID representing the user, managed by
-        the user location_id (str, optional): Optional Location ID representing the
-        location of a session
+        the user
 
         Returns: list[schemas.Session]: List of Session objects
 
@@ -592,7 +573,6 @@ class AsyncSessionsResource(AsyncAPIResource):
                     {
                         "filter": filter,
                         "is_active": is_active,
-                        "location_id": location_id,
                         "page": page,
                         "reverse": reverse,
                         "size": size,

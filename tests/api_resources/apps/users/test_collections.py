@@ -90,7 +90,6 @@ class TestCollections:
             collection_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            name="name",
         )
         assert_matches_type(Collection, collection, path=["response"])
 
@@ -100,8 +99,8 @@ class TestCollections:
             collection_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            name="name",
             metadata={"foo": "bar"},
+            name="name",
         )
         assert_matches_type(Collection, collection, path=["response"])
 
@@ -111,7 +110,6 @@ class TestCollections:
             collection_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            name="name",
         )
 
         assert response.is_closed is True
@@ -125,7 +123,6 @@ class TestCollections:
             collection_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            name="name",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -142,7 +139,6 @@ class TestCollections:
                 collection_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 app_id="",
                 user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                name="name",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `user_id` but received ''"):
@@ -150,7 +146,6 @@ class TestCollections:
                 collection_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 user_id="",
-                name="name",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `collection_id` but received ''"):
@@ -158,7 +153,6 @@ class TestCollections:
                 collection_id="",
                 app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                name="name",
             )
 
     @parametrize
@@ -552,7 +546,6 @@ class TestAsyncCollections:
             collection_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            name="name",
         )
         assert_matches_type(Collection, collection, path=["response"])
 
@@ -562,8 +555,8 @@ class TestAsyncCollections:
             collection_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            name="name",
             metadata={"foo": "bar"},
+            name="name",
         )
         assert_matches_type(Collection, collection, path=["response"])
 
@@ -573,7 +566,6 @@ class TestAsyncCollections:
             collection_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            name="name",
         )
 
         assert response.is_closed is True
@@ -587,7 +579,6 @@ class TestAsyncCollections:
             collection_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            name="name",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -604,7 +595,6 @@ class TestAsyncCollections:
                 collection_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 app_id="",
                 user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                name="name",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `user_id` but received ''"):
@@ -612,7 +602,6 @@ class TestAsyncCollections:
                 collection_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 user_id="",
-                name="name",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `collection_id` but received ''"):
@@ -620,7 +609,6 @@ class TestAsyncCollections:
                 collection_id="",
                 app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                name="name",
             )
 
     @parametrize
