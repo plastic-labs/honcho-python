@@ -1,6 +1,6 @@
 [project]
 name = "honcho-ai"
-version = "0.0.12"
+version = "0.0.13"
 description = "The official Python library for the honcho API"
 dynamic = ["readme"]
 license = "Apache-2.0"
