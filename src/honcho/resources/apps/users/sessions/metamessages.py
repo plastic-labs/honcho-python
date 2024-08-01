@@ -20,10 +20,7 @@ from ....._response import (
     async_to_streamed_response_wrapper,
 )
 from .....pagination import SyncPage, AsyncPage
-from ....._base_client import (
-    AsyncPaginator,
-    make_request_options,
-)
+from ....._base_client import AsyncPaginator, make_request_options
 from .....types.apps.users.sessions import (
     metamessage_get_params,
     metamessage_list_params,
@@ -62,15 +59,15 @@ class MetamessagesResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> Metamessage:
         """
-        Adds a message to a session
+        Adds a metamessage to a session
 
         Args: app_id (uuid.UUID): The ID of the app representing the client application
         using honcho user_id (str): The User ID representing the user, managed by the
-        user session_id (int): The ID of the Session to add the message to message
-        (schemas.MessageCreate): The Message object to add containing the message
-        content and type
+        user session_id (int): The ID of the Session to add the metamessage to
+        metamessage (schemas.MetamessageCreate): The Metamessage object to add
+        containing the metamessage content and type
 
-        Returns: schemas.Message: The Message object of the added message
+        Returns: schemas.Metamessage: The Metamessage object of the added metamessage
 
         Raises: HTTPException: If the session is not found
 
@@ -315,15 +312,15 @@ class AsyncMetamessagesResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> Metamessage:
         """
-        Adds a message to a session
+        Adds a metamessage to a session
 
         Args: app_id (uuid.UUID): The ID of the app representing the client application
         using honcho user_id (str): The User ID representing the user, managed by the
-        user session_id (int): The ID of the Session to add the message to message
-        (schemas.MessageCreate): The Message object to add containing the message
-        content and type
+        user session_id (int): The ID of the Session to add the metamessage to
+        metamessage (schemas.MetamessageCreate): The Metamessage object to add
+        containing the metamessage content and type
 
-        Returns: schemas.Message: The Message object of the added message
+        Returns: schemas.Metamessage: The Metamessage object of the added metamessage
 
         Raises: HTTPException: If the session is not found
 

@@ -1,5 +1,23 @@
 # Changelog
 
+## 0.0.13 (2024-08-01)
+
+Full Changelog: [v0.0.12...v0.0.13](https://github.com/plastic-labs/honcho-python/compare/v0.0.12...v0.0.13)
+
+### Features
+
+* **api:** OpenAPI spec update via Stainless API ([#31](https://github.com/plastic-labs/honcho-python/issues/31)) ([f626a2c](https://github.com/plastic-labs/honcho-python/commit/f626a2c303f866dcbb65237f2570d2ed9b064351))
+* **api:** update via SDK Studio ([#24](https://github.com/plastic-labs/honcho-python/issues/24)) ([e5417f8](https://github.com/plastic-labs/honcho-python/commit/e5417f859174b237fa1c912188031b786842e0d6))
+* **api:** update via SDK Studio ([#30](https://github.com/plastic-labs/honcho-python/issues/30)) ([f3e9cb4](https://github.com/plastic-labs/honcho-python/commit/f3e9cb49773691962b07067c531f288942711db1))
+
+
+### Chores
+
+* fix error message import example ([#28](https://github.com/plastic-labs/honcho-python/issues/28)) ([675f719](https://github.com/plastic-labs/honcho-python/commit/675f71940a184e8a277f6db8df2604d762bae1d5))
+* **internal:** add type construction helper ([#29](https://github.com/plastic-labs/honcho-python/issues/29)) ([e526f46](https://github.com/plastic-labs/honcho-python/commit/e526f463dd0dea1a9047c11cf81366a06e1ed47b))
+* **internal:** codegen related update ([#26](https://github.com/plastic-labs/honcho-python/issues/26)) ([8aa9cad](https://github.com/plastic-labs/honcho-python/commit/8aa9cad685d140c45ed9c01c4d8e853434352478))
+* **tests:** update prism version ([#27](https://github.com/plastic-labs/honcho-python/issues/27)) ([0aa4203](https://github.com/plastic-labs/honcho-python/commit/0aa42032400a4dcff1f11086233074e080f3097c))
+
 ## 0.0.12 (2024-05-23)
 
 Full Changelog: [v0.0.11...v0.0.12](https://github.com/plastic-labs/honcho-python/compare/v0.0.11...v0.0.12)

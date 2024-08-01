@@ -20,10 +20,7 @@ from ....._response import (
     async_to_streamed_response_wrapper,
 )
 from .....pagination import SyncPage, AsyncPage
-from ....._base_client import (
-    AsyncPaginator,
-    make_request_options,
-)
+from ....._base_client import AsyncPaginator, make_request_options
 from .....types.apps.users.collections import document_list_params, document_create_params, document_update_params
 from .....types.apps.users.collections.document import Document
 

@@ -13,6 +13,7 @@ from ._qs import Querystring
 from ._types import (
     NOT_GIVEN,
     Omit,
+    Headers,
     Timeout,
     NotGiven,
     Transport,
@@ -46,8 +47,8 @@ __all__ = [
 ]
 
 ENVIRONMENTS: Dict[str, str] = {
-    "local": "http://localhost:8000",
     "demo": "https://demo.honcho.dev",
+    "local": "http://localhost:8000",
 }
 
 
@@ -59,13 +60,13 @@ class Honcho(SyncAPIClient):
     # client options
     api_key: str | None
 
-    _environment: Literal["local", "demo"] | NotGiven
+    _environment: Literal["demo", "local"] | NotGiven
 
     def __init__(
         self,
         *,
         api_key: str | None = None,
-        environment: Literal["local", "demo"] | NotGiven = NOT_GIVEN,
+        environment: Literal["demo", "local"] | NotGiven = NOT_GIVEN,
         base_url: str | httpx.URL | None | NotGiven = NOT_GIVEN,
         timeout: Union[float, Timeout, None, NotGiven] = NOT_GIVEN,
         max_retries: int = DEFAULT_MAX_RETRIES,
@@ -112,7 +113,7 @@ class Honcho(SyncAPIClient):
         elif base_url_env is not None:
             base_url = base_url_env
         else:
-            self._environment = environment = "local"
+            self._environment = environment = "demo"
 
             try:
                 base_url = ENVIRONMENTS[environment]
@@ -156,11 +157,22 @@ class Honcho(SyncAPIClient):
             **self._custom_headers,
         }
 
+    @override
+    def _validate_headers(self, headers: Headers, custom_headers: Headers) -> None:
+        if self.api_key and headers.get("Authorization"):
+            return
+        if isinstance(custom_headers.get("Authorization"), Omit):
+            return
+
+        raise TypeError(
+            '"Could not resolve authentication method. Expected the api_key to be set. Or for the `Authorization` headers to be explicitly omitted"'
+        )
+
     def copy(
         self,
         *,
         api_key: str | None = None,
-        environment: Literal["local", "demo"] | None = None,
+        environment: Literal["demo", "local"] | None = None,
         base_url: str | httpx.URL | None = None,
         timeout: float | Timeout | None | NotGiven = NOT_GIVEN,
         http_client: httpx.Client | None = None,
@@ -251,13 +263,13 @@ class AsyncHoncho(AsyncAPIClient):
     # client options
     api_key: str | None
 
-    _environment: Literal["local", "demo"] | NotGiven
+    _environment: Literal["demo", "local"] | NotGiven
 
     def __init__(
         self,
         *,
         api_key: str | None = None,
-        environment: Literal["local", "demo"] | NotGiven = NOT_GIVEN,
+        environment: Literal["demo", "local"] | NotGiven = NOT_GIVEN,
         base_url: str | httpx.URL | None | NotGiven = NOT_GIVEN,
         timeout: Union[float, Timeout, None, NotGiven] = NOT_GIVEN,
         max_retries: int = DEFAULT_MAX_RETRIES,
@@ -304,7 +316,7 @@ class AsyncHoncho(AsyncAPIClient):
         elif base_url_env is not None:
             base_url = base_url_env
         else:
-            self._environment = environment = "local"
+            self._environment = environment = "demo"
 
             try:
                 base_url = ENVIRONMENTS[environment]
@@ -348,11 +360,22 @@ class AsyncHoncho(AsyncAPIClient):
             **self._custom_headers,
         }
 
+    @override
+    def _validate_headers(self, headers: Headers, custom_headers: Headers) -> None:
+        if self.api_key and headers.get("Authorization"):
+            return
+        if isinstance(custom_headers.get("Authorization"), Omit):
+            return
+
+        raise TypeError(
+            '"Could not resolve authentication method. Expected the api_key to be set. Or for the `Authorization` headers to be explicitly omitted"'
+        )
+
     def copy(
         self,
         *,
         api_key: str | None = None,
-        environment: Literal["local", "demo"] | None = None,
+        environment: Literal["demo", "local"] | None = None,
         base_url: str | httpx.URL | None = None,
         timeout: float | Timeout | None | NotGiven = NOT_GIVEN,
         http_client: httpx.AsyncClient | None = None,

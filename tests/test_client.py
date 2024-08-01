@@ -17,6 +17,7 @@ from respx import MockRouter
 from pydantic import ValidationError
 
 from honcho import Honcho, AsyncHoncho, APIResponseValidationError
+from honcho._types import Omit
 from honcho._models import BaseModel, FinalRequestOptions
 from honcho._constants import RAW_RESPONSE_HEADER
 from honcho._exceptions import APIStatusError, APITimeoutError, APIResponseValidationError
@@ -328,7 +329,16 @@ class TestHoncho:
 
         client2 = Honcho(base_url=base_url, api_key=None, _strict_response_validation=True)
 
-        client2._build_request(FinalRequestOptions(method="get", url="/foo"))
+        with pytest.raises(
+            TypeError,
+            match="Could not resolve authentication method. Expected the api_key to be set. Or for the `Authorization` headers to be explicitly omitted",
+        ):
+            client2._build_request(FinalRequestOptions(method="get", url="/foo"))
+
+        request2 = client2._build_request(
+            FinalRequestOptions(method="get", url="/foo", headers={"Authorization": Omit()})
+        )
+        assert request2.headers.get("Authorization") is None
 
     def test_default_query_option(self) -> None:
         client = Honcho(
@@ -547,10 +557,10 @@ class TestHoncho:
         # explicit environment arg requires explicitness
         with update_env(HONCHO_BASE_URL="http://localhost:5000/from/env"):
             with pytest.raises(ValueError, match=r"you must pass base_url=None"):
-                Honcho(api_key=api_key, _strict_response_validation=True, environment="local")
+                Honcho(api_key=api_key, _strict_response_validation=True, environment="demo")
 
-            client = Honcho(base_url=None, api_key=api_key, _strict_response_validation=True, environment="local")
-            assert str(client.base_url).startswith("http://localhost:8000")
+            client = Honcho(base_url=None, api_key=api_key, _strict_response_validation=True, environment="demo")
+            assert str(client.base_url).startswith("https://demo.honcho.dev")
 
     @pytest.mark.parametrize(
         "client",
@@ -710,7 +720,7 @@ class TestHoncho:
         with pytest.raises(APITimeoutError):
             self.client.post(
                 "/apps",
-                body=cast(object, dict(name="string")),
+                body=cast(object, dict(name="name")),
                 cast_to=httpx.Response,
                 options={"headers": {RAW_RESPONSE_HEADER: "stream"}},
             )
@@ -725,7 +735,7 @@ class TestHoncho:
         with pytest.raises(APIStatusError):
             self.client.post(
                 "/apps",
-                body=cast(object, dict(name="string")),
+                body=cast(object, dict(name="name")),
                 cast_to=httpx.Response,
                 options={"headers": {RAW_RESPONSE_HEADER: "stream"}},
             )
@@ -1019,7 +1029,16 @@ class TestAsyncHoncho:
 
         client2 = AsyncHoncho(base_url=base_url, api_key=None, _strict_response_validation=True)
 
-        client2._build_request(FinalRequestOptions(method="get", url="/foo"))
+        with pytest.raises(
+            TypeError,
+            match="Could not resolve authentication method. Expected the api_key to be set. Or for the `Authorization` headers to be explicitly omitted",
+        ):
+            client2._build_request(FinalRequestOptions(method="get", url="/foo"))
+
+        request2 = client2._build_request(
+            FinalRequestOptions(method="get", url="/foo", headers={"Authorization": Omit()})
+        )
+        assert request2.headers.get("Authorization") is None
 
     def test_default_query_option(self) -> None:
         client = AsyncHoncho(
@@ -1240,10 +1259,10 @@ class TestAsyncHoncho:
         # explicit environment arg requires explicitness
         with update_env(HONCHO_BASE_URL="http://localhost:5000/from/env"):
             with pytest.raises(ValueError, match=r"you must pass base_url=None"):
-                AsyncHoncho(api_key=api_key, _strict_response_validation=True, environment="local")
+                AsyncHoncho(api_key=api_key, _strict_response_validation=True, environment="demo")
 
-            client = AsyncHoncho(base_url=None, api_key=api_key, _strict_response_validation=True, environment="local")
-            assert str(client.base_url).startswith("http://localhost:8000")
+            client = AsyncHoncho(base_url=None, api_key=api_key, _strict_response_validation=True, environment="demo")
+            assert str(client.base_url).startswith("https://demo.honcho.dev")
 
     @pytest.mark.parametrize(
         "client",
@@ -1415,7 +1434,7 @@ class TestAsyncHoncho:
         with pytest.raises(APITimeoutError):
             await self.client.post(
                 "/apps",
-                body=cast(object, dict(name="string")),
+                body=cast(object, dict(name="name")),
                 cast_to=httpx.Response,
                 options={"headers": {RAW_RESPONSE_HEADER: "stream"}},
             )
@@ -1430,7 +1449,7 @@ class TestAsyncHoncho:
         with pytest.raises(APIStatusError):
             await self.client.post(
                 "/apps",
-                body=cast(object, dict(name="string")),
+                body=cast(object, dict(name="name")),
                 cast_to=httpx.Response,
                 options={"headers": {RAW_RESPONSE_HEADER: "stream"}},
             )
