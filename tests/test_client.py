@@ -327,7 +327,8 @@ class TestHoncho:
         request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
         assert request.headers.get("Authorization") == f"Bearer {api_key}"
 
-        client2 = Honcho(base_url=base_url, api_key=None, _strict_response_validation=True)
+        with update_env(**{"HONCHO_API_KEY": Omit()}):
+            client2 = Honcho(base_url=base_url, api_key=None, _strict_response_validation=True)
 
         with pytest.raises(
             TypeError,
@@ -1048,7 +1049,8 @@ class TestAsyncHoncho:
         request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
         assert request.headers.get("Authorization") == f"Bearer {api_key}"
 
-        client2 = AsyncHoncho(base_url=base_url, api_key=None, _strict_response_validation=True)
+        with update_env(**{"HONCHO_API_KEY": Omit()}):
+            client2 = AsyncHoncho(base_url=base_url, api_key=None, _strict_response_validation=True)
 
         with pytest.raises(
             TypeError,
