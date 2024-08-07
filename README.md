@@ -1,8 +1,8 @@
-# honcho-ai API library
+# Honcho Python API library
 
 [![PyPI version](https://img.shields.io/pypi/v/honcho-ai.svg)](https://pypi.org/project/honcho-ai/)
 
-The honcho-ai library provides convenient access to the Honcho REST API from any Python 3.7+
+The Honcho Python library provides convenient access to the Honcho REST API from any Python 3.7+
 application. The library includes type definitions for all request params and response fields,
 and offers both synchronous and asynchronous clients powered by [httpx](https://github.com/encode/httpx).
 
