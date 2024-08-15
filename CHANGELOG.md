@@ -1,5 +1,25 @@
 # Changelog
 
+## 0.0.14 (2024-08-15)
+
+Full Changelog: [v0.0.13...v0.0.14](https://github.com/plastic-labs/honcho-python/compare/v0.0.13...v0.0.14)
+
+### Features
+
+* **api:** update via SDK Studio ([#34](https://github.com/plastic-labs/honcho-python/issues/34)) ([0d56b07](https://github.com/plastic-labs/honcho-python/commit/0d56b07f8d3020798e16a1667d5a92d6f352db0b))
+* **client:** add `retry_count` to raw response class ([#37](https://github.com/plastic-labs/honcho-python/issues/37)) ([3d634a9](https://github.com/plastic-labs/honcho-python/commit/3d634a9b9b453ce8093a3e8f844224aa49ddbf54))
+
+
+### Chores
+
+* **internal:** bump pyright ([#36](https://github.com/plastic-labs/honcho-python/issues/36)) ([50c53ec](https://github.com/plastic-labs/honcho-python/commit/50c53ecdf096f0244d778f1aeb2d289e95d4cfa4))
+* **internal:** bump ruff version ([#39](https://github.com/plastic-labs/honcho-python/issues/39)) ([eab1ecb](https://github.com/plastic-labs/honcho-python/commit/eab1ecbb97ec7a417f78a5bba65f4bd29efa87e1))
+* **internal:** codegen related update ([#41](https://github.com/plastic-labs/honcho-python/issues/41)) ([eb43b2a](https://github.com/plastic-labs/honcho-python/commit/eb43b2a465e9a9778a123b4e333ff93ad0912d55))
+* **internal:** test updates ([#38](https://github.com/plastic-labs/honcho-python/issues/38)) ([026cca8](https://github.com/plastic-labs/honcho-python/commit/026cca816df8c9df9d6575a23e87f85690fdec10))
+* **internal:** update pydantic compat helper function ([#40](https://github.com/plastic-labs/honcho-python/issues/40)) ([c25d82a](https://github.com/plastic-labs/honcho-python/commit/c25d82a07c610c363dfa9eea30ddb9b65561c64c))
+* **internal:** use `TypeAlias` marker for type assignments ([#35](https://github.com/plastic-labs/honcho-python/issues/35)) ([fa192c7](https://github.com/plastic-labs/honcho-python/commit/fa192c7952034b6f667cb8dbf3223acbc0bf7cb2))
+* **internal:** version bump ([#32](https://github.com/plastic-labs/honcho-python/issues/32)) ([78ce88f](https://github.com/plastic-labs/honcho-python/commit/78ce88fde8c1cd8acbe22e5f0c8792200b8c8c5e))
+
 ## 0.0.13 (2024-08-01)
 
 Full Changelog: [v0.0.12...v0.0.13](https://github.com/plastic-labs/honcho-python/compare/v0.0.12...v0.0.13)
