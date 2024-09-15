@@ -35,10 +35,21 @@ __all__ = ["MetamessagesResource", "AsyncMetamessagesResource"]
 class MetamessagesResource(SyncAPIResource):
     @cached_property
     def with_raw_response(self) -> MetamessagesResourceWithRawResponse:
+        """
+        This property can be used as a prefix for any HTTP method call to return the
+        the raw response object instead of the parsed content.
+
+        For more information, see https://www.github.com/plastic-labs/honcho-python#accessing-raw-response-data-eg-headers
+        """
         return MetamessagesResourceWithRawResponse(self)
 
     @cached_property
     def with_streaming_response(self) -> MetamessagesResourceWithStreamingResponse:
+        """
+        An alternative to `.with_raw_response` that doesn't eagerly read the response body.
+
+        For more information, see https://www.github.com/plastic-labs/honcho-python#with_streaming_response
+        """
         return MetamessagesResourceWithStreamingResponse(self)
 
     def create(
@@ -287,10 +298,21 @@ class MetamessagesResource(SyncAPIResource):
 class AsyncMetamessagesResource(AsyncAPIResource):
     @cached_property
     def with_raw_response(self) -> AsyncMetamessagesResourceWithRawResponse:
+        """
+        This property can be used as a prefix for any HTTP method call to return the
+        the raw response object instead of the parsed content.
+
+        For more information, see https://www.github.com/plastic-labs/honcho-python#accessing-raw-response-data-eg-headers
+        """
         return AsyncMetamessagesResourceWithRawResponse(self)
 
     @cached_property
     def with_streaming_response(self) -> AsyncMetamessagesResourceWithStreamingResponse:
+        """
+        An alternative to `.with_raw_response` that doesn't eagerly read the response body.
+
+        For more information, see https://www.github.com/plastic-labs/honcho-python#with_streaming_response
+        """
         return AsyncMetamessagesResourceWithStreamingResponse(self)
 
     async def create(
