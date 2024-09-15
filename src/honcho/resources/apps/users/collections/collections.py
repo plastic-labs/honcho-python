@@ -362,7 +362,7 @@ class CollectionsResource(SyncAPIResource):
         if not collection_id:
             raise ValueError(f"Expected a non-empty value for `collection_id` but received {collection_id!r}")
         return self._get(
-            f"/apps/{app_id}/users/{user_id}/collections/{collection_id}/query",
+            f"/apps/{app_id}/users/{user_id}/collections/{collection_id}/documents/query",
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -702,7 +702,7 @@ class AsyncCollectionsResource(AsyncAPIResource):
         if not collection_id:
             raise ValueError(f"Expected a non-empty value for `collection_id` but received {collection_id!r}")
         return await self._get(
-            f"/apps/{app_id}/users/{user_id}/collections/{collection_id}/query",
+            f"/apps/{app_id}/users/{user_id}/collections/{collection_id}/documents/query",
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,

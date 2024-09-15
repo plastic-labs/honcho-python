@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Dict, Optional
+from typing import Dict, List, Union, Optional
 
 import httpx
 
@@ -278,7 +278,8 @@ class SessionsResource(SyncAPIResource):
         *,
         app_id: str,
         user_id: str,
-        query: str,
+        queries: Union[str, List[str]],
+        collections: Union[str, List[str]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -287,7 +288,7 @@ class SessionsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> AgentChat:
         """
-        Get Chat
+        Chat
 
         Args:
           extra_headers: Send extra headers
@@ -304,14 +305,17 @@ class SessionsResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `user_id` but received {user_id!r}")
         if not session_id:
             raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
-        return self._get(
+        return self._post(
             f"/apps/{app_id}/users/{user_id}/sessions/{session_id}/chat",
+            body=maybe_transform(
+                {
+                    "queries": queries,
+                    "collections": collections,
+                },
+                session_chat_params.SessionChatParams,
+            ),
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform({"query": query}, session_chat_params.SessionChatParams),
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=AgentChat,
         )
@@ -369,7 +373,8 @@ class SessionsResource(SyncAPIResource):
         *,
         app_id: str,
         user_id: str,
-        query: str,
+        queries: Union[str, List[str]],
+        collections: Union[str, List[str]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -395,14 +400,17 @@ class SessionsResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `user_id` but received {user_id!r}")
         if not session_id:
             raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
-        return self._get(
+        return self._post(
             f"/apps/{app_id}/users/{user_id}/sessions/{session_id}/chat/stream",
+            body=maybe_transform(
+                {
+                    "queries": queries,
+                    "collections": collections,
+                },
+                session_stream_params.SessionStreamParams,
+            ),
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform({"query": query}, session_stream_params.SessionStreamParams),
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=object,
         )
@@ -636,7 +644,8 @@ class AsyncSessionsResource(AsyncAPIResource):
         *,
         app_id: str,
         user_id: str,
-        query: str,
+        queries: Union[str, List[str]],
+        collections: Union[str, List[str]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -645,7 +654,7 @@ class AsyncSessionsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> AgentChat:
         """
-        Get Chat
+        Chat
 
         Args:
           extra_headers: Send extra headers
@@ -662,14 +671,17 @@ class AsyncSessionsResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `user_id` but received {user_id!r}")
         if not session_id:
             raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
-        return await self._get(
+        return await self._post(
             f"/apps/{app_id}/users/{user_id}/sessions/{session_id}/chat",
+            body=await async_maybe_transform(
+                {
+                    "queries": queries,
+                    "collections": collections,
+                },
+                session_chat_params.SessionChatParams,
+            ),
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=await async_maybe_transform({"query": query}, session_chat_params.SessionChatParams),
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=AgentChat,
         )
@@ -727,7 +739,8 @@ class AsyncSessionsResource(AsyncAPIResource):
         *,
         app_id: str,
         user_id: str,
-        query: str,
+        queries: Union[str, List[str]],
+        collections: Union[str, List[str]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -753,14 +766,17 @@ class AsyncSessionsResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `user_id` but received {user_id!r}")
         if not session_id:
             raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
-        return await self._get(
+        return await self._post(
             f"/apps/{app_id}/users/{user_id}/sessions/{session_id}/chat/stream",
+            body=await async_maybe_transform(
+                {
+                    "queries": queries,
+                    "collections": collections,
+                },
+                session_stream_params.SessionStreamParams,
+            ),
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=await async_maybe_transform({"query": query}, session_stream_params.SessionStreamParams),
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=object,
         )
