@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Dict, List, Union, Optional
+from typing import Dict, Optional
 
 import httpx
 
@@ -37,15 +37,8 @@ from ....._response import (
 )
 from .....pagination import SyncPage, AsyncPage
 from ....._base_client import AsyncPaginator, make_request_options
-from .....types.apps.users import (
-    session_chat_params,
-    session_list_params,
-    session_create_params,
-    session_stream_params,
-    session_update_params,
-)
+from .....types.apps.users import session_list_params, session_create_params, session_update_params
 from .....types.apps.users.session import Session
-from .....types.apps.users.agent_chat import AgentChat
 
 __all__ = ["SessionsResource", "AsyncSessionsResource"]
 
@@ -283,54 +276,6 @@ class SessionsResource(SyncAPIResource):
             cast_to=object,
         )
 
-    def chat(
-        self,
-        session_id: str,
-        *,
-        app_id: str,
-        user_id: str,
-        queries: Union[str, List[str]],
-        collections: Union[str, List[str]] | NotGiven = NOT_GIVEN,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> AgentChat:
-        """
-        Chat
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not app_id:
-            raise ValueError(f"Expected a non-empty value for `app_id` but received {app_id!r}")
-        if not user_id:
-            raise ValueError(f"Expected a non-empty value for `user_id` but received {user_id!r}")
-        if not session_id:
-            raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
-        return self._post(
-            f"/apps/{app_id}/users/{user_id}/sessions/{session_id}/chat",
-            body=maybe_transform(
-                {
-                    "queries": queries,
-                    "collections": collections,
-                },
-                session_chat_params.SessionChatParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=AgentChat,
-        )
-
     def get(
         self,
         session_id: str,
@@ -376,54 +321,6 @@ class SessionsResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=Session,
-        )
-
-    def stream(
-        self,
-        session_id: str,
-        *,
-        app_id: str,
-        user_id: str,
-        queries: Union[str, List[str]],
-        collections: Union[str, List[str]] | NotGiven = NOT_GIVEN,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> object:
-        """
-        Get Chat Stream
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not app_id:
-            raise ValueError(f"Expected a non-empty value for `app_id` but received {app_id!r}")
-        if not user_id:
-            raise ValueError(f"Expected a non-empty value for `user_id` but received {user_id!r}")
-        if not session_id:
-            raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
-        return self._post(
-            f"/apps/{app_id}/users/{user_id}/sessions/{session_id}/chat/stream",
-            body=maybe_transform(
-                {
-                    "queries": queries,
-                    "collections": collections,
-                },
-                session_stream_params.SessionStreamParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=object,
         )
 
 
@@ -660,54 +557,6 @@ class AsyncSessionsResource(AsyncAPIResource):
             cast_to=object,
         )
 
-    async def chat(
-        self,
-        session_id: str,
-        *,
-        app_id: str,
-        user_id: str,
-        queries: Union[str, List[str]],
-        collections: Union[str, List[str]] | NotGiven = NOT_GIVEN,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> AgentChat:
-        """
-        Chat
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not app_id:
-            raise ValueError(f"Expected a non-empty value for `app_id` but received {app_id!r}")
-        if not user_id:
-            raise ValueError(f"Expected a non-empty value for `user_id` but received {user_id!r}")
-        if not session_id:
-            raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
-        return await self._post(
-            f"/apps/{app_id}/users/{user_id}/sessions/{session_id}/chat",
-            body=await async_maybe_transform(
-                {
-                    "queries": queries,
-                    "collections": collections,
-                },
-                session_chat_params.SessionChatParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=AgentChat,
-        )
-
     async def get(
         self,
         session_id: str,
@@ -755,54 +604,6 @@ class AsyncSessionsResource(AsyncAPIResource):
             cast_to=Session,
         )
 
-    async def stream(
-        self,
-        session_id: str,
-        *,
-        app_id: str,
-        user_id: str,
-        queries: Union[str, List[str]],
-        collections: Union[str, List[str]] | NotGiven = NOT_GIVEN,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> object:
-        """
-        Get Chat Stream
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not app_id:
-            raise ValueError(f"Expected a non-empty value for `app_id` but received {app_id!r}")
-        if not user_id:
-            raise ValueError(f"Expected a non-empty value for `user_id` but received {user_id!r}")
-        if not session_id:
-            raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
-        return await self._post(
-            f"/apps/{app_id}/users/{user_id}/sessions/{session_id}/chat/stream",
-            body=await async_maybe_transform(
-                {
-                    "queries": queries,
-                    "collections": collections,
-                },
-                session_stream_params.SessionStreamParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=object,
-        )
-
 
 class SessionsResourceWithRawResponse:
     def __init__(self, sessions: SessionsResource) -> None:
@@ -820,14 +621,8 @@ class SessionsResourceWithRawResponse:
         self.delete = to_raw_response_wrapper(
             sessions.delete,
         )
-        self.chat = to_raw_response_wrapper(
-            sessions.chat,
-        )
         self.get = to_raw_response_wrapper(
             sessions.get,
-        )
-        self.stream = to_raw_response_wrapper(
-            sessions.stream,
         )
 
     @cached_property
@@ -855,14 +650,8 @@ class AsyncSessionsResourceWithRawResponse:
         self.delete = async_to_raw_response_wrapper(
             sessions.delete,
         )
-        self.chat = async_to_raw_response_wrapper(
-            sessions.chat,
-        )
         self.get = async_to_raw_response_wrapper(
             sessions.get,
-        )
-        self.stream = async_to_raw_response_wrapper(
-            sessions.stream,
         )
 
     @cached_property
@@ -890,14 +679,8 @@ class SessionsResourceWithStreamingResponse:
         self.delete = to_streamed_response_wrapper(
             sessions.delete,
         )
-        self.chat = to_streamed_response_wrapper(
-            sessions.chat,
-        )
         self.get = to_streamed_response_wrapper(
             sessions.get,
-        )
-        self.stream = to_streamed_response_wrapper(
-            sessions.stream,
         )
 
     @cached_property
@@ -925,14 +708,8 @@ class AsyncSessionsResourceWithStreamingResponse:
         self.delete = async_to_streamed_response_wrapper(
             sessions.delete,
         )
-        self.chat = async_to_streamed_response_wrapper(
-            sessions.chat,
-        )
         self.get = async_to_streamed_response_wrapper(
             sessions.get,
-        )
-        self.stream = async_to_streamed_response_wrapper(
-            sessions.stream,
         )
 
     @cached_property
