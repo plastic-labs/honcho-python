@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from typing import List, Union
 from typing_extensions import Required, TypedDict
 
 __all__ = ["SessionStreamParams"]
@@ -12,4 +13,4 @@ class SessionStreamParams(TypedDict, total=False):
 
     user_id: Required[str]
 
-    query: Required[str]
+    queries: Required[Union[str, List[str]]]

@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Dict, Optional
+from typing import Dict, List, Union, Optional
 
 import httpx
 
@@ -61,10 +61,21 @@ class SessionsResource(SyncAPIResource):
 
     @cached_property
     def with_raw_response(self) -> SessionsResourceWithRawResponse:
+        """
+        This property can be used as a prefix for any HTTP method call to return the
+        the raw response object instead of the parsed content.
+
+        For more information, see https://www.github.com/plastic-labs/honcho-python#accessing-raw-response-data-eg-headers
+        """
         return SessionsResourceWithRawResponse(self)
 
     @cached_property
     def with_streaming_response(self) -> SessionsResourceWithStreamingResponse:
+        """
+        An alternative to `.with_raw_response` that doesn't eagerly read the response body.
+
+        For more information, see https://www.github.com/plastic-labs/honcho-python#with_streaming_response
+        """
         return SessionsResourceWithStreamingResponse(self)
 
     def create(
@@ -278,7 +289,7 @@ class SessionsResource(SyncAPIResource):
         *,
         app_id: str,
         user_id: str,
-        query: str,
+        queries: Union[str, List[str]],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -287,7 +298,7 @@ class SessionsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> AgentChat:
         """
-        Get Chat
+        Chat
 
         Args:
           extra_headers: Send extra headers
@@ -304,14 +315,11 @@ class SessionsResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `user_id` but received {user_id!r}")
         if not session_id:
             raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
-        return self._get(
+        return self._post(
             f"/apps/{app_id}/users/{user_id}/sessions/{session_id}/chat",
+            body=maybe_transform({"queries": queries}, session_chat_params.SessionChatParams),
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform({"query": query}, session_chat_params.SessionChatParams),
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=AgentChat,
         )
@@ -369,7 +377,7 @@ class SessionsResource(SyncAPIResource):
         *,
         app_id: str,
         user_id: str,
-        query: str,
+        queries: Union[str, List[str]],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -395,14 +403,11 @@ class SessionsResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `user_id` but received {user_id!r}")
         if not session_id:
             raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
-        return self._get(
+        return self._post(
             f"/apps/{app_id}/users/{user_id}/sessions/{session_id}/chat/stream",
+            body=maybe_transform({"queries": queries}, session_stream_params.SessionStreamParams),
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform({"query": query}, session_stream_params.SessionStreamParams),
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=object,
         )
@@ -419,10 +424,21 @@ class AsyncSessionsResource(AsyncAPIResource):
 
     @cached_property
     def with_raw_response(self) -> AsyncSessionsResourceWithRawResponse:
+        """
+        This property can be used as a prefix for any HTTP method call to return the
+        the raw response object instead of the parsed content.
+
+        For more information, see https://www.github.com/plastic-labs/honcho-python#accessing-raw-response-data-eg-headers
+        """
         return AsyncSessionsResourceWithRawResponse(self)
 
     @cached_property
     def with_streaming_response(self) -> AsyncSessionsResourceWithStreamingResponse:
+        """
+        An alternative to `.with_raw_response` that doesn't eagerly read the response body.
+
+        For more information, see https://www.github.com/plastic-labs/honcho-python#with_streaming_response
+        """
         return AsyncSessionsResourceWithStreamingResponse(self)
 
     async def create(
@@ -636,7 +652,7 @@ class AsyncSessionsResource(AsyncAPIResource):
         *,
         app_id: str,
         user_id: str,
-        query: str,
+        queries: Union[str, List[str]],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -645,7 +661,7 @@ class AsyncSessionsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> AgentChat:
         """
-        Get Chat
+        Chat
 
         Args:
           extra_headers: Send extra headers
@@ -662,14 +678,11 @@ class AsyncSessionsResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `user_id` but received {user_id!r}")
         if not session_id:
             raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
-        return await self._get(
+        return await self._post(
             f"/apps/{app_id}/users/{user_id}/sessions/{session_id}/chat",
+            body=await async_maybe_transform({"queries": queries}, session_chat_params.SessionChatParams),
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=await async_maybe_transform({"query": query}, session_chat_params.SessionChatParams),
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=AgentChat,
         )
@@ -727,7 +740,7 @@ class AsyncSessionsResource(AsyncAPIResource):
         *,
         app_id: str,
         user_id: str,
-        query: str,
+        queries: Union[str, List[str]],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -753,14 +766,11 @@ class AsyncSessionsResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `user_id` but received {user_id!r}")
         if not session_id:
             raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
-        return await self._get(
+        return await self._post(
             f"/apps/{app_id}/users/{user_id}/sessions/{session_id}/chat/stream",
+            body=await async_maybe_transform({"queries": queries}, session_stream_params.SessionStreamParams),
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=await async_maybe_transform({"query": query}, session_stream_params.SessionStreamParams),
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=object,
         )

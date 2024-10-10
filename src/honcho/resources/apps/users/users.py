@@ -35,6 +35,14 @@ from ...._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
+from .metamessages import (
+    MetamessagesResource,
+    AsyncMetamessagesResource,
+    MetamessagesResourceWithRawResponse,
+    AsyncMetamessagesResourceWithRawResponse,
+    MetamessagesResourceWithStreamingResponse,
+    AsyncMetamessagesResourceWithStreamingResponse,
+)
 from ....pagination import SyncPage, AsyncPage
 from ....types.apps import user_list_params, user_create_params, user_update_params
 from ...._base_client import AsyncPaginator, make_request_options
@@ -47,6 +55,10 @@ __all__ = ["UsersResource", "AsyncUsersResource"]
 
 class UsersResource(SyncAPIResource):
     @cached_property
+    def metamessages(self) -> MetamessagesResource:
+        return MetamessagesResource(self._client)
+
+    @cached_property
     def sessions(self) -> SessionsResource:
         return SessionsResource(self._client)
 
@@ -56,10 +68,21 @@ class UsersResource(SyncAPIResource):
 
     @cached_property
     def with_raw_response(self) -> UsersResourceWithRawResponse:
+        """
+        This property can be used as a prefix for any HTTP method call to return the
+        the raw response object instead of the parsed content.
+
+        For more information, see https://www.github.com/plastic-labs/honcho-python#accessing-raw-response-data-eg-headers
+        """
         return UsersResourceWithRawResponse(self)
 
     @cached_property
     def with_streaming_response(self) -> UsersResourceWithStreamingResponse:
+        """
+        An alternative to `.with_raw_response` that doesn't eagerly read the response body.
+
+        For more information, see https://www.github.com/plastic-labs/honcho-python#with_streaming_response
+        """
         return UsersResourceWithStreamingResponse(self)
 
     def create(
@@ -348,6 +371,10 @@ class UsersResource(SyncAPIResource):
 
 class AsyncUsersResource(AsyncAPIResource):
     @cached_property
+    def metamessages(self) -> AsyncMetamessagesResource:
+        return AsyncMetamessagesResource(self._client)
+
+    @cached_property
     def sessions(self) -> AsyncSessionsResource:
         return AsyncSessionsResource(self._client)
 
@@ -357,10 +384,21 @@ class AsyncUsersResource(AsyncAPIResource):
 
     @cached_property
     def with_raw_response(self) -> AsyncUsersResourceWithRawResponse:
+        """
+        This property can be used as a prefix for any HTTP method call to return the
+        the raw response object instead of the parsed content.
+
+        For more information, see https://www.github.com/plastic-labs/honcho-python#accessing-raw-response-data-eg-headers
+        """
         return AsyncUsersResourceWithRawResponse(self)
 
     @cached_property
     def with_streaming_response(self) -> AsyncUsersResourceWithStreamingResponse:
+        """
+        An alternative to `.with_raw_response` that doesn't eagerly read the response body.
+
+        For more information, see https://www.github.com/plastic-labs/honcho-python#with_streaming_response
+        """
         return AsyncUsersResourceWithStreamingResponse(self)
 
     async def create(
@@ -671,6 +709,10 @@ class UsersResourceWithRawResponse:
         )
 
     @cached_property
+    def metamessages(self) -> MetamessagesResourceWithRawResponse:
+        return MetamessagesResourceWithRawResponse(self._users.metamessages)
+
+    @cached_property
     def sessions(self) -> SessionsResourceWithRawResponse:
         return SessionsResourceWithRawResponse(self._users.sessions)
 
@@ -701,6 +743,10 @@ class AsyncUsersResourceWithRawResponse:
         self.get_or_create = async_to_raw_response_wrapper(
             users.get_or_create,
         )
+
+    @cached_property
+    def metamessages(self) -> AsyncMetamessagesResourceWithRawResponse:
+        return AsyncMetamessagesResourceWithRawResponse(self._users.metamessages)
 
     @cached_property
     def sessions(self) -> AsyncSessionsResourceWithRawResponse:
@@ -735,6 +781,10 @@ class UsersResourceWithStreamingResponse:
         )
 
     @cached_property
+    def metamessages(self) -> MetamessagesResourceWithStreamingResponse:
+        return MetamessagesResourceWithStreamingResponse(self._users.metamessages)
+
+    @cached_property
     def sessions(self) -> SessionsResourceWithStreamingResponse:
         return SessionsResourceWithStreamingResponse(self._users.sessions)
 
@@ -765,6 +815,10 @@ class AsyncUsersResourceWithStreamingResponse:
         self.get_or_create = async_to_streamed_response_wrapper(
             users.get_or_create,
         )
+
+    @cached_property
+    def metamessages(self) -> AsyncMetamessagesResourceWithStreamingResponse:
+        return AsyncMetamessagesResourceWithStreamingResponse(self._users.metamessages)
 
     @cached_property
     def sessions(self) -> AsyncSessionsResourceWithStreamingResponse:

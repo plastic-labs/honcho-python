@@ -275,7 +275,7 @@ class TestSessions:
             session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            query="query",
+            queries="string",
         )
         assert_matches_type(AgentChat, session, path=["response"])
 
@@ -285,7 +285,7 @@ class TestSessions:
             session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            query="query",
+            queries="string",
         )
 
         assert response.is_closed is True
@@ -299,7 +299,7 @@ class TestSessions:
             session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            query="query",
+            queries="string",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -316,7 +316,7 @@ class TestSessions:
                 session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 app_id="",
                 user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                query="query",
+                queries="string",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `user_id` but received ''"):
@@ -324,7 +324,7 @@ class TestSessions:
                 session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 user_id="",
-                query="query",
+                queries="string",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `session_id` but received ''"):
@@ -332,7 +332,7 @@ class TestSessions:
                 session_id="",
                 app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                query="query",
+                queries="string",
             )
 
     @parametrize
@@ -401,7 +401,7 @@ class TestSessions:
             session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            query="query",
+            queries="string",
         )
         assert_matches_type(object, session, path=["response"])
 
@@ -411,7 +411,7 @@ class TestSessions:
             session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            query="query",
+            queries="string",
         )
 
         assert response.is_closed is True
@@ -425,7 +425,7 @@ class TestSessions:
             session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            query="query",
+            queries="string",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -442,7 +442,7 @@ class TestSessions:
                 session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 app_id="",
                 user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                query="query",
+                queries="string",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `user_id` but received ''"):
@@ -450,7 +450,7 @@ class TestSessions:
                 session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 user_id="",
-                query="query",
+                queries="string",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `session_id` but received ''"):
@@ -458,7 +458,7 @@ class TestSessions:
                 session_id="",
                 app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                query="query",
+                queries="string",
             )
 
 
@@ -719,7 +719,7 @@ class TestAsyncSessions:
             session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            query="query",
+            queries="string",
         )
         assert_matches_type(AgentChat, session, path=["response"])
 
@@ -729,7 +729,7 @@ class TestAsyncSessions:
             session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            query="query",
+            queries="string",
         )
 
         assert response.is_closed is True
@@ -743,7 +743,7 @@ class TestAsyncSessions:
             session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            query="query",
+            queries="string",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -760,7 +760,7 @@ class TestAsyncSessions:
                 session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 app_id="",
                 user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                query="query",
+                queries="string",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `user_id` but received ''"):
@@ -768,7 +768,7 @@ class TestAsyncSessions:
                 session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 user_id="",
-                query="query",
+                queries="string",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `session_id` but received ''"):
@@ -776,7 +776,7 @@ class TestAsyncSessions:
                 session_id="",
                 app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                query="query",
+                queries="string",
             )
 
     @parametrize
@@ -845,7 +845,7 @@ class TestAsyncSessions:
             session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            query="query",
+            queries="string",
         )
         assert_matches_type(object, session, path=["response"])
 
@@ -855,7 +855,7 @@ class TestAsyncSessions:
             session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            query="query",
+            queries="string",
         )
 
         assert response.is_closed is True
@@ -869,7 +869,7 @@ class TestAsyncSessions:
             session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            query="query",
+            queries="string",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -886,7 +886,7 @@ class TestAsyncSessions:
                 session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 app_id="",
                 user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                query="query",
+                queries="string",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `user_id` but received ''"):
@@ -894,7 +894,7 @@ class TestAsyncSessions:
                 session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 user_id="",
-                query="query",
+                queries="string",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `session_id` but received ''"):
@@ -902,5 +902,5 @@ class TestAsyncSessions:
                 session_id="",
                 app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                query="query",
+                queries="string",
             )

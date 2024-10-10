@@ -24,8 +24,22 @@ from .collections import (
     CollectionsResourceWithStreamingResponse,
     AsyncCollectionsResourceWithStreamingResponse,
 )
+from .metamessages import (
+    MetamessagesResource,
+    AsyncMetamessagesResource,
+    MetamessagesResourceWithRawResponse,
+    AsyncMetamessagesResourceWithRawResponse,
+    MetamessagesResourceWithStreamingResponse,
+    AsyncMetamessagesResourceWithStreamingResponse,
+)
 
 __all__ = [
+    "MetamessagesResource",
+    "AsyncMetamessagesResource",
+    "MetamessagesResourceWithRawResponse",
+    "AsyncMetamessagesResourceWithRawResponse",
+    "MetamessagesResourceWithStreamingResponse",
+    "AsyncMetamessagesResourceWithStreamingResponse",
     "SessionsResource",
     "AsyncSessionsResource",
     "SessionsResourceWithRawResponse",
