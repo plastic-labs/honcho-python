@@ -33,12 +33,6 @@ Methods:
 
 ### Metamessages
 
-Types:
-
-```python
-from honcho.types.apps.users import PageMetamessage
-```
-
 Methods:
 
 - <code title="get /apps/{app_id}/users/{user_id}/metamessages">client.apps.users.metamessages.<a href="./src/honcho/resources/apps/users/metamessages.py">list</a>(user_id, \*, app_id, \*\*<a href="src/honcho/types/apps/users/metamessage_list_params.py">params</a>) -> <a href="./src/honcho/types/apps/users/sessions/metamessage.py">SyncPage[Metamessage]</a></code>
@@ -48,7 +42,13 @@ Methods:
 Types:
 
 ```python
-from honcho.types.apps.users import AgentChat, PageSession, Session, SessionDeleteResponse
+from honcho.types.apps.users import (
+    AgentChat,
+    PageSession,
+    Session,
+    SessionDeleteResponse,
+    SessionStreamResponse,
+)
 ```
 
 Methods:
@@ -57,7 +57,9 @@ Methods:
 - <code title="put /apps/{app_id}/users/{user_id}/sessions/{session_id}">client.apps.users.sessions.<a href="./src/honcho/resources/apps/users/sessions/sessions.py">update</a>(session_id, \*, app_id, user_id, \*\*<a href="src/honcho/types/apps/users/session_update_params.py">params</a>) -> <a href="./src/honcho/types/apps/users/session.py">Session</a></code>
 - <code title="get /apps/{app_id}/users/{user_id}/sessions">client.apps.users.sessions.<a href="./src/honcho/resources/apps/users/sessions/sessions.py">list</a>(user_id, \*, app_id, \*\*<a href="src/honcho/types/apps/users/session_list_params.py">params</a>) -> <a href="./src/honcho/types/apps/users/session.py">SyncPage[Session]</a></code>
 - <code title="delete /apps/{app_id}/users/{user_id}/sessions/{session_id}">client.apps.users.sessions.<a href="./src/honcho/resources/apps/users/sessions/sessions.py">delete</a>(session_id, \*, app_id, user_id) -> <a href="./src/honcho/types/apps/users/session_delete_response.py">object</a></code>
+- <code title="post /apps/{app_id}/users/{user_id}/sessions/{session_id}/chat">client.apps.users.sessions.<a href="./src/honcho/resources/apps/users/sessions/sessions.py">chat</a>(session_id, \*, app_id, user_id, \*\*<a href="src/honcho/types/apps/users/session_chat_params.py">params</a>) -> <a href="./src/honcho/types/apps/users/agent_chat.py">AgentChat</a></code>
 - <code title="get /apps/{app_id}/users/{user_id}/sessions/{session_id}">client.apps.users.sessions.<a href="./src/honcho/resources/apps/users/sessions/sessions.py">get</a>(session_id, \*, app_id, user_id) -> <a href="./src/honcho/types/apps/users/session.py">Session</a></code>
+- <code title="post /apps/{app_id}/users/{user_id}/sessions/{session_id}/chat/stream">client.apps.users.sessions.<a href="./src/honcho/resources/apps/users/sessions/sessions.py">stream</a>(session_id, \*, app_id, user_id, \*\*<a href="src/honcho/types/apps/users/session_stream_params.py">params</a>) -> <a href="./src/honcho/types/apps/users/session_stream_response.py">object</a></code>
 
 #### Messages
 
