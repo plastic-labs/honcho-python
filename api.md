@@ -113,7 +113,12 @@ Methods:
 Types:
 
 ```python
-from honcho.types.apps.users.collections import Document, PageDocument, DocumentDeleteResponse
+from honcho.types.apps.users.collections import (
+    Document,
+    PageDocument,
+    DocumentDeleteResponse,
+    DocumentQueryResponse,
+)
 ```
 
 Methods:
@@ -123,3 +128,4 @@ Methods:
 - <code title="get /apps/{app_id}/users/{user_id}/collections/{collection_id}/documents">client.apps.users.collections.documents.<a href="./src/honcho/resources/apps/users/collections/documents.py">list</a>(collection_id, \*, app_id, user_id, \*\*<a href="src/honcho/types/apps/users/collections/document_list_params.py">params</a>) -> <a href="./src/honcho/types/apps/users/collections/document.py">SyncPage[Document]</a></code>
 - <code title="delete /apps/{app_id}/users/{user_id}/collections/{collection_id}/documents/{document_id}">client.apps.users.collections.documents.<a href="./src/honcho/resources/apps/users/collections/documents.py">delete</a>(document_id, \*, app_id, user_id, collection_id) -> <a href="./src/honcho/types/apps/users/collections/document_delete_response.py">object</a></code>
 - <code title="get /apps/{app_id}/users/{user_id}/collections/{collection_id}/documents/{document_id}">client.apps.users.collections.documents.<a href="./src/honcho/resources/apps/users/collections/documents.py">get</a>(document_id, \*, app_id, user_id, collection_id) -> <a href="./src/honcho/types/apps/users/collections/document.py">Document</a></code>
+- <code title="get /apps/{app_id}/users/{user_id}/collections/{collection_id}/documents/query">client.apps.users.collections.documents.<a href="./src/honcho/resources/apps/users/collections/documents.py">query</a>(collection_id, \*, app_id, user_id, \*\*<a href="src/honcho/types/apps/users/collections/document_query_params.py">params</a>) -> <a href="./src/honcho/types/apps/users/collections/document_query_response.py">DocumentQueryResponse</a></code>
