@@ -14,5 +14,3 @@ class SessionStreamParams(TypedDict, total=False):
     user_id: Required[str]
 
     queries: Required[Union[str, List[str]]]
-
-    collections: Union[str, List[str]]
