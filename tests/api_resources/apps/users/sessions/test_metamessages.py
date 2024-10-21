@@ -23,11 +23,11 @@ class TestMetamessages:
     @parametrize
     def test_method_create(self, client: Honcho) -> None:
         metamessage = client.apps.users.sessions.metamessages.create(
-            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            session_id="session_id",
+            app_id="app_id",
+            user_id="user_id",
             content="content",
-            message_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            message_id="message_id",
             metamessage_type="metamessage_type",
         )
         assert_matches_type(Metamessage, metamessage, path=["response"])
@@ -35,11 +35,11 @@ class TestMetamessages:
     @parametrize
     def test_method_create_with_all_params(self, client: Honcho) -> None:
         metamessage = client.apps.users.sessions.metamessages.create(
-            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            session_id="session_id",
+            app_id="app_id",
+            user_id="user_id",
             content="content",
-            message_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            message_id="message_id",
             metamessage_type="metamessage_type",
             metadata={"foo": "bar"},
         )
@@ -48,11 +48,11 @@ class TestMetamessages:
     @parametrize
     def test_raw_response_create(self, client: Honcho) -> None:
         response = client.apps.users.sessions.metamessages.with_raw_response.create(
-            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            session_id="session_id",
+            app_id="app_id",
+            user_id="user_id",
             content="content",
-            message_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            message_id="message_id",
             metamessage_type="metamessage_type",
         )
 
@@ -64,11 +64,11 @@ class TestMetamessages:
     @parametrize
     def test_streaming_response_create(self, client: Honcho) -> None:
         with client.apps.users.sessions.metamessages.with_streaming_response.create(
-            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            session_id="session_id",
+            app_id="app_id",
+            user_id="user_id",
             content="content",
-            message_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            message_id="message_id",
             metamessage_type="metamessage_type",
         ) as response:
             assert not response.is_closed
@@ -83,53 +83,53 @@ class TestMetamessages:
     def test_path_params_create(self, client: Honcho) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `app_id` but received ''"):
             client.apps.users.sessions.metamessages.with_raw_response.create(
-                session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                session_id="session_id",
                 app_id="",
-                user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                user_id="user_id",
                 content="content",
-                message_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                message_id="message_id",
                 metamessage_type="metamessage_type",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `user_id` but received ''"):
             client.apps.users.sessions.metamessages.with_raw_response.create(
-                session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                session_id="session_id",
+                app_id="app_id",
                 user_id="",
                 content="content",
-                message_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                message_id="message_id",
                 metamessage_type="metamessage_type",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `session_id` but received ''"):
             client.apps.users.sessions.metamessages.with_raw_response.create(
                 session_id="",
-                app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                app_id="app_id",
+                user_id="user_id",
                 content="content",
-                message_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                message_id="message_id",
                 metamessage_type="metamessage_type",
             )
 
     @parametrize
     def test_method_update(self, client: Honcho) -> None:
         metamessage = client.apps.users.sessions.metamessages.update(
-            metamessage_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            message_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            metamessage_id="metamessage_id",
+            app_id="app_id",
+            user_id="user_id",
+            session_id="session_id",
+            message_id="message_id",
         )
         assert_matches_type(Metamessage, metamessage, path=["response"])
 
     @parametrize
     def test_method_update_with_all_params(self, client: Honcho) -> None:
         metamessage = client.apps.users.sessions.metamessages.update(
-            metamessage_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            message_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            metamessage_id="metamessage_id",
+            app_id="app_id",
+            user_id="user_id",
+            session_id="session_id",
+            message_id="message_id",
             metadata={"foo": "bar"},
             metamessage_type="metamessage_type",
         )
@@ -138,11 +138,11 @@ class TestMetamessages:
     @parametrize
     def test_raw_response_update(self, client: Honcho) -> None:
         response = client.apps.users.sessions.metamessages.with_raw_response.update(
-            metamessage_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            message_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            metamessage_id="metamessage_id",
+            app_id="app_id",
+            user_id="user_id",
+            session_id="session_id",
+            message_id="message_id",
         )
 
         assert response.is_closed is True
@@ -153,11 +153,11 @@ class TestMetamessages:
     @parametrize
     def test_streaming_response_update(self, client: Honcho) -> None:
         with client.apps.users.sessions.metamessages.with_streaming_response.update(
-            metamessage_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            message_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            metamessage_id="metamessage_id",
+            app_id="app_id",
+            user_id="user_id",
+            session_id="session_id",
+            message_id="message_id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -171,70 +171,70 @@ class TestMetamessages:
     def test_path_params_update(self, client: Honcho) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `app_id` but received ''"):
             client.apps.users.sessions.metamessages.with_raw_response.update(
-                metamessage_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                metamessage_id="metamessage_id",
                 app_id="",
-                user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                message_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                user_id="user_id",
+                session_id="session_id",
+                message_id="message_id",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `user_id` but received ''"):
             client.apps.users.sessions.metamessages.with_raw_response.update(
-                metamessage_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                metamessage_id="metamessage_id",
+                app_id="app_id",
                 user_id="",
-                session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                message_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                session_id="session_id",
+                message_id="message_id",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `session_id` but received ''"):
             client.apps.users.sessions.metamessages.with_raw_response.update(
-                metamessage_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                metamessage_id="metamessage_id",
+                app_id="app_id",
+                user_id="user_id",
                 session_id="",
-                message_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                message_id="message_id",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `metamessage_id` but received ''"):
             client.apps.users.sessions.metamessages.with_raw_response.update(
                 metamessage_id="",
-                app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                message_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                app_id="app_id",
+                user_id="user_id",
+                session_id="session_id",
+                message_id="message_id",
             )
 
     @parametrize
     def test_method_list(self, client: Honcho) -> None:
         metamessage = client.apps.users.sessions.metamessages.list(
-            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            session_id="session_id",
+            app_id="app_id",
+            user_id="user_id",
         )
         assert_matches_type(SyncPage[Metamessage], metamessage, path=["response"])
 
     @parametrize
     def test_method_list_with_all_params(self, client: Honcho) -> None:
         metamessage = client.apps.users.sessions.metamessages.list(
-            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            filter="filter",
-            message_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            metamessage_type="metamessage_type",
+            session_id="session_id",
+            app_id="app_id",
+            user_id="user_id",
             page=1,
             reverse=True,
             size=1,
+            filter={"foo": "bar"},
+            message_id="message_id",
+            metamessage_type="metamessage_type",
         )
         assert_matches_type(SyncPage[Metamessage], metamessage, path=["response"])
 
     @parametrize
     def test_raw_response_list(self, client: Honcho) -> None:
         response = client.apps.users.sessions.metamessages.with_raw_response.list(
-            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            session_id="session_id",
+            app_id="app_id",
+            user_id="user_id",
         )
 
         assert response.is_closed is True
@@ -245,9 +245,9 @@ class TestMetamessages:
     @parametrize
     def test_streaming_response_list(self, client: Honcho) -> None:
         with client.apps.users.sessions.metamessages.with_streaming_response.list(
-            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            session_id="session_id",
+            app_id="app_id",
+            user_id="user_id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -261,44 +261,44 @@ class TestMetamessages:
     def test_path_params_list(self, client: Honcho) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `app_id` but received ''"):
             client.apps.users.sessions.metamessages.with_raw_response.list(
-                session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                session_id="session_id",
                 app_id="",
-                user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                user_id="user_id",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `user_id` but received ''"):
             client.apps.users.sessions.metamessages.with_raw_response.list(
-                session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                session_id="session_id",
+                app_id="app_id",
                 user_id="",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `session_id` but received ''"):
             client.apps.users.sessions.metamessages.with_raw_response.list(
                 session_id="",
-                app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                app_id="app_id",
+                user_id="user_id",
             )
 
     @parametrize
     def test_method_get(self, client: Honcho) -> None:
         metamessage = client.apps.users.sessions.metamessages.get(
-            metamessage_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            message_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            metamessage_id="metamessage_id",
+            app_id="app_id",
+            user_id="user_id",
+            session_id="session_id",
+            message_id="message_id",
         )
         assert_matches_type(Metamessage, metamessage, path=["response"])
 
     @parametrize
     def test_raw_response_get(self, client: Honcho) -> None:
         response = client.apps.users.sessions.metamessages.with_raw_response.get(
-            metamessage_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            message_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            metamessage_id="metamessage_id",
+            app_id="app_id",
+            user_id="user_id",
+            session_id="session_id",
+            message_id="message_id",
         )
 
         assert response.is_closed is True
@@ -309,11 +309,11 @@ class TestMetamessages:
     @parametrize
     def test_streaming_response_get(self, client: Honcho) -> None:
         with client.apps.users.sessions.metamessages.with_streaming_response.get(
-            metamessage_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            message_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            metamessage_id="metamessage_id",
+            app_id="app_id",
+            user_id="user_id",
+            session_id="session_id",
+            message_id="message_id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -327,38 +327,38 @@ class TestMetamessages:
     def test_path_params_get(self, client: Honcho) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `app_id` but received ''"):
             client.apps.users.sessions.metamessages.with_raw_response.get(
-                metamessage_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                metamessage_id="metamessage_id",
                 app_id="",
-                user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                message_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                user_id="user_id",
+                session_id="session_id",
+                message_id="message_id",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `user_id` but received ''"):
             client.apps.users.sessions.metamessages.with_raw_response.get(
-                metamessage_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                metamessage_id="metamessage_id",
+                app_id="app_id",
                 user_id="",
-                session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                message_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                session_id="session_id",
+                message_id="message_id",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `session_id` but received ''"):
             client.apps.users.sessions.metamessages.with_raw_response.get(
-                metamessage_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                metamessage_id="metamessage_id",
+                app_id="app_id",
+                user_id="user_id",
                 session_id="",
-                message_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                message_id="message_id",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `metamessage_id` but received ''"):
             client.apps.users.sessions.metamessages.with_raw_response.get(
                 metamessage_id="",
-                app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                message_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                app_id="app_id",
+                user_id="user_id",
+                session_id="session_id",
+                message_id="message_id",
             )
 
 
@@ -368,11 +368,11 @@ class TestAsyncMetamessages:
     @parametrize
     async def test_method_create(self, async_client: AsyncHoncho) -> None:
         metamessage = await async_client.apps.users.sessions.metamessages.create(
-            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            session_id="session_id",
+            app_id="app_id",
+            user_id="user_id",
             content="content",
-            message_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            message_id="message_id",
             metamessage_type="metamessage_type",
         )
         assert_matches_type(Metamessage, metamessage, path=["response"])
@@ -380,11 +380,11 @@ class TestAsyncMetamessages:
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncHoncho) -> None:
         metamessage = await async_client.apps.users.sessions.metamessages.create(
-            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            session_id="session_id",
+            app_id="app_id",
+            user_id="user_id",
             content="content",
-            message_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            message_id="message_id",
             metamessage_type="metamessage_type",
             metadata={"foo": "bar"},
         )
@@ -393,11 +393,11 @@ class TestAsyncMetamessages:
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncHoncho) -> None:
         response = await async_client.apps.users.sessions.metamessages.with_raw_response.create(
-            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            session_id="session_id",
+            app_id="app_id",
+            user_id="user_id",
             content="content",
-            message_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            message_id="message_id",
             metamessage_type="metamessage_type",
         )
 
@@ -409,11 +409,11 @@ class TestAsyncMetamessages:
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncHoncho) -> None:
         async with async_client.apps.users.sessions.metamessages.with_streaming_response.create(
-            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            session_id="session_id",
+            app_id="app_id",
+            user_id="user_id",
             content="content",
-            message_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            message_id="message_id",
             metamessage_type="metamessage_type",
         ) as response:
             assert not response.is_closed
@@ -428,53 +428,53 @@ class TestAsyncMetamessages:
     async def test_path_params_create(self, async_client: AsyncHoncho) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `app_id` but received ''"):
             await async_client.apps.users.sessions.metamessages.with_raw_response.create(
-                session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                session_id="session_id",
                 app_id="",
-                user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                user_id="user_id",
                 content="content",
-                message_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                message_id="message_id",
                 metamessage_type="metamessage_type",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `user_id` but received ''"):
             await async_client.apps.users.sessions.metamessages.with_raw_response.create(
-                session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                session_id="session_id",
+                app_id="app_id",
                 user_id="",
                 content="content",
-                message_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                message_id="message_id",
                 metamessage_type="metamessage_type",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `session_id` but received ''"):
             await async_client.apps.users.sessions.metamessages.with_raw_response.create(
                 session_id="",
-                app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                app_id="app_id",
+                user_id="user_id",
                 content="content",
-                message_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                message_id="message_id",
                 metamessage_type="metamessage_type",
             )
 
     @parametrize
     async def test_method_update(self, async_client: AsyncHoncho) -> None:
         metamessage = await async_client.apps.users.sessions.metamessages.update(
-            metamessage_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            message_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            metamessage_id="metamessage_id",
+            app_id="app_id",
+            user_id="user_id",
+            session_id="session_id",
+            message_id="message_id",
         )
         assert_matches_type(Metamessage, metamessage, path=["response"])
 
     @parametrize
     async def test_method_update_with_all_params(self, async_client: AsyncHoncho) -> None:
         metamessage = await async_client.apps.users.sessions.metamessages.update(
-            metamessage_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            message_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            metamessage_id="metamessage_id",
+            app_id="app_id",
+            user_id="user_id",
+            session_id="session_id",
+            message_id="message_id",
             metadata={"foo": "bar"},
             metamessage_type="metamessage_type",
         )
@@ -483,11 +483,11 @@ class TestAsyncMetamessages:
     @parametrize
     async def test_raw_response_update(self, async_client: AsyncHoncho) -> None:
         response = await async_client.apps.users.sessions.metamessages.with_raw_response.update(
-            metamessage_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            message_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            metamessage_id="metamessage_id",
+            app_id="app_id",
+            user_id="user_id",
+            session_id="session_id",
+            message_id="message_id",
         )
 
         assert response.is_closed is True
@@ -498,11 +498,11 @@ class TestAsyncMetamessages:
     @parametrize
     async def test_streaming_response_update(self, async_client: AsyncHoncho) -> None:
         async with async_client.apps.users.sessions.metamessages.with_streaming_response.update(
-            metamessage_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            message_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            metamessage_id="metamessage_id",
+            app_id="app_id",
+            user_id="user_id",
+            session_id="session_id",
+            message_id="message_id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -516,70 +516,70 @@ class TestAsyncMetamessages:
     async def test_path_params_update(self, async_client: AsyncHoncho) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `app_id` but received ''"):
             await async_client.apps.users.sessions.metamessages.with_raw_response.update(
-                metamessage_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                metamessage_id="metamessage_id",
                 app_id="",
-                user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                message_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                user_id="user_id",
+                session_id="session_id",
+                message_id="message_id",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `user_id` but received ''"):
             await async_client.apps.users.sessions.metamessages.with_raw_response.update(
-                metamessage_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                metamessage_id="metamessage_id",
+                app_id="app_id",
                 user_id="",
-                session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                message_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                session_id="session_id",
+                message_id="message_id",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `session_id` but received ''"):
             await async_client.apps.users.sessions.metamessages.with_raw_response.update(
-                metamessage_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                metamessage_id="metamessage_id",
+                app_id="app_id",
+                user_id="user_id",
                 session_id="",
-                message_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                message_id="message_id",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `metamessage_id` but received ''"):
             await async_client.apps.users.sessions.metamessages.with_raw_response.update(
                 metamessage_id="",
-                app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                message_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                app_id="app_id",
+                user_id="user_id",
+                session_id="session_id",
+                message_id="message_id",
             )
 
     @parametrize
     async def test_method_list(self, async_client: AsyncHoncho) -> None:
         metamessage = await async_client.apps.users.sessions.metamessages.list(
-            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            session_id="session_id",
+            app_id="app_id",
+            user_id="user_id",
         )
         assert_matches_type(AsyncPage[Metamessage], metamessage, path=["response"])
 
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncHoncho) -> None:
         metamessage = await async_client.apps.users.sessions.metamessages.list(
-            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            filter="filter",
-            message_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            metamessage_type="metamessage_type",
+            session_id="session_id",
+            app_id="app_id",
+            user_id="user_id",
             page=1,
             reverse=True,
             size=1,
+            filter={"foo": "bar"},
+            message_id="message_id",
+            metamessage_type="metamessage_type",
         )
         assert_matches_type(AsyncPage[Metamessage], metamessage, path=["response"])
 
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncHoncho) -> None:
         response = await async_client.apps.users.sessions.metamessages.with_raw_response.list(
-            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            session_id="session_id",
+            app_id="app_id",
+            user_id="user_id",
         )
 
         assert response.is_closed is True
@@ -590,9 +590,9 @@ class TestAsyncMetamessages:
     @parametrize
     async def test_streaming_response_list(self, async_client: AsyncHoncho) -> None:
         async with async_client.apps.users.sessions.metamessages.with_streaming_response.list(
-            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            session_id="session_id",
+            app_id="app_id",
+            user_id="user_id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -606,44 +606,44 @@ class TestAsyncMetamessages:
     async def test_path_params_list(self, async_client: AsyncHoncho) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `app_id` but received ''"):
             await async_client.apps.users.sessions.metamessages.with_raw_response.list(
-                session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                session_id="session_id",
                 app_id="",
-                user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                user_id="user_id",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `user_id` but received ''"):
             await async_client.apps.users.sessions.metamessages.with_raw_response.list(
-                session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                session_id="session_id",
+                app_id="app_id",
                 user_id="",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `session_id` but received ''"):
             await async_client.apps.users.sessions.metamessages.with_raw_response.list(
                 session_id="",
-                app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                app_id="app_id",
+                user_id="user_id",
             )
 
     @parametrize
     async def test_method_get(self, async_client: AsyncHoncho) -> None:
         metamessage = await async_client.apps.users.sessions.metamessages.get(
-            metamessage_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            message_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            metamessage_id="metamessage_id",
+            app_id="app_id",
+            user_id="user_id",
+            session_id="session_id",
+            message_id="message_id",
         )
         assert_matches_type(Metamessage, metamessage, path=["response"])
 
     @parametrize
     async def test_raw_response_get(self, async_client: AsyncHoncho) -> None:
         response = await async_client.apps.users.sessions.metamessages.with_raw_response.get(
-            metamessage_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            message_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            metamessage_id="metamessage_id",
+            app_id="app_id",
+            user_id="user_id",
+            session_id="session_id",
+            message_id="message_id",
         )
 
         assert response.is_closed is True
@@ -654,11 +654,11 @@ class TestAsyncMetamessages:
     @parametrize
     async def test_streaming_response_get(self, async_client: AsyncHoncho) -> None:
         async with async_client.apps.users.sessions.metamessages.with_streaming_response.get(
-            metamessage_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            message_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            metamessage_id="metamessage_id",
+            app_id="app_id",
+            user_id="user_id",
+            session_id="session_id",
+            message_id="message_id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -672,36 +672,36 @@ class TestAsyncMetamessages:
     async def test_path_params_get(self, async_client: AsyncHoncho) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `app_id` but received ''"):
             await async_client.apps.users.sessions.metamessages.with_raw_response.get(
-                metamessage_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                metamessage_id="metamessage_id",
                 app_id="",
-                user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                message_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                user_id="user_id",
+                session_id="session_id",
+                message_id="message_id",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `user_id` but received ''"):
             await async_client.apps.users.sessions.metamessages.with_raw_response.get(
-                metamessage_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                metamessage_id="metamessage_id",
+                app_id="app_id",
                 user_id="",
-                session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                message_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                session_id="session_id",
+                message_id="message_id",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `session_id` but received ''"):
             await async_client.apps.users.sessions.metamessages.with_raw_response.get(
-                metamessage_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                metamessage_id="metamessage_id",
+                app_id="app_id",
+                user_id="user_id",
                 session_id="",
-                message_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                message_id="message_id",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `metamessage_id` but received ''"):
             await async_client.apps.users.sessions.metamessages.with_raw_response.get(
                 metamessage_id="",
-                app_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                session_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                message_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                app_id="app_id",
+                user_id="user_id",
+                session_id="session_id",
+                message_id="message_id",
             )

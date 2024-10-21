@@ -2,15 +2,13 @@
 
 from __future__ import annotations
 
-from typing import Optional
+from typing import Dict, Optional
 from typing_extensions import TypedDict
 
 __all__ = ["UserListParams"]
 
 
 class UserListParams(TypedDict, total=False):
-    filter: Optional[str]
-
     page: int
     """Page number"""
 
@@ -18,3 +16,5 @@ class UserListParams(TypedDict, total=False):
 
     size: int
     """Page size"""
+
+    filter: Optional[Dict[str, object]]

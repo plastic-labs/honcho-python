@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Optional
+from typing import Dict, Optional
 from typing_extensions import Required, TypedDict
 
 __all__ = ["SessionListParams"]
@@ -11,10 +11,6 @@ __all__ = ["SessionListParams"]
 class SessionListParams(TypedDict, total=False):
     app_id: Required[str]
 
-    filter: Optional[str]
-
-    is_active: Optional[bool]
-
     page: int
     """Page number"""
 
@@ -22,3 +18,7 @@ class SessionListParams(TypedDict, total=False):
 
     size: int
     """Page size"""
+
+    filter: Optional[Dict[str, object]]
+
+    is_active: bool

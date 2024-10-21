@@ -55,7 +55,7 @@ class MessagesResource(SyncAPIResource):
         user_id: str,
         content: str,
         is_user: bool,
-        metadata: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
+        metadata: Dict[str, object] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -66,9 +66,9 @@ class MessagesResource(SyncAPIResource):
         """
         Adds a message to a session
 
-        Args: app_id (uuid.UUID): The ID of the app representing the client application
-        using honcho user_id (str): The User ID representing the user, managed by the
-        user session_id (int): The ID of the Session to add the message to message
+        Args: app_id (str): The ID of the app representing the client application using
+        honcho user_id (str): The User ID representing the user, managed by the user
+        session_id (int): The ID of the Session to add the message to message
         (schemas.MessageCreate): The Message object to add containing the message
         content and type
 
@@ -92,7 +92,7 @@ class MessagesResource(SyncAPIResource):
         if not session_id:
             raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
         return self._post(
-            f"/apps/{app_id}/users/{user_id}/sessions/{session_id}/messages",
+            f"/v1/apps/{app_id}/users/{user_id}/sessions/{session_id}/messages",
             body=maybe_transform(
                 {
                     "content": content,
@@ -143,7 +143,7 @@ class MessagesResource(SyncAPIResource):
         if not message_id:
             raise ValueError(f"Expected a non-empty value for `message_id` but received {message_id!r}")
         return self._put(
-            f"/apps/{app_id}/users/{user_id}/sessions/{session_id}/messages/{message_id}",
+            f"/v1/apps/{app_id}/users/{user_id}/sessions/{session_id}/messages/{message_id}",
             body=maybe_transform({"metadata": metadata}, message_update_params.MessageUpdateParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -157,10 +157,10 @@ class MessagesResource(SyncAPIResource):
         *,
         app_id: str,
         user_id: str,
-        filter: Optional[str] | NotGiven = NOT_GIVEN,
         page: int | NotGiven = NOT_GIVEN,
         reverse: Optional[bool] | NotGiven = NOT_GIVEN,
         size: int | NotGiven = NOT_GIVEN,
+        filter: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -171,10 +171,10 @@ class MessagesResource(SyncAPIResource):
         """
         Get all messages for a session
 
-        Args: app_id (uuid.UUID): The ID of the app representing the client application
-        using honcho user_id (str): The User ID representing the user, managed by the
-        user session_id (int): The ID of the Session to retrieve reverse (bool): Whether
-        to reverse the order of the messages
+        Args: app_id (str): The ID of the app representing the client application using
+        honcho user_id (str): The User ID representing the user, managed by the user
+        session_id (int): The ID of the Session to retrieve reverse (bool): Whether to
+        reverse the order of the messages
 
         Returns: list[schemas.Message]: List of Message objects
 
@@ -200,8 +200,9 @@ class MessagesResource(SyncAPIResource):
         if not session_id:
             raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
         return self._get_api_list(
-            f"/apps/{app_id}/users/{user_id}/sessions/{session_id}/messages",
+            f"/v1/apps/{app_id}/users/{user_id}/sessions/{session_id}/messages/list",
             page=SyncPage[Message],
+            body=maybe_transform({"filter": filter}, message_list_params.MessageListParams),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -209,7 +210,6 @@ class MessagesResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "filter": filter,
                         "page": page,
                         "reverse": reverse,
                         "size": size,
@@ -218,6 +218,7 @@ class MessagesResource(SyncAPIResource):
                 ),
             ),
             model=Message,
+            method="post",
         )
 
     def get(
@@ -255,7 +256,7 @@ class MessagesResource(SyncAPIResource):
         if not message_id:
             raise ValueError(f"Expected a non-empty value for `message_id` but received {message_id!r}")
         return self._get(
-            f"/apps/{app_id}/users/{user_id}/sessions/{session_id}/messages/{message_id}",
+            f"/v1/apps/{app_id}/users/{user_id}/sessions/{session_id}/messages/{message_id}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -291,7 +292,7 @@ class AsyncMessagesResource(AsyncAPIResource):
         user_id: str,
         content: str,
         is_user: bool,
-        metadata: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
+        metadata: Dict[str, object] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -302,9 +303,9 @@ class AsyncMessagesResource(AsyncAPIResource):
         """
         Adds a message to a session
 
-        Args: app_id (uuid.UUID): The ID of the app representing the client application
-        using honcho user_id (str): The User ID representing the user, managed by the
-        user session_id (int): The ID of the Session to add the message to message
+        Args: app_id (str): The ID of the app representing the client application using
+        honcho user_id (str): The User ID representing the user, managed by the user
+        session_id (int): The ID of the Session to add the message to message
         (schemas.MessageCreate): The Message object to add containing the message
         content and type
 
@@ -328,7 +329,7 @@ class AsyncMessagesResource(AsyncAPIResource):
         if not session_id:
             raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
         return await self._post(
-            f"/apps/{app_id}/users/{user_id}/sessions/{session_id}/messages",
+            f"/v1/apps/{app_id}/users/{user_id}/sessions/{session_id}/messages",
             body=await async_maybe_transform(
                 {
                     "content": content,
@@ -379,7 +380,7 @@ class AsyncMessagesResource(AsyncAPIResource):
         if not message_id:
             raise ValueError(f"Expected a non-empty value for `message_id` but received {message_id!r}")
         return await self._put(
-            f"/apps/{app_id}/users/{user_id}/sessions/{session_id}/messages/{message_id}",
+            f"/v1/apps/{app_id}/users/{user_id}/sessions/{session_id}/messages/{message_id}",
             body=await async_maybe_transform({"metadata": metadata}, message_update_params.MessageUpdateParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -393,10 +394,10 @@ class AsyncMessagesResource(AsyncAPIResource):
         *,
         app_id: str,
         user_id: str,
-        filter: Optional[str] | NotGiven = NOT_GIVEN,
         page: int | NotGiven = NOT_GIVEN,
         reverse: Optional[bool] | NotGiven = NOT_GIVEN,
         size: int | NotGiven = NOT_GIVEN,
+        filter: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -407,10 +408,10 @@ class AsyncMessagesResource(AsyncAPIResource):
         """
         Get all messages for a session
 
-        Args: app_id (uuid.UUID): The ID of the app representing the client application
-        using honcho user_id (str): The User ID representing the user, managed by the
-        user session_id (int): The ID of the Session to retrieve reverse (bool): Whether
-        to reverse the order of the messages
+        Args: app_id (str): The ID of the app representing the client application using
+        honcho user_id (str): The User ID representing the user, managed by the user
+        session_id (int): The ID of the Session to retrieve reverse (bool): Whether to
+        reverse the order of the messages
 
         Returns: list[schemas.Message]: List of Message objects
 
@@ -436,8 +437,9 @@ class AsyncMessagesResource(AsyncAPIResource):
         if not session_id:
             raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
         return self._get_api_list(
-            f"/apps/{app_id}/users/{user_id}/sessions/{session_id}/messages",
+            f"/v1/apps/{app_id}/users/{user_id}/sessions/{session_id}/messages/list",
             page=AsyncPage[Message],
+            body=maybe_transform({"filter": filter}, message_list_params.MessageListParams),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -445,7 +447,6 @@ class AsyncMessagesResource(AsyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "filter": filter,
                         "page": page,
                         "reverse": reverse,
                         "size": size,
@@ -454,6 +455,7 @@ class AsyncMessagesResource(AsyncAPIResource):
                 ),
             ),
             model=Message,
+            method="post",
         )
 
     async def get(
@@ -491,7 +493,7 @@ class AsyncMessagesResource(AsyncAPIResource):
         if not message_id:
             raise ValueError(f"Expected a non-empty value for `message_id` but received {message_id!r}")
         return await self._get(
-            f"/apps/{app_id}/users/{user_id}/sessions/{session_id}/messages/{message_id}",
+            f"/v1/apps/{app_id}/users/{user_id}/sessions/{session_id}/messages/{message_id}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
