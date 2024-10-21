@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Optional
+from typing import Dict, Optional
 from typing_extensions import Required, TypedDict
 
 __all__ = ["MetamessageListParams"]
@@ -13,12 +13,6 @@ class MetamessageListParams(TypedDict, total=False):
 
     user_id: Required[str]
 
-    filter: Optional[str]
-
-    message_id: Optional[str]
-
-    metamessage_type: Optional[str]
-
     page: int
     """Page number"""
 
@@ -26,3 +20,9 @@ class MetamessageListParams(TypedDict, total=False):
 
     size: int
     """Page size"""
+
+    filter: Optional[Dict[str, object]]
+
+    message_id: Optional[str]
+
+    metamessage_type: Optional[str]

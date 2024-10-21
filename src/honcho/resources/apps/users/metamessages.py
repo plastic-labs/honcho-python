@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Optional
+from typing import Dict, Optional
 
 import httpx
 
@@ -49,11 +49,11 @@ class MetamessagesResource(SyncAPIResource):
         user_id: str,
         *,
         app_id: str,
-        filter: Optional[str] | NotGiven = NOT_GIVEN,
-        metamessage_type: Optional[str] | NotGiven = NOT_GIVEN,
         page: int | NotGiven = NOT_GIVEN,
         reverse: Optional[bool] | NotGiven = NOT_GIVEN,
         size: int | NotGiven = NOT_GIVEN,
+        filter: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
+        metamessage_type: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -64,9 +64,9 @@ class MetamessagesResource(SyncAPIResource):
         """
         Paginate through the user metamessages for a user
 
-        Args: app_id (uuid.UUID): The ID of the app representing the client application
-        using honcho user_id (str): The User ID representing the user, managed by the
-        user reverse (bool): Whether to reverse the order of the metamessages
+        Args: app_id (str): The ID of the app representing the client application using
+        honcho user_id (str): The User ID representing the user, managed by the user
+        reverse (bool): Whether to reverse the order of the metamessages
 
         Returns: list[schemas.Message]: List of Message objects
 
@@ -90,8 +90,15 @@ class MetamessagesResource(SyncAPIResource):
         if not user_id:
             raise ValueError(f"Expected a non-empty value for `user_id` but received {user_id!r}")
         return self._get_api_list(
-            f"/apps/{app_id}/users/{user_id}/metamessages",
+            f"/v1/apps/{app_id}/users/{user_id}/metamessages/list",
             page=SyncPage[Metamessage],
+            body=maybe_transform(
+                {
+                    "filter": filter,
+                    "metamessage_type": metamessage_type,
+                },
+                metamessage_list_params.MetamessageListParams,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -99,8 +106,6 @@ class MetamessagesResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "filter": filter,
-                        "metamessage_type": metamessage_type,
                         "page": page,
                         "reverse": reverse,
                         "size": size,
@@ -109,6 +114,7 @@ class MetamessagesResource(SyncAPIResource):
                 ),
             ),
             model=Metamessage,
+            method="post",
         )
 
 
@@ -137,11 +143,11 @@ class AsyncMetamessagesResource(AsyncAPIResource):
         user_id: str,
         *,
         app_id: str,
-        filter: Optional[str] | NotGiven = NOT_GIVEN,
-        metamessage_type: Optional[str] | NotGiven = NOT_GIVEN,
         page: int | NotGiven = NOT_GIVEN,
         reverse: Optional[bool] | NotGiven = NOT_GIVEN,
         size: int | NotGiven = NOT_GIVEN,
+        filter: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
+        metamessage_type: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -152,9 +158,9 @@ class AsyncMetamessagesResource(AsyncAPIResource):
         """
         Paginate through the user metamessages for a user
 
-        Args: app_id (uuid.UUID): The ID of the app representing the client application
-        using honcho user_id (str): The User ID representing the user, managed by the
-        user reverse (bool): Whether to reverse the order of the metamessages
+        Args: app_id (str): The ID of the app representing the client application using
+        honcho user_id (str): The User ID representing the user, managed by the user
+        reverse (bool): Whether to reverse the order of the metamessages
 
         Returns: list[schemas.Message]: List of Message objects
 
@@ -178,8 +184,15 @@ class AsyncMetamessagesResource(AsyncAPIResource):
         if not user_id:
             raise ValueError(f"Expected a non-empty value for `user_id` but received {user_id!r}")
         return self._get_api_list(
-            f"/apps/{app_id}/users/{user_id}/metamessages",
+            f"/v1/apps/{app_id}/users/{user_id}/metamessages/list",
             page=AsyncPage[Metamessage],
+            body=maybe_transform(
+                {
+                    "filter": filter,
+                    "metamessage_type": metamessage_type,
+                },
+                metamessage_list_params.MetamessageListParams,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -187,8 +200,6 @@ class AsyncMetamessagesResource(AsyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "filter": filter,
-                        "metamessage_type": metamessage_type,
                         "page": page,
                         "reverse": reverse,
                         "size": size,
@@ -197,6 +208,7 @@ class AsyncMetamessagesResource(AsyncAPIResource):
                 ),
             ),
             model=Metamessage,
+            method="post",
         )
 
 

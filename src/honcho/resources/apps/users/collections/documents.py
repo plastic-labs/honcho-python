@@ -87,7 +87,7 @@ class DocumentsResource(SyncAPIResource):
         if not collection_id:
             raise ValueError(f"Expected a non-empty value for `collection_id` but received {collection_id!r}")
         return self._post(
-            f"/apps/{app_id}/users/{user_id}/collections/{collection_id}/documents",
+            f"/v1/apps/{app_id}/users/{user_id}/collections/{collection_id}/documents",
             body=maybe_transform(
                 {
                     "content": content,
@@ -138,7 +138,7 @@ class DocumentsResource(SyncAPIResource):
         if not document_id:
             raise ValueError(f"Expected a non-empty value for `document_id` but received {document_id!r}")
         return self._put(
-            f"/apps/{app_id}/users/{user_id}/collections/{collection_id}/documents/{document_id}",
+            f"/v1/apps/{app_id}/users/{user_id}/collections/{collection_id}/documents/{document_id}",
             body=maybe_transform(
                 {
                     "content": content,
@@ -158,10 +158,10 @@ class DocumentsResource(SyncAPIResource):
         *,
         app_id: str,
         user_id: str,
-        filter: Optional[str] | NotGiven = NOT_GIVEN,
         page: int | NotGiven = NOT_GIVEN,
         reverse: Optional[bool] | NotGiven = NOT_GIVEN,
         size: int | NotGiven = NOT_GIVEN,
+        filter: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -192,8 +192,9 @@ class DocumentsResource(SyncAPIResource):
         if not collection_id:
             raise ValueError(f"Expected a non-empty value for `collection_id` but received {collection_id!r}")
         return self._get_api_list(
-            f"/apps/{app_id}/users/{user_id}/collections/{collection_id}/documents",
+            f"/v1/apps/{app_id}/users/{user_id}/collections/{collection_id}/documents/list",
             page=SyncPage[Document],
+            body=maybe_transform({"filter": filter}, document_list_params.DocumentListParams),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -201,7 +202,6 @@ class DocumentsResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "filter": filter,
                         "page": page,
                         "reverse": reverse,
                         "size": size,
@@ -210,6 +210,7 @@ class DocumentsResource(SyncAPIResource):
                 ),
             ),
             model=Document,
+            method="post",
         )
 
     def delete(
@@ -247,7 +248,7 @@ class DocumentsResource(SyncAPIResource):
         if not document_id:
             raise ValueError(f"Expected a non-empty value for `document_id` but received {document_id!r}")
         return self._delete(
-            f"/apps/{app_id}/users/{user_id}/collections/{collection_id}/documents/{document_id}",
+            f"/v1/apps/{app_id}/users/{user_id}/collections/{collection_id}/documents/{document_id}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -289,7 +290,7 @@ class DocumentsResource(SyncAPIResource):
         if not document_id:
             raise ValueError(f"Expected a non-empty value for `document_id` but received {document_id!r}")
         return self._get(
-            f"/apps/{app_id}/users/{user_id}/collections/{collection_id}/documents/{document_id}",
+            f"/v1/apps/{app_id}/users/{user_id}/collections/{collection_id}/documents/{document_id}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -331,7 +332,7 @@ class DocumentsResource(SyncAPIResource):
         if not collection_id:
             raise ValueError(f"Expected a non-empty value for `collection_id` but received {collection_id!r}")
         return self._get(
-            f"/apps/{app_id}/users/{user_id}/collections/{collection_id}/documents/query",
+            f"/v1/apps/{app_id}/users/{user_id}/collections/{collection_id}/documents/query",
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -404,7 +405,7 @@ class AsyncDocumentsResource(AsyncAPIResource):
         if not collection_id:
             raise ValueError(f"Expected a non-empty value for `collection_id` but received {collection_id!r}")
         return await self._post(
-            f"/apps/{app_id}/users/{user_id}/collections/{collection_id}/documents",
+            f"/v1/apps/{app_id}/users/{user_id}/collections/{collection_id}/documents",
             body=await async_maybe_transform(
                 {
                     "content": content,
@@ -455,7 +456,7 @@ class AsyncDocumentsResource(AsyncAPIResource):
         if not document_id:
             raise ValueError(f"Expected a non-empty value for `document_id` but received {document_id!r}")
         return await self._put(
-            f"/apps/{app_id}/users/{user_id}/collections/{collection_id}/documents/{document_id}",
+            f"/v1/apps/{app_id}/users/{user_id}/collections/{collection_id}/documents/{document_id}",
             body=await async_maybe_transform(
                 {
                     "content": content,
@@ -475,10 +476,10 @@ class AsyncDocumentsResource(AsyncAPIResource):
         *,
         app_id: str,
         user_id: str,
-        filter: Optional[str] | NotGiven = NOT_GIVEN,
         page: int | NotGiven = NOT_GIVEN,
         reverse: Optional[bool] | NotGiven = NOT_GIVEN,
         size: int | NotGiven = NOT_GIVEN,
+        filter: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -509,8 +510,9 @@ class AsyncDocumentsResource(AsyncAPIResource):
         if not collection_id:
             raise ValueError(f"Expected a non-empty value for `collection_id` but received {collection_id!r}")
         return self._get_api_list(
-            f"/apps/{app_id}/users/{user_id}/collections/{collection_id}/documents",
+            f"/v1/apps/{app_id}/users/{user_id}/collections/{collection_id}/documents/list",
             page=AsyncPage[Document],
+            body=maybe_transform({"filter": filter}, document_list_params.DocumentListParams),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -518,7 +520,6 @@ class AsyncDocumentsResource(AsyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "filter": filter,
                         "page": page,
                         "reverse": reverse,
                         "size": size,
@@ -527,6 +528,7 @@ class AsyncDocumentsResource(AsyncAPIResource):
                 ),
             ),
             model=Document,
+            method="post",
         )
 
     async def delete(
@@ -564,7 +566,7 @@ class AsyncDocumentsResource(AsyncAPIResource):
         if not document_id:
             raise ValueError(f"Expected a non-empty value for `document_id` but received {document_id!r}")
         return await self._delete(
-            f"/apps/{app_id}/users/{user_id}/collections/{collection_id}/documents/{document_id}",
+            f"/v1/apps/{app_id}/users/{user_id}/collections/{collection_id}/documents/{document_id}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -606,7 +608,7 @@ class AsyncDocumentsResource(AsyncAPIResource):
         if not document_id:
             raise ValueError(f"Expected a non-empty value for `document_id` but received {document_id!r}")
         return await self._get(
-            f"/apps/{app_id}/users/{user_id}/collections/{collection_id}/documents/{document_id}",
+            f"/v1/apps/{app_id}/users/{user_id}/collections/{collection_id}/documents/{document_id}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -648,7 +650,7 @@ class AsyncDocumentsResource(AsyncAPIResource):
         if not collection_id:
             raise ValueError(f"Expected a non-empty value for `collection_id` but received {collection_id!r}")
         return await self._get(
-            f"/apps/{app_id}/users/{user_id}/collections/{collection_id}/documents/query",
+            f"/v1/apps/{app_id}/users/{user_id}/collections/{collection_id}/documents/query",
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
