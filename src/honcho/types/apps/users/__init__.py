@@ -13,7 +13,6 @@ from .session_create_params import SessionCreateParams as SessionCreateParams
 from .session_stream_params import SessionStreamParams as SessionStreamParams
 from .session_update_params import SessionUpdateParams as SessionUpdateParams
 from .collection_list_params import CollectionListParams as CollectionListParams
-from .collection_query_params import CollectionQueryParams as CollectionQueryParams
+from .metamessage_list_params import MetamessageListParams as MetamessageListParams
 from .collection_create_params import CollectionCreateParams as CollectionCreateParams
 from .collection_update_params import CollectionUpdateParams as CollectionUpdateParams
-from .collection_query_response import CollectionQueryResponse as CollectionQueryResponse

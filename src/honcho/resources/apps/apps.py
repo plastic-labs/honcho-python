@@ -42,17 +42,28 @@ class AppsResource(SyncAPIResource):
 
     @cached_property
     def with_raw_response(self) -> AppsResourceWithRawResponse:
+        """
+        This property can be used as a prefix for any HTTP method call to return the
+        the raw response object instead of the parsed content.
+
+        For more information, see https://www.github.com/plastic-labs/honcho-python#accessing-raw-response-data-eg-headers
+        """
         return AppsResourceWithRawResponse(self)
 
     @cached_property
     def with_streaming_response(self) -> AppsResourceWithStreamingResponse:
+        """
+        An alternative to `.with_raw_response` that doesn't eagerly read the response body.
+
+        For more information, see https://www.github.com/plastic-labs/honcho-python#with_streaming_response
+        """
         return AppsResourceWithStreamingResponse(self)
 
     def create(
         self,
         *,
         name: str,
-        metadata: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
+        metadata: Dict[str, object] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -77,7 +88,7 @@ class AppsResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._post(
-            "/apps",
+            "/v1/apps",
             body=maybe_transform(
                 {
                     "name": name,
@@ -107,8 +118,8 @@ class AppsResource(SyncAPIResource):
         """
         Update an App
 
-        Args: app_id (uuid.UUID): The ID of the app to update app (schemas.AppUpdate):
-        The App object containing any new metadata
+        Args: app_id (str): The ID of the app to update app (schemas.AppUpdate): The App
+        object containing any new metadata
 
         Returns: schemas.App: The App object of the updated App
 
@@ -124,7 +135,7 @@ class AppsResource(SyncAPIResource):
         if not app_id:
             raise ValueError(f"Expected a non-empty value for `app_id` but received {app_id!r}")
         return self._put(
-            f"/apps/{app_id}",
+            f"/v1/apps/{app_id}",
             body=maybe_transform(
                 {
                     "metadata": metadata,
@@ -152,7 +163,7 @@ class AppsResource(SyncAPIResource):
         """
         Get an App by ID
 
-        Args: app_id (uuid.UUID): The ID of the app
+        Args: app_id (str): The ID of the app
 
         Returns: schemas.App: App object
 
@@ -168,7 +179,7 @@ class AppsResource(SyncAPIResource):
         if not app_id:
             raise ValueError(f"Expected a non-empty value for `app_id` but received {app_id!r}")
         return self._get(
-            f"/apps/{app_id}",
+            f"/v1/apps/{app_id}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -205,7 +216,7 @@ class AppsResource(SyncAPIResource):
         if not name:
             raise ValueError(f"Expected a non-empty value for `name` but received {name!r}")
         return self._get(
-            f"/apps/name/{name}",
+            f"/v1/apps/name/{name}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -242,7 +253,7 @@ class AppsResource(SyncAPIResource):
         if not name:
             raise ValueError(f"Expected a non-empty value for `name` but received {name!r}")
         return self._get(
-            f"/apps/get_or_create/{name}",
+            f"/v1/apps/get_or_create/{name}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -257,17 +268,28 @@ class AsyncAppsResource(AsyncAPIResource):
 
     @cached_property
     def with_raw_response(self) -> AsyncAppsResourceWithRawResponse:
+        """
+        This property can be used as a prefix for any HTTP method call to return the
+        the raw response object instead of the parsed content.
+
+        For more information, see https://www.github.com/plastic-labs/honcho-python#accessing-raw-response-data-eg-headers
+        """
         return AsyncAppsResourceWithRawResponse(self)
 
     @cached_property
     def with_streaming_response(self) -> AsyncAppsResourceWithStreamingResponse:
+        """
+        An alternative to `.with_raw_response` that doesn't eagerly read the response body.
+
+        For more information, see https://www.github.com/plastic-labs/honcho-python#with_streaming_response
+        """
         return AsyncAppsResourceWithStreamingResponse(self)
 
     async def create(
         self,
         *,
         name: str,
-        metadata: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
+        metadata: Dict[str, object] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -292,7 +314,7 @@ class AsyncAppsResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return await self._post(
-            "/apps",
+            "/v1/apps",
             body=await async_maybe_transform(
                 {
                     "name": name,
@@ -322,8 +344,8 @@ class AsyncAppsResource(AsyncAPIResource):
         """
         Update an App
 
-        Args: app_id (uuid.UUID): The ID of the app to update app (schemas.AppUpdate):
-        The App object containing any new metadata
+        Args: app_id (str): The ID of the app to update app (schemas.AppUpdate): The App
+        object containing any new metadata
 
         Returns: schemas.App: The App object of the updated App
 
@@ -339,7 +361,7 @@ class AsyncAppsResource(AsyncAPIResource):
         if not app_id:
             raise ValueError(f"Expected a non-empty value for `app_id` but received {app_id!r}")
         return await self._put(
-            f"/apps/{app_id}",
+            f"/v1/apps/{app_id}",
             body=await async_maybe_transform(
                 {
                     "metadata": metadata,
@@ -367,7 +389,7 @@ class AsyncAppsResource(AsyncAPIResource):
         """
         Get an App by ID
 
-        Args: app_id (uuid.UUID): The ID of the app
+        Args: app_id (str): The ID of the app
 
         Returns: schemas.App: App object
 
@@ -383,7 +405,7 @@ class AsyncAppsResource(AsyncAPIResource):
         if not app_id:
             raise ValueError(f"Expected a non-empty value for `app_id` but received {app_id!r}")
         return await self._get(
-            f"/apps/{app_id}",
+            f"/v1/apps/{app_id}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -420,7 +442,7 @@ class AsyncAppsResource(AsyncAPIResource):
         if not name:
             raise ValueError(f"Expected a non-empty value for `name` but received {name!r}")
         return await self._get(
-            f"/apps/name/{name}",
+            f"/v1/apps/name/{name}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -457,7 +479,7 @@ class AsyncAppsResource(AsyncAPIResource):
         if not name:
             raise ValueError(f"Expected a non-empty value for `name` but received {name!r}")
         return await self._get(
-            f"/apps/get_or_create/{name}",
+            f"/v1/apps/get_or_create/{name}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),

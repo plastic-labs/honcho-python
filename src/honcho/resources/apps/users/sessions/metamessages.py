@@ -35,10 +35,21 @@ __all__ = ["MetamessagesResource", "AsyncMetamessagesResource"]
 class MetamessagesResource(SyncAPIResource):
     @cached_property
     def with_raw_response(self) -> MetamessagesResourceWithRawResponse:
+        """
+        This property can be used as a prefix for any HTTP method call to return the
+        the raw response object instead of the parsed content.
+
+        For more information, see https://www.github.com/plastic-labs/honcho-python#accessing-raw-response-data-eg-headers
+        """
         return MetamessagesResourceWithRawResponse(self)
 
     @cached_property
     def with_streaming_response(self) -> MetamessagesResourceWithStreamingResponse:
+        """
+        An alternative to `.with_raw_response` that doesn't eagerly read the response body.
+
+        For more information, see https://www.github.com/plastic-labs/honcho-python#with_streaming_response
+        """
         return MetamessagesResourceWithStreamingResponse(self)
 
     def create(
@@ -59,13 +70,12 @@ class MetamessagesResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> Metamessage:
         """
-        Adds a metamessage to a session
+        Adds a message to a session
 
-        Args: app_id (uuid.UUID): The ID of the app representing the client application
-        using honcho user_id (str): The User ID representing the user, managed by the
-        user session_id (int): The ID of the Session to add the metamessage to
-        metamessage (schemas.MetamessageCreate): The Metamessage object to add
-        containing the metamessage content and type
+        Args: app_id (str): The ID of the app representing the client application using
+        honcho user_id (str): The User ID representing the user, managed by the user
+        session_id (int): The ID of the Session to add the message to metamessage
+        (schemas.MeteamessageCreate): The metamessage creation object
 
         Returns: schemas.Metamessage: The Metamessage object of the added metamessage
 
@@ -87,7 +97,7 @@ class MetamessagesResource(SyncAPIResource):
         if not session_id:
             raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
         return self._post(
-            f"/apps/{app_id}/users/{user_id}/sessions/{session_id}/metamessages",
+            f"/v1/apps/{app_id}/users/{user_id}/sessions/{session_id}/metamessages",
             body=maybe_transform(
                 {
                     "content": content,
@@ -141,7 +151,7 @@ class MetamessagesResource(SyncAPIResource):
         if not metamessage_id:
             raise ValueError(f"Expected a non-empty value for `metamessage_id` but received {metamessage_id!r}")
         return self._put(
-            f"/apps/{app_id}/users/{user_id}/sessions/{session_id}/metamessages/{metamessage_id}",
+            f"/v1/apps/{app_id}/users/{user_id}/sessions/{session_id}/metamessages/{metamessage_id}",
             body=maybe_transform(
                 {
                     "message_id": message_id,
@@ -162,12 +172,12 @@ class MetamessagesResource(SyncAPIResource):
         *,
         app_id: str,
         user_id: str,
-        filter: Optional[str] | NotGiven = NOT_GIVEN,
-        message_id: Optional[str] | NotGiven = NOT_GIVEN,
-        metamessage_type: Optional[str] | NotGiven = NOT_GIVEN,
         page: int | NotGiven = NOT_GIVEN,
         reverse: Optional[bool] | NotGiven = NOT_GIVEN,
         size: int | NotGiven = NOT_GIVEN,
+        filter: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
+        message_id: Optional[str] | NotGiven = NOT_GIVEN,
+        metamessage_type: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -178,10 +188,10 @@ class MetamessagesResource(SyncAPIResource):
         """
         Get all messages for a session
 
-        Args: app_id (uuid.UUID): The ID of the app representing the client application
-        using honcho user_id (str): The User ID representing the user, managed by the
-        user session_id (int): The ID of the Session to retrieve reverse (bool): Whether
-        to reverse the order of the metamessages
+        Args: app_id (str): The ID of the app representing the client application using
+        honcho user_id (str): The User ID representing the user, managed by the user
+        session_id (int): The ID of the Session to retrieve reverse (bool): Whether to
+        reverse the order of the metamessages
 
         Returns: list[schemas.Message]: List of Message objects
 
@@ -207,8 +217,16 @@ class MetamessagesResource(SyncAPIResource):
         if not session_id:
             raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
         return self._get_api_list(
-            f"/apps/{app_id}/users/{user_id}/sessions/{session_id}/metamessages",
+            f"/v1/apps/{app_id}/users/{user_id}/sessions/{session_id}/metamessages/list",
             page=SyncPage[Metamessage],
+            body=maybe_transform(
+                {
+                    "filter": filter,
+                    "message_id": message_id,
+                    "metamessage_type": metamessage_type,
+                },
+                metamessage_list_params.MetamessageListParams,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -216,9 +234,6 @@ class MetamessagesResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "filter": filter,
-                        "message_id": message_id,
-                        "metamessage_type": metamessage_type,
                         "page": page,
                         "reverse": reverse,
                         "size": size,
@@ -227,6 +242,7 @@ class MetamessagesResource(SyncAPIResource):
                 ),
             ),
             model=Metamessage,
+            method="post",
         )
 
     def get(
@@ -247,9 +263,9 @@ class MetamessagesResource(SyncAPIResource):
         """
         Get a specific Metamessage by ID
 
-        Args: app_id (uuid.UUID): The ID of the app representing the client application
-        using honcho user_id (str): The User ID representing the user, managed by the
-        user session_id (int): The ID of the Session to retrieve
+        Args: app_id (str): The ID of the app representing the client application using
+        honcho user_id (str): The User ID representing the user, managed by the user
+        session_id (int): The ID of the Session to retrieve
 
         Returns: schemas.Session: The Session object of the requested Session
 
@@ -273,7 +289,7 @@ class MetamessagesResource(SyncAPIResource):
         if not metamessage_id:
             raise ValueError(f"Expected a non-empty value for `metamessage_id` but received {metamessage_id!r}")
         return self._get(
-            f"/apps/{app_id}/users/{user_id}/sessions/{session_id}/metamessages/{metamessage_id}",
+            f"/v1/apps/{app_id}/users/{user_id}/sessions/{session_id}/metamessages/{metamessage_id}",
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -288,10 +304,21 @@ class MetamessagesResource(SyncAPIResource):
 class AsyncMetamessagesResource(AsyncAPIResource):
     @cached_property
     def with_raw_response(self) -> AsyncMetamessagesResourceWithRawResponse:
+        """
+        This property can be used as a prefix for any HTTP method call to return the
+        the raw response object instead of the parsed content.
+
+        For more information, see https://www.github.com/plastic-labs/honcho-python#accessing-raw-response-data-eg-headers
+        """
         return AsyncMetamessagesResourceWithRawResponse(self)
 
     @cached_property
     def with_streaming_response(self) -> AsyncMetamessagesResourceWithStreamingResponse:
+        """
+        An alternative to `.with_raw_response` that doesn't eagerly read the response body.
+
+        For more information, see https://www.github.com/plastic-labs/honcho-python#with_streaming_response
+        """
         return AsyncMetamessagesResourceWithStreamingResponse(self)
 
     async def create(
@@ -312,13 +339,12 @@ class AsyncMetamessagesResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> Metamessage:
         """
-        Adds a metamessage to a session
+        Adds a message to a session
 
-        Args: app_id (uuid.UUID): The ID of the app representing the client application
-        using honcho user_id (str): The User ID representing the user, managed by the
-        user session_id (int): The ID of the Session to add the metamessage to
-        metamessage (schemas.MetamessageCreate): The Metamessage object to add
-        containing the metamessage content and type
+        Args: app_id (str): The ID of the app representing the client application using
+        honcho user_id (str): The User ID representing the user, managed by the user
+        session_id (int): The ID of the Session to add the message to metamessage
+        (schemas.MeteamessageCreate): The metamessage creation object
 
         Returns: schemas.Metamessage: The Metamessage object of the added metamessage
 
@@ -340,7 +366,7 @@ class AsyncMetamessagesResource(AsyncAPIResource):
         if not session_id:
             raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
         return await self._post(
-            f"/apps/{app_id}/users/{user_id}/sessions/{session_id}/metamessages",
+            f"/v1/apps/{app_id}/users/{user_id}/sessions/{session_id}/metamessages",
             body=await async_maybe_transform(
                 {
                     "content": content,
@@ -394,7 +420,7 @@ class AsyncMetamessagesResource(AsyncAPIResource):
         if not metamessage_id:
             raise ValueError(f"Expected a non-empty value for `metamessage_id` but received {metamessage_id!r}")
         return await self._put(
-            f"/apps/{app_id}/users/{user_id}/sessions/{session_id}/metamessages/{metamessage_id}",
+            f"/v1/apps/{app_id}/users/{user_id}/sessions/{session_id}/metamessages/{metamessage_id}",
             body=await async_maybe_transform(
                 {
                     "message_id": message_id,
@@ -415,12 +441,12 @@ class AsyncMetamessagesResource(AsyncAPIResource):
         *,
         app_id: str,
         user_id: str,
-        filter: Optional[str] | NotGiven = NOT_GIVEN,
-        message_id: Optional[str] | NotGiven = NOT_GIVEN,
-        metamessage_type: Optional[str] | NotGiven = NOT_GIVEN,
         page: int | NotGiven = NOT_GIVEN,
         reverse: Optional[bool] | NotGiven = NOT_GIVEN,
         size: int | NotGiven = NOT_GIVEN,
+        filter: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
+        message_id: Optional[str] | NotGiven = NOT_GIVEN,
+        metamessage_type: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -431,10 +457,10 @@ class AsyncMetamessagesResource(AsyncAPIResource):
         """
         Get all messages for a session
 
-        Args: app_id (uuid.UUID): The ID of the app representing the client application
-        using honcho user_id (str): The User ID representing the user, managed by the
-        user session_id (int): The ID of the Session to retrieve reverse (bool): Whether
-        to reverse the order of the metamessages
+        Args: app_id (str): The ID of the app representing the client application using
+        honcho user_id (str): The User ID representing the user, managed by the user
+        session_id (int): The ID of the Session to retrieve reverse (bool): Whether to
+        reverse the order of the metamessages
 
         Returns: list[schemas.Message]: List of Message objects
 
@@ -460,8 +486,16 @@ class AsyncMetamessagesResource(AsyncAPIResource):
         if not session_id:
             raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
         return self._get_api_list(
-            f"/apps/{app_id}/users/{user_id}/sessions/{session_id}/metamessages",
+            f"/v1/apps/{app_id}/users/{user_id}/sessions/{session_id}/metamessages/list",
             page=AsyncPage[Metamessage],
+            body=maybe_transform(
+                {
+                    "filter": filter,
+                    "message_id": message_id,
+                    "metamessage_type": metamessage_type,
+                },
+                metamessage_list_params.MetamessageListParams,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -469,9 +503,6 @@ class AsyncMetamessagesResource(AsyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "filter": filter,
-                        "message_id": message_id,
-                        "metamessage_type": metamessage_type,
                         "page": page,
                         "reverse": reverse,
                         "size": size,
@@ -480,6 +511,7 @@ class AsyncMetamessagesResource(AsyncAPIResource):
                 ),
             ),
             model=Metamessage,
+            method="post",
         )
 
     async def get(
@@ -500,9 +532,9 @@ class AsyncMetamessagesResource(AsyncAPIResource):
         """
         Get a specific Metamessage by ID
 
-        Args: app_id (uuid.UUID): The ID of the app representing the client application
-        using honcho user_id (str): The User ID representing the user, managed by the
-        user session_id (int): The ID of the Session to retrieve
+        Args: app_id (str): The ID of the app representing the client application using
+        honcho user_id (str): The User ID representing the user, managed by the user
+        session_id (int): The ID of the Session to retrieve
 
         Returns: schemas.Session: The Session object of the requested Session
 
@@ -526,7 +558,7 @@ class AsyncMetamessagesResource(AsyncAPIResource):
         if not metamessage_id:
             raise ValueError(f"Expected a non-empty value for `metamessage_id` but received {metamessage_id!r}")
         return await self._get(
-            f"/apps/{app_id}/users/{user_id}/sessions/{session_id}/metamessages/{metamessage_id}",
+            f"/v1/apps/{app_id}/users/{user_id}/sessions/{session_id}/metamessages/{metamessage_id}",
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,

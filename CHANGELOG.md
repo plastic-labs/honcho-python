@@ -1,5 +1,29 @@
 # Changelog
 
+## 0.0.15 (2024-10-21)
+
+Full Changelog: [v0.0.14...v0.0.15](https://github.com/plastic-labs/honcho-python/compare/v0.0.14...v0.0.15)
+
+### Features
+
+* **api:** api update ([#49](https://github.com/plastic-labs/honcho-python/issues/49)) ([4bdb1cc](https://github.com/plastic-labs/honcho-python/commit/4bdb1ccaa307ab2073b4a74efd5ca7cf3882f857))
+* **api:** api update ([#50](https://github.com/plastic-labs/honcho-python/issues/50)) ([e3a6935](https://github.com/plastic-labs/honcho-python/commit/e3a6935f3b48a2492799d8055c762c1f3e412f04))
+* **api:** api update ([#51](https://github.com/plastic-labs/honcho-python/issues/51)) ([1811f82](https://github.com/plastic-labs/honcho-python/commit/1811f8227f12c4d6329dc63e36b9ba6b42ba1aa6))
+* **api:** api update ([#52](https://github.com/plastic-labs/honcho-python/issues/52)) ([2dcfe26](https://github.com/plastic-labs/honcho-python/commit/2dcfe26f3f30278847761e6afa57ee085e142292))
+* **api:** update via SDK Studio ([#45](https://github.com/plastic-labs/honcho-python/issues/45)) ([9bc721d](https://github.com/plastic-labs/honcho-python/commit/9bc721d1f607392ba823024a904a9ca7de151edd))
+
+
+### Chores
+
+* **internal:** codegen related update ([#43](https://github.com/plastic-labs/honcho-python/issues/43)) ([5a4d3a4](https://github.com/plastic-labs/honcho-python/commit/5a4d3a4acf768d48e7dc075166b07bb134f98f7b))
+* **internal:** codegen related update ([#46](https://github.com/plastic-labs/honcho-python/issues/46)) ([2183d2b](https://github.com/plastic-labs/honcho-python/commit/2183d2b34597d61bdc3a7a5cd9082daa438654b2))
+
+
+### Documentation
+
+* **readme:** add section on determining installed version ([#47](https://github.com/plastic-labs/honcho-python/issues/47)) ([d765d26](https://github.com/plastic-labs/honcho-python/commit/d765d26845453095b8c364801e48ff15b71238be))
+* update CONTRIBUTING.md ([#48](https://github.com/plastic-labs/honcho-python/issues/48)) ([bc577f6](https://github.com/plastic-labs/honcho-python/commit/bc577f6bcfb084170d7e6919e10d71244cd69518))
+
 ## 0.0.14 (2024-08-15)
 
 Full Changelog: [v0.0.13...v0.0.14](https://github.com/plastic-labs/honcho-python/compare/v0.0.13...v0.0.14)

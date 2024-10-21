@@ -2,19 +2,19 @@
 
 from __future__ import annotations
 
-from typing import Dict
+from typing import Optional
 from typing_extensions import Required, TypedDict
 
-__all__ = ["MessageCreateParams"]
+__all__ = ["DocumentQueryParams"]
 
 
-class MessageCreateParams(TypedDict, total=False):
+class DocumentQueryParams(TypedDict, total=False):
     app_id: Required[str]
 
     user_id: Required[str]
 
-    content: Required[str]
+    query: Required[str]
 
-    is_user: Required[bool]
+    filter: Optional[str]
 
-    metadata: Dict[str, object]
+    top_k: int

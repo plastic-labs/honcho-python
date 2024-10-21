@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Dict, Optional
+from typing import Dict, List, Union, Optional
 
 import httpx
 
@@ -61,10 +61,21 @@ class SessionsResource(SyncAPIResource):
 
     @cached_property
     def with_raw_response(self) -> SessionsResourceWithRawResponse:
+        """
+        This property can be used as a prefix for any HTTP method call to return the
+        the raw response object instead of the parsed content.
+
+        For more information, see https://www.github.com/plastic-labs/honcho-python#accessing-raw-response-data-eg-headers
+        """
         return SessionsResourceWithRawResponse(self)
 
     @cached_property
     def with_streaming_response(self) -> SessionsResourceWithStreamingResponse:
+        """
+        An alternative to `.with_raw_response` that doesn't eagerly read the response body.
+
+        For more information, see https://www.github.com/plastic-labs/honcho-python#with_streaming_response
+        """
         return SessionsResourceWithStreamingResponse(self)
 
     def create(
@@ -72,7 +83,7 @@ class SessionsResource(SyncAPIResource):
         user_id: str,
         *,
         app_id: str,
-        metadata: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
+        metadata: Dict[str, object] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -83,10 +94,9 @@ class SessionsResource(SyncAPIResource):
         """
         Create a Session for a User
 
-        Args: app_id (uuid.UUID): The ID of the app representing the client application
-        using honcho user_id (uuid.UUID): The User ID representing the user, managed by
-        the user session (schemas.SessionCreate): The Session object containing any
-        metadata
+        Args: app_id (str): The ID of the app representing the client application using
+        honcho user_id (str): The User ID representing the user, managed by the user
+        session (schemas.SessionCreate): The Session object containing any metadata
 
         Returns: schemas.Session: The Session object of the new Session
 
@@ -104,7 +114,7 @@ class SessionsResource(SyncAPIResource):
         if not user_id:
             raise ValueError(f"Expected a non-empty value for `user_id` but received {user_id!r}")
         return self._post(
-            f"/apps/{app_id}/users/{user_id}/sessions",
+            f"/v1/apps/{app_id}/users/{user_id}/sessions",
             body=maybe_transform({"metadata": metadata}, session_create_params.SessionCreateParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -129,9 +139,9 @@ class SessionsResource(SyncAPIResource):
         """
         Update the metadata of a Session
 
-        Args: app_id (uuid.UUID): The ID of the app representing the client application
-        using honcho user_id (uuid.UUID): The User ID representing the user, managed by
-        the user session_id (uuid.UUID): The ID of the Session to update session
+        Args: app_id (str): The ID of the app representing the client application using
+        honcho user_id (str): The User ID representing the user, managed by the user
+        session_id (str): The ID of the Session to update session
         (schemas.SessionUpdate): The Session object containing any new metadata
 
         Returns: schemas.Session: The Session object of the updated Session
@@ -152,7 +162,7 @@ class SessionsResource(SyncAPIResource):
         if not session_id:
             raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
         return self._put(
-            f"/apps/{app_id}/users/{user_id}/sessions/{session_id}",
+            f"/v1/apps/{app_id}/users/{user_id}/sessions/{session_id}",
             body=maybe_transform({"metadata": metadata}, session_update_params.SessionUpdateParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -165,11 +175,11 @@ class SessionsResource(SyncAPIResource):
         user_id: str,
         *,
         app_id: str,
-        filter: Optional[str] | NotGiven = NOT_GIVEN,
-        is_active: Optional[bool] | NotGiven = NOT_GIVEN,
         page: int | NotGiven = NOT_GIVEN,
         reverse: Optional[bool] | NotGiven = NOT_GIVEN,
         size: int | NotGiven = NOT_GIVEN,
+        filter: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
+        is_active: bool | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -180,9 +190,8 @@ class SessionsResource(SyncAPIResource):
         """
         Get All Sessions for a User
 
-        Args: app_id (uuid.UUID): The ID of the app representing the client application
-        using honcho user_id (uuid.UUID): The User ID representing the user, managed by
-        the user
+        Args: app_id (str): The ID of the app representing the client application using
+        honcho user_id (str): The User ID representing the user, managed by the user
 
         Returns: list[schemas.Session]: List of Session objects
 
@@ -204,8 +213,15 @@ class SessionsResource(SyncAPIResource):
         if not user_id:
             raise ValueError(f"Expected a non-empty value for `user_id` but received {user_id!r}")
         return self._get_api_list(
-            f"/apps/{app_id}/users/{user_id}/sessions",
+            f"/v1/apps/{app_id}/users/{user_id}/sessions/list",
             page=SyncPage[Session],
+            body=maybe_transform(
+                {
+                    "filter": filter,
+                    "is_active": is_active,
+                },
+                session_list_params.SessionListParams,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -213,8 +229,6 @@ class SessionsResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "filter": filter,
-                        "is_active": is_active,
                         "page": page,
                         "reverse": reverse,
                         "size": size,
@@ -223,6 +237,7 @@ class SessionsResource(SyncAPIResource):
                 ),
             ),
             model=Session,
+            method="post",
         )
 
     def delete(
@@ -241,9 +256,9 @@ class SessionsResource(SyncAPIResource):
         """
         Delete a session by marking it as inactive
 
-        Args: app_id (uuid.UUID): The ID of the app representing the client application
-        using honcho user_id (uuid.UUID): The User ID representing the user, managed by
-        the user session_id (uuid.UUID): The ID of the Session to delete
+        Args: app_id (str): The ID of the app representing the client application using
+        honcho user_id (str): The User ID representing the user, managed by the user
+        session_id (str): The ID of the Session to delete
 
         Returns: dict: A message indicating that the session was deleted
 
@@ -265,7 +280,7 @@ class SessionsResource(SyncAPIResource):
         if not session_id:
             raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
         return self._delete(
-            f"/apps/{app_id}/users/{user_id}/sessions/{session_id}",
+            f"/v1/apps/{app_id}/users/{user_id}/sessions/{session_id}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -278,7 +293,7 @@ class SessionsResource(SyncAPIResource):
         *,
         app_id: str,
         user_id: str,
-        query: str,
+        queries: Union[str, List[str]],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -287,7 +302,7 @@ class SessionsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> AgentChat:
         """
-        Get Chat
+        Chat
 
         Args:
           extra_headers: Send extra headers
@@ -304,14 +319,11 @@ class SessionsResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `user_id` but received {user_id!r}")
         if not session_id:
             raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
-        return self._get(
-            f"/apps/{app_id}/users/{user_id}/sessions/{session_id}/chat",
+        return self._post(
+            f"/v1/apps/{app_id}/users/{user_id}/sessions/{session_id}/chat",
+            body=maybe_transform({"queries": queries}, session_chat_params.SessionChatParams),
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform({"query": query}, session_chat_params.SessionChatParams),
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=AgentChat,
         )
@@ -332,9 +344,9 @@ class SessionsResource(SyncAPIResource):
         """
         Get a specific session for a user by ID
 
-        Args: app_id (uuid.UUID): The ID of the app representing the client application
-        using honcho user_id (uuid.UUID): The User ID representing the user, managed by
-        the user session_id (uuid.UUID): The ID of the Session to retrieve
+        Args: app_id (str): The ID of the app representing the client application using
+        honcho user_id (str): The User ID representing the user, managed by the user
+        session_id (str): The ID of the Session to retrieve
 
         Returns: schemas.Session: The Session object of the requested Session
 
@@ -356,7 +368,7 @@ class SessionsResource(SyncAPIResource):
         if not session_id:
             raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
         return self._get(
-            f"/apps/{app_id}/users/{user_id}/sessions/{session_id}",
+            f"/v1/apps/{app_id}/users/{user_id}/sessions/{session_id}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -369,7 +381,7 @@ class SessionsResource(SyncAPIResource):
         *,
         app_id: str,
         user_id: str,
-        query: str,
+        queries: Union[str, List[str]],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -395,14 +407,11 @@ class SessionsResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `user_id` but received {user_id!r}")
         if not session_id:
             raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
-        return self._get(
-            f"/apps/{app_id}/users/{user_id}/sessions/{session_id}/chat/stream",
+        return self._post(
+            f"/v1/apps/{app_id}/users/{user_id}/sessions/{session_id}/chat/stream",
+            body=maybe_transform({"queries": queries}, session_stream_params.SessionStreamParams),
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform({"query": query}, session_stream_params.SessionStreamParams),
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=object,
         )
@@ -419,10 +428,21 @@ class AsyncSessionsResource(AsyncAPIResource):
 
     @cached_property
     def with_raw_response(self) -> AsyncSessionsResourceWithRawResponse:
+        """
+        This property can be used as a prefix for any HTTP method call to return the
+        the raw response object instead of the parsed content.
+
+        For more information, see https://www.github.com/plastic-labs/honcho-python#accessing-raw-response-data-eg-headers
+        """
         return AsyncSessionsResourceWithRawResponse(self)
 
     @cached_property
     def with_streaming_response(self) -> AsyncSessionsResourceWithStreamingResponse:
+        """
+        An alternative to `.with_raw_response` that doesn't eagerly read the response body.
+
+        For more information, see https://www.github.com/plastic-labs/honcho-python#with_streaming_response
+        """
         return AsyncSessionsResourceWithStreamingResponse(self)
 
     async def create(
@@ -430,7 +450,7 @@ class AsyncSessionsResource(AsyncAPIResource):
         user_id: str,
         *,
         app_id: str,
-        metadata: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
+        metadata: Dict[str, object] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -441,10 +461,9 @@ class AsyncSessionsResource(AsyncAPIResource):
         """
         Create a Session for a User
 
-        Args: app_id (uuid.UUID): The ID of the app representing the client application
-        using honcho user_id (uuid.UUID): The User ID representing the user, managed by
-        the user session (schemas.SessionCreate): The Session object containing any
-        metadata
+        Args: app_id (str): The ID of the app representing the client application using
+        honcho user_id (str): The User ID representing the user, managed by the user
+        session (schemas.SessionCreate): The Session object containing any metadata
 
         Returns: schemas.Session: The Session object of the new Session
 
@@ -462,7 +481,7 @@ class AsyncSessionsResource(AsyncAPIResource):
         if not user_id:
             raise ValueError(f"Expected a non-empty value for `user_id` but received {user_id!r}")
         return await self._post(
-            f"/apps/{app_id}/users/{user_id}/sessions",
+            f"/v1/apps/{app_id}/users/{user_id}/sessions",
             body=await async_maybe_transform({"metadata": metadata}, session_create_params.SessionCreateParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -487,9 +506,9 @@ class AsyncSessionsResource(AsyncAPIResource):
         """
         Update the metadata of a Session
 
-        Args: app_id (uuid.UUID): The ID of the app representing the client application
-        using honcho user_id (uuid.UUID): The User ID representing the user, managed by
-        the user session_id (uuid.UUID): The ID of the Session to update session
+        Args: app_id (str): The ID of the app representing the client application using
+        honcho user_id (str): The User ID representing the user, managed by the user
+        session_id (str): The ID of the Session to update session
         (schemas.SessionUpdate): The Session object containing any new metadata
 
         Returns: schemas.Session: The Session object of the updated Session
@@ -510,7 +529,7 @@ class AsyncSessionsResource(AsyncAPIResource):
         if not session_id:
             raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
         return await self._put(
-            f"/apps/{app_id}/users/{user_id}/sessions/{session_id}",
+            f"/v1/apps/{app_id}/users/{user_id}/sessions/{session_id}",
             body=await async_maybe_transform({"metadata": metadata}, session_update_params.SessionUpdateParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -523,11 +542,11 @@ class AsyncSessionsResource(AsyncAPIResource):
         user_id: str,
         *,
         app_id: str,
-        filter: Optional[str] | NotGiven = NOT_GIVEN,
-        is_active: Optional[bool] | NotGiven = NOT_GIVEN,
         page: int | NotGiven = NOT_GIVEN,
         reverse: Optional[bool] | NotGiven = NOT_GIVEN,
         size: int | NotGiven = NOT_GIVEN,
+        filter: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
+        is_active: bool | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -538,9 +557,8 @@ class AsyncSessionsResource(AsyncAPIResource):
         """
         Get All Sessions for a User
 
-        Args: app_id (uuid.UUID): The ID of the app representing the client application
-        using honcho user_id (uuid.UUID): The User ID representing the user, managed by
-        the user
+        Args: app_id (str): The ID of the app representing the client application using
+        honcho user_id (str): The User ID representing the user, managed by the user
 
         Returns: list[schemas.Session]: List of Session objects
 
@@ -562,8 +580,15 @@ class AsyncSessionsResource(AsyncAPIResource):
         if not user_id:
             raise ValueError(f"Expected a non-empty value for `user_id` but received {user_id!r}")
         return self._get_api_list(
-            f"/apps/{app_id}/users/{user_id}/sessions",
+            f"/v1/apps/{app_id}/users/{user_id}/sessions/list",
             page=AsyncPage[Session],
+            body=maybe_transform(
+                {
+                    "filter": filter,
+                    "is_active": is_active,
+                },
+                session_list_params.SessionListParams,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -571,8 +596,6 @@ class AsyncSessionsResource(AsyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "filter": filter,
-                        "is_active": is_active,
                         "page": page,
                         "reverse": reverse,
                         "size": size,
@@ -581,6 +604,7 @@ class AsyncSessionsResource(AsyncAPIResource):
                 ),
             ),
             model=Session,
+            method="post",
         )
 
     async def delete(
@@ -599,9 +623,9 @@ class AsyncSessionsResource(AsyncAPIResource):
         """
         Delete a session by marking it as inactive
 
-        Args: app_id (uuid.UUID): The ID of the app representing the client application
-        using honcho user_id (uuid.UUID): The User ID representing the user, managed by
-        the user session_id (uuid.UUID): The ID of the Session to delete
+        Args: app_id (str): The ID of the app representing the client application using
+        honcho user_id (str): The User ID representing the user, managed by the user
+        session_id (str): The ID of the Session to delete
 
         Returns: dict: A message indicating that the session was deleted
 
@@ -623,7 +647,7 @@ class AsyncSessionsResource(AsyncAPIResource):
         if not session_id:
             raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
         return await self._delete(
-            f"/apps/{app_id}/users/{user_id}/sessions/{session_id}",
+            f"/v1/apps/{app_id}/users/{user_id}/sessions/{session_id}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -636,7 +660,7 @@ class AsyncSessionsResource(AsyncAPIResource):
         *,
         app_id: str,
         user_id: str,
-        query: str,
+        queries: Union[str, List[str]],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -645,7 +669,7 @@ class AsyncSessionsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> AgentChat:
         """
-        Get Chat
+        Chat
 
         Args:
           extra_headers: Send extra headers
@@ -662,14 +686,11 @@ class AsyncSessionsResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `user_id` but received {user_id!r}")
         if not session_id:
             raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
-        return await self._get(
-            f"/apps/{app_id}/users/{user_id}/sessions/{session_id}/chat",
+        return await self._post(
+            f"/v1/apps/{app_id}/users/{user_id}/sessions/{session_id}/chat",
+            body=await async_maybe_transform({"queries": queries}, session_chat_params.SessionChatParams),
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=await async_maybe_transform({"query": query}, session_chat_params.SessionChatParams),
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=AgentChat,
         )
@@ -690,9 +711,9 @@ class AsyncSessionsResource(AsyncAPIResource):
         """
         Get a specific session for a user by ID
 
-        Args: app_id (uuid.UUID): The ID of the app representing the client application
-        using honcho user_id (uuid.UUID): The User ID representing the user, managed by
-        the user session_id (uuid.UUID): The ID of the Session to retrieve
+        Args: app_id (str): The ID of the app representing the client application using
+        honcho user_id (str): The User ID representing the user, managed by the user
+        session_id (str): The ID of the Session to retrieve
 
         Returns: schemas.Session: The Session object of the requested Session
 
@@ -714,7 +735,7 @@ class AsyncSessionsResource(AsyncAPIResource):
         if not session_id:
             raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
         return await self._get(
-            f"/apps/{app_id}/users/{user_id}/sessions/{session_id}",
+            f"/v1/apps/{app_id}/users/{user_id}/sessions/{session_id}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -727,7 +748,7 @@ class AsyncSessionsResource(AsyncAPIResource):
         *,
         app_id: str,
         user_id: str,
-        query: str,
+        queries: Union[str, List[str]],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -753,14 +774,11 @@ class AsyncSessionsResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `user_id` but received {user_id!r}")
         if not session_id:
             raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
-        return await self._get(
-            f"/apps/{app_id}/users/{user_id}/sessions/{session_id}/chat/stream",
+        return await self._post(
+            f"/v1/apps/{app_id}/users/{user_id}/sessions/{session_id}/chat/stream",
+            body=await async_maybe_transform({"queries": queries}, session_stream_params.SessionStreamParams),
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=await async_maybe_transform({"query": query}, session_stream_params.SessionStreamParams),
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=object,
         )

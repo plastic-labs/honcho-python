@@ -35,6 +35,14 @@ from ...._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
+from .metamessages import (
+    MetamessagesResource,
+    AsyncMetamessagesResource,
+    MetamessagesResourceWithRawResponse,
+    AsyncMetamessagesResourceWithRawResponse,
+    MetamessagesResourceWithStreamingResponse,
+    AsyncMetamessagesResourceWithStreamingResponse,
+)
 from ....pagination import SyncPage, AsyncPage
 from ....types.apps import user_list_params, user_create_params, user_update_params
 from ...._base_client import AsyncPaginator, make_request_options
@@ -47,6 +55,10 @@ __all__ = ["UsersResource", "AsyncUsersResource"]
 
 class UsersResource(SyncAPIResource):
     @cached_property
+    def metamessages(self) -> MetamessagesResource:
+        return MetamessagesResource(self._client)
+
+    @cached_property
     def sessions(self) -> SessionsResource:
         return SessionsResource(self._client)
 
@@ -56,10 +68,21 @@ class UsersResource(SyncAPIResource):
 
     @cached_property
     def with_raw_response(self) -> UsersResourceWithRawResponse:
+        """
+        This property can be used as a prefix for any HTTP method call to return the
+        the raw response object instead of the parsed content.
+
+        For more information, see https://www.github.com/plastic-labs/honcho-python#accessing-raw-response-data-eg-headers
+        """
         return UsersResourceWithRawResponse(self)
 
     @cached_property
     def with_streaming_response(self) -> UsersResourceWithStreamingResponse:
+        """
+        An alternative to `.with_raw_response` that doesn't eagerly read the response body.
+
+        For more information, see https://www.github.com/plastic-labs/honcho-python#with_streaming_response
+        """
         return UsersResourceWithStreamingResponse(self)
 
     def create(
@@ -67,7 +90,7 @@ class UsersResource(SyncAPIResource):
         app_id: str,
         *,
         name: str,
-        metadata: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
+        metadata: Dict[str, object] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -78,8 +101,8 @@ class UsersResource(SyncAPIResource):
         """
         Create a User
 
-        Args: app_id (uuid.UUID): The ID of the app representing the client application
-        using honcho user (schemas.UserCreate): The User object containing any metadata
+        Args: app_id (str): The ID of the app representing the client application using
+        honcho user (schemas.UserCreate): The User object containing any metadata
 
         Returns: schemas.User: Created User object
 
@@ -95,7 +118,7 @@ class UsersResource(SyncAPIResource):
         if not app_id:
             raise ValueError(f"Expected a non-empty value for `app_id` but received {app_id!r}")
         return self._post(
-            f"/apps/{app_id}/users",
+            f"/v1/apps/{app_id}/users",
             body=maybe_transform(
                 {
                     "name": name,
@@ -126,9 +149,9 @@ class UsersResource(SyncAPIResource):
         """
         Update a User
 
-        Args: app_id (uuid.UUID): The ID of the app representing the client application
-        using honcho user_id (str): The User ID representing the user, managed by the
-        user user (schemas.UserCreate): The User object containing any metadata
+        Args: app_id (str): The ID of the app representing the client application using
+        honcho user_id (str): The User ID representing the user, managed by the user
+        user (schemas.UserCreate): The User object containing any metadata
 
         Returns: schemas.User: Updated User object
 
@@ -146,7 +169,7 @@ class UsersResource(SyncAPIResource):
         if not user_id:
             raise ValueError(f"Expected a non-empty value for `user_id` but received {user_id!r}")
         return self._put(
-            f"/apps/{app_id}/users/{user_id}",
+            f"/v1/apps/{app_id}/users/{user_id}",
             body=maybe_transform(
                 {
                     "metadata": metadata,
@@ -164,10 +187,10 @@ class UsersResource(SyncAPIResource):
         self,
         app_id: str,
         *,
-        filter: Optional[str] | NotGiven = NOT_GIVEN,
         page: int | NotGiven = NOT_GIVEN,
         reverse: bool | NotGiven = NOT_GIVEN,
         size: int | NotGiven = NOT_GIVEN,
+        filter: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -178,8 +201,8 @@ class UsersResource(SyncAPIResource):
         """
         Get All Users for an App
 
-        Args: app_id (uuid.UUID): The ID of the app representing the client application
-        using honcho
+        Args: app_id (str): The ID of the app representing the client application using
+        honcho
 
         Returns: list[schemas.User]: List of User objects
 
@@ -199,8 +222,9 @@ class UsersResource(SyncAPIResource):
         if not app_id:
             raise ValueError(f"Expected a non-empty value for `app_id` but received {app_id!r}")
         return self._get_api_list(
-            f"/apps/{app_id}/users",
+            f"/v1/apps/{app_id}/users/list",
             page=SyncPage[User],
+            body=maybe_transform({"filter": filter}, user_list_params.UserListParams),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -208,7 +232,6 @@ class UsersResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "filter": filter,
                         "page": page,
                         "reverse": reverse,
                         "size": size,
@@ -217,6 +240,7 @@ class UsersResource(SyncAPIResource):
                 ),
             ),
             model=User,
+            method="post",
         )
 
     def get(
@@ -234,9 +258,8 @@ class UsersResource(SyncAPIResource):
         """
         Get a User
 
-        Args: app_id (uuid.UUID): The ID of the app representing the client application
-        using honcho user_id (str): The User ID representing the user, managed by the
-        user
+        Args: app_id (str): The ID of the app representing the client application using
+        honcho user_id (str): The User ID representing the user, managed by the user
 
         Returns: schemas.User: User object
 
@@ -254,7 +277,7 @@ class UsersResource(SyncAPIResource):
         if not user_id:
             raise ValueError(f"Expected a non-empty value for `user_id` but received {user_id!r}")
         return self._get(
-            f"/apps/{app_id}/users/{user_id}",
+            f"/v1/apps/{app_id}/users/{user_id}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -276,9 +299,8 @@ class UsersResource(SyncAPIResource):
         """
         Get a User
 
-        Args: app_id (uuid.UUID): The ID of the app representing the client application
-        using honcho user_id (str): The User ID representing the user, managed by the
-        user
+        Args: app_id (str): The ID of the app representing the client application using
+        honcho user_id (str): The User ID representing the user, managed by the user
 
         Returns: schemas.User: User object
 
@@ -296,7 +318,7 @@ class UsersResource(SyncAPIResource):
         if not name:
             raise ValueError(f"Expected a non-empty value for `name` but received {name!r}")
         return self._get(
-            f"/apps/{app_id}/users/name/{name}",
+            f"/v1/apps/{app_id}/users/name/{name}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -318,9 +340,8 @@ class UsersResource(SyncAPIResource):
         """
         Get or Create a User
 
-        Args: app_id (uuid.UUID): The ID of the app representing the client application
-        using honcho user_id (str): The User ID representing the user, managed by the
-        user
+        Args: app_id (str): The ID of the app representing the client application using
+        honcho user_id (str): The User ID representing the user, managed by the user
 
         Returns: schemas.User: User object
 
@@ -338,7 +359,7 @@ class UsersResource(SyncAPIResource):
         if not name:
             raise ValueError(f"Expected a non-empty value for `name` but received {name!r}")
         return self._get(
-            f"/apps/{app_id}/users/get_or_create/{name}",
+            f"/v1/apps/{app_id}/users/get_or_create/{name}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -347,6 +368,10 @@ class UsersResource(SyncAPIResource):
 
 
 class AsyncUsersResource(AsyncAPIResource):
+    @cached_property
+    def metamessages(self) -> AsyncMetamessagesResource:
+        return AsyncMetamessagesResource(self._client)
+
     @cached_property
     def sessions(self) -> AsyncSessionsResource:
         return AsyncSessionsResource(self._client)
@@ -357,10 +382,21 @@ class AsyncUsersResource(AsyncAPIResource):
 
     @cached_property
     def with_raw_response(self) -> AsyncUsersResourceWithRawResponse:
+        """
+        This property can be used as a prefix for any HTTP method call to return the
+        the raw response object instead of the parsed content.
+
+        For more information, see https://www.github.com/plastic-labs/honcho-python#accessing-raw-response-data-eg-headers
+        """
         return AsyncUsersResourceWithRawResponse(self)
 
     @cached_property
     def with_streaming_response(self) -> AsyncUsersResourceWithStreamingResponse:
+        """
+        An alternative to `.with_raw_response` that doesn't eagerly read the response body.
+
+        For more information, see https://www.github.com/plastic-labs/honcho-python#with_streaming_response
+        """
         return AsyncUsersResourceWithStreamingResponse(self)
 
     async def create(
@@ -368,7 +404,7 @@ class AsyncUsersResource(AsyncAPIResource):
         app_id: str,
         *,
         name: str,
-        metadata: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
+        metadata: Dict[str, object] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -379,8 +415,8 @@ class AsyncUsersResource(AsyncAPIResource):
         """
         Create a User
 
-        Args: app_id (uuid.UUID): The ID of the app representing the client application
-        using honcho user (schemas.UserCreate): The User object containing any metadata
+        Args: app_id (str): The ID of the app representing the client application using
+        honcho user (schemas.UserCreate): The User object containing any metadata
 
         Returns: schemas.User: Created User object
 
@@ -396,7 +432,7 @@ class AsyncUsersResource(AsyncAPIResource):
         if not app_id:
             raise ValueError(f"Expected a non-empty value for `app_id` but received {app_id!r}")
         return await self._post(
-            f"/apps/{app_id}/users",
+            f"/v1/apps/{app_id}/users",
             body=await async_maybe_transform(
                 {
                     "name": name,
@@ -427,9 +463,9 @@ class AsyncUsersResource(AsyncAPIResource):
         """
         Update a User
 
-        Args: app_id (uuid.UUID): The ID of the app representing the client application
-        using honcho user_id (str): The User ID representing the user, managed by the
-        user user (schemas.UserCreate): The User object containing any metadata
+        Args: app_id (str): The ID of the app representing the client application using
+        honcho user_id (str): The User ID representing the user, managed by the user
+        user (schemas.UserCreate): The User object containing any metadata
 
         Returns: schemas.User: Updated User object
 
@@ -447,7 +483,7 @@ class AsyncUsersResource(AsyncAPIResource):
         if not user_id:
             raise ValueError(f"Expected a non-empty value for `user_id` but received {user_id!r}")
         return await self._put(
-            f"/apps/{app_id}/users/{user_id}",
+            f"/v1/apps/{app_id}/users/{user_id}",
             body=await async_maybe_transform(
                 {
                     "metadata": metadata,
@@ -465,10 +501,10 @@ class AsyncUsersResource(AsyncAPIResource):
         self,
         app_id: str,
         *,
-        filter: Optional[str] | NotGiven = NOT_GIVEN,
         page: int | NotGiven = NOT_GIVEN,
         reverse: bool | NotGiven = NOT_GIVEN,
         size: int | NotGiven = NOT_GIVEN,
+        filter: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -479,8 +515,8 @@ class AsyncUsersResource(AsyncAPIResource):
         """
         Get All Users for an App
 
-        Args: app_id (uuid.UUID): The ID of the app representing the client application
-        using honcho
+        Args: app_id (str): The ID of the app representing the client application using
+        honcho
 
         Returns: list[schemas.User]: List of User objects
 
@@ -500,8 +536,9 @@ class AsyncUsersResource(AsyncAPIResource):
         if not app_id:
             raise ValueError(f"Expected a non-empty value for `app_id` but received {app_id!r}")
         return self._get_api_list(
-            f"/apps/{app_id}/users",
+            f"/v1/apps/{app_id}/users/list",
             page=AsyncPage[User],
+            body=maybe_transform({"filter": filter}, user_list_params.UserListParams),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -509,7 +546,6 @@ class AsyncUsersResource(AsyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "filter": filter,
                         "page": page,
                         "reverse": reverse,
                         "size": size,
@@ -518,6 +554,7 @@ class AsyncUsersResource(AsyncAPIResource):
                 ),
             ),
             model=User,
+            method="post",
         )
 
     async def get(
@@ -535,9 +572,8 @@ class AsyncUsersResource(AsyncAPIResource):
         """
         Get a User
 
-        Args: app_id (uuid.UUID): The ID of the app representing the client application
-        using honcho user_id (str): The User ID representing the user, managed by the
-        user
+        Args: app_id (str): The ID of the app representing the client application using
+        honcho user_id (str): The User ID representing the user, managed by the user
 
         Returns: schemas.User: User object
 
@@ -555,7 +591,7 @@ class AsyncUsersResource(AsyncAPIResource):
         if not user_id:
             raise ValueError(f"Expected a non-empty value for `user_id` but received {user_id!r}")
         return await self._get(
-            f"/apps/{app_id}/users/{user_id}",
+            f"/v1/apps/{app_id}/users/{user_id}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -577,9 +613,8 @@ class AsyncUsersResource(AsyncAPIResource):
         """
         Get a User
 
-        Args: app_id (uuid.UUID): The ID of the app representing the client application
-        using honcho user_id (str): The User ID representing the user, managed by the
-        user
+        Args: app_id (str): The ID of the app representing the client application using
+        honcho user_id (str): The User ID representing the user, managed by the user
 
         Returns: schemas.User: User object
 
@@ -597,7 +632,7 @@ class AsyncUsersResource(AsyncAPIResource):
         if not name:
             raise ValueError(f"Expected a non-empty value for `name` but received {name!r}")
         return await self._get(
-            f"/apps/{app_id}/users/name/{name}",
+            f"/v1/apps/{app_id}/users/name/{name}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -619,9 +654,8 @@ class AsyncUsersResource(AsyncAPIResource):
         """
         Get or Create a User
 
-        Args: app_id (uuid.UUID): The ID of the app representing the client application
-        using honcho user_id (str): The User ID representing the user, managed by the
-        user
+        Args: app_id (str): The ID of the app representing the client application using
+        honcho user_id (str): The User ID representing the user, managed by the user
 
         Returns: schemas.User: User object
 
@@ -639,7 +673,7 @@ class AsyncUsersResource(AsyncAPIResource):
         if not name:
             raise ValueError(f"Expected a non-empty value for `name` but received {name!r}")
         return await self._get(
-            f"/apps/{app_id}/users/get_or_create/{name}",
+            f"/v1/apps/{app_id}/users/get_or_create/{name}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -669,6 +703,10 @@ class UsersResourceWithRawResponse:
         self.get_or_create = to_raw_response_wrapper(
             users.get_or_create,
         )
+
+    @cached_property
+    def metamessages(self) -> MetamessagesResourceWithRawResponse:
+        return MetamessagesResourceWithRawResponse(self._users.metamessages)
 
     @cached_property
     def sessions(self) -> SessionsResourceWithRawResponse:
@@ -703,6 +741,10 @@ class AsyncUsersResourceWithRawResponse:
         )
 
     @cached_property
+    def metamessages(self) -> AsyncMetamessagesResourceWithRawResponse:
+        return AsyncMetamessagesResourceWithRawResponse(self._users.metamessages)
+
+    @cached_property
     def sessions(self) -> AsyncSessionsResourceWithRawResponse:
         return AsyncSessionsResourceWithRawResponse(self._users.sessions)
 
@@ -735,6 +777,10 @@ class UsersResourceWithStreamingResponse:
         )
 
     @cached_property
+    def metamessages(self) -> MetamessagesResourceWithStreamingResponse:
+        return MetamessagesResourceWithStreamingResponse(self._users.metamessages)
+
+    @cached_property
     def sessions(self) -> SessionsResourceWithStreamingResponse:
         return SessionsResourceWithStreamingResponse(self._users.sessions)
 
@@ -765,6 +811,10 @@ class AsyncUsersResourceWithStreamingResponse:
         self.get_or_create = async_to_streamed_response_wrapper(
             users.get_or_create,
         )
+
+    @cached_property
+    def metamessages(self) -> AsyncMetamessagesResourceWithStreamingResponse:
+        return AsyncMetamessagesResourceWithStreamingResponse(self._users.metamessages)
 
     @cached_property
     def sessions(self) -> AsyncSessionsResourceWithStreamingResponse:

@@ -1,8 +1,8 @@
-# Honcho Python API library
+# honcho-ai API library
 
 [![PyPI version](https://img.shields.io/pypi/v/honcho-ai.svg)](https://pypi.org/project/honcho-ai/)
 
-The Honcho Python library provides convenient access to the Honcho REST API from any Python 3.7+
+The honcho-ai library provides convenient access to the Honcho REST API from any Python 3.7+
 application. The library includes type definitions for all request params and response fields,
 and offers both synchronous and asynchronous clients powered by [httpx](https://github.com/encode/httpx).
 
@@ -82,77 +82,6 @@ Nested request parameters are [TypedDicts](https://docs.python.org/3/library/typ
 - Converting to a dictionary, `model.to_dict()`
 
 Typed requests and responses provide autocomplete and documentation within your editor. If you would like to see type errors in VS Code to help catch bugs earlier, set `python.analysis.typeCheckingMode` to `basic`.
-
-## Pagination
-
-List methods in the Honcho API are paginated.
-
-This library provides auto-paginating iterators with each list response, so you do not have to request successive pages manually:
-
-```python
-from honcho import Honcho
-
-client = Honcho()
-
-all_users = []
-# Automatically fetches more pages as needed.
-for user in client.apps.users.list(
-    app_id="REPLACE_ME",
-):
-    # Do something with user here
-    all_users.append(user)
-print(all_users)
-```
-
-Or, asynchronously:
-
-```python
-import asyncio
-from honcho import AsyncHoncho
-
-client = AsyncHoncho()
-
-
-async def main() -> None:
-    all_users = []
-    # Iterate through items across all pages, issuing requests as needed.
-    async for user in client.apps.users.list(
-        app_id="REPLACE_ME",
-    ):
-        all_users.append(user)
-    print(all_users)
-
-
-asyncio.run(main())
-```
-
-Alternatively, you can use the `.has_next_page()`, `.next_page_info()`, or `.get_next_page()` methods for more granular control working with pages:
-
-```python
-first_page = await client.apps.users.list(
-    app_id="REPLACE_ME",
-)
-if first_page.has_next_page():
-    print(f"will fetch next page using these details: {first_page.next_page_info()}")
-    next_page = await first_page.get_next_page()
-    print(f"number of items we just fetched: {len(next_page.items)}")
-
-# Remove `await` for non-async usage.
-```
-
-Or just work directly with the returned data:
-
-```python
-first_page = await client.apps.users.list(
-    app_id="REPLACE_ME",
-)
-
-print(f"page number: {first_page.page}")  # => "page number: 1"
-for user in first_page.items:
-    print(user.id)
-
-# Remove `await` for non-async usage.
-```
 
 ## Handling errors
 
@@ -390,6 +319,21 @@ We take backwards-compatibility seriously and work hard to ensure you can rely o
 
 We are keen for your feedback; please open an [issue](https://www.github.com/plastic-labs/honcho-python/issues) with questions, bugs, or suggestions.
 
+### Determining the installed version
+
+If you've upgraded to the latest version but aren't seeing any new features you were expecting then your python environment is likely still using an older version.
+
+You can determine the version that is being used at runtime with:
+
+```py
+import honcho
+print(honcho.__version__)
+```
+
 ## Requirements
 
 Python 3.7 or higher.
+
+## Contributing
+
+See [the contributing documentation](./CONTRIBUTING.md).
