@@ -90,7 +90,7 @@ class CollectionsResource(SyncAPIResource):
         if not user_id:
             raise ValueError(f"Expected a non-empty value for `user_id` but received {user_id!r}")
         return self._post(
-            f"/apps/{app_id}/users/{user_id}/collections",
+            f"/v1/apps/{app_id}/users/{user_id}/collections",
             body=maybe_transform(
                 {
                     "name": name,
@@ -138,7 +138,7 @@ class CollectionsResource(SyncAPIResource):
         if not collection_id:
             raise ValueError(f"Expected a non-empty value for `collection_id` but received {collection_id!r}")
         return self._put(
-            f"/apps/{app_id}/users/{user_id}/collections/{collection_id}",
+            f"/v1/apps/{app_id}/users/{user_id}/collections/{collection_id}",
             body=maybe_transform(
                 {
                     "metadata": metadata,
@@ -157,10 +157,10 @@ class CollectionsResource(SyncAPIResource):
         user_id: str,
         *,
         app_id: str,
-        filter: Optional[str] | NotGiven = NOT_GIVEN,
         page: int | NotGiven = NOT_GIVEN,
         reverse: Optional[bool] | NotGiven = NOT_GIVEN,
         size: int | NotGiven = NOT_GIVEN,
+        filter: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -171,9 +171,8 @@ class CollectionsResource(SyncAPIResource):
         """
         Get All Collections for a User
 
-        Args: app_id (uuid.UUID): The ID of the app representing the client application
-        using honcho user_id (uuid.UUID): The User ID representing the user, managed by
-        the user
+        Args: app_id (str): The ID of the app representing the client application using
+        honcho user_id (str): The User ID representing the user, managed by the user
 
         Returns: list[schemas.Collection]: List of Collection objects
 
@@ -195,8 +194,9 @@ class CollectionsResource(SyncAPIResource):
         if not user_id:
             raise ValueError(f"Expected a non-empty value for `user_id` but received {user_id!r}")
         return self._get_api_list(
-            f"/apps/{app_id}/users/{user_id}/collections",
+            f"/v1/apps/{app_id}/users/{user_id}/collections/list",
             page=SyncPage[Collection],
+            body=maybe_transform({"filter": filter}, collection_list_params.CollectionListParams),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -204,7 +204,6 @@ class CollectionsResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "filter": filter,
                         "page": page,
                         "reverse": reverse,
                         "size": size,
@@ -213,6 +212,7 @@ class CollectionsResource(SyncAPIResource):
                 ),
             ),
             model=Collection,
+            method="post",
         )
 
     def delete(
@@ -247,7 +247,7 @@ class CollectionsResource(SyncAPIResource):
         if not collection_id:
             raise ValueError(f"Expected a non-empty value for `collection_id` but received {collection_id!r}")
         return self._delete(
-            f"/apps/{app_id}/users/{user_id}/collections/{collection_id}",
+            f"/v1/apps/{app_id}/users/{user_id}/collections/{collection_id}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -286,7 +286,7 @@ class CollectionsResource(SyncAPIResource):
         if not collection_id:
             raise ValueError(f"Expected a non-empty value for `collection_id` but received {collection_id!r}")
         return self._get(
-            f"/apps/{app_id}/users/{user_id}/collections/{collection_id}",
+            f"/v1/apps/{app_id}/users/{user_id}/collections/{collection_id}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -325,7 +325,7 @@ class CollectionsResource(SyncAPIResource):
         if not name:
             raise ValueError(f"Expected a non-empty value for `name` but received {name!r}")
         return self._get(
-            f"/apps/{app_id}/users/{user_id}/collections/name/{name}",
+            f"/v1/apps/{app_id}/users/{user_id}/collections/name/{name}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -388,7 +388,7 @@ class AsyncCollectionsResource(AsyncAPIResource):
         if not user_id:
             raise ValueError(f"Expected a non-empty value for `user_id` but received {user_id!r}")
         return await self._post(
-            f"/apps/{app_id}/users/{user_id}/collections",
+            f"/v1/apps/{app_id}/users/{user_id}/collections",
             body=await async_maybe_transform(
                 {
                     "name": name,
@@ -436,7 +436,7 @@ class AsyncCollectionsResource(AsyncAPIResource):
         if not collection_id:
             raise ValueError(f"Expected a non-empty value for `collection_id` but received {collection_id!r}")
         return await self._put(
-            f"/apps/{app_id}/users/{user_id}/collections/{collection_id}",
+            f"/v1/apps/{app_id}/users/{user_id}/collections/{collection_id}",
             body=await async_maybe_transform(
                 {
                     "metadata": metadata,
@@ -455,10 +455,10 @@ class AsyncCollectionsResource(AsyncAPIResource):
         user_id: str,
         *,
         app_id: str,
-        filter: Optional[str] | NotGiven = NOT_GIVEN,
         page: int | NotGiven = NOT_GIVEN,
         reverse: Optional[bool] | NotGiven = NOT_GIVEN,
         size: int | NotGiven = NOT_GIVEN,
+        filter: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -469,9 +469,8 @@ class AsyncCollectionsResource(AsyncAPIResource):
         """
         Get All Collections for a User
 
-        Args: app_id (uuid.UUID): The ID of the app representing the client application
-        using honcho user_id (uuid.UUID): The User ID representing the user, managed by
-        the user
+        Args: app_id (str): The ID of the app representing the client application using
+        honcho user_id (str): The User ID representing the user, managed by the user
 
         Returns: list[schemas.Collection]: List of Collection objects
 
@@ -493,8 +492,9 @@ class AsyncCollectionsResource(AsyncAPIResource):
         if not user_id:
             raise ValueError(f"Expected a non-empty value for `user_id` but received {user_id!r}")
         return self._get_api_list(
-            f"/apps/{app_id}/users/{user_id}/collections",
+            f"/v1/apps/{app_id}/users/{user_id}/collections/list",
             page=AsyncPage[Collection],
+            body=maybe_transform({"filter": filter}, collection_list_params.CollectionListParams),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -502,7 +502,6 @@ class AsyncCollectionsResource(AsyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "filter": filter,
                         "page": page,
                         "reverse": reverse,
                         "size": size,
@@ -511,6 +510,7 @@ class AsyncCollectionsResource(AsyncAPIResource):
                 ),
             ),
             model=Collection,
+            method="post",
         )
 
     async def delete(
@@ -545,7 +545,7 @@ class AsyncCollectionsResource(AsyncAPIResource):
         if not collection_id:
             raise ValueError(f"Expected a non-empty value for `collection_id` but received {collection_id!r}")
         return await self._delete(
-            f"/apps/{app_id}/users/{user_id}/collections/{collection_id}",
+            f"/v1/apps/{app_id}/users/{user_id}/collections/{collection_id}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -584,7 +584,7 @@ class AsyncCollectionsResource(AsyncAPIResource):
         if not collection_id:
             raise ValueError(f"Expected a non-empty value for `collection_id` but received {collection_id!r}")
         return await self._get(
-            f"/apps/{app_id}/users/{user_id}/collections/{collection_id}",
+            f"/v1/apps/{app_id}/users/{user_id}/collections/{collection_id}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -623,7 +623,7 @@ class AsyncCollectionsResource(AsyncAPIResource):
         if not name:
             raise ValueError(f"Expected a non-empty value for `name` but received {name!r}")
         return await self._get(
-            f"/apps/{app_id}/users/{user_id}/collections/name/{name}",
+            f"/v1/apps/{app_id}/users/{user_id}/collections/name/{name}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
