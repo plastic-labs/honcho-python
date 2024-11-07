@@ -9,6 +9,7 @@ from .page_session import PageSession as PageSession
 from .page_collection import PageCollection as PageCollection
 from .session_chat_params import SessionChatParams as SessionChatParams
 from .session_list_params import SessionListParams as SessionListParams
+from .session_clone_params import SessionCloneParams as SessionCloneParams
 from .session_create_params import SessionCreateParams as SessionCreateParams
 from .session_stream_params import SessionStreamParams as SessionStreamParams
 from .session_update_params import SessionUpdateParams as SessionUpdateParams
