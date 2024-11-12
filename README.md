@@ -28,8 +28,7 @@ import os
 from honcho import Honcho
 
 client = Honcho(
-    # This is the default and can be omitted
-    api_key=os.environ.get("HONCHO_API_KEY"),
+    api_key=os.environ.get("HONCHO_API_KEY"),  # This is the default and can be omitted
     # defaults to "demo".
     environment="local",
 )
@@ -55,8 +54,7 @@ import asyncio
 from honcho import AsyncHoncho
 
 client = AsyncHoncho(
-    # This is the default and can be omitted
-    api_key=os.environ.get("HONCHO_API_KEY"),
+    api_key=os.environ.get("HONCHO_API_KEY"),  # This is the default and can be omitted
     # defaults to "demo".
     environment="local",
 )
