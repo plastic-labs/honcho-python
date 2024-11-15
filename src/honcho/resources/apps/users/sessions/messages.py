@@ -66,16 +66,6 @@ class MessagesResource(SyncAPIResource):
         """
         Adds a message to a session
 
-        Args: app_id (str): The ID of the app representing the client application using
-        honcho user_id (str): The User ID representing the user, managed by the user
-        session_id (int): The ID of the Session to add the message to message
-        (schemas.MessageCreate): The Message object to add containing the message
-        content and type
-
-        Returns: schemas.Message: The Message object of the added message
-
-        Raises: HTTPException: If the session is not found
-
         Args:
           extra_headers: Send extra headers
 
@@ -123,7 +113,7 @@ class MessagesResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> Message:
         """
-        Update's the metadata of a message
+        Update the metadata of a Message
 
         Args:
           extra_headers: Send extra headers
@@ -170,15 +160,6 @@ class MessagesResource(SyncAPIResource):
     ) -> SyncPage[Message]:
         """
         Get all messages for a session
-
-        Args: app_id (str): The ID of the app representing the client application using
-        honcho user_id (str): The User ID representing the user, managed by the user
-        session_id (int): The ID of the Session to retrieve reverse (bool): Whether to
-        reverse the order of the messages
-
-        Returns: list[schemas.Message]: List of Message objects
-
-        Raises: HTTPException: If the session is not found
 
         Args:
           page: Page number
@@ -236,7 +217,7 @@ class MessagesResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> Message:
         """
-        Get Message
+        Get a Message by ID
 
         Args:
           extra_headers: Send extra headers
@@ -303,16 +284,6 @@ class AsyncMessagesResource(AsyncAPIResource):
         """
         Adds a message to a session
 
-        Args: app_id (str): The ID of the app representing the client application using
-        honcho user_id (str): The User ID representing the user, managed by the user
-        session_id (int): The ID of the Session to add the message to message
-        (schemas.MessageCreate): The Message object to add containing the message
-        content and type
-
-        Returns: schemas.Message: The Message object of the added message
-
-        Raises: HTTPException: If the session is not found
-
         Args:
           extra_headers: Send extra headers
 
@@ -360,7 +331,7 @@ class AsyncMessagesResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> Message:
         """
-        Update's the metadata of a message
+        Update the metadata of a Message
 
         Args:
           extra_headers: Send extra headers
@@ -407,15 +378,6 @@ class AsyncMessagesResource(AsyncAPIResource):
     ) -> AsyncPaginator[Message, AsyncPage[Message]]:
         """
         Get all messages for a session
-
-        Args: app_id (str): The ID of the app representing the client application using
-        honcho user_id (str): The User ID representing the user, managed by the user
-        session_id (int): The ID of the Session to retrieve reverse (bool): Whether to
-        reverse the order of the messages
-
-        Returns: list[schemas.Message]: List of Message objects
-
-        Raises: HTTPException: If the session is not found
 
         Args:
           page: Page number
@@ -473,7 +435,7 @@ class AsyncMessagesResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> Message:
         """
-        Get Message
+        Get a Message by ID
 
         Args:
           extra_headers: Send extra headers
