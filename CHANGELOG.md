@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.0.17 (2024-11-15)
+
+Full Changelog: [v0.0.16...v0.0.17](https://github.com/plastic-labs/honcho-python/compare/v0.0.16...v0.0.17)
+
+### Features
+
+* **api:** api update ([#62](https://github.com/plastic-labs/honcho-python/issues/62)) ([3d0f092](https://github.com/plastic-labs/honcho-python/commit/3d0f0926388511a63279282784206fdb4f5fdb3d))
+
+
+### Chores
+
+* rebuild project due to codegen change ([#59](https://github.com/plastic-labs/honcho-python/issues/59)) ([c7617bc](https://github.com/plastic-labs/honcho-python/commit/c7617bc5e0dc029e47e40f478bbb69144f7eff8c))
+* rebuild project due to codegen change ([#61](https://github.com/plastic-labs/honcho-python/issues/61)) ([315c96f](https://github.com/plastic-labs/honcho-python/commit/315c96f27ef449bc5c290b2d93432fcbfbe8a35b))
+
 ## 0.0.16 (2024-11-07)
 
 Full Changelog: [v0.0.15...v0.0.16](https://github.com/plastic-labs/honcho-python/compare/v0.0.15...v0.0.16)

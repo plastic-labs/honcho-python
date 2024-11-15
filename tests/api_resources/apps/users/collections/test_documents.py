@@ -422,7 +422,7 @@ class TestDocuments:
             app_id="app_id",
             user_id="user_id",
             query="query",
-            filter="filter",
+            filter={"foo": "bar"},
             top_k=0,
         )
         assert_matches_type(DocumentQueryResponse, document, path=["response"])
@@ -888,7 +888,7 @@ class TestAsyncDocuments:
             app_id="app_id",
             user_id="user_id",
             query="query",
-            filter="filter",
+            filter={"foo": "bar"},
             top_k=0,
         )
         assert_matches_type(DocumentQueryResponse, document, path=["response"])

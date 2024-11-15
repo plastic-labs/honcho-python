@@ -95,12 +95,6 @@ class SessionsResource(SyncAPIResource):
         """
         Create a Session for a User
 
-        Args: app_id (str): The ID of the app representing the client application using
-        honcho user_id (str): The User ID representing the user, managed by the user
-        session (schemas.SessionCreate): The Session object containing any metadata
-
-        Returns: schemas.Session: The Session object of the new Session
-
         Args:
           extra_headers: Send extra headers
 
@@ -139,13 +133,6 @@ class SessionsResource(SyncAPIResource):
     ) -> Session:
         """
         Update the metadata of a Session
-
-        Args: app_id (str): The ID of the app representing the client application using
-        honcho user_id (str): The User ID representing the user, managed by the user
-        session_id (str): The ID of the Session to update session
-        (schemas.SessionUpdate): The Session object containing any new metadata
-
-        Returns: schemas.Session: The Session object of the updated Session
 
         Args:
           extra_headers: Send extra headers
@@ -190,11 +177,6 @@ class SessionsResource(SyncAPIResource):
     ) -> SyncPage[Session]:
         """
         Get All Sessions for a User
-
-        Args: app_id (str): The ID of the app representing the client application using
-        honcho user_id (str): The User ID representing the user, managed by the user
-
-        Returns: list[schemas.Session]: List of Session objects
 
         Args:
           page: Page number
@@ -257,14 +239,6 @@ class SessionsResource(SyncAPIResource):
         """
         Delete a session by marking it as inactive
 
-        Args: app_id (str): The ID of the app representing the client application using
-        honcho user_id (str): The User ID representing the user, managed by the user
-        session_id (str): The ID of the Session to delete
-
-        Returns: dict: A message indicating that the session was deleted
-
-        Raises: HTTPException: If the session is not found
-
         Args:
           extra_headers: Send extra headers
 
@@ -303,7 +277,7 @@ class SessionsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> AgentChat:
         """
-        Chat
+        Chat with the Dialectic API
 
         Args:
           extra_headers: Send extra headers
@@ -345,7 +319,7 @@ class SessionsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> Session:
         """
-        Clone Session
+        Clone a session for a user, optionally will deep clone metamessages as well
 
         Args:
           extra_headers: Send extra headers
@@ -396,14 +370,6 @@ class SessionsResource(SyncAPIResource):
         """
         Get a specific session for a user by ID
 
-        Args: app_id (str): The ID of the app representing the client application using
-        honcho user_id (str): The User ID representing the user, managed by the user
-        session_id (str): The ID of the Session to retrieve
-
-        Returns: schemas.Session: The Session object of the requested Session
-
-        Raises: HTTPException: If the session is not found
-
         Args:
           extra_headers: Send extra headers
 
@@ -442,7 +408,7 @@ class SessionsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> object:
         """
-        Get Chat Stream
+        Stream Results from the Dialectic API
 
         Args:
           extra_headers: Send extra headers
@@ -513,12 +479,6 @@ class AsyncSessionsResource(AsyncAPIResource):
         """
         Create a Session for a User
 
-        Args: app_id (str): The ID of the app representing the client application using
-        honcho user_id (str): The User ID representing the user, managed by the user
-        session (schemas.SessionCreate): The Session object containing any metadata
-
-        Returns: schemas.Session: The Session object of the new Session
-
         Args:
           extra_headers: Send extra headers
 
@@ -557,13 +517,6 @@ class AsyncSessionsResource(AsyncAPIResource):
     ) -> Session:
         """
         Update the metadata of a Session
-
-        Args: app_id (str): The ID of the app representing the client application using
-        honcho user_id (str): The User ID representing the user, managed by the user
-        session_id (str): The ID of the Session to update session
-        (schemas.SessionUpdate): The Session object containing any new metadata
-
-        Returns: schemas.Session: The Session object of the updated Session
 
         Args:
           extra_headers: Send extra headers
@@ -608,11 +561,6 @@ class AsyncSessionsResource(AsyncAPIResource):
     ) -> AsyncPaginator[Session, AsyncPage[Session]]:
         """
         Get All Sessions for a User
-
-        Args: app_id (str): The ID of the app representing the client application using
-        honcho user_id (str): The User ID representing the user, managed by the user
-
-        Returns: list[schemas.Session]: List of Session objects
 
         Args:
           page: Page number
@@ -675,14 +623,6 @@ class AsyncSessionsResource(AsyncAPIResource):
         """
         Delete a session by marking it as inactive
 
-        Args: app_id (str): The ID of the app representing the client application using
-        honcho user_id (str): The User ID representing the user, managed by the user
-        session_id (str): The ID of the Session to delete
-
-        Returns: dict: A message indicating that the session was deleted
-
-        Raises: HTTPException: If the session is not found
-
         Args:
           extra_headers: Send extra headers
 
@@ -721,7 +661,7 @@ class AsyncSessionsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> AgentChat:
         """
-        Chat
+        Chat with the Dialectic API
 
         Args:
           extra_headers: Send extra headers
@@ -763,7 +703,7 @@ class AsyncSessionsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> Session:
         """
-        Clone Session
+        Clone a session for a user, optionally will deep clone metamessages as well
 
         Args:
           extra_headers: Send extra headers
@@ -814,14 +754,6 @@ class AsyncSessionsResource(AsyncAPIResource):
         """
         Get a specific session for a user by ID
 
-        Args: app_id (str): The ID of the app representing the client application using
-        honcho user_id (str): The User ID representing the user, managed by the user
-        session_id (str): The ID of the Session to retrieve
-
-        Returns: schemas.Session: The Session object of the requested Session
-
-        Raises: HTTPException: If the session is not found
-
         Args:
           extra_headers: Send extra headers
 
@@ -860,7 +792,7 @@ class AsyncSessionsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> object:
         """
-        Get Chat Stream
+        Stream Results from the Dialectic API
 
         Args:
           extra_headers: Send extra headers

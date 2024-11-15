@@ -69,7 +69,7 @@ class DocumentsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> Document:
         """
-        Create Document
+        Embed text as a vector and create a Document
 
         Args:
           extra_headers: Send extra headers
@@ -118,7 +118,7 @@ class DocumentsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> Document:
         """
-        Update Document
+        Update the content and/or the metadata of a Document
 
         Args:
           extra_headers: Send extra headers
@@ -170,7 +170,7 @@ class DocumentsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> SyncPage[Document]:
         """
-        Get Documents
+        Get all of the Documents in a Collection
 
         Args:
           page: Page number
@@ -228,7 +228,7 @@ class DocumentsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> object:
         """
-        Delete Document
+        Delete a Document by ID
 
         Args:
           extra_headers: Send extra headers
@@ -270,7 +270,7 @@ class DocumentsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> Document:
         """
-        Get Document
+        Get a document by ID
 
         Args:
           extra_headers: Send extra headers
@@ -304,7 +304,7 @@ class DocumentsResource(SyncAPIResource):
         app_id: str,
         user_id: str,
         query: str,
-        filter: Optional[str] | NotGiven = NOT_GIVEN,
+        filter: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
         top_k: int | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -314,7 +314,7 @@ class DocumentsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> DocumentQueryResponse:
         """
-        Query Documents
+        Cosine Similarity Search for Documents
 
         Args:
           extra_headers: Send extra headers
@@ -331,21 +331,18 @@ class DocumentsResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `user_id` but received {user_id!r}")
         if not collection_id:
             raise ValueError(f"Expected a non-empty value for `collection_id` but received {collection_id!r}")
-        return self._get(
+        return self._post(
             f"/v1/apps/{app_id}/users/{user_id}/collections/{collection_id}/documents/query",
+            body=maybe_transform(
+                {
+                    "query": query,
+                    "filter": filter,
+                    "top_k": top_k,
+                },
+                document_query_params.DocumentQueryParams,
+            ),
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform(
-                    {
-                        "query": query,
-                        "filter": filter,
-                        "top_k": top_k,
-                    },
-                    document_query_params.DocumentQueryParams,
-                ),
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=DocumentQueryResponse,
         )
@@ -387,7 +384,7 @@ class AsyncDocumentsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> Document:
         """
-        Create Document
+        Embed text as a vector and create a Document
 
         Args:
           extra_headers: Send extra headers
@@ -436,7 +433,7 @@ class AsyncDocumentsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> Document:
         """
-        Update Document
+        Update the content and/or the metadata of a Document
 
         Args:
           extra_headers: Send extra headers
@@ -488,7 +485,7 @@ class AsyncDocumentsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> AsyncPaginator[Document, AsyncPage[Document]]:
         """
-        Get Documents
+        Get all of the Documents in a Collection
 
         Args:
           page: Page number
@@ -546,7 +543,7 @@ class AsyncDocumentsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> object:
         """
-        Delete Document
+        Delete a Document by ID
 
         Args:
           extra_headers: Send extra headers
@@ -588,7 +585,7 @@ class AsyncDocumentsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> Document:
         """
-        Get Document
+        Get a document by ID
 
         Args:
           extra_headers: Send extra headers
@@ -622,7 +619,7 @@ class AsyncDocumentsResource(AsyncAPIResource):
         app_id: str,
         user_id: str,
         query: str,
-        filter: Optional[str] | NotGiven = NOT_GIVEN,
+        filter: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
         top_k: int | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -632,7 +629,7 @@ class AsyncDocumentsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> DocumentQueryResponse:
         """
-        Query Documents
+        Cosine Similarity Search for Documents
 
         Args:
           extra_headers: Send extra headers
@@ -649,21 +646,18 @@ class AsyncDocumentsResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `user_id` but received {user_id!r}")
         if not collection_id:
             raise ValueError(f"Expected a non-empty value for `collection_id` but received {collection_id!r}")
-        return await self._get(
+        return await self._post(
             f"/v1/apps/{app_id}/users/{user_id}/collections/{collection_id}/documents/query",
+            body=await async_maybe_transform(
+                {
+                    "query": query,
+                    "filter": filter,
+                    "top_k": top_k,
+                },
+                document_query_params.DocumentQueryParams,
+            ),
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=await async_maybe_transform(
-                    {
-                        "query": query,
-                        "filter": filter,
-                        "top_k": top_k,
-                    },
-                    document_query_params.DocumentQueryParams,
-                ),
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=DocumentQueryResponse,
         )
