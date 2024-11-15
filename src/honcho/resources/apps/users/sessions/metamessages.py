@@ -72,15 +72,6 @@ class MetamessagesResource(SyncAPIResource):
         """
         Adds a message to a session
 
-        Args: app_id (str): The ID of the app representing the client application using
-        honcho user_id (str): The User ID representing the user, managed by the user
-        session_id (int): The ID of the Session to add the message to metamessage
-        (schemas.MeteamessageCreate): The metamessage creation object
-
-        Returns: schemas.Metamessage: The Metamessage object of the added metamessage
-
-        Raises: HTTPException: If the session is not found
-
         Args:
           extra_headers: Send extra headers
 
@@ -188,15 +179,6 @@ class MetamessagesResource(SyncAPIResource):
         """
         Get all messages for a session
 
-        Args: app_id (str): The ID of the app representing the client application using
-        honcho user_id (str): The User ID representing the user, managed by the user
-        session_id (int): The ID of the Session to retrieve reverse (bool): Whether to
-        reverse the order of the metamessages
-
-        Returns: list[schemas.Message]: List of Message objects
-
-        Raises: HTTPException: If the session is not found
-
         Args:
           page: Page number
 
@@ -262,14 +244,6 @@ class MetamessagesResource(SyncAPIResource):
     ) -> Metamessage:
         """
         Get a specific Metamessage by ID
-
-        Args: app_id (str): The ID of the app representing the client application using
-        honcho user_id (str): The User ID representing the user, managed by the user
-        session_id (int): The ID of the Session to retrieve
-
-        Returns: schemas.Session: The Session object of the requested Session
-
-        Raises: HTTPException: If the session is not found
 
         Args:
           extra_headers: Send extra headers
@@ -340,15 +314,6 @@ class AsyncMetamessagesResource(AsyncAPIResource):
     ) -> Metamessage:
         """
         Adds a message to a session
-
-        Args: app_id (str): The ID of the app representing the client application using
-        honcho user_id (str): The User ID representing the user, managed by the user
-        session_id (int): The ID of the Session to add the message to metamessage
-        (schemas.MeteamessageCreate): The metamessage creation object
-
-        Returns: schemas.Metamessage: The Metamessage object of the added metamessage
-
-        Raises: HTTPException: If the session is not found
 
         Args:
           extra_headers: Send extra headers
@@ -457,15 +422,6 @@ class AsyncMetamessagesResource(AsyncAPIResource):
         """
         Get all messages for a session
 
-        Args: app_id (str): The ID of the app representing the client application using
-        honcho user_id (str): The User ID representing the user, managed by the user
-        session_id (int): The ID of the Session to retrieve reverse (bool): Whether to
-        reverse the order of the metamessages
-
-        Returns: list[schemas.Message]: List of Message objects
-
-        Raises: HTTPException: If the session is not found
-
         Args:
           page: Page number
 
@@ -531,14 +487,6 @@ class AsyncMetamessagesResource(AsyncAPIResource):
     ) -> Metamessage:
         """
         Get a specific Metamessage by ID
-
-        Args: app_id (str): The ID of the app representing the client application using
-        honcho user_id (str): The User ID representing the user, managed by the user
-        session_id (int): The ID of the Session to retrieve
-
-        Returns: schemas.Session: The Session object of the requested Session
-
-        Raises: HTTPException: If the session is not found
 
         Args:
           extra_headers: Send extra headers

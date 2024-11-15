@@ -64,14 +64,6 @@ class MetamessagesResource(SyncAPIResource):
         """
         Paginate through the user metamessages for a user
 
-        Args: app_id (str): The ID of the app representing the client application using
-        honcho user_id (str): The User ID representing the user, managed by the user
-        reverse (bool): Whether to reverse the order of the metamessages
-
-        Returns: list[schemas.Message]: List of Message objects
-
-        Raises: HTTPException: If the session is not found
-
         Args:
           page: Page number
 
@@ -157,14 +149,6 @@ class AsyncMetamessagesResource(AsyncAPIResource):
     ) -> AsyncPaginator[Metamessage, AsyncPage[Metamessage]]:
         """
         Paginate through the user metamessages for a user
-
-        Args: app_id (str): The ID of the app representing the client application using
-        honcho user_id (str): The User ID representing the user, managed by the user
-        reverse (bool): Whether to reverse the order of the metamessages
-
-        Returns: list[schemas.Message]: List of Message objects
-
-        Raises: HTTPException: If the session is not found
 
         Args:
           page: Page number

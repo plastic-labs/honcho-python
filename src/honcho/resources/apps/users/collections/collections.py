@@ -74,7 +74,7 @@ class CollectionsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> Collection:
         """
-        Create Collection
+        Create a new Collection
 
         Args:
           extra_headers: Send extra headers
@@ -120,7 +120,7 @@ class CollectionsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> Collection:
         """
-        Update Collection
+        Update a Collection's name or metadata
 
         Args:
           extra_headers: Send extra headers
@@ -170,11 +170,6 @@ class CollectionsResource(SyncAPIResource):
     ) -> SyncPage[Collection]:
         """
         Get All Collections for a User
-
-        Args: app_id (str): The ID of the app representing the client application using
-        honcho user_id (str): The User ID representing the user, managed by the user
-
-        Returns: list[schemas.Collection]: List of Collection objects
 
         Args:
           page: Page number
@@ -229,7 +224,7 @@ class CollectionsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> object:
         """
-        Delete Collection
+        Delete a Collection and its documents
 
         Args:
           extra_headers: Send extra headers
@@ -268,7 +263,7 @@ class CollectionsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> Collection:
         """
-        Get Collection By Id
+        Get a Collection by ID
 
         Args:
           extra_headers: Send extra headers
@@ -307,7 +302,7 @@ class CollectionsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> Collection:
         """
-        Get Collection By Name
+        Get a Collection by Name
 
         Args:
           extra_headers: Send extra headers
@@ -372,7 +367,7 @@ class AsyncCollectionsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> Collection:
         """
-        Create Collection
+        Create a new Collection
 
         Args:
           extra_headers: Send extra headers
@@ -418,7 +413,7 @@ class AsyncCollectionsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> Collection:
         """
-        Update Collection
+        Update a Collection's name or metadata
 
         Args:
           extra_headers: Send extra headers
@@ -468,11 +463,6 @@ class AsyncCollectionsResource(AsyncAPIResource):
     ) -> AsyncPaginator[Collection, AsyncPage[Collection]]:
         """
         Get All Collections for a User
-
-        Args: app_id (str): The ID of the app representing the client application using
-        honcho user_id (str): The User ID representing the user, managed by the user
-
-        Returns: list[schemas.Collection]: List of Collection objects
 
         Args:
           page: Page number
@@ -527,7 +517,7 @@ class AsyncCollectionsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> object:
         """
-        Delete Collection
+        Delete a Collection and its documents
 
         Args:
           extra_headers: Send extra headers
@@ -566,7 +556,7 @@ class AsyncCollectionsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> Collection:
         """
-        Get Collection By Id
+        Get a Collection by ID
 
         Args:
           extra_headers: Send extra headers
@@ -605,7 +595,7 @@ class AsyncCollectionsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> Collection:
         """
-        Get Collection By Name
+        Get a Collection by Name
 
         Args:
           extra_headers: Send extra headers
