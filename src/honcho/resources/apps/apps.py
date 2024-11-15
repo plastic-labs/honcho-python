@@ -72,11 +72,7 @@ class AppsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> App:
         """
-        Create an App
-
-        Args: app (schemas.AppCreate): The App object containing any metadata
-
-        Returns: schemas.App: Created App object
+        Create a new App
 
         Args:
           extra_headers: Send extra headers
@@ -118,11 +114,6 @@ class AppsResource(SyncAPIResource):
         """
         Update an App
 
-        Args: app_id (str): The ID of the app to update app (schemas.AppUpdate): The App
-        object containing any new metadata
-
-        Returns: schemas.App: The App object of the updated App
-
         Args:
           extra_headers: Send extra headers
 
@@ -163,10 +154,6 @@ class AppsResource(SyncAPIResource):
         """
         Get an App by ID
 
-        Args: app_id (str): The ID of the app
-
-        Returns: schemas.App: App object
-
         Args:
           extra_headers: Send extra headers
 
@@ -200,10 +187,6 @@ class AppsResource(SyncAPIResource):
         """
         Get an App by Name
 
-        Args: app_name (str): The name of the app
-
-        Returns: schemas.App: App object
-
         Args:
           extra_headers: Send extra headers
 
@@ -236,10 +219,6 @@ class AppsResource(SyncAPIResource):
     ) -> App:
         """
         Get or Create an App
-
-        Args: app_name (str): The name of the app
-
-        Returns: schemas.App: App object
 
         Args:
           extra_headers: Send extra headers
@@ -298,11 +277,7 @@ class AsyncAppsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> App:
         """
-        Create an App
-
-        Args: app (schemas.AppCreate): The App object containing any metadata
-
-        Returns: schemas.App: Created App object
+        Create a new App
 
         Args:
           extra_headers: Send extra headers
@@ -344,11 +319,6 @@ class AsyncAppsResource(AsyncAPIResource):
         """
         Update an App
 
-        Args: app_id (str): The ID of the app to update app (schemas.AppUpdate): The App
-        object containing any new metadata
-
-        Returns: schemas.App: The App object of the updated App
-
         Args:
           extra_headers: Send extra headers
 
@@ -389,10 +359,6 @@ class AsyncAppsResource(AsyncAPIResource):
         """
         Get an App by ID
 
-        Args: app_id (str): The ID of the app
-
-        Returns: schemas.App: App object
-
         Args:
           extra_headers: Send extra headers
 
@@ -426,10 +392,6 @@ class AsyncAppsResource(AsyncAPIResource):
         """
         Get an App by Name
 
-        Args: app_name (str): The name of the app
-
-        Returns: schemas.App: App object
-
         Args:
           extra_headers: Send extra headers
 
@@ -462,10 +424,6 @@ class AsyncAppsResource(AsyncAPIResource):
     ) -> App:
         """
         Get or Create an App
-
-        Args: app_name (str): The name of the app
-
-        Returns: schemas.App: App object
 
         Args:
           extra_headers: Send extra headers

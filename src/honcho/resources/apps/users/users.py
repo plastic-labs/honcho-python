@@ -99,12 +99,7 @@ class UsersResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> User:
         """
-        Create a User
-
-        Args: app_id (str): The ID of the app representing the client application using
-        honcho user (schemas.UserCreate): The User object containing any metadata
-
-        Returns: schemas.User: Created User object
+        Create a new User
 
         Args:
           extra_headers: Send extra headers
@@ -147,13 +142,7 @@ class UsersResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> User:
         """
-        Update a User
-
-        Args: app_id (str): The ID of the app representing the client application using
-        honcho user_id (str): The User ID representing the user, managed by the user
-        user (schemas.UserCreate): The User object containing any metadata
-
-        Returns: schemas.User: Updated User object
+        Update a User's name and/or metadata
 
         Args:
           extra_headers: Send extra headers
@@ -200,11 +189,6 @@ class UsersResource(SyncAPIResource):
     ) -> SyncPage[User]:
         """
         Get All Users for an App
-
-        Args: app_id (str): The ID of the app representing the client application using
-        honcho
-
-        Returns: list[schemas.User]: List of User objects
 
         Args:
           page: Page number
@@ -256,12 +240,7 @@ class UsersResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> User:
         """
-        Get a User
-
-        Args: app_id (str): The ID of the app representing the client application using
-        honcho user_id (str): The User ID representing the user, managed by the user
-
-        Returns: schemas.User: User object
+        Get a User by ID
 
         Args:
           extra_headers: Send extra headers
@@ -297,12 +276,7 @@ class UsersResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> User:
         """
-        Get a User
-
-        Args: app_id (str): The ID of the app representing the client application using
-        honcho user_id (str): The User ID representing the user, managed by the user
-
-        Returns: schemas.User: User object
+        Get a User by name
 
         Args:
           extra_headers: Send extra headers
@@ -338,12 +312,7 @@ class UsersResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> User:
         """
-        Get or Create a User
-
-        Args: app_id (str): The ID of the app representing the client application using
-        honcho user_id (str): The User ID representing the user, managed by the user
-
-        Returns: schemas.User: User object
+        Get a User or create a new one by the input name
 
         Args:
           extra_headers: Send extra headers
@@ -413,12 +382,7 @@ class AsyncUsersResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> User:
         """
-        Create a User
-
-        Args: app_id (str): The ID of the app representing the client application using
-        honcho user (schemas.UserCreate): The User object containing any metadata
-
-        Returns: schemas.User: Created User object
+        Create a new User
 
         Args:
           extra_headers: Send extra headers
@@ -461,13 +425,7 @@ class AsyncUsersResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> User:
         """
-        Update a User
-
-        Args: app_id (str): The ID of the app representing the client application using
-        honcho user_id (str): The User ID representing the user, managed by the user
-        user (schemas.UserCreate): The User object containing any metadata
-
-        Returns: schemas.User: Updated User object
+        Update a User's name and/or metadata
 
         Args:
           extra_headers: Send extra headers
@@ -514,11 +472,6 @@ class AsyncUsersResource(AsyncAPIResource):
     ) -> AsyncPaginator[User, AsyncPage[User]]:
         """
         Get All Users for an App
-
-        Args: app_id (str): The ID of the app representing the client application using
-        honcho
-
-        Returns: list[schemas.User]: List of User objects
 
         Args:
           page: Page number
@@ -570,12 +523,7 @@ class AsyncUsersResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> User:
         """
-        Get a User
-
-        Args: app_id (str): The ID of the app representing the client application using
-        honcho user_id (str): The User ID representing the user, managed by the user
-
-        Returns: schemas.User: User object
+        Get a User by ID
 
         Args:
           extra_headers: Send extra headers
@@ -611,12 +559,7 @@ class AsyncUsersResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> User:
         """
-        Get a User
-
-        Args: app_id (str): The ID of the app representing the client application using
-        honcho user_id (str): The User ID representing the user, managed by the user
-
-        Returns: schemas.User: User object
+        Get a User by name
 
         Args:
           extra_headers: Send extra headers
@@ -652,12 +595,7 @@ class AsyncUsersResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> User:
         """
-        Get or Create a User
-
-        Args: app_id (str): The ID of the app representing the client application using
-        honcho user_id (str): The User ID representing the user, managed by the user
-
-        Returns: schemas.User: User object
+        Get a User or create a new one by the input name
 
         Args:
           extra_headers: Send extra headers

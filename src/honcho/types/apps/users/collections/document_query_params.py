@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Optional
+from typing import Dict, Optional
 from typing_extensions import Required, TypedDict
 
 __all__ = ["DocumentQueryParams"]
@@ -15,6 +15,6 @@ class DocumentQueryParams(TypedDict, total=False):
 
     query: Required[str]
 
-    filter: Optional[str]
+    filter: Optional[Dict[str, object]]
 
     top_k: int
