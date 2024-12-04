@@ -1,5 +1,28 @@
 # Changelog
 
+## 0.0.18 (2024-12-04)
+
+Full Changelog: [v0.0.17...v0.0.18](https://github.com/plastic-labs/honcho-python/compare/v0.0.17...v0.0.18)
+
+### Bug Fixes
+
+* **client:** compat with new httpx 0.28.0 release ([#70](https://github.com/plastic-labs/honcho-python/issues/70)) ([ac37c4b](https://github.com/plastic-labs/honcho-python/commit/ac37c4bace9edaa3c8c73c293f9eaf555736f5ba))
+
+
+### Chores
+
+* **internal:** codegen related update ([#71](https://github.com/plastic-labs/honcho-python/issues/71)) ([9b037b4](https://github.com/plastic-labs/honcho-python/commit/9b037b4f43dbdffa6b090778bbc084f8f4880dc5))
+* **internal:** exclude mypy from running on tests ([#69](https://github.com/plastic-labs/honcho-python/issues/69)) ([8b3801d](https://github.com/plastic-labs/honcho-python/commit/8b3801db9f42c3e78fca1721be3291f4a35c8528))
+* **internal:** fix compat model_dump method when warnings are passed ([#66](https://github.com/plastic-labs/honcho-python/issues/66)) ([e80f5e7](https://github.com/plastic-labs/honcho-python/commit/e80f5e7b8d09ad63c2ac6d27aa9f150b5f77165d))
+* make the `Omit` type public ([#72](https://github.com/plastic-labs/honcho-python/issues/72)) ([7ba4680](https://github.com/plastic-labs/honcho-python/commit/7ba46804dcab6b79560ec01f51b1062e6d0a2bd0))
+* rebuild project due to codegen change ([#64](https://github.com/plastic-labs/honcho-python/issues/64)) ([6c86c34](https://github.com/plastic-labs/honcho-python/commit/6c86c343d24969a61cf8b0504e3b286b6380d380))
+* remove now unused `cached-property` dep ([#68](https://github.com/plastic-labs/honcho-python/issues/68)) ([ba01875](https://github.com/plastic-labs/honcho-python/commit/ba01875143a8c5a63cb19a98e46b63663979e79d))
+
+
+### Documentation
+
+* add info log level to readme ([#67](https://github.com/plastic-labs/honcho-python/issues/67)) ([2482b6a](https://github.com/plastic-labs/honcho-python/commit/2482b6a83211edff3114485a7b085b320a08bbf0))
+
 ## 0.0.17 (2024-11-15)
 
 Full Changelog: [v0.0.16...v0.0.17](https://github.com/plastic-labs/honcho-python/compare/v0.0.16...v0.0.17)
