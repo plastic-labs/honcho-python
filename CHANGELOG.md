@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.0.19 (2024-12-10)
+
+Full Changelog: [v0.0.18...v0.0.19](https://github.com/plastic-labs/honcho-python/compare/v0.0.18...v0.0.19)
+
+### Chores
+
+* **internal:** bump pydantic dependency ([#74](https://github.com/plastic-labs/honcho-python/issues/74)) ([43ea1de](https://github.com/plastic-labs/honcho-python/commit/43ea1dec3ad6e2a28fd5cbe101a63201c8937f8a))
+
+
+### Documentation
+
+* **readme:** fix http client proxies example ([#76](https://github.com/plastic-labs/honcho-python/issues/76)) ([30cacbf](https://github.com/plastic-labs/honcho-python/commit/30cacbf37ea84226175ccc1dcef2964a8e7392ad))
+
 ## 0.0.18 (2024-12-04)
 
 Full Changelog: [v0.0.17...v0.0.18](https://github.com/plastic-labs/honcho-python/compare/v0.0.17...v0.0.18)
