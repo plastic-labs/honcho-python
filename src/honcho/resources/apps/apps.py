@@ -6,14 +6,6 @@ from typing import Dict, Optional
 
 import httpx
 
-from .users import (
-    UsersResource,
-    AsyncUsersResource,
-    UsersResourceWithRawResponse,
-    AsyncUsersResourceWithRawResponse,
-    UsersResourceWithStreamingResponse,
-    AsyncUsersResourceWithStreamingResponse,
-)
 from ...types import app_create_params, app_update_params
 from ..._types import NOT_GIVEN, Body, Query, Headers, NotGiven
 from ..._utils import (
@@ -29,7 +21,14 @@ from ..._response import (
     async_to_streamed_response_wrapper,
 )
 from ...types.app import App
-from .users.users import UsersResource, AsyncUsersResource
+from .users.users import (
+    UsersResource,
+    AsyncUsersResource,
+    UsersResourceWithRawResponse,
+    AsyncUsersResourceWithRawResponse,
+    UsersResourceWithStreamingResponse,
+    AsyncUsersResourceWithStreamingResponse,
+)
 from ..._base_client import make_request_options
 
 __all__ = ["AppsResource", "AsyncAppsResource"]
