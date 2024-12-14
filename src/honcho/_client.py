@@ -8,7 +8,7 @@ from typing_extensions import Self, Literal, override
 
 import httpx
 
-from . import resources, _exceptions
+from . import _exceptions
 from ._qs import Querystring
 from ._types import (
     NOT_GIVEN,
@@ -31,6 +31,7 @@ from ._base_client import (
     SyncAPIClient,
     AsyncAPIClient,
 )
+from .resources.apps import apps
 
 __all__ = [
     "ENVIRONMENTS",
@@ -38,7 +39,6 @@ __all__ = [
     "Transport",
     "ProxiesTypes",
     "RequestOptions",
-    "resources",
     "Honcho",
     "AsyncHoncho",
     "Client",
@@ -52,7 +52,7 @@ ENVIRONMENTS: Dict[str, str] = {
 
 
 class Honcho(SyncAPIClient):
-    apps: resources.AppsResource
+    apps: apps.AppsResource
     with_raw_response: HonchoWithRawResponse
     with_streaming_response: HonchoWithStreamedResponse
 
@@ -130,7 +130,7 @@ class Honcho(SyncAPIClient):
             _strict_response_validation=_strict_response_validation,
         )
 
-        self.apps = resources.AppsResource(self)
+        self.apps = apps.AppsResource(self)
         self.with_raw_response = HonchoWithRawResponse(self)
         self.with_streaming_response = HonchoWithStreamedResponse(self)
 
@@ -244,7 +244,7 @@ class Honcho(SyncAPIClient):
 
 
 class AsyncHoncho(AsyncAPIClient):
-    apps: resources.AsyncAppsResource
+    apps: apps.AsyncAppsResource
     with_raw_response: AsyncHonchoWithRawResponse
     with_streaming_response: AsyncHonchoWithStreamedResponse
 
@@ -322,7 +322,7 @@ class AsyncHoncho(AsyncAPIClient):
             _strict_response_validation=_strict_response_validation,
         )
 
-        self.apps = resources.AsyncAppsResource(self)
+        self.apps = apps.AsyncAppsResource(self)
         self.with_raw_response = AsyncHonchoWithRawResponse(self)
         self.with_streaming_response = AsyncHonchoWithStreamedResponse(self)
 
@@ -437,22 +437,22 @@ class AsyncHoncho(AsyncAPIClient):
 
 class HonchoWithRawResponse:
     def __init__(self, client: Honcho) -> None:
-        self.apps = resources.AppsResourceWithRawResponse(client.apps)
+        self.apps = apps.AppsResourceWithRawResponse(client.apps)
 
 
 class AsyncHonchoWithRawResponse:
     def __init__(self, client: AsyncHoncho) -> None:
-        self.apps = resources.AsyncAppsResourceWithRawResponse(client.apps)
+        self.apps = apps.AsyncAppsResourceWithRawResponse(client.apps)
 
 
 class HonchoWithStreamedResponse:
     def __init__(self, client: Honcho) -> None:
-        self.apps = resources.AppsResourceWithStreamingResponse(client.apps)
+        self.apps = apps.AppsResourceWithStreamingResponse(client.apps)
 
 
 class AsyncHonchoWithStreamedResponse:
     def __init__(self, client: AsyncHoncho) -> None:
-        self.apps = resources.AsyncAppsResourceWithStreamingResponse(client.apps)
+        self.apps = apps.AsyncAppsResourceWithStreamingResponse(client.apps)
 
 
 Client = Honcho
