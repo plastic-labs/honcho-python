@@ -6,12 +6,28 @@ from typing import Dict, Optional
 
 import httpx
 
+from .sessions import (
+    SessionsResource,
+    AsyncSessionsResource,
+    SessionsResourceWithRawResponse,
+    AsyncSessionsResourceWithRawResponse,
+    SessionsResourceWithStreamingResponse,
+    AsyncSessionsResourceWithStreamingResponse,
+)
 from ...._types import NOT_GIVEN, Body, Query, Headers, NotGiven
 from ...._utils import (
     maybe_transform,
     async_maybe_transform,
 )
 from ...._compat import cached_property
+from .collections import (
+    CollectionsResource,
+    AsyncCollectionsResource,
+    CollectionsResourceWithRawResponse,
+    AsyncCollectionsResourceWithRawResponse,
+    CollectionsResourceWithStreamingResponse,
+    AsyncCollectionsResourceWithStreamingResponse,
+)
 from ...._resource import SyncAPIResource, AsyncAPIResource
 from ...._response import (
     to_raw_response_wrapper,
@@ -30,23 +46,9 @@ from .metamessages import (
 from ....pagination import SyncPage, AsyncPage
 from ....types.apps import user_list_params, user_create_params, user_update_params
 from ...._base_client import AsyncPaginator, make_request_options
-from .sessions.sessions import (
-    SessionsResource,
-    AsyncSessionsResource,
-    SessionsResourceWithRawResponse,
-    AsyncSessionsResourceWithRawResponse,
-    SessionsResourceWithStreamingResponse,
-    AsyncSessionsResourceWithStreamingResponse,
-)
+from .sessions.sessions import SessionsResource, AsyncSessionsResource
 from ....types.apps.user import User
-from .collections.collections import (
-    CollectionsResource,
-    AsyncCollectionsResource,
-    CollectionsResourceWithRawResponse,
-    AsyncCollectionsResourceWithRawResponse,
-    CollectionsResourceWithStreamingResponse,
-    AsyncCollectionsResourceWithStreamingResponse,
-)
+from .collections.collections import CollectionsResource, AsyncCollectionsResource
 
 __all__ = ["UsersResource", "AsyncUsersResource"]
 
