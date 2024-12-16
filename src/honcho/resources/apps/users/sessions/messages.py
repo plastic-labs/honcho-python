@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Dict, Optional
+from typing import Dict, Iterable, Optional
 
 import httpx
 
@@ -21,8 +21,14 @@ from ....._response import (
 )
 from .....pagination import SyncPage, AsyncPage
 from ....._base_client import AsyncPaginator, make_request_options
-from .....types.apps.users.sessions import message_list_params, message_create_params, message_update_params
+from .....types.apps.users.sessions import (
+    message_list_params,
+    message_batch_params,
+    message_create_params,
+    message_update_params,
+)
 from .....types.apps.users.sessions.message import Message
+from .....types.apps.users.sessions.message_batch_response import MessageBatchResponse
 
 __all__ = ["MessagesResource", "AsyncMessagesResource"]
 
@@ -104,7 +110,7 @@ class MessagesResource(SyncAPIResource):
         app_id: str,
         user_id: str,
         session_id: str,
-        metadata: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
+        metadata: Dict[str, object],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -200,6 +206,49 @@ class MessagesResource(SyncAPIResource):
             ),
             model=Message,
             method="post",
+        )
+
+    def batch(
+        self,
+        session_id: str,
+        *,
+        app_id: str,
+        user_id: str,
+        messages: Iterable[message_batch_params.Message],
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> MessageBatchResponse:
+        """Bulk create messages for a session while maintaining order.
+
+        Maximum 100 messages
+        per batch.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not app_id:
+            raise ValueError(f"Expected a non-empty value for `app_id` but received {app_id!r}")
+        if not user_id:
+            raise ValueError(f"Expected a non-empty value for `user_id` but received {user_id!r}")
+        if not session_id:
+            raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
+        return self._post(
+            f"/v1/apps/{app_id}/users/{user_id}/sessions/{session_id}/messages/batch",
+            body=maybe_transform({"messages": messages}, message_batch_params.MessageBatchParams),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=MessageBatchResponse,
         )
 
     def get(
@@ -322,7 +371,7 @@ class AsyncMessagesResource(AsyncAPIResource):
         app_id: str,
         user_id: str,
         session_id: str,
-        metadata: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
+        metadata: Dict[str, object],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -420,6 +469,49 @@ class AsyncMessagesResource(AsyncAPIResource):
             method="post",
         )
 
+    async def batch(
+        self,
+        session_id: str,
+        *,
+        app_id: str,
+        user_id: str,
+        messages: Iterable[message_batch_params.Message],
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> MessageBatchResponse:
+        """Bulk create messages for a session while maintaining order.
+
+        Maximum 100 messages
+        per batch.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not app_id:
+            raise ValueError(f"Expected a non-empty value for `app_id` but received {app_id!r}")
+        if not user_id:
+            raise ValueError(f"Expected a non-empty value for `user_id` but received {user_id!r}")
+        if not session_id:
+            raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
+        return await self._post(
+            f"/v1/apps/{app_id}/users/{user_id}/sessions/{session_id}/messages/batch",
+            body=await async_maybe_transform({"messages": messages}, message_batch_params.MessageBatchParams),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=MessageBatchResponse,
+        )
+
     async def get(
         self,
         message_id: str,
@@ -476,6 +568,9 @@ class MessagesResourceWithRawResponse:
         self.list = to_raw_response_wrapper(
             messages.list,
         )
+        self.batch = to_raw_response_wrapper(
+            messages.batch,
+        )
         self.get = to_raw_response_wrapper(
             messages.get,
         )
@@ -493,6 +588,9 @@ class AsyncMessagesResourceWithRawResponse:
         )
         self.list = async_to_raw_response_wrapper(
             messages.list,
+        )
+        self.batch = async_to_raw_response_wrapper(
+            messages.batch,
         )
         self.get = async_to_raw_response_wrapper(
             messages.get,
@@ -512,6 +610,9 @@ class MessagesResourceWithStreamingResponse:
         self.list = to_streamed_response_wrapper(
             messages.list,
         )
+        self.batch = to_streamed_response_wrapper(
+            messages.batch,
+        )
         self.get = to_streamed_response_wrapper(
             messages.get,
         )
@@ -529,6 +630,9 @@ class AsyncMessagesResourceWithStreamingResponse:
         )
         self.list = async_to_streamed_response_wrapper(
             messages.list,
+        )
+        self.batch = async_to_streamed_response_wrapper(
+            messages.batch,
         )
         self.get = async_to_streamed_response_wrapper(
             messages.get,
