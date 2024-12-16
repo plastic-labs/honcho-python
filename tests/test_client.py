@@ -717,7 +717,7 @@ class TestHoncho:
         with pytest.raises(APITimeoutError):
             self.client.post(
                 "/v1/apps",
-                body=cast(object, dict(name="name")),
+                body=cast(object, dict(name="x")),
                 cast_to=httpx.Response,
                 options={"headers": {RAW_RESPONSE_HEADER: "stream"}},
             )
@@ -732,7 +732,7 @@ class TestHoncho:
         with pytest.raises(APIStatusError):
             self.client.post(
                 "/v1/apps",
-                body=cast(object, dict(name="name")),
+                body=cast(object, dict(name="x")),
                 cast_to=httpx.Response,
                 options={"headers": {RAW_RESPONSE_HEADER: "stream"}},
             )
@@ -765,7 +765,7 @@ class TestHoncho:
 
         respx_mock.post("/v1/apps").mock(side_effect=retry_handler)
 
-        response = client.apps.with_raw_response.create(name="name")
+        response = client.apps.with_raw_response.create(name="x")
 
         assert response.retries_taken == failures_before_success
         assert int(response.http_request.headers.get("x-stainless-retry-count")) == failures_before_success
@@ -789,7 +789,7 @@ class TestHoncho:
 
         respx_mock.post("/v1/apps").mock(side_effect=retry_handler)
 
-        response = client.apps.with_raw_response.create(name="name", extra_headers={"x-stainless-retry-count": Omit()})
+        response = client.apps.with_raw_response.create(name="x", extra_headers={"x-stainless-retry-count": Omit()})
 
         assert len(response.http_request.headers.get_list("x-stainless-retry-count")) == 0
 
@@ -812,7 +812,7 @@ class TestHoncho:
 
         respx_mock.post("/v1/apps").mock(side_effect=retry_handler)
 
-        response = client.apps.with_raw_response.create(name="name", extra_headers={"x-stainless-retry-count": "42"})
+        response = client.apps.with_raw_response.create(name="x", extra_headers={"x-stainless-retry-count": "42"})
 
         assert response.http_request.headers.get("x-stainless-retry-count") == "42"
 
@@ -1501,7 +1501,7 @@ class TestAsyncHoncho:
         with pytest.raises(APITimeoutError):
             await self.client.post(
                 "/v1/apps",
-                body=cast(object, dict(name="name")),
+                body=cast(object, dict(name="x")),
                 cast_to=httpx.Response,
                 options={"headers": {RAW_RESPONSE_HEADER: "stream"}},
             )
@@ -1516,7 +1516,7 @@ class TestAsyncHoncho:
         with pytest.raises(APIStatusError):
             await self.client.post(
                 "/v1/apps",
-                body=cast(object, dict(name="name")),
+                body=cast(object, dict(name="x")),
                 cast_to=httpx.Response,
                 options={"headers": {RAW_RESPONSE_HEADER: "stream"}},
             )
@@ -1550,7 +1550,7 @@ class TestAsyncHoncho:
 
         respx_mock.post("/v1/apps").mock(side_effect=retry_handler)
 
-        response = await client.apps.with_raw_response.create(name="name")
+        response = await client.apps.with_raw_response.create(name="x")
 
         assert response.retries_taken == failures_before_success
         assert int(response.http_request.headers.get("x-stainless-retry-count")) == failures_before_success
@@ -1576,7 +1576,7 @@ class TestAsyncHoncho:
         respx_mock.post("/v1/apps").mock(side_effect=retry_handler)
 
         response = await client.apps.with_raw_response.create(
-            name="name", extra_headers={"x-stainless-retry-count": Omit()}
+            name="x", extra_headers={"x-stainless-retry-count": Omit()}
         )
 
         assert len(response.http_request.headers.get_list("x-stainless-retry-count")) == 0
@@ -1601,9 +1601,7 @@ class TestAsyncHoncho:
 
         respx_mock.post("/v1/apps").mock(side_effect=retry_handler)
 
-        response = await client.apps.with_raw_response.create(
-            name="name", extra_headers={"x-stainless-retry-count": "42"}
-        )
+        response = await client.apps.with_raw_response.create(name="x", extra_headers={"x-stainless-retry-count": "42"})
 
         assert response.http_request.headers.get("x-stainless-retry-count") == "42"
 

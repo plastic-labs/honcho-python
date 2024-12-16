@@ -67,7 +67,7 @@ Methods:
 Types:
 
 ```python
-from honcho.types.apps.users.sessions import Message, PageMessage
+from honcho.types.apps.users.sessions import Message, PageMessage, MessageBatchResponse
 ```
 
 Methods:
@@ -75,6 +75,7 @@ Methods:
 - <code title="post /v1/apps/{app_id}/users/{user_id}/sessions/{session_id}/messages">client.apps.users.sessions.messages.<a href="./src/honcho/resources/apps/users/sessions/messages.py">create</a>(session_id, \*, app_id, user_id, \*\*<a href="src/honcho/types/apps/users/sessions/message_create_params.py">params</a>) -> <a href="./src/honcho/types/apps/users/sessions/message.py">Message</a></code>
 - <code title="put /v1/apps/{app_id}/users/{user_id}/sessions/{session_id}/messages/{message_id}">client.apps.users.sessions.messages.<a href="./src/honcho/resources/apps/users/sessions/messages.py">update</a>(message_id, \*, app_id, user_id, session_id, \*\*<a href="src/honcho/types/apps/users/sessions/message_update_params.py">params</a>) -> <a href="./src/honcho/types/apps/users/sessions/message.py">Message</a></code>
 - <code title="post /v1/apps/{app_id}/users/{user_id}/sessions/{session_id}/messages/list">client.apps.users.sessions.messages.<a href="./src/honcho/resources/apps/users/sessions/messages.py">list</a>(session_id, \*, app_id, user_id, \*\*<a href="src/honcho/types/apps/users/sessions/message_list_params.py">params</a>) -> <a href="./src/honcho/types/apps/users/sessions/message.py">SyncPage[Message]</a></code>
+- <code title="post /v1/apps/{app_id}/users/{user_id}/sessions/{session_id}/messages/batch">client.apps.users.sessions.messages.<a href="./src/honcho/resources/apps/users/sessions/messages.py">batch</a>(session_id, \*, app_id, user_id, \*\*<a href="src/honcho/types/apps/users/sessions/message_batch_params.py">params</a>) -> <a href="./src/honcho/types/apps/users/sessions/message_batch_response.py">MessageBatchResponse</a></code>
 - <code title="get /v1/apps/{app_id}/users/{user_id}/sessions/{session_id}/messages/{message_id}">client.apps.users.sessions.messages.<a href="./src/honcho/resources/apps/users/sessions/messages.py">get</a>(message_id, \*, app_id, user_id, session_id) -> <a href="./src/honcho/types/apps/users/sessions/message.py">Message</a></code>
 
 #### Metamessages

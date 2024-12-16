@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Dict, Optional
+from typing import Dict
 from typing_extensions import Required, TypedDict
 
 __all__ = ["CollectionCreateParams"]
@@ -13,4 +13,4 @@ class CollectionCreateParams(TypedDict, total=False):
 
     name: Required[str]
 
-    metadata: Optional[Dict[str, object]]
+    metadata: Dict[str, object]

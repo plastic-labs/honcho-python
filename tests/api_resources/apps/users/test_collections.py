@@ -25,7 +25,7 @@ class TestCollections:
         collection = client.apps.users.collections.create(
             user_id="user_id",
             app_id="app_id",
-            name="name",
+            name="x",
         )
         assert_matches_type(Collection, collection, path=["response"])
 
@@ -34,7 +34,7 @@ class TestCollections:
         collection = client.apps.users.collections.create(
             user_id="user_id",
             app_id="app_id",
-            name="name",
+            name="x",
             metadata={"foo": "bar"},
         )
         assert_matches_type(Collection, collection, path=["response"])
@@ -44,7 +44,7 @@ class TestCollections:
         response = client.apps.users.collections.with_raw_response.create(
             user_id="user_id",
             app_id="app_id",
-            name="name",
+            name="x",
         )
 
         assert response.is_closed is True
@@ -57,7 +57,7 @@ class TestCollections:
         with client.apps.users.collections.with_streaming_response.create(
             user_id="user_id",
             app_id="app_id",
-            name="name",
+            name="x",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -73,14 +73,14 @@ class TestCollections:
             client.apps.users.collections.with_raw_response.create(
                 user_id="user_id",
                 app_id="",
-                name="name",
+                name="x",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `user_id` but received ''"):
             client.apps.users.collections.with_raw_response.create(
                 user_id="",
                 app_id="app_id",
-                name="name",
+                name="x",
             )
 
     @parametrize
@@ -403,7 +403,7 @@ class TestAsyncCollections:
         collection = await async_client.apps.users.collections.create(
             user_id="user_id",
             app_id="app_id",
-            name="name",
+            name="x",
         )
         assert_matches_type(Collection, collection, path=["response"])
 
@@ -412,7 +412,7 @@ class TestAsyncCollections:
         collection = await async_client.apps.users.collections.create(
             user_id="user_id",
             app_id="app_id",
-            name="name",
+            name="x",
             metadata={"foo": "bar"},
         )
         assert_matches_type(Collection, collection, path=["response"])
@@ -422,7 +422,7 @@ class TestAsyncCollections:
         response = await async_client.apps.users.collections.with_raw_response.create(
             user_id="user_id",
             app_id="app_id",
-            name="name",
+            name="x",
         )
 
         assert response.is_closed is True
@@ -435,7 +435,7 @@ class TestAsyncCollections:
         async with async_client.apps.users.collections.with_streaming_response.create(
             user_id="user_id",
             app_id="app_id",
-            name="name",
+            name="x",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -451,14 +451,14 @@ class TestAsyncCollections:
             await async_client.apps.users.collections.with_raw_response.create(
                 user_id="user_id",
                 app_id="",
-                name="name",
+                name="x",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `user_id` but received ''"):
             await async_client.apps.users.collections.with_raw_response.create(
                 user_id="",
                 app_id="app_id",
-                name="name",
+                name="x",
             )
 
     @parametrize
