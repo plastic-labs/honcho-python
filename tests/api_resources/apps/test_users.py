@@ -22,7 +22,7 @@ class TestUsers:
     def test_method_create(self, client: Honcho) -> None:
         user = client.apps.users.create(
             app_id="app_id",
-            name="name",
+            name="x",
         )
         assert_matches_type(User, user, path=["response"])
 
@@ -30,7 +30,7 @@ class TestUsers:
     def test_method_create_with_all_params(self, client: Honcho) -> None:
         user = client.apps.users.create(
             app_id="app_id",
-            name="name",
+            name="x",
             metadata={"foo": "bar"},
         )
         assert_matches_type(User, user, path=["response"])
@@ -39,7 +39,7 @@ class TestUsers:
     def test_raw_response_create(self, client: Honcho) -> None:
         response = client.apps.users.with_raw_response.create(
             app_id="app_id",
-            name="name",
+            name="x",
         )
 
         assert response.is_closed is True
@@ -51,7 +51,7 @@ class TestUsers:
     def test_streaming_response_create(self, client: Honcho) -> None:
         with client.apps.users.with_streaming_response.create(
             app_id="app_id",
-            name="name",
+            name="x",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -66,7 +66,7 @@ class TestUsers:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `app_id` but received ''"):
             client.apps.users.with_raw_response.create(
                 app_id="",
-                name="name",
+                name="x",
             )
 
     @parametrize
@@ -328,7 +328,7 @@ class TestAsyncUsers:
     async def test_method_create(self, async_client: AsyncHoncho) -> None:
         user = await async_client.apps.users.create(
             app_id="app_id",
-            name="name",
+            name="x",
         )
         assert_matches_type(User, user, path=["response"])
 
@@ -336,7 +336,7 @@ class TestAsyncUsers:
     async def test_method_create_with_all_params(self, async_client: AsyncHoncho) -> None:
         user = await async_client.apps.users.create(
             app_id="app_id",
-            name="name",
+            name="x",
             metadata={"foo": "bar"},
         )
         assert_matches_type(User, user, path=["response"])
@@ -345,7 +345,7 @@ class TestAsyncUsers:
     async def test_raw_response_create(self, async_client: AsyncHoncho) -> None:
         response = await async_client.apps.users.with_raw_response.create(
             app_id="app_id",
-            name="name",
+            name="x",
         )
 
         assert response.is_closed is True
@@ -357,7 +357,7 @@ class TestAsyncUsers:
     async def test_streaming_response_create(self, async_client: AsyncHoncho) -> None:
         async with async_client.apps.users.with_streaming_response.create(
             app_id="app_id",
-            name="name",
+            name="x",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -372,7 +372,7 @@ class TestAsyncUsers:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `app_id` but received ''"):
             await async_client.apps.users.with_raw_response.create(
                 app_id="",
-                name="name",
+                name="x",
             )
 
     @parametrize

@@ -84,15 +84,6 @@ class TestSessions:
             session_id="session_id",
             app_id="app_id",
             user_id="user_id",
-        )
-        assert_matches_type(Session, session, path=["response"])
-
-    @parametrize
-    def test_method_update_with_all_params(self, client: Honcho) -> None:
-        session = client.apps.users.sessions.update(
-            session_id="session_id",
-            app_id="app_id",
-            user_id="user_id",
             metadata={"foo": "bar"},
         )
         assert_matches_type(Session, session, path=["response"])
@@ -103,6 +94,7 @@ class TestSessions:
             session_id="session_id",
             app_id="app_id",
             user_id="user_id",
+            metadata={"foo": "bar"},
         )
 
         assert response.is_closed is True
@@ -116,6 +108,7 @@ class TestSessions:
             session_id="session_id",
             app_id="app_id",
             user_id="user_id",
+            metadata={"foo": "bar"},
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -132,6 +125,7 @@ class TestSessions:
                 session_id="session_id",
                 app_id="",
                 user_id="user_id",
+                metadata={"foo": "bar"},
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `user_id` but received ''"):
@@ -139,6 +133,7 @@ class TestSessions:
                 session_id="session_id",
                 app_id="app_id",
                 user_id="",
+                metadata={"foo": "bar"},
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `session_id` but received ''"):
@@ -146,6 +141,7 @@ class TestSessions:
                 session_id="",
                 app_id="app_id",
                 user_id="user_id",
+                metadata={"foo": "bar"},
             )
 
     @parametrize
@@ -599,15 +595,6 @@ class TestAsyncSessions:
             session_id="session_id",
             app_id="app_id",
             user_id="user_id",
-        )
-        assert_matches_type(Session, session, path=["response"])
-
-    @parametrize
-    async def test_method_update_with_all_params(self, async_client: AsyncHoncho) -> None:
-        session = await async_client.apps.users.sessions.update(
-            session_id="session_id",
-            app_id="app_id",
-            user_id="user_id",
             metadata={"foo": "bar"},
         )
         assert_matches_type(Session, session, path=["response"])
@@ -618,6 +605,7 @@ class TestAsyncSessions:
             session_id="session_id",
             app_id="app_id",
             user_id="user_id",
+            metadata={"foo": "bar"},
         )
 
         assert response.is_closed is True
@@ -631,6 +619,7 @@ class TestAsyncSessions:
             session_id="session_id",
             app_id="app_id",
             user_id="user_id",
+            metadata={"foo": "bar"},
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -647,6 +636,7 @@ class TestAsyncSessions:
                 session_id="session_id",
                 app_id="",
                 user_id="user_id",
+                metadata={"foo": "bar"},
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `user_id` but received ''"):
@@ -654,6 +644,7 @@ class TestAsyncSessions:
                 session_id="session_id",
                 app_id="app_id",
                 user_id="",
+                metadata={"foo": "bar"},
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `session_id` but received ''"):
@@ -661,6 +652,7 @@ class TestAsyncSessions:
                 session_id="",
                 app_id="app_id",
                 user_id="user_id",
+                metadata={"foo": "bar"},
             )
 
     @parametrize

@@ -27,7 +27,7 @@ class TestDocuments:
             collection_id="collection_id",
             app_id="app_id",
             user_id="user_id",
-            content="content",
+            content="x",
         )
         assert_matches_type(Document, document, path=["response"])
 
@@ -37,7 +37,7 @@ class TestDocuments:
             collection_id="collection_id",
             app_id="app_id",
             user_id="user_id",
-            content="content",
+            content="x",
             metadata={"foo": "bar"},
         )
         assert_matches_type(Document, document, path=["response"])
@@ -48,7 +48,7 @@ class TestDocuments:
             collection_id="collection_id",
             app_id="app_id",
             user_id="user_id",
-            content="content",
+            content="x",
         )
 
         assert response.is_closed is True
@@ -62,7 +62,7 @@ class TestDocuments:
             collection_id="collection_id",
             app_id="app_id",
             user_id="user_id",
-            content="content",
+            content="x",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -79,7 +79,7 @@ class TestDocuments:
                 collection_id="collection_id",
                 app_id="",
                 user_id="user_id",
-                content="content",
+                content="x",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `user_id` but received ''"):
@@ -87,7 +87,7 @@ class TestDocuments:
                 collection_id="collection_id",
                 app_id="app_id",
                 user_id="",
-                content="content",
+                content="x",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `collection_id` but received ''"):
@@ -95,7 +95,7 @@ class TestDocuments:
                 collection_id="",
                 app_id="app_id",
                 user_id="user_id",
-                content="content",
+                content="x",
             )
 
     @parametrize
@@ -115,7 +115,7 @@ class TestDocuments:
             app_id="app_id",
             user_id="user_id",
             collection_id="collection_id",
-            content="content",
+            content="x",
             metadata={"foo": "bar"},
         )
         assert_matches_type(Document, document, path=["response"])
@@ -411,7 +411,7 @@ class TestDocuments:
             collection_id="collection_id",
             app_id="app_id",
             user_id="user_id",
-            query="query",
+            query="x",
         )
         assert_matches_type(DocumentQueryResponse, document, path=["response"])
 
@@ -421,9 +421,9 @@ class TestDocuments:
             collection_id="collection_id",
             app_id="app_id",
             user_id="user_id",
-            query="query",
+            query="x",
             filter={"foo": "bar"},
-            top_k=0,
+            top_k=1,
         )
         assert_matches_type(DocumentQueryResponse, document, path=["response"])
 
@@ -433,7 +433,7 @@ class TestDocuments:
             collection_id="collection_id",
             app_id="app_id",
             user_id="user_id",
-            query="query",
+            query="x",
         )
 
         assert response.is_closed is True
@@ -447,7 +447,7 @@ class TestDocuments:
             collection_id="collection_id",
             app_id="app_id",
             user_id="user_id",
-            query="query",
+            query="x",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -464,7 +464,7 @@ class TestDocuments:
                 collection_id="collection_id",
                 app_id="",
                 user_id="user_id",
-                query="query",
+                query="x",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `user_id` but received ''"):
@@ -472,7 +472,7 @@ class TestDocuments:
                 collection_id="collection_id",
                 app_id="app_id",
                 user_id="",
-                query="query",
+                query="x",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `collection_id` but received ''"):
@@ -480,7 +480,7 @@ class TestDocuments:
                 collection_id="",
                 app_id="app_id",
                 user_id="user_id",
-                query="query",
+                query="x",
             )
 
 
@@ -493,7 +493,7 @@ class TestAsyncDocuments:
             collection_id="collection_id",
             app_id="app_id",
             user_id="user_id",
-            content="content",
+            content="x",
         )
         assert_matches_type(Document, document, path=["response"])
 
@@ -503,7 +503,7 @@ class TestAsyncDocuments:
             collection_id="collection_id",
             app_id="app_id",
             user_id="user_id",
-            content="content",
+            content="x",
             metadata={"foo": "bar"},
         )
         assert_matches_type(Document, document, path=["response"])
@@ -514,7 +514,7 @@ class TestAsyncDocuments:
             collection_id="collection_id",
             app_id="app_id",
             user_id="user_id",
-            content="content",
+            content="x",
         )
 
         assert response.is_closed is True
@@ -528,7 +528,7 @@ class TestAsyncDocuments:
             collection_id="collection_id",
             app_id="app_id",
             user_id="user_id",
-            content="content",
+            content="x",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -545,7 +545,7 @@ class TestAsyncDocuments:
                 collection_id="collection_id",
                 app_id="",
                 user_id="user_id",
-                content="content",
+                content="x",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `user_id` but received ''"):
@@ -553,7 +553,7 @@ class TestAsyncDocuments:
                 collection_id="collection_id",
                 app_id="app_id",
                 user_id="",
-                content="content",
+                content="x",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `collection_id` but received ''"):
@@ -561,7 +561,7 @@ class TestAsyncDocuments:
                 collection_id="",
                 app_id="app_id",
                 user_id="user_id",
-                content="content",
+                content="x",
             )
 
     @parametrize
@@ -581,7 +581,7 @@ class TestAsyncDocuments:
             app_id="app_id",
             user_id="user_id",
             collection_id="collection_id",
-            content="content",
+            content="x",
             metadata={"foo": "bar"},
         )
         assert_matches_type(Document, document, path=["response"])
@@ -877,7 +877,7 @@ class TestAsyncDocuments:
             collection_id="collection_id",
             app_id="app_id",
             user_id="user_id",
-            query="query",
+            query="x",
         )
         assert_matches_type(DocumentQueryResponse, document, path=["response"])
 
@@ -887,9 +887,9 @@ class TestAsyncDocuments:
             collection_id="collection_id",
             app_id="app_id",
             user_id="user_id",
-            query="query",
+            query="x",
             filter={"foo": "bar"},
-            top_k=0,
+            top_k=1,
         )
         assert_matches_type(DocumentQueryResponse, document, path=["response"])
 
@@ -899,7 +899,7 @@ class TestAsyncDocuments:
             collection_id="collection_id",
             app_id="app_id",
             user_id="user_id",
-            query="query",
+            query="x",
         )
 
         assert response.is_closed is True
@@ -913,7 +913,7 @@ class TestAsyncDocuments:
             collection_id="collection_id",
             app_id="app_id",
             user_id="user_id",
-            query="query",
+            query="x",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -930,7 +930,7 @@ class TestAsyncDocuments:
                 collection_id="collection_id",
                 app_id="",
                 user_id="user_id",
-                query="query",
+                query="x",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `user_id` but received ''"):
@@ -938,7 +938,7 @@ class TestAsyncDocuments:
                 collection_id="collection_id",
                 app_id="app_id",
                 user_id="",
-                query="query",
+                query="x",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `collection_id` but received ''"):
@@ -946,5 +946,5 @@ class TestAsyncDocuments:
                 collection_id="",
                 app_id="app_id",
                 user_id="user_id",
-                query="query",
+                query="x",
             )

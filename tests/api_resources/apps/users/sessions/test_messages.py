@@ -10,7 +10,10 @@ import pytest
 from honcho import Honcho, AsyncHoncho
 from tests.utils import assert_matches_type
 from honcho.pagination import SyncPage, AsyncPage
-from honcho.types.apps.users.sessions import Message
+from honcho.types.apps.users.sessions import (
+    Message,
+    MessageBatchResponse,
+)
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -109,16 +112,6 @@ class TestMessages:
             app_id="app_id",
             user_id="user_id",
             session_id="session_id",
-        )
-        assert_matches_type(Message, message, path=["response"])
-
-    @parametrize
-    def test_method_update_with_all_params(self, client: Honcho) -> None:
-        message = client.apps.users.sessions.messages.update(
-            message_id="message_id",
-            app_id="app_id",
-            user_id="user_id",
-            session_id="session_id",
             metadata={"foo": "bar"},
         )
         assert_matches_type(Message, message, path=["response"])
@@ -130,6 +123,7 @@ class TestMessages:
             app_id="app_id",
             user_id="user_id",
             session_id="session_id",
+            metadata={"foo": "bar"},
         )
 
         assert response.is_closed is True
@@ -144,6 +138,7 @@ class TestMessages:
             app_id="app_id",
             user_id="user_id",
             session_id="session_id",
+            metadata={"foo": "bar"},
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -161,6 +156,7 @@ class TestMessages:
                 app_id="",
                 user_id="user_id",
                 session_id="session_id",
+                metadata={"foo": "bar"},
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `user_id` but received ''"):
@@ -169,6 +165,7 @@ class TestMessages:
                 app_id="app_id",
                 user_id="",
                 session_id="session_id",
+                metadata={"foo": "bar"},
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `session_id` but received ''"):
@@ -177,6 +174,7 @@ class TestMessages:
                 app_id="app_id",
                 user_id="user_id",
                 session_id="",
+                metadata={"foo": "bar"},
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `message_id` but received ''"):
@@ -185,6 +183,7 @@ class TestMessages:
                 app_id="app_id",
                 user_id="user_id",
                 session_id="session_id",
+                metadata={"foo": "bar"},
             )
 
     @parametrize
@@ -258,6 +257,102 @@ class TestMessages:
                 session_id="",
                 app_id="app_id",
                 user_id="user_id",
+            )
+
+    @parametrize
+    def test_method_batch(self, client: Honcho) -> None:
+        message = client.apps.users.sessions.messages.batch(
+            session_id="session_id",
+            app_id="app_id",
+            user_id="user_id",
+            messages=[
+                {
+                    "content": "content",
+                    "is_user": True,
+                }
+            ],
+        )
+        assert_matches_type(MessageBatchResponse, message, path=["response"])
+
+    @parametrize
+    def test_raw_response_batch(self, client: Honcho) -> None:
+        response = client.apps.users.sessions.messages.with_raw_response.batch(
+            session_id="session_id",
+            app_id="app_id",
+            user_id="user_id",
+            messages=[
+                {
+                    "content": "content",
+                    "is_user": True,
+                }
+            ],
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        message = response.parse()
+        assert_matches_type(MessageBatchResponse, message, path=["response"])
+
+    @parametrize
+    def test_streaming_response_batch(self, client: Honcho) -> None:
+        with client.apps.users.sessions.messages.with_streaming_response.batch(
+            session_id="session_id",
+            app_id="app_id",
+            user_id="user_id",
+            messages=[
+                {
+                    "content": "content",
+                    "is_user": True,
+                }
+            ],
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            message = response.parse()
+            assert_matches_type(MessageBatchResponse, message, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    def test_path_params_batch(self, client: Honcho) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `app_id` but received ''"):
+            client.apps.users.sessions.messages.with_raw_response.batch(
+                session_id="session_id",
+                app_id="",
+                user_id="user_id",
+                messages=[
+                    {
+                        "content": "content",
+                        "is_user": True,
+                    }
+                ],
+            )
+
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `user_id` but received ''"):
+            client.apps.users.sessions.messages.with_raw_response.batch(
+                session_id="session_id",
+                app_id="app_id",
+                user_id="",
+                messages=[
+                    {
+                        "content": "content",
+                        "is_user": True,
+                    }
+                ],
+            )
+
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `session_id` but received ''"):
+            client.apps.users.sessions.messages.with_raw_response.batch(
+                session_id="",
+                app_id="app_id",
+                user_id="user_id",
+                messages=[
+                    {
+                        "content": "content",
+                        "is_user": True,
+                    }
+                ],
             )
 
     @parametrize
@@ -429,16 +524,6 @@ class TestAsyncMessages:
             app_id="app_id",
             user_id="user_id",
             session_id="session_id",
-        )
-        assert_matches_type(Message, message, path=["response"])
-
-    @parametrize
-    async def test_method_update_with_all_params(self, async_client: AsyncHoncho) -> None:
-        message = await async_client.apps.users.sessions.messages.update(
-            message_id="message_id",
-            app_id="app_id",
-            user_id="user_id",
-            session_id="session_id",
             metadata={"foo": "bar"},
         )
         assert_matches_type(Message, message, path=["response"])
@@ -450,6 +535,7 @@ class TestAsyncMessages:
             app_id="app_id",
             user_id="user_id",
             session_id="session_id",
+            metadata={"foo": "bar"},
         )
 
         assert response.is_closed is True
@@ -464,6 +550,7 @@ class TestAsyncMessages:
             app_id="app_id",
             user_id="user_id",
             session_id="session_id",
+            metadata={"foo": "bar"},
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -481,6 +568,7 @@ class TestAsyncMessages:
                 app_id="",
                 user_id="user_id",
                 session_id="session_id",
+                metadata={"foo": "bar"},
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `user_id` but received ''"):
@@ -489,6 +577,7 @@ class TestAsyncMessages:
                 app_id="app_id",
                 user_id="",
                 session_id="session_id",
+                metadata={"foo": "bar"},
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `session_id` but received ''"):
@@ -497,6 +586,7 @@ class TestAsyncMessages:
                 app_id="app_id",
                 user_id="user_id",
                 session_id="",
+                metadata={"foo": "bar"},
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `message_id` but received ''"):
@@ -505,6 +595,7 @@ class TestAsyncMessages:
                 app_id="app_id",
                 user_id="user_id",
                 session_id="session_id",
+                metadata={"foo": "bar"},
             )
 
     @parametrize
@@ -578,6 +669,102 @@ class TestAsyncMessages:
                 session_id="",
                 app_id="app_id",
                 user_id="user_id",
+            )
+
+    @parametrize
+    async def test_method_batch(self, async_client: AsyncHoncho) -> None:
+        message = await async_client.apps.users.sessions.messages.batch(
+            session_id="session_id",
+            app_id="app_id",
+            user_id="user_id",
+            messages=[
+                {
+                    "content": "content",
+                    "is_user": True,
+                }
+            ],
+        )
+        assert_matches_type(MessageBatchResponse, message, path=["response"])
+
+    @parametrize
+    async def test_raw_response_batch(self, async_client: AsyncHoncho) -> None:
+        response = await async_client.apps.users.sessions.messages.with_raw_response.batch(
+            session_id="session_id",
+            app_id="app_id",
+            user_id="user_id",
+            messages=[
+                {
+                    "content": "content",
+                    "is_user": True,
+                }
+            ],
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        message = await response.parse()
+        assert_matches_type(MessageBatchResponse, message, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_batch(self, async_client: AsyncHoncho) -> None:
+        async with async_client.apps.users.sessions.messages.with_streaming_response.batch(
+            session_id="session_id",
+            app_id="app_id",
+            user_id="user_id",
+            messages=[
+                {
+                    "content": "content",
+                    "is_user": True,
+                }
+            ],
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            message = await response.parse()
+            assert_matches_type(MessageBatchResponse, message, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_path_params_batch(self, async_client: AsyncHoncho) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `app_id` but received ''"):
+            await async_client.apps.users.sessions.messages.with_raw_response.batch(
+                session_id="session_id",
+                app_id="",
+                user_id="user_id",
+                messages=[
+                    {
+                        "content": "content",
+                        "is_user": True,
+                    }
+                ],
+            )
+
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `user_id` but received ''"):
+            await async_client.apps.users.sessions.messages.with_raw_response.batch(
+                session_id="session_id",
+                app_id="app_id",
+                user_id="",
+                messages=[
+                    {
+                        "content": "content",
+                        "is_user": True,
+                    }
+                ],
+            )
+
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `session_id` but received ''"):
+            await async_client.apps.users.sessions.messages.with_raw_response.batch(
+                session_id="",
+                app_id="app_id",
+                user_id="user_id",
+                messages=[
+                    {
+                        "content": "content",
+                        "is_user": True,
+                    }
+                ],
             )
 
     @parametrize
