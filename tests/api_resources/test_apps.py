@@ -20,14 +20,14 @@ class TestApps:
     @parametrize
     def test_method_create(self, client: Honcho) -> None:
         app = client.apps.create(
-            name="name",
+            name="x",
         )
         assert_matches_type(App, app, path=["response"])
 
     @parametrize
     def test_method_create_with_all_params(self, client: Honcho) -> None:
         app = client.apps.create(
-            name="name",
+            name="x",
             metadata={"foo": "bar"},
         )
         assert_matches_type(App, app, path=["response"])
@@ -35,7 +35,7 @@ class TestApps:
     @parametrize
     def test_raw_response_create(self, client: Honcho) -> None:
         response = client.apps.with_raw_response.create(
-            name="name",
+            name="x",
         )
 
         assert response.is_closed is True
@@ -46,7 +46,7 @@ class TestApps:
     @parametrize
     def test_streaming_response_create(self, client: Honcho) -> None:
         with client.apps.with_streaming_response.create(
-            name="name",
+            name="x",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -224,14 +224,14 @@ class TestAsyncApps:
     @parametrize
     async def test_method_create(self, async_client: AsyncHoncho) -> None:
         app = await async_client.apps.create(
-            name="name",
+            name="x",
         )
         assert_matches_type(App, app, path=["response"])
 
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncHoncho) -> None:
         app = await async_client.apps.create(
-            name="name",
+            name="x",
             metadata={"foo": "bar"},
         )
         assert_matches_type(App, app, path=["response"])
@@ -239,7 +239,7 @@ class TestAsyncApps:
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncHoncho) -> None:
         response = await async_client.apps.with_raw_response.create(
-            name="name",
+            name="x",
         )
 
         assert response.is_closed is True
@@ -250,7 +250,7 @@ class TestAsyncApps:
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncHoncho) -> None:
         async with async_client.apps.with_streaming_response.create(
-            name="name",
+            name="x",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"

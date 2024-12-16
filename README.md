@@ -34,7 +34,7 @@ client = Honcho(
 )
 
 app = client.apps.create(
-    name="name",
+    name="x",
 )
 print(app.id)
 ```
@@ -62,7 +62,7 @@ client = AsyncHoncho(
 
 async def main() -> None:
     app = await client.apps.create(
-        name="name",
+        name="x",
     )
     print(app.id)
 
@@ -169,7 +169,7 @@ client = Honcho()
 
 try:
     client.apps.create(
-        name="name",
+        name="x",
     )
 except honcho.APIConnectionError as e:
     print("The server could not be reached")
@@ -214,7 +214,7 @@ client = Honcho(
 
 # Or, configure per-request:
 client.with_options(max_retries=5).apps.create(
-    name="name",
+    name="x",
 )
 ```
 
@@ -239,7 +239,7 @@ client = Honcho(
 
 # Override per-request:
 client.with_options(timeout=5.0).apps.create(
-    name="name",
+    name="x",
 )
 ```
 
@@ -282,7 +282,7 @@ from honcho import Honcho
 
 client = Honcho()
 response = client.apps.with_raw_response.create(
-    name="name",
+    name="x",
 )
 print(response.headers.get('X-My-Header'))
 
@@ -302,7 +302,7 @@ To stream the response body, use `.with_streaming_response` instead, which requi
 
 ```python
 with client.apps.with_streaming_response.create(
-    name="name",
+    name="x",
 ) as response:
     print(response.headers.get("X-My-Header"))
 

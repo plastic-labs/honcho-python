@@ -28,7 +28,7 @@ class TestMetamessages:
             user_id="user_id",
             content="content",
             message_id="message_id",
-            metamessage_type="metamessage_type",
+            metamessage_type="x",
         )
         assert_matches_type(Metamessage, metamessage, path=["response"])
 
@@ -40,7 +40,7 @@ class TestMetamessages:
             user_id="user_id",
             content="content",
             message_id="message_id",
-            metamessage_type="metamessage_type",
+            metamessage_type="x",
             metadata={"foo": "bar"},
         )
         assert_matches_type(Metamessage, metamessage, path=["response"])
@@ -53,7 +53,7 @@ class TestMetamessages:
             user_id="user_id",
             content="content",
             message_id="message_id",
-            metamessage_type="metamessage_type",
+            metamessage_type="x",
         )
 
         assert response.is_closed is True
@@ -69,7 +69,7 @@ class TestMetamessages:
             user_id="user_id",
             content="content",
             message_id="message_id",
-            metamessage_type="metamessage_type",
+            metamessage_type="x",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -88,7 +88,7 @@ class TestMetamessages:
                 user_id="user_id",
                 content="content",
                 message_id="message_id",
-                metamessage_type="metamessage_type",
+                metamessage_type="x",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `user_id` but received ''"):
@@ -98,7 +98,7 @@ class TestMetamessages:
                 user_id="",
                 content="content",
                 message_id="message_id",
-                metamessage_type="metamessage_type",
+                metamessage_type="x",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `session_id` but received ''"):
@@ -108,7 +108,7 @@ class TestMetamessages:
                 user_id="user_id",
                 content="content",
                 message_id="message_id",
-                metamessage_type="metamessage_type",
+                metamessage_type="x",
             )
 
     @parametrize
@@ -373,7 +373,7 @@ class TestAsyncMetamessages:
             user_id="user_id",
             content="content",
             message_id="message_id",
-            metamessage_type="metamessage_type",
+            metamessage_type="x",
         )
         assert_matches_type(Metamessage, metamessage, path=["response"])
 
@@ -385,7 +385,7 @@ class TestAsyncMetamessages:
             user_id="user_id",
             content="content",
             message_id="message_id",
-            metamessage_type="metamessage_type",
+            metamessage_type="x",
             metadata={"foo": "bar"},
         )
         assert_matches_type(Metamessage, metamessage, path=["response"])
@@ -398,7 +398,7 @@ class TestAsyncMetamessages:
             user_id="user_id",
             content="content",
             message_id="message_id",
-            metamessage_type="metamessage_type",
+            metamessage_type="x",
         )
 
         assert response.is_closed is True
@@ -414,7 +414,7 @@ class TestAsyncMetamessages:
             user_id="user_id",
             content="content",
             message_id="message_id",
-            metamessage_type="metamessage_type",
+            metamessage_type="x",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -433,7 +433,7 @@ class TestAsyncMetamessages:
                 user_id="user_id",
                 content="content",
                 message_id="message_id",
-                metamessage_type="metamessage_type",
+                metamessage_type="x",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `user_id` but received ''"):
@@ -443,7 +443,7 @@ class TestAsyncMetamessages:
                 user_id="",
                 content="content",
                 message_id="message_id",
-                metamessage_type="metamessage_type",
+                metamessage_type="x",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `session_id` but received ''"):
@@ -453,7 +453,7 @@ class TestAsyncMetamessages:
                 user_id="user_id",
                 content="content",
                 message_id="message_id",
-                metamessage_type="metamessage_type",
+                metamessage_type="x",
             )
 
     @parametrize
