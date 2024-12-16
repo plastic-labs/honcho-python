@@ -1,5 +1,28 @@
 # Changelog
 
+## 0.0.19 (2024-12-16)
+
+Full Changelog: [v0.0.18...v0.0.19](https://github.com/plastic-labs/honcho-python/compare/v0.0.18...v0.0.19)
+
+### Features
+
+* **api:** api update ([#82](https://github.com/plastic-labs/honcho-python/issues/82)) ([f295a74](https://github.com/plastic-labs/honcho-python/commit/f295a748dd5a168878b14515b5601d462f56a9d8))
+
+
+### Chores
+
+* **internal:** add support for TypeAliasType ([#78](https://github.com/plastic-labs/honcho-python/issues/78)) ([66e0d96](https://github.com/plastic-labs/honcho-python/commit/66e0d96e66ec4981bf2cd31eb717eff80fde9041))
+* **internal:** bump pydantic dependency ([#74](https://github.com/plastic-labs/honcho-python/issues/74)) ([43ea1de](https://github.com/plastic-labs/honcho-python/commit/43ea1dec3ad6e2a28fd5cbe101a63201c8937f8a))
+* **internal:** bump pyright ([#77](https://github.com/plastic-labs/honcho-python/issues/77)) ([b613832](https://github.com/plastic-labs/honcho-python/commit/b613832984ab0dbb5f82dc83808b679e87e6944e))
+* **internal:** codegen related update ([#79](https://github.com/plastic-labs/honcho-python/issues/79)) ([62d7c38](https://github.com/plastic-labs/honcho-python/commit/62d7c38c172a8761b880a0eb7996d01737d3786f))
+* **internal:** codegen related update ([#80](https://github.com/plastic-labs/honcho-python/issues/80)) ([e5b574e](https://github.com/plastic-labs/honcho-python/commit/e5b574e0b9897036ff2f06e725dc86492973a893))
+* **internal:** codegen related update ([#81](https://github.com/plastic-labs/honcho-python/issues/81)) ([9a4cd72](https://github.com/plastic-labs/honcho-python/commit/9a4cd72e6225d2a70870b2f1853e98039747e55c))
+
+
+### Documentation
+
+* **readme:** fix http client proxies example ([#76](https://github.com/plastic-labs/honcho-python/issues/76)) ([30cacbf](https://github.com/plastic-labs/honcho-python/commit/30cacbf37ea84226175ccc1dcef2964a8e7392ad))
+
 ## 0.0.18 (2024-12-04)
 
 Full Changelog: [v0.0.17...v0.0.18](https://github.com/plastic-labs/honcho-python/compare/v0.0.17...v0.0.18)
