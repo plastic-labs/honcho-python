@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.0.20 (2024-12-18)
+
+Full Changelog: [v0.0.19...v0.0.20](https://github.com/plastic-labs/honcho-python/compare/v0.0.19...v0.0.20)
+
+### Chores
+
+* **internal:** codegen related update ([#80](https://github.com/plastic-labs/honcho-python/issues/80)) ([8b0da45](https://github.com/plastic-labs/honcho-python/commit/8b0da45454d25c06d128a2c9c9db6f5a2f4d79ab))
+* **internal:** codegen related update ([#81](https://github.com/plastic-labs/honcho-python/issues/81)) ([a01befa](https://github.com/plastic-labs/honcho-python/commit/a01befac4dca887e142a1385ddc056e519090582))
+* **internal:** codegen related update ([#86](https://github.com/plastic-labs/honcho-python/issues/86)) ([5395eca](https://github.com/plastic-labs/honcho-python/commit/5395ecaff9e7fcfec1cfc827b21607313cfc911f))
+
+
+### Documentation
+
+* **readme:** example snippet for client context manager ([#85](https://github.com/plastic-labs/honcho-python/issues/85)) ([5104481](https://github.com/plastic-labs/honcho-python/commit/510448166eb83ba17f4da2bcacaf7575cbba63fd))
+
 ## 0.0.19 (2024-12-16)
 
 Full Changelog: [v0.0.18...v0.0.19](https://github.com/plastic-labs/honcho-python/compare/v0.0.18...v0.0.19)
