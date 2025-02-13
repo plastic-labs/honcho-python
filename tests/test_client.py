@@ -23,10 +23,12 @@ from pydantic import ValidationError
 
 from honcho import Honcho, AsyncHoncho, APIResponseValidationError
 from honcho._types import Omit
+from honcho._utils import maybe_transform
 from honcho._models import BaseModel, FinalRequestOptions
 from honcho._constants import RAW_RESPONSE_HEADER
 from honcho._exceptions import APIStatusError, APITimeoutError, APIResponseValidationError
 from honcho._base_client import DEFAULT_TIMEOUT, HTTPX_DEFAULT_TIMEOUT, BaseClient, make_request_options
+from honcho.types.app_create_params import AppCreateParams
 
 from .utils import update_env
 
@@ -718,7 +720,7 @@ class TestHoncho:
         with pytest.raises(APITimeoutError):
             self.client.post(
                 "/v1/apps",
-                body=cast(object, dict(name="x")),
+                body=cast(object, maybe_transform(dict(name="x"), AppCreateParams)),
                 cast_to=httpx.Response,
                 options={"headers": {RAW_RESPONSE_HEADER: "stream"}},
             )
@@ -733,7 +735,7 @@ class TestHoncho:
         with pytest.raises(APIStatusError):
             self.client.post(
                 "/v1/apps",
-                body=cast(object, dict(name="x")),
+                body=cast(object, maybe_transform(dict(name="x"), AppCreateParams)),
                 cast_to=httpx.Response,
                 options={"headers": {RAW_RESPONSE_HEADER: "stream"}},
             )
@@ -1502,7 +1504,7 @@ class TestAsyncHoncho:
         with pytest.raises(APITimeoutError):
             await self.client.post(
                 "/v1/apps",
-                body=cast(object, dict(name="x")),
+                body=cast(object, maybe_transform(dict(name="x"), AppCreateParams)),
                 cast_to=httpx.Response,
                 options={"headers": {RAW_RESPONSE_HEADER: "stream"}},
             )
@@ -1517,7 +1519,7 @@ class TestAsyncHoncho:
         with pytest.raises(APIStatusError):
             await self.client.post(
                 "/v1/apps",
-                body=cast(object, dict(name="x")),
+                body=cast(object, maybe_transform(dict(name="x"), AppCreateParams)),
                 cast_to=httpx.Response,
                 options={"headers": {RAW_RESPONSE_HEADER: "stream"}},
             )
