@@ -85,7 +85,7 @@ class Honcho(SyncAPIClient):
         # part of our public interface in the future.
         _strict_response_validation: bool = False,
     ) -> None:
-        """Construct a new synchronous honcho client instance.
+        """Construct a new synchronous Honcho client instance.
 
         This automatically infers the `api_key` argument from the `HONCHO_API_KEY` environment variable if it is not provided.
         """
@@ -277,7 +277,7 @@ class AsyncHoncho(AsyncAPIClient):
         # part of our public interface in the future.
         _strict_response_validation: bool = False,
     ) -> None:
-        """Construct a new async honcho client instance.
+        """Construct a new async AsyncHoncho client instance.
 
         This automatically infers the `api_key` argument from the `HONCHO_API_KEY` environment variable if it is not provided.
         """
