@@ -20,14 +20,6 @@ from ....._utils import (
     async_maybe_transform,
 )
 from ....._compat import cached_property
-from .metamessages import (
-    MetamessagesResource,
-    AsyncMetamessagesResource,
-    MetamessagesResourceWithRawResponse,
-    AsyncMetamessagesResourceWithRawResponse,
-    MetamessagesResourceWithStreamingResponse,
-    AsyncMetamessagesResourceWithStreamingResponse,
-)
 from ....._resource import SyncAPIResource, AsyncAPIResource
 from ....._response import (
     to_raw_response_wrapper,
@@ -38,15 +30,15 @@ from ....._response import (
 from .....pagination import SyncPage, AsyncPage
 from ....._base_client import AsyncPaginator, make_request_options
 from .....types.apps.users import (
+    session_get_params,
     session_chat_params,
     session_list_params,
     session_clone_params,
     session_create_params,
-    session_stream_params,
     session_update_params,
 )
 from .....types.apps.users.session import Session
-from .....types.apps.users.agent_chat import AgentChat
+from .....types.apps.users.dialectic_response import DialecticResponse
 
 __all__ = ["SessionsResource", "AsyncSessionsResource"]
 
@@ -55,10 +47,6 @@ class SessionsResource(SyncAPIResource):
     @cached_property
     def messages(self) -> MessagesResource:
         return MessagesResource(self._client)
-
-    @cached_property
-    def metamessages(self) -> MetamessagesResource:
-        return MetamessagesResource(self._client)
 
     @cached_property
     def with_raw_response(self) -> SessionsResourceWithRawResponse:
@@ -96,6 +84,10 @@ class SessionsResource(SyncAPIResource):
         Create a Session for a User
 
         Args:
+          app_id: ID of the app
+
+          user_id: ID of the user
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -135,6 +127,12 @@ class SessionsResource(SyncAPIResource):
         Update the metadata of a Session
 
         Args:
+          app_id: ID of the app
+
+          user_id: ID of the user
+
+          session_id: ID of the session to update
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -179,7 +177,13 @@ class SessionsResource(SyncAPIResource):
         Get All Sessions for a User
 
         Args:
+          app_id: ID of the app
+
+          user_id: ID of the user
+
           page: Page number
+
+          reverse: Whether to reverse the order of results
 
           size: Page size
 
@@ -240,6 +244,12 @@ class SessionsResource(SyncAPIResource):
         Delete a session by marking it as inactive
 
         Args:
+          app_id: ID of the app
+
+          user_id: ID of the user
+
+          session_id: ID of the session to delete
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -269,17 +279,24 @@ class SessionsResource(SyncAPIResource):
         app_id: str,
         user_id: str,
         queries: Union[str, List[str]],
+        stream: bool | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> AgentChat:
+    ) -> DialecticResponse:
         """
         Chat with the Dialectic API
 
         Args:
+          app_id: ID of the app
+
+          user_id: ID of the user
+
+          session_id: ID of the session
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -296,11 +313,17 @@ class SessionsResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
         return self._post(
             f"/v1/apps/{app_id}/users/{user_id}/sessions/{session_id}/chat",
-            body=maybe_transform({"queries": queries}, session_chat_params.SessionChatParams),
+            body=maybe_transform(
+                {
+                    "queries": queries,
+                    "stream": stream,
+                },
+                session_chat_params.SessionChatParams,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=AgentChat,
+            cast_to=DialecticResponse,
         )
 
     def clone(
@@ -319,9 +342,19 @@ class SessionsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> Session:
         """
-        Clone a session for a user, optionally will deep clone metamessages as well
+        Clone a session, optionally up to a specific message
 
         Args:
+          app_id: ID of the app
+
+          user_id: ID of the user
+
+          session_id: ID of the session to clone
+
+          deep_copy: Whether to deep copy metamessages
+
+          message_id: Message ID to cut off the clone at
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -356,10 +389,10 @@ class SessionsResource(SyncAPIResource):
 
     def get(
         self,
-        session_id: str,
+        user_id: str,
         *,
         app_id: str,
-        user_id: str,
+        session_id: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -368,9 +401,18 @@ class SessionsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> Session:
         """
-        Get a specific session for a user by ID
+        Get a specific session for a user.
+
+        If session_id is provided as a query parameter, it uses that (must match JWT
+        session_id). Otherwise, it uses the session_id from the JWT token.
 
         Args:
+          app_id: ID of the app
+
+          user_id: ID of the user
+
+          session_id: Session ID to retrieve. If not provided, uses JWT token
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -383,55 +425,16 @@ class SessionsResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `app_id` but received {app_id!r}")
         if not user_id:
             raise ValueError(f"Expected a non-empty value for `user_id` but received {user_id!r}")
-        if not session_id:
-            raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
         return self._get(
-            f"/v1/apps/{app_id}/users/{user_id}/sessions/{session_id}",
+            f"/v1/apps/{app_id}/users/{user_id}/sessions",
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform({"session_id": session_id}, session_get_params.SessionGetParams),
             ),
             cast_to=Session,
-        )
-
-    def stream(
-        self,
-        session_id: str,
-        *,
-        app_id: str,
-        user_id: str,
-        queries: Union[str, List[str]],
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> object:
-        """
-        Stream Results from the Dialectic API
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not app_id:
-            raise ValueError(f"Expected a non-empty value for `app_id` but received {app_id!r}")
-        if not user_id:
-            raise ValueError(f"Expected a non-empty value for `user_id` but received {user_id!r}")
-        if not session_id:
-            raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
-        return self._post(
-            f"/v1/apps/{app_id}/users/{user_id}/sessions/{session_id}/chat/stream",
-            body=maybe_transform({"queries": queries}, session_stream_params.SessionStreamParams),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=object,
         )
 
 
@@ -439,10 +442,6 @@ class AsyncSessionsResource(AsyncAPIResource):
     @cached_property
     def messages(self) -> AsyncMessagesResource:
         return AsyncMessagesResource(self._client)
-
-    @cached_property
-    def metamessages(self) -> AsyncMetamessagesResource:
-        return AsyncMetamessagesResource(self._client)
 
     @cached_property
     def with_raw_response(self) -> AsyncSessionsResourceWithRawResponse:
@@ -480,6 +479,10 @@ class AsyncSessionsResource(AsyncAPIResource):
         Create a Session for a User
 
         Args:
+          app_id: ID of the app
+
+          user_id: ID of the user
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -519,6 +522,12 @@ class AsyncSessionsResource(AsyncAPIResource):
         Update the metadata of a Session
 
         Args:
+          app_id: ID of the app
+
+          user_id: ID of the user
+
+          session_id: ID of the session to update
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -563,7 +572,13 @@ class AsyncSessionsResource(AsyncAPIResource):
         Get All Sessions for a User
 
         Args:
+          app_id: ID of the app
+
+          user_id: ID of the user
+
           page: Page number
+
+          reverse: Whether to reverse the order of results
 
           size: Page size
 
@@ -624,6 +639,12 @@ class AsyncSessionsResource(AsyncAPIResource):
         Delete a session by marking it as inactive
 
         Args:
+          app_id: ID of the app
+
+          user_id: ID of the user
+
+          session_id: ID of the session to delete
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -653,17 +674,24 @@ class AsyncSessionsResource(AsyncAPIResource):
         app_id: str,
         user_id: str,
         queries: Union[str, List[str]],
+        stream: bool | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> AgentChat:
+    ) -> DialecticResponse:
         """
         Chat with the Dialectic API
 
         Args:
+          app_id: ID of the app
+
+          user_id: ID of the user
+
+          session_id: ID of the session
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -680,11 +708,17 @@ class AsyncSessionsResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
         return await self._post(
             f"/v1/apps/{app_id}/users/{user_id}/sessions/{session_id}/chat",
-            body=await async_maybe_transform({"queries": queries}, session_chat_params.SessionChatParams),
+            body=await async_maybe_transform(
+                {
+                    "queries": queries,
+                    "stream": stream,
+                },
+                session_chat_params.SessionChatParams,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=AgentChat,
+            cast_to=DialecticResponse,
         )
 
     async def clone(
@@ -703,9 +737,19 @@ class AsyncSessionsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> Session:
         """
-        Clone a session for a user, optionally will deep clone metamessages as well
+        Clone a session, optionally up to a specific message
 
         Args:
+          app_id: ID of the app
+
+          user_id: ID of the user
+
+          session_id: ID of the session to clone
+
+          deep_copy: Whether to deep copy metamessages
+
+          message_id: Message ID to cut off the clone at
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -740,10 +784,10 @@ class AsyncSessionsResource(AsyncAPIResource):
 
     async def get(
         self,
-        session_id: str,
+        user_id: str,
         *,
         app_id: str,
-        user_id: str,
+        session_id: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -752,9 +796,18 @@ class AsyncSessionsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> Session:
         """
-        Get a specific session for a user by ID
+        Get a specific session for a user.
+
+        If session_id is provided as a query parameter, it uses that (must match JWT
+        session_id). Otherwise, it uses the session_id from the JWT token.
 
         Args:
+          app_id: ID of the app
+
+          user_id: ID of the user
+
+          session_id: Session ID to retrieve. If not provided, uses JWT token
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -767,55 +820,16 @@ class AsyncSessionsResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `app_id` but received {app_id!r}")
         if not user_id:
             raise ValueError(f"Expected a non-empty value for `user_id` but received {user_id!r}")
-        if not session_id:
-            raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
         return await self._get(
-            f"/v1/apps/{app_id}/users/{user_id}/sessions/{session_id}",
+            f"/v1/apps/{app_id}/users/{user_id}/sessions",
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform({"session_id": session_id}, session_get_params.SessionGetParams),
             ),
             cast_to=Session,
-        )
-
-    async def stream(
-        self,
-        session_id: str,
-        *,
-        app_id: str,
-        user_id: str,
-        queries: Union[str, List[str]],
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> object:
-        """
-        Stream Results from the Dialectic API
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not app_id:
-            raise ValueError(f"Expected a non-empty value for `app_id` but received {app_id!r}")
-        if not user_id:
-            raise ValueError(f"Expected a non-empty value for `user_id` but received {user_id!r}")
-        if not session_id:
-            raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
-        return await self._post(
-            f"/v1/apps/{app_id}/users/{user_id}/sessions/{session_id}/chat/stream",
-            body=await async_maybe_transform({"queries": queries}, session_stream_params.SessionStreamParams),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=object,
         )
 
 
@@ -844,17 +858,10 @@ class SessionsResourceWithRawResponse:
         self.get = to_raw_response_wrapper(
             sessions.get,
         )
-        self.stream = to_raw_response_wrapper(
-            sessions.stream,
-        )
 
     @cached_property
     def messages(self) -> MessagesResourceWithRawResponse:
         return MessagesResourceWithRawResponse(self._sessions.messages)
-
-    @cached_property
-    def metamessages(self) -> MetamessagesResourceWithRawResponse:
-        return MetamessagesResourceWithRawResponse(self._sessions.metamessages)
 
 
 class AsyncSessionsResourceWithRawResponse:
@@ -882,17 +889,10 @@ class AsyncSessionsResourceWithRawResponse:
         self.get = async_to_raw_response_wrapper(
             sessions.get,
         )
-        self.stream = async_to_raw_response_wrapper(
-            sessions.stream,
-        )
 
     @cached_property
     def messages(self) -> AsyncMessagesResourceWithRawResponse:
         return AsyncMessagesResourceWithRawResponse(self._sessions.messages)
-
-    @cached_property
-    def metamessages(self) -> AsyncMetamessagesResourceWithRawResponse:
-        return AsyncMetamessagesResourceWithRawResponse(self._sessions.metamessages)
 
 
 class SessionsResourceWithStreamingResponse:
@@ -920,17 +920,10 @@ class SessionsResourceWithStreamingResponse:
         self.get = to_streamed_response_wrapper(
             sessions.get,
         )
-        self.stream = to_streamed_response_wrapper(
-            sessions.stream,
-        )
 
     @cached_property
     def messages(self) -> MessagesResourceWithStreamingResponse:
         return MessagesResourceWithStreamingResponse(self._sessions.messages)
-
-    @cached_property
-    def metamessages(self) -> MetamessagesResourceWithStreamingResponse:
-        return MetamessagesResourceWithStreamingResponse(self._sessions.metamessages)
 
 
 class AsyncSessionsResourceWithStreamingResponse:
@@ -958,14 +951,7 @@ class AsyncSessionsResourceWithStreamingResponse:
         self.get = async_to_streamed_response_wrapper(
             sessions.get,
         )
-        self.stream = async_to_streamed_response_wrapper(
-            sessions.stream,
-        )
 
     @cached_property
     def messages(self) -> AsyncMessagesResourceWithStreamingResponse:
         return AsyncMessagesResourceWithStreamingResponse(self._sessions.messages)
-
-    @cached_property
-    def metamessages(self) -> AsyncMetamessagesResourceWithStreamingResponse:
-        return AsyncMetamessagesResourceWithStreamingResponse(self._sessions.metamessages)

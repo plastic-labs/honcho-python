@@ -10,8 +10,10 @@ __all__ = ["CollectionUpdateParams"]
 
 class CollectionUpdateParams(TypedDict, total=False):
     app_id: Required[str]
+    """ID of the app"""
 
     user_id: Required[str]
+    """ID of the user"""
 
     metadata: Optional[Dict[str, object]]
 

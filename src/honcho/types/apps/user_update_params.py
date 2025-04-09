@@ -10,6 +10,7 @@ __all__ = ["UserUpdateParams"]
 
 class UserUpdateParams(TypedDict, total=False):
     app_id: Required[str]
+    """ID of the app"""
 
     metadata: Optional[Dict[str, object]]
 

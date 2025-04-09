@@ -28,7 +28,7 @@ from .metamessages import (
     AsyncMetamessagesResourceWithStreamingResponse,
 )
 from ....pagination import SyncPage, AsyncPage
-from ....types.apps import user_list_params, user_create_params, user_update_params
+from ....types.apps import user_get_params, user_list_params, user_create_params, user_update_params
 from ...._base_client import AsyncPaginator, make_request_options
 from .sessions.sessions import (
     SessionsResource,
@@ -100,6 +100,8 @@ class UsersResource(SyncAPIResource):
         Create a new User
 
         Args:
+          app_id: ID of the app
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -143,6 +145,10 @@ class UsersResource(SyncAPIResource):
         Update a User's name and/or metadata
 
         Args:
+          app_id: ID of the app
+
+          user_id: ID of the user to update
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -189,7 +195,11 @@ class UsersResource(SyncAPIResource):
         Get All Users for an App
 
         Args:
+          app_id: ID of the app
+
           page: Page number
+
+          reverse: Whether to reverse the order of results
 
           size: Page size
 
@@ -227,9 +237,9 @@ class UsersResource(SyncAPIResource):
 
     def get(
         self,
-        user_id: str,
-        *,
         app_id: str,
+        *,
+        user_id: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -240,7 +250,14 @@ class UsersResource(SyncAPIResource):
         """
         Get a User by ID
 
+        If user_id is provided as a query parameter, it uses that (must match JWT
+        app_id). Otherwise, it uses the user_id from the JWT token.
+
         Args:
+          app_id: ID of the app
+
+          user_id: User ID to retrieve. If not provided, users JWT token
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -251,12 +268,14 @@ class UsersResource(SyncAPIResource):
         """
         if not app_id:
             raise ValueError(f"Expected a non-empty value for `app_id` but received {app_id!r}")
-        if not user_id:
-            raise ValueError(f"Expected a non-empty value for `user_id` but received {user_id!r}")
         return self._get(
-            f"/v1/apps/{app_id}/users/{user_id}",
+            f"/v1/apps/{app_id}/users",
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform({"user_id": user_id}, user_get_params.UserGetParams),
             ),
             cast_to=User,
         )
@@ -277,6 +296,10 @@ class UsersResource(SyncAPIResource):
         Get a User by name
 
         Args:
+          app_id: ID of the app
+
+          name: Name of the user to retrieve
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -313,6 +336,10 @@ class UsersResource(SyncAPIResource):
         Get a User or create a new one by the input name
 
         Args:
+          app_id: ID of the app
+
+          name: Name of the user to get or create
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -383,6 +410,8 @@ class AsyncUsersResource(AsyncAPIResource):
         Create a new User
 
         Args:
+          app_id: ID of the app
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -426,6 +455,10 @@ class AsyncUsersResource(AsyncAPIResource):
         Update a User's name and/or metadata
 
         Args:
+          app_id: ID of the app
+
+          user_id: ID of the user to update
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -472,7 +505,11 @@ class AsyncUsersResource(AsyncAPIResource):
         Get All Users for an App
 
         Args:
+          app_id: ID of the app
+
           page: Page number
+
+          reverse: Whether to reverse the order of results
 
           size: Page size
 
@@ -510,9 +547,9 @@ class AsyncUsersResource(AsyncAPIResource):
 
     async def get(
         self,
-        user_id: str,
-        *,
         app_id: str,
+        *,
+        user_id: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -523,7 +560,14 @@ class AsyncUsersResource(AsyncAPIResource):
         """
         Get a User by ID
 
+        If user_id is provided as a query parameter, it uses that (must match JWT
+        app_id). Otherwise, it uses the user_id from the JWT token.
+
         Args:
+          app_id: ID of the app
+
+          user_id: User ID to retrieve. If not provided, users JWT token
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -534,12 +578,14 @@ class AsyncUsersResource(AsyncAPIResource):
         """
         if not app_id:
             raise ValueError(f"Expected a non-empty value for `app_id` but received {app_id!r}")
-        if not user_id:
-            raise ValueError(f"Expected a non-empty value for `user_id` but received {user_id!r}")
         return await self._get(
-            f"/v1/apps/{app_id}/users/{user_id}",
+            f"/v1/apps/{app_id}/users",
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform({"user_id": user_id}, user_get_params.UserGetParams),
             ),
             cast_to=User,
         )
@@ -560,6 +606,10 @@ class AsyncUsersResource(AsyncAPIResource):
         Get a User by name
 
         Args:
+          app_id: ID of the app
+
+          name: Name of the user to retrieve
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -596,6 +646,10 @@ class AsyncUsersResource(AsyncAPIResource):
         Get a User or create a new one by the input name
 
         Args:
+          app_id: ID of the app
+
+          name: Name of the user to get or create
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request

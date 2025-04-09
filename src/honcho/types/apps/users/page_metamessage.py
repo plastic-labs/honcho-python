@@ -2,7 +2,7 @@
 
 from typing import List, Optional
 
-from ....._models import BaseModel
+from ...._models import BaseModel
 from .metamessage import Metamessage
 
 __all__ = ["PageMetamessage"]

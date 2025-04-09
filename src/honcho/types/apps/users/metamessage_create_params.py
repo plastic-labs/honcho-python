@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Dict
+from typing import Dict, Optional
 from typing_extensions import Required, TypedDict
 
 __all__ = ["MetamessageCreateParams"]
@@ -10,13 +10,14 @@ __all__ = ["MetamessageCreateParams"]
 
 class MetamessageCreateParams(TypedDict, total=False):
     app_id: Required[str]
-
-    user_id: Required[str]
+    """ID of the app"""
 
     content: Required[str]
 
-    message_id: Required[str]
-
     metamessage_type: Required[str]
 
+    message_id: Optional[str]
+
     metadata: Dict[str, object]
+
+    session_id: Optional[str]

@@ -10,7 +10,11 @@ __all__ = ["SessionChatParams"]
 
 class SessionChatParams(TypedDict, total=False):
     app_id: Required[str]
+    """ID of the app"""
 
     user_id: Required[str]
+    """ID of the user"""
 
     queries: Required[Union[str, List[str]]]
+
+    stream: bool
