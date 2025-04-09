@@ -10,9 +10,12 @@ __all__ = ["MessageUpdateParams"]
 
 class MessageUpdateParams(TypedDict, total=False):
     app_id: Required[str]
+    """ID of the app"""
 
     user_id: Required[str]
+    """ID of the user"""
 
     session_id: Required[str]
+    """ID of the session"""
 
     metadata: Required[Dict[str, object]]

@@ -1,9 +1,9 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Dict
+from typing import Dict, Optional
 from datetime import datetime
 
-from ....._models import BaseModel
+from ...._models import BaseModel
 
 __all__ = ["Metamessage"]
 
@@ -15,8 +15,12 @@ class Metamessage(BaseModel):
 
     created_at: datetime
 
-    message_id: str
+    message_id: Optional[str] = None
 
     metadata: Dict[str, object]
 
     metamessage_type: str
+
+    session_id: Optional[str] = None
+
+    user_id: str

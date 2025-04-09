@@ -29,7 +29,7 @@ from honcho import Honcho
 
 client = Honcho(
     api_key=os.environ.get("HONCHO_API_KEY"),  # This is the default and can be omitted
-    # defaults to "demo".
+    # or 'demo' | 'production'; defaults to "demo".
     environment="local",
 )
 
@@ -55,7 +55,7 @@ from honcho import AsyncHoncho
 
 client = AsyncHoncho(
     api_key=os.environ.get("HONCHO_API_KEY"),  # This is the default and can be omitted
-    # defaults to "demo".
+    # or 'demo' | 'production'; defaults to "demo".
     environment="local",
 )
 

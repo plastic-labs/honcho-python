@@ -12,7 +12,7 @@ from tests.utils import assert_matches_type
 from honcho.pagination import SyncPage, AsyncPage
 from honcho.types.apps.users import (
     Session,
-    AgentChat,
+    DialecticResponse,
 )
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
@@ -273,7 +273,18 @@ class TestSessions:
             user_id="user_id",
             queries="string",
         )
-        assert_matches_type(AgentChat, session, path=["response"])
+        assert_matches_type(DialecticResponse, session, path=["response"])
+
+    @parametrize
+    def test_method_chat_with_all_params(self, client: Honcho) -> None:
+        session = client.apps.users.sessions.chat(
+            session_id="session_id",
+            app_id="app_id",
+            user_id="user_id",
+            queries="string",
+            stream=True,
+        )
+        assert_matches_type(DialecticResponse, session, path=["response"])
 
     @parametrize
     def test_raw_response_chat(self, client: Honcho) -> None:
@@ -287,7 +298,7 @@ class TestSessions:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         session = response.parse()
-        assert_matches_type(AgentChat, session, path=["response"])
+        assert_matches_type(DialecticResponse, session, path=["response"])
 
     @parametrize
     def test_streaming_response_chat(self, client: Honcho) -> None:
@@ -301,7 +312,7 @@ class TestSessions:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             session = response.parse()
-            assert_matches_type(AgentChat, session, path=["response"])
+            assert_matches_type(DialecticResponse, session, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -405,18 +416,25 @@ class TestSessions:
     @parametrize
     def test_method_get(self, client: Honcho) -> None:
         session = client.apps.users.sessions.get(
-            session_id="session_id",
-            app_id="app_id",
             user_id="user_id",
+            app_id="app_id",
+        )
+        assert_matches_type(Session, session, path=["response"])
+
+    @parametrize
+    def test_method_get_with_all_params(self, client: Honcho) -> None:
+        session = client.apps.users.sessions.get(
+            user_id="user_id",
+            app_id="app_id",
+            session_id="session_id",
         )
         assert_matches_type(Session, session, path=["response"])
 
     @parametrize
     def test_raw_response_get(self, client: Honcho) -> None:
         response = client.apps.users.sessions.with_raw_response.get(
-            session_id="session_id",
-            app_id="app_id",
             user_id="user_id",
+            app_id="app_id",
         )
 
         assert response.is_closed is True
@@ -427,9 +445,8 @@ class TestSessions:
     @parametrize
     def test_streaming_response_get(self, client: Honcho) -> None:
         with client.apps.users.sessions.with_streaming_response.get(
-            session_id="session_id",
-            app_id="app_id",
             user_id="user_id",
+            app_id="app_id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -443,89 +460,14 @@ class TestSessions:
     def test_path_params_get(self, client: Honcho) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `app_id` but received ''"):
             client.apps.users.sessions.with_raw_response.get(
-                session_id="session_id",
-                app_id="",
                 user_id="user_id",
+                app_id="",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `user_id` but received ''"):
             client.apps.users.sessions.with_raw_response.get(
-                session_id="session_id",
-                app_id="app_id",
                 user_id="",
-            )
-
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `session_id` but received ''"):
-            client.apps.users.sessions.with_raw_response.get(
-                session_id="",
                 app_id="app_id",
-                user_id="user_id",
-            )
-
-    @parametrize
-    def test_method_stream(self, client: Honcho) -> None:
-        session = client.apps.users.sessions.stream(
-            session_id="session_id",
-            app_id="app_id",
-            user_id="user_id",
-            queries="string",
-        )
-        assert_matches_type(object, session, path=["response"])
-
-    @parametrize
-    def test_raw_response_stream(self, client: Honcho) -> None:
-        response = client.apps.users.sessions.with_raw_response.stream(
-            session_id="session_id",
-            app_id="app_id",
-            user_id="user_id",
-            queries="string",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        session = response.parse()
-        assert_matches_type(object, session, path=["response"])
-
-    @parametrize
-    def test_streaming_response_stream(self, client: Honcho) -> None:
-        with client.apps.users.sessions.with_streaming_response.stream(
-            session_id="session_id",
-            app_id="app_id",
-            user_id="user_id",
-            queries="string",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            session = response.parse()
-            assert_matches_type(object, session, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @parametrize
-    def test_path_params_stream(self, client: Honcho) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `app_id` but received ''"):
-            client.apps.users.sessions.with_raw_response.stream(
-                session_id="session_id",
-                app_id="",
-                user_id="user_id",
-                queries="string",
-            )
-
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `user_id` but received ''"):
-            client.apps.users.sessions.with_raw_response.stream(
-                session_id="session_id",
-                app_id="app_id",
-                user_id="",
-                queries="string",
-            )
-
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `session_id` but received ''"):
-            client.apps.users.sessions.with_raw_response.stream(
-                session_id="",
-                app_id="app_id",
-                user_id="user_id",
-                queries="string",
             )
 
 
@@ -784,7 +726,18 @@ class TestAsyncSessions:
             user_id="user_id",
             queries="string",
         )
-        assert_matches_type(AgentChat, session, path=["response"])
+        assert_matches_type(DialecticResponse, session, path=["response"])
+
+    @parametrize
+    async def test_method_chat_with_all_params(self, async_client: AsyncHoncho) -> None:
+        session = await async_client.apps.users.sessions.chat(
+            session_id="session_id",
+            app_id="app_id",
+            user_id="user_id",
+            queries="string",
+            stream=True,
+        )
+        assert_matches_type(DialecticResponse, session, path=["response"])
 
     @parametrize
     async def test_raw_response_chat(self, async_client: AsyncHoncho) -> None:
@@ -798,7 +751,7 @@ class TestAsyncSessions:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         session = await response.parse()
-        assert_matches_type(AgentChat, session, path=["response"])
+        assert_matches_type(DialecticResponse, session, path=["response"])
 
     @parametrize
     async def test_streaming_response_chat(self, async_client: AsyncHoncho) -> None:
@@ -812,7 +765,7 @@ class TestAsyncSessions:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             session = await response.parse()
-            assert_matches_type(AgentChat, session, path=["response"])
+            assert_matches_type(DialecticResponse, session, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -916,18 +869,25 @@ class TestAsyncSessions:
     @parametrize
     async def test_method_get(self, async_client: AsyncHoncho) -> None:
         session = await async_client.apps.users.sessions.get(
-            session_id="session_id",
-            app_id="app_id",
             user_id="user_id",
+            app_id="app_id",
+        )
+        assert_matches_type(Session, session, path=["response"])
+
+    @parametrize
+    async def test_method_get_with_all_params(self, async_client: AsyncHoncho) -> None:
+        session = await async_client.apps.users.sessions.get(
+            user_id="user_id",
+            app_id="app_id",
+            session_id="session_id",
         )
         assert_matches_type(Session, session, path=["response"])
 
     @parametrize
     async def test_raw_response_get(self, async_client: AsyncHoncho) -> None:
         response = await async_client.apps.users.sessions.with_raw_response.get(
-            session_id="session_id",
-            app_id="app_id",
             user_id="user_id",
+            app_id="app_id",
         )
 
         assert response.is_closed is True
@@ -938,9 +898,8 @@ class TestAsyncSessions:
     @parametrize
     async def test_streaming_response_get(self, async_client: AsyncHoncho) -> None:
         async with async_client.apps.users.sessions.with_streaming_response.get(
-            session_id="session_id",
-            app_id="app_id",
             user_id="user_id",
+            app_id="app_id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -954,87 +913,12 @@ class TestAsyncSessions:
     async def test_path_params_get(self, async_client: AsyncHoncho) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `app_id` but received ''"):
             await async_client.apps.users.sessions.with_raw_response.get(
-                session_id="session_id",
-                app_id="",
                 user_id="user_id",
+                app_id="",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `user_id` but received ''"):
             await async_client.apps.users.sessions.with_raw_response.get(
-                session_id="session_id",
-                app_id="app_id",
                 user_id="",
-            )
-
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `session_id` but received ''"):
-            await async_client.apps.users.sessions.with_raw_response.get(
-                session_id="",
                 app_id="app_id",
-                user_id="user_id",
-            )
-
-    @parametrize
-    async def test_method_stream(self, async_client: AsyncHoncho) -> None:
-        session = await async_client.apps.users.sessions.stream(
-            session_id="session_id",
-            app_id="app_id",
-            user_id="user_id",
-            queries="string",
-        )
-        assert_matches_type(object, session, path=["response"])
-
-    @parametrize
-    async def test_raw_response_stream(self, async_client: AsyncHoncho) -> None:
-        response = await async_client.apps.users.sessions.with_raw_response.stream(
-            session_id="session_id",
-            app_id="app_id",
-            user_id="user_id",
-            queries="string",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        session = await response.parse()
-        assert_matches_type(object, session, path=["response"])
-
-    @parametrize
-    async def test_streaming_response_stream(self, async_client: AsyncHoncho) -> None:
-        async with async_client.apps.users.sessions.with_streaming_response.stream(
-            session_id="session_id",
-            app_id="app_id",
-            user_id="user_id",
-            queries="string",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            session = await response.parse()
-            assert_matches_type(object, session, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @parametrize
-    async def test_path_params_stream(self, async_client: AsyncHoncho) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `app_id` but received ''"):
-            await async_client.apps.users.sessions.with_raw_response.stream(
-                session_id="session_id",
-                app_id="",
-                user_id="user_id",
-                queries="string",
-            )
-
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `user_id` but received ''"):
-            await async_client.apps.users.sessions.with_raw_response.stream(
-                session_id="session_id",
-                app_id="app_id",
-                user_id="",
-                queries="string",
-            )
-
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `session_id` but received ''"):
-            await async_client.apps.users.sessions.with_raw_response.stream(
-                session_id="",
-                app_id="app_id",
-                user_id="user_id",
-                queries="string",
             )

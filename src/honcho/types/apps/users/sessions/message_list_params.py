@@ -10,13 +10,16 @@ __all__ = ["MessageListParams"]
 
 class MessageListParams(TypedDict, total=False):
     app_id: Required[str]
+    """ID of the app"""
 
     user_id: Required[str]
+    """ID of the user"""
 
     page: int
     """Page number"""
 
     reverse: Optional[bool]
+    """Whether to reverse the order of results"""
 
     size: int
     """Page size"""

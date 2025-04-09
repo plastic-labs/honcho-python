@@ -24,6 +24,7 @@ from ._utils import (
     get_async_library,
 )
 from ._version import __version__
+from .resources import keys
 from ._streaming import Stream as Stream, AsyncStream as AsyncStream
 from ._exceptions import APIStatusError
 from ._base_client import (
@@ -48,24 +49,26 @@ __all__ = [
 ENVIRONMENTS: Dict[str, str] = {
     "demo": "https://demo.honcho.dev",
     "local": "http://localhost:8000",
+    "production": "https://api.honcho.dev",
 }
 
 
 class Honcho(SyncAPIClient):
     apps: apps.AppsResource
+    keys: keys.KeysResource
     with_raw_response: HonchoWithRawResponse
     with_streaming_response: HonchoWithStreamedResponse
 
     # client options
     api_key: str | None
 
-    _environment: Literal["demo", "local"] | NotGiven
+    _environment: Literal["demo", "local", "production"] | NotGiven
 
     def __init__(
         self,
         *,
         api_key: str | None = None,
-        environment: Literal["demo", "local"] | NotGiven = NOT_GIVEN,
+        environment: Literal["demo", "local", "production"] | NotGiven = NOT_GIVEN,
         base_url: str | httpx.URL | None | NotGiven = NOT_GIVEN,
         timeout: Union[float, Timeout, None, NotGiven] = NOT_GIVEN,
         max_retries: int = DEFAULT_MAX_RETRIES,
@@ -131,6 +134,7 @@ class Honcho(SyncAPIClient):
         )
 
         self.apps = apps.AppsResource(self)
+        self.keys = keys.KeysResource(self)
         self.with_raw_response = HonchoWithRawResponse(self)
         self.with_streaming_response = HonchoWithStreamedResponse(self)
 
@@ -160,7 +164,7 @@ class Honcho(SyncAPIClient):
         self,
         *,
         api_key: str | None = None,
-        environment: Literal["demo", "local"] | None = None,
+        environment: Literal["demo", "local", "production"] | None = None,
         base_url: str | httpx.URL | None = None,
         timeout: float | Timeout | None | NotGiven = NOT_GIVEN,
         http_client: httpx.Client | None = None,
@@ -245,19 +249,20 @@ class Honcho(SyncAPIClient):
 
 class AsyncHoncho(AsyncAPIClient):
     apps: apps.AsyncAppsResource
+    keys: keys.AsyncKeysResource
     with_raw_response: AsyncHonchoWithRawResponse
     with_streaming_response: AsyncHonchoWithStreamedResponse
 
     # client options
     api_key: str | None
 
-    _environment: Literal["demo", "local"] | NotGiven
+    _environment: Literal["demo", "local", "production"] | NotGiven
 
     def __init__(
         self,
         *,
         api_key: str | None = None,
-        environment: Literal["demo", "local"] | NotGiven = NOT_GIVEN,
+        environment: Literal["demo", "local", "production"] | NotGiven = NOT_GIVEN,
         base_url: str | httpx.URL | None | NotGiven = NOT_GIVEN,
         timeout: Union[float, Timeout, None, NotGiven] = NOT_GIVEN,
         max_retries: int = DEFAULT_MAX_RETRIES,
@@ -323,6 +328,7 @@ class AsyncHoncho(AsyncAPIClient):
         )
 
         self.apps = apps.AsyncAppsResource(self)
+        self.keys = keys.AsyncKeysResource(self)
         self.with_raw_response = AsyncHonchoWithRawResponse(self)
         self.with_streaming_response = AsyncHonchoWithStreamedResponse(self)
 
@@ -352,7 +358,7 @@ class AsyncHoncho(AsyncAPIClient):
         self,
         *,
         api_key: str | None = None,
-        environment: Literal["demo", "local"] | None = None,
+        environment: Literal["demo", "local", "production"] | None = None,
         base_url: str | httpx.URL | None = None,
         timeout: float | Timeout | None | NotGiven = NOT_GIVEN,
         http_client: httpx.AsyncClient | None = None,
@@ -438,21 +444,25 @@ class AsyncHoncho(AsyncAPIClient):
 class HonchoWithRawResponse:
     def __init__(self, client: Honcho) -> None:
         self.apps = apps.AppsResourceWithRawResponse(client.apps)
+        self.keys = keys.KeysResourceWithRawResponse(client.keys)
 
 
 class AsyncHonchoWithRawResponse:
     def __init__(self, client: AsyncHoncho) -> None:
         self.apps = apps.AsyncAppsResourceWithRawResponse(client.apps)
+        self.keys = keys.AsyncKeysResourceWithRawResponse(client.keys)
 
 
 class HonchoWithStreamedResponse:
     def __init__(self, client: Honcho) -> None:
         self.apps = apps.AppsResourceWithStreamingResponse(client.apps)
+        self.keys = keys.KeysResourceWithStreamingResponse(client.keys)
 
 
 class AsyncHonchoWithStreamedResponse:
     def __init__(self, client: AsyncHoncho) -> None:
         self.apps = apps.AsyncAppsResourceWithStreamingResponse(client.apps)
+        self.keys = keys.AsyncKeysResourceWithStreamingResponse(client.keys)
 
 
 Client = Honcho

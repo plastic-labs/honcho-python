@@ -10,9 +10,13 @@ __all__ = ["SessionCloneParams"]
 
 class SessionCloneParams(TypedDict, total=False):
     app_id: Required[str]
+    """ID of the app"""
 
     user_id: Required[str]
+    """ID of the user"""
 
     deep_copy: bool
+    """Whether to deep copy metamessages"""
 
     message_id: Optional[str]
+    """Message ID to cut off the clone at"""

@@ -10,11 +10,13 @@ __all__ = ["CollectionListParams"]
 
 class CollectionListParams(TypedDict, total=False):
     app_id: Required[str]
+    """ID of the app"""
 
     page: int
     """Page number"""
 
     reverse: Optional[bool]
+    """Whether to reverse the order of results"""
 
     size: int
     """Page size"""

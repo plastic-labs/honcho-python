@@ -73,6 +73,12 @@ class MessagesResource(SyncAPIResource):
         Adds a message to a session
 
         Args:
+          app_id: ID of the app
+
+          user_id: ID of the user
+
+          session_id: ID of the session
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -122,6 +128,14 @@ class MessagesResource(SyncAPIResource):
         Update the metadata of a Message
 
         Args:
+          app_id: ID of the app
+
+          user_id: ID of the user
+
+          session_id: ID of the session
+
+          message_id: ID of the message to update
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -168,7 +182,15 @@ class MessagesResource(SyncAPIResource):
         Get all messages for a session
 
         Args:
+          app_id: ID of the app
+
+          user_id: ID of the user
+
+          session_id: ID of the session
+
           page: Page number
+
+          reverse: Whether to reverse the order of results
 
           size: Page size
 
@@ -228,6 +250,12 @@ class MessagesResource(SyncAPIResource):
         per batch.
 
         Args:
+          app_id: ID of the app
+
+          user_id: ID of the user
+
+          session_id: ID of the session
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -269,6 +297,14 @@ class MessagesResource(SyncAPIResource):
         Get a Message by ID
 
         Args:
+          app_id: ID of the app
+
+          user_id: ID of the user
+
+          session_id: ID of the session
+
+          message_id: ID of the message to retrieve
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -334,6 +370,12 @@ class AsyncMessagesResource(AsyncAPIResource):
         Adds a message to a session
 
         Args:
+          app_id: ID of the app
+
+          user_id: ID of the user
+
+          session_id: ID of the session
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -383,6 +425,14 @@ class AsyncMessagesResource(AsyncAPIResource):
         Update the metadata of a Message
 
         Args:
+          app_id: ID of the app
+
+          user_id: ID of the user
+
+          session_id: ID of the session
+
+          message_id: ID of the message to update
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -429,7 +479,15 @@ class AsyncMessagesResource(AsyncAPIResource):
         Get all messages for a session
 
         Args:
+          app_id: ID of the app
+
+          user_id: ID of the user
+
+          session_id: ID of the session
+
           page: Page number
+
+          reverse: Whether to reverse the order of results
 
           size: Page size
 
@@ -489,6 +547,12 @@ class AsyncMessagesResource(AsyncAPIResource):
         per batch.
 
         Args:
+          app_id: ID of the app
+
+          user_id: ID of the user
+
+          session_id: ID of the session
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -530,6 +594,14 @@ class AsyncMessagesResource(AsyncAPIResource):
         Get a Message by ID
 
         Args:
+          app_id: ID of the app
+
+          user_id: ID of the user
+
+          session_id: ID of the session
+
+          message_id: ID of the message to retrieve
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
