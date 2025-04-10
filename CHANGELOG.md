@@ -1,5 +1,67 @@
 # Changelog
 
+## 0.1.0 (2025-04-10)
+
+Full Changelog: [v0.0.19...v0.1.0](https://github.com/plastic-labs/honcho-python/compare/v0.0.19...v0.1.0)
+
+### Features
+
+* **api:** api update ([6f06951](https://github.com/plastic-labs/honcho-python/commit/6f069513e70b3a3600deb09e8eb021337944569f))
+* **client:** allow passing `NotGiven` for body ([#106](https://github.com/plastic-labs/honcho-python/issues/106)) ([8b7fb6b](https://github.com/plastic-labs/honcho-python/commit/8b7fb6ba38fe527fb9eebdbbfbefdee885145d48))
+* **client:** send `X-Stainless-Read-Timeout` header ([#101](https://github.com/plastic-labs/honcho-python/issues/101)) ([9814119](https://github.com/plastic-labs/honcho-python/commit/98141199db4f5ccfa07e704023875941e0c0c397))
+* remove examples ([#122](https://github.com/plastic-labs/honcho-python/issues/122)) ([93451b9](https://github.com/plastic-labs/honcho-python/commit/93451b95c68a66d6abc57c9185ee7eec144d4118))
+
+
+### Bug Fixes
+
+* asyncify on non-asyncio runtimes ([#105](https://github.com/plastic-labs/honcho-python/issues/105)) ([fd19273](https://github.com/plastic-labs/honcho-python/commit/fd192732afe460e3843542a05a33a775d2c946d9))
+* **ci:** ensure pip is always available ([#117](https://github.com/plastic-labs/honcho-python/issues/117)) ([99f6142](https://github.com/plastic-labs/honcho-python/commit/99f6142afa56e29f53f365d2e6e38f3af411e2fd))
+* **ci:** remove publishing patch ([#118](https://github.com/plastic-labs/honcho-python/issues/118)) ([b74fc9c](https://github.com/plastic-labs/honcho-python/commit/b74fc9c518837ca26a1a718fddf65b35d1595186))
+* **client:** mark some request bodies as optional ([8b7fb6b](https://github.com/plastic-labs/honcho-python/commit/8b7fb6ba38fe527fb9eebdbbfbefdee885145d48))
+* **client:** only call .close() when needed ([#90](https://github.com/plastic-labs/honcho-python/issues/90)) ([91d9a14](https://github.com/plastic-labs/honcho-python/commit/91d9a14b38aedb049519fd7a846147c0a1535e87))
+* correctly handle deserialising `cls` fields ([#92](https://github.com/plastic-labs/honcho-python/issues/92)) ([b42d933](https://github.com/plastic-labs/honcho-python/commit/b42d933fc3aec7b2afb352f1cf10fdf52ae0f535))
+* **tests:** make test_get_platform less flaky ([#95](https://github.com/plastic-labs/honcho-python/issues/95)) ([9ad9881](https://github.com/plastic-labs/honcho-python/commit/9ad98812262b9b4b8f401ea40d960e3c15692acc))
+* **types:** handle more discriminated union shapes ([#116](https://github.com/plastic-labs/honcho-python/issues/116)) ([fac82e7](https://github.com/plastic-labs/honcho-python/commit/fac82e713058f0d05db7c227751e2c0ecf79d438))
+
+
+### Chores
+
+* add missing isclass check ([#88](https://github.com/plastic-labs/honcho-python/issues/88)) ([a749def](https://github.com/plastic-labs/honcho-python/commit/a749def9b78cc9258624e753c21b699bcb343e9a))
+* **docs:** update client docstring ([#110](https://github.com/plastic-labs/honcho-python/issues/110)) ([5b44617](https://github.com/plastic-labs/honcho-python/commit/5b446172b4d6bcf7ace1063f2e1eb6e06e821f45))
+* fix typos ([#119](https://github.com/plastic-labs/honcho-python/issues/119)) ([dcd0342](https://github.com/plastic-labs/honcho-python/commit/dcd03424af3f5b676ba6753954b3c313feddfda3))
+* **internal:** avoid pytest-asyncio deprecation warning ([#96](https://github.com/plastic-labs/honcho-python/issues/96)) ([ffb58cc](https://github.com/plastic-labs/honcho-python/commit/ffb58cc8a84f2d5555e14c7bc9a270521f04cda0))
+* **internal:** bummp ruff dependency ([#100](https://github.com/plastic-labs/honcho-python/issues/100)) ([c5a9683](https://github.com/plastic-labs/honcho-python/commit/c5a96836b00dc6b0fef09c5aa18f17ff461e9236))
+* **internal:** bump httpx dependency ([#89](https://github.com/plastic-labs/honcho-python/issues/89)) ([39eeb9c](https://github.com/plastic-labs/honcho-python/commit/39eeb9c588d1618425a92541102785bc0503163c))
+* **internal:** bump rye to 0.44.0 ([#115](https://github.com/plastic-labs/honcho-python/issues/115)) ([48df477](https://github.com/plastic-labs/honcho-python/commit/48df477d323ee01a62d6dcd9667536660d72e924))
+* **internal:** change default timeout to an int ([#99](https://github.com/plastic-labs/honcho-python/issues/99)) ([7fcb6d0](https://github.com/plastic-labs/honcho-python/commit/7fcb6d052cdcfd831a97953eeb5cc308187ee821))
+* **internal:** codegen related update ([#114](https://github.com/plastic-labs/honcho-python/issues/114)) ([083a5fc](https://github.com/plastic-labs/honcho-python/commit/083a5fcd14857c467c281591557fd962c156a8a3))
+* **internal:** codegen related update ([#80](https://github.com/plastic-labs/honcho-python/issues/80)) ([8b0da45](https://github.com/plastic-labs/honcho-python/commit/8b0da45454d25c06d128a2c9c9db6f5a2f4d79ab))
+* **internal:** codegen related update ([#81](https://github.com/plastic-labs/honcho-python/issues/81)) ([a01befa](https://github.com/plastic-labs/honcho-python/commit/a01befac4dca887e142a1385ddc056e519090582))
+* **internal:** codegen related update ([#86](https://github.com/plastic-labs/honcho-python/issues/86)) ([5395eca](https://github.com/plastic-labs/honcho-python/commit/5395ecaff9e7fcfec1cfc827b21607313cfc911f))
+* **internal:** codegen related update ([#87](https://github.com/plastic-labs/honcho-python/issues/87)) ([412b55f](https://github.com/plastic-labs/honcho-python/commit/412b55fb329e94a84afd48a592cdd98ee40a94b7))
+* **internal:** codegen related update ([#91](https://github.com/plastic-labs/honcho-python/issues/91)) ([8faa186](https://github.com/plastic-labs/honcho-python/commit/8faa186233111bb99e53e206dd0d4d0518c6dc3f))
+* **internal:** codegen related update ([#93](https://github.com/plastic-labs/honcho-python/issues/93)) ([7ad0afb](https://github.com/plastic-labs/honcho-python/commit/7ad0afb109d4e4e0cc2d1b0bf6b9a3a06a87e40e))
+* **internal:** codegen related update ([#97](https://github.com/plastic-labs/honcho-python/issues/97)) ([ebda645](https://github.com/plastic-labs/honcho-python/commit/ebda6458059f5fcec2a495f92dbda7c2a20b0c36))
+* **internal:** expand CI branch coverage ([cd01661](https://github.com/plastic-labs/honcho-python/commit/cd01661ef67fb93f81a739c4b2e6ad4a2260fa97))
+* **internal:** fix devcontainers setup ([#107](https://github.com/plastic-labs/honcho-python/issues/107)) ([c589730](https://github.com/plastic-labs/honcho-python/commit/c589730df9acf0955db8749aed34c2366f9f1f4b))
+* **internal:** fix type traversing dictionary params ([#102](https://github.com/plastic-labs/honcho-python/issues/102)) ([a3bd160](https://github.com/plastic-labs/honcho-python/commit/a3bd160890e39d2267d20316d10bf08a5ffdd116))
+* **internal:** minor formatting changes ([#98](https://github.com/plastic-labs/honcho-python/issues/98)) ([ac3ec2d](https://github.com/plastic-labs/honcho-python/commit/ac3ec2d712b388da277f502e06e584142e430fcb))
+* **internal:** minor type handling changes ([#103](https://github.com/plastic-labs/honcho-python/issues/103)) ([57363e7](https://github.com/plastic-labs/honcho-python/commit/57363e77e63dc8315a89a4e52e16d1122eda4493))
+* **internal:** properly set __pydantic_private__ ([#108](https://github.com/plastic-labs/honcho-python/issues/108)) ([f9d6339](https://github.com/plastic-labs/honcho-python/commit/f9d63398ac3bc77946d3b2376ffc799d769bd67a))
+* **internal:** reduce CI branch coverage ([fe9c3c5](https://github.com/plastic-labs/honcho-python/commit/fe9c3c59a14c0f1bdab364ec9da1637229948386))
+* **internal:** remove extra empty newlines ([#113](https://github.com/plastic-labs/honcho-python/issues/113)) ([ce17235](https://github.com/plastic-labs/honcho-python/commit/ce172350a6f2655af12b0ea05ddb371a0bb340f4))
+* **internal:** remove trailing character ([#120](https://github.com/plastic-labs/honcho-python/issues/120)) ([513b256](https://github.com/plastic-labs/honcho-python/commit/513b256b6f59ca4998785a80744ecf32622b0255))
+* **internal:** remove unused http client options forwarding ([#111](https://github.com/plastic-labs/honcho-python/issues/111)) ([09b4ed4](https://github.com/plastic-labs/honcho-python/commit/09b4ed4cc8d497876c1db4e31f1119c281f016e9))
+* **internal:** slight transform perf improvement ([#121](https://github.com/plastic-labs/honcho-python/issues/121)) ([0dabda8](https://github.com/plastic-labs/honcho-python/commit/0dabda85033a93372b8e0d0c3aaff75102f5fae0))
+* **internal:** update client tests ([#104](https://github.com/plastic-labs/honcho-python/issues/104)) ([6cd7632](https://github.com/plastic-labs/honcho-python/commit/6cd7632e4f581908eaa9e8a3716376507c937d78))
+
+
+### Documentation
+
+* **raw responses:** fix duplicate `the` ([#94](https://github.com/plastic-labs/honcho-python/issues/94)) ([d093719](https://github.com/plastic-labs/honcho-python/commit/d093719615bc9aa996515c579bdc9965e355ab33))
+* **readme:** example snippet for client context manager ([#85](https://github.com/plastic-labs/honcho-python/issues/85)) ([5104481](https://github.com/plastic-labs/honcho-python/commit/510448166eb83ba17f4da2bcacaf7575cbba63fd))
+* update URLs from stainlessapi.com to stainless.com ([#109](https://github.com/plastic-labs/honcho-python/issues/109)) ([9e24d1e](https://github.com/plastic-labs/honcho-python/commit/9e24d1ea515d1b55c4d4ff1abf9c29ca48cd54b5))
+
 ## 0.0.19 (2024-12-16)
 
 Full Changelog: [v0.0.18...v0.0.19](https://github.com/plastic-labs/honcho-python/compare/v0.0.18...v0.0.19)

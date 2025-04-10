@@ -10,15 +10,21 @@ __all__ = ["MetamessageListParams"]
 
 class MetamessageListParams(TypedDict, total=False):
     app_id: Required[str]
+    """ID of the app"""
 
     page: int
     """Page number"""
 
     reverse: Optional[bool]
+    """Whether to reverse the order of results"""
 
     size: int
     """Page size"""
 
     filter: Optional[Dict[str, object]]
 
+    message_id: Optional[str]
+
     metamessage_type: Optional[str]
+
+    session_id: Optional[str]

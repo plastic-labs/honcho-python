@@ -16,14 +16,6 @@ from .sessions import (
     SessionsResourceWithStreamingResponse,
     AsyncSessionsResourceWithStreamingResponse,
 )
-from .metamessages import (
-    MetamessagesResource,
-    AsyncMetamessagesResource,
-    MetamessagesResourceWithRawResponse,
-    AsyncMetamessagesResourceWithRawResponse,
-    MetamessagesResourceWithStreamingResponse,
-    AsyncMetamessagesResourceWithStreamingResponse,
-)
 
 __all__ = [
     "MessagesResource",
@@ -32,12 +24,6 @@ __all__ = [
     "AsyncMessagesResourceWithRawResponse",
     "MessagesResourceWithStreamingResponse",
     "AsyncMessagesResourceWithStreamingResponse",
-    "MetamessagesResource",
-    "AsyncMetamessagesResource",
-    "MetamessagesResourceWithRawResponse",
-    "AsyncMetamessagesResourceWithRawResponse",
-    "MetamessagesResourceWithStreamingResponse",
-    "AsyncMetamessagesResourceWithStreamingResponse",
     "SessionsResource",
     "AsyncSessionsResource",
     "SessionsResourceWithRawResponse",

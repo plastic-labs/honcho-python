@@ -3,8 +3,8 @@
 
 from ...._models import BaseModel
 
-__all__ = ["AgentChat"]
+__all__ = ["DialecticResponse"]
 
 
-class AgentChat(BaseModel):
+class DialecticResponse(BaseModel):
     content: str

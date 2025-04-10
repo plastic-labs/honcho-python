@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import io
 import pathlib
-from typing import Any, List, Union, TypeVar, Iterable, Optional, cast
+from typing import Any, Dict, List, Union, TypeVar, Iterable, Optional, cast
 from datetime import date, datetime
 from typing_extensions import Required, Annotated, TypedDict
 
@@ -388,6 +388,15 @@ async def test_iterable_of_dictionaries(use_async: bool) -> None:
     }
 
 
+@parametrize
+@pytest.mark.asyncio
+async def test_dictionary_items(use_async: bool) -> None:
+    class DictItems(TypedDict):
+        foo_baz: Annotated[str, PropertyInfo(alias="fooBaz")]
+
+    assert await transform({"foo": {"foo_baz": "bar"}}, Dict[str, DictItems], use_async) == {"foo": {"fooBaz": "bar"}}
+
+
 class TypedDictIterableUnionStr(TypedDict):
     foo: Annotated[Union[str, Iterable[Baz8]], PropertyInfo(alias="FOO")]
 
@@ -423,3 +432,15 @@ async def test_base64_file_input(use_async: bool) -> None:
     assert await transform({"foo": io.BytesIO(b"Hello, world!")}, TypedDictBase64Input, use_async) == {
         "foo": "SGVsbG8sIHdvcmxkIQ=="
     }  # type: ignore[comparison-overlap]
+
+
+@parametrize
+@pytest.mark.asyncio
+async def test_transform_skipping(use_async: bool) -> None:
+    # lists of ints are left as-is
+    data = [1, 2, 3]
+    assert await transform(data, List[int], use_async) is data
+
+    # iterables of ints are converted to a list
+    data = iter([1, 2, 3])
+    assert await transform(data, Iterable[int], use_async) == [1, 2, 3]

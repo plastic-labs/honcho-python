@@ -13,6 +13,7 @@ class UserListParams(TypedDict, total=False):
     """Page number"""
 
     reverse: bool
+    """Whether to reverse the order of results"""
 
     size: int
     """Page size"""

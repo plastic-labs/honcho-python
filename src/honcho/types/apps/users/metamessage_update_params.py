@@ -10,13 +10,15 @@ __all__ = ["MetamessageUpdateParams"]
 
 class MetamessageUpdateParams(TypedDict, total=False):
     app_id: Required[str]
+    """ID of the app"""
 
     user_id: Required[str]
+    """ID of the user"""
 
-    session_id: Required[str]
-
-    message_id: Required[str]
+    message_id: Optional[str]
 
     metadata: Optional[Dict[str, object]]
 
     metamessage_type: Optional[str]
+
+    session_id: Optional[str]

@@ -6,6 +6,7 @@ import gc
 import os
 import sys
 import json
+import time
 import asyncio
 import inspect
 import subprocess
@@ -22,10 +23,12 @@ from pydantic import ValidationError
 
 from honcho import Honcho, AsyncHoncho, APIResponseValidationError
 from honcho._types import Omit
+from honcho._utils import maybe_transform
 from honcho._models import BaseModel, FinalRequestOptions
 from honcho._constants import RAW_RESPONSE_HEADER
 from honcho._exceptions import APIStatusError, APITimeoutError, APIResponseValidationError
 from honcho._base_client import DEFAULT_TIMEOUT, HTTPX_DEFAULT_TIMEOUT, BaseClient, make_request_options
+from honcho.types.app_create_params import AppCreateParams
 
 from .utils import update_env
 
@@ -348,11 +351,11 @@ class TestHoncho:
             FinalRequestOptions(
                 method="get",
                 url="/foo",
-                params={"foo": "baz", "query_param": "overriden"},
+                params={"foo": "baz", "query_param": "overridden"},
             )
         )
         url = httpx.URL(request.url)
-        assert dict(url.params) == {"foo": "baz", "query_param": "overriden"}
+        assert dict(url.params) == {"foo": "baz", "query_param": "overridden"}
 
     def test_request_extra_json(self) -> None:
         request = self.client._build_request(
@@ -717,7 +720,7 @@ class TestHoncho:
         with pytest.raises(APITimeoutError):
             self.client.post(
                 "/v1/apps",
-                body=cast(object, dict(name="x")),
+                body=cast(object, maybe_transform(dict(name="x"), AppCreateParams)),
                 cast_to=httpx.Response,
                 options={"headers": {RAW_RESPONSE_HEADER: "stream"}},
             )
@@ -732,7 +735,7 @@ class TestHoncho:
         with pytest.raises(APIStatusError):
             self.client.post(
                 "/v1/apps",
-                body=cast(object, dict(name="x")),
+                body=cast(object, maybe_transform(dict(name="x"), AppCreateParams)),
                 cast_to=httpx.Response,
                 options={"headers": {RAW_RESPONSE_HEADER: "stream"}},
             )
@@ -1118,11 +1121,11 @@ class TestAsyncHoncho:
             FinalRequestOptions(
                 method="get",
                 url="/foo",
-                params={"foo": "baz", "query_param": "overriden"},
+                params={"foo": "baz", "query_param": "overridden"},
             )
         )
         url = httpx.URL(request.url)
-        assert dict(url.params) == {"foo": "baz", "query_param": "overriden"}
+        assert dict(url.params) == {"foo": "baz", "query_param": "overridden"}
 
     def test_request_extra_json(self) -> None:
         request = self.client._build_request(
@@ -1501,7 +1504,7 @@ class TestAsyncHoncho:
         with pytest.raises(APITimeoutError):
             await self.client.post(
                 "/v1/apps",
-                body=cast(object, dict(name="x")),
+                body=cast(object, maybe_transform(dict(name="x"), AppCreateParams)),
                 cast_to=httpx.Response,
                 options={"headers": {RAW_RESPONSE_HEADER: "stream"}},
             )
@@ -1516,7 +1519,7 @@ class TestAsyncHoncho:
         with pytest.raises(APIStatusError):
             await self.client.post(
                 "/v1/apps",
-                body=cast(object, dict(name="x")),
+                body=cast(object, maybe_transform(dict(name="x"), AppCreateParams)),
                 cast_to=httpx.Response,
                 options={"headers": {RAW_RESPONSE_HEADER: "stream"}},
             )
@@ -1617,7 +1620,7 @@ class TestAsyncHoncho:
         import threading
 
         from honcho._utils import asyncify
-        from honcho._base_client import get_platform 
+        from honcho._base_client import get_platform
 
         async def test_main() -> None:
             result = await asyncify(get_platform)()
@@ -1632,10 +1635,20 @@ class TestAsyncHoncho:
             [sys.executable, "-c", test_code],
             text=True,
         ) as process:
-            try:
-                process.wait(2)
-                if process.returncode:
-                    raise AssertionError("calling get_platform using asyncify resulted in a non-zero exit code")
-            except subprocess.TimeoutExpired as e:
-                process.kill()
-                raise AssertionError("calling get_platform using asyncify resulted in a hung process") from e
+            timeout = 10  # seconds
+
+            start_time = time.monotonic()
+            while True:
+                return_code = process.poll()
+                if return_code is not None:
+                    if return_code != 0:
+                        raise AssertionError("calling get_platform using asyncify resulted in a non-zero exit code")
+
+                    # success
+                    break
+
+                if time.monotonic() - start_time > timeout:
+                    process.kill()
+                    raise AssertionError("calling get_platform using asyncify resulted in a hung process")
+
+                time.sleep(0.1)

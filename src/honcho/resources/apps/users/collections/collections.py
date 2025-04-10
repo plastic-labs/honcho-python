@@ -29,7 +29,12 @@ from ....._response import (
 )
 from .....pagination import SyncPage, AsyncPage
 from ....._base_client import AsyncPaginator, make_request_options
-from .....types.apps.users import collection_list_params, collection_create_params, collection_update_params
+from .....types.apps.users import (
+    collection_get_params,
+    collection_list_params,
+    collection_create_params,
+    collection_update_params,
+)
 from .....types.apps.users.collection import Collection
 
 __all__ = ["CollectionsResource", "AsyncCollectionsResource"]
@@ -43,7 +48,7 @@ class CollectionsResource(SyncAPIResource):
     @cached_property
     def with_raw_response(self) -> CollectionsResourceWithRawResponse:
         """
-        This property can be used as a prefix for any HTTP method call to return the
+        This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/plastic-labs/honcho-python#accessing-raw-response-data-eg-headers
@@ -77,6 +82,10 @@ class CollectionsResource(SyncAPIResource):
         Create a new Collection
 
         Args:
+          app_id: ID of the app
+
+          user_id: ID of the user
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -123,6 +132,12 @@ class CollectionsResource(SyncAPIResource):
         Update a Collection's name or metadata
 
         Args:
+          app_id: ID of the app
+
+          user_id: ID of the user
+
+          collection_id: ID of the collection to update
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -172,7 +187,13 @@ class CollectionsResource(SyncAPIResource):
         Get All Collections for a User
 
         Args:
+          app_id: ID of the app
+
+          user_id: ID of the user
+
           page: Page number
+
+          reverse: Whether to reverse the order of results
 
           size: Page size
 
@@ -227,6 +248,12 @@ class CollectionsResource(SyncAPIResource):
         Delete a Collection and its documents
 
         Args:
+          app_id: ID of the app
+
+          user_id: ID of the user
+
+          collection_id: ID of the collection to delete
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -251,10 +278,10 @@ class CollectionsResource(SyncAPIResource):
 
     def get(
         self,
-        collection_id: str,
+        user_id: str,
         *,
         app_id: str,
-        user_id: str,
+        collection_id: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -263,9 +290,18 @@ class CollectionsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> Collection:
         """
-        Get a Collection by ID
+        Get a specific collection for a user.
+
+        If collection_id is provided as a query parameter, it uses that (must match JWT
+        collection_id). Otherwise, it uses the collection_id from the JWT token.
 
         Args:
+          app_id: ID of the app
+
+          user_id: ID of the user
+
+          collection_id: Collection ID to retrieve. If not provided, uses JWT token
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -278,12 +314,14 @@ class CollectionsResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `app_id` but received {app_id!r}")
         if not user_id:
             raise ValueError(f"Expected a non-empty value for `user_id` but received {user_id!r}")
-        if not collection_id:
-            raise ValueError(f"Expected a non-empty value for `collection_id` but received {collection_id!r}")
         return self._get(
-            f"/v1/apps/{app_id}/users/{user_id}/collections/{collection_id}",
+            f"/v1/apps/{app_id}/users/{user_id}/collections",
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform({"collection_id": collection_id}, collection_get_params.CollectionGetParams),
             ),
             cast_to=Collection,
         )
@@ -305,6 +343,12 @@ class CollectionsResource(SyncAPIResource):
         Get a Collection by Name
 
         Args:
+          app_id: ID of the app
+
+          user_id: ID of the user
+
+          name: Name of the collection to retrieve
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -336,7 +380,7 @@ class AsyncCollectionsResource(AsyncAPIResource):
     @cached_property
     def with_raw_response(self) -> AsyncCollectionsResourceWithRawResponse:
         """
-        This property can be used as a prefix for any HTTP method call to return the
+        This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/plastic-labs/honcho-python#accessing-raw-response-data-eg-headers
@@ -370,6 +414,10 @@ class AsyncCollectionsResource(AsyncAPIResource):
         Create a new Collection
 
         Args:
+          app_id: ID of the app
+
+          user_id: ID of the user
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -416,6 +464,12 @@ class AsyncCollectionsResource(AsyncAPIResource):
         Update a Collection's name or metadata
 
         Args:
+          app_id: ID of the app
+
+          user_id: ID of the user
+
+          collection_id: ID of the collection to update
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -465,7 +519,13 @@ class AsyncCollectionsResource(AsyncAPIResource):
         Get All Collections for a User
 
         Args:
+          app_id: ID of the app
+
+          user_id: ID of the user
+
           page: Page number
+
+          reverse: Whether to reverse the order of results
 
           size: Page size
 
@@ -520,6 +580,12 @@ class AsyncCollectionsResource(AsyncAPIResource):
         Delete a Collection and its documents
 
         Args:
+          app_id: ID of the app
+
+          user_id: ID of the user
+
+          collection_id: ID of the collection to delete
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -544,10 +610,10 @@ class AsyncCollectionsResource(AsyncAPIResource):
 
     async def get(
         self,
-        collection_id: str,
+        user_id: str,
         *,
         app_id: str,
-        user_id: str,
+        collection_id: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -556,9 +622,18 @@ class AsyncCollectionsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> Collection:
         """
-        Get a Collection by ID
+        Get a specific collection for a user.
+
+        If collection_id is provided as a query parameter, it uses that (must match JWT
+        collection_id). Otherwise, it uses the collection_id from the JWT token.
 
         Args:
+          app_id: ID of the app
+
+          user_id: ID of the user
+
+          collection_id: Collection ID to retrieve. If not provided, uses JWT token
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -571,12 +646,16 @@ class AsyncCollectionsResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `app_id` but received {app_id!r}")
         if not user_id:
             raise ValueError(f"Expected a non-empty value for `user_id` but received {user_id!r}")
-        if not collection_id:
-            raise ValueError(f"Expected a non-empty value for `collection_id` but received {collection_id!r}")
         return await self._get(
-            f"/v1/apps/{app_id}/users/{user_id}/collections/{collection_id}",
+            f"/v1/apps/{app_id}/users/{user_id}/collections",
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {"collection_id": collection_id}, collection_get_params.CollectionGetParams
+                ),
             ),
             cast_to=Collection,
         )
@@ -598,6 +677,12 @@ class AsyncCollectionsResource(AsyncAPIResource):
         Get a Collection by Name
 
         Args:
+          app_id: ID of the app
+
+          user_id: ID of the user
+
+          name: Name of the collection to retrieve
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request

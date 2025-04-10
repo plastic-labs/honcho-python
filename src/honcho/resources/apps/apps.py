@@ -6,7 +6,7 @@ from typing import Dict, Optional
 
 import httpx
 
-from ...types import app_create_params, app_update_params
+from ...types import app_get_params, app_list_params, app_create_params, app_update_params
 from ..._types import NOT_GIVEN, Body, Query, Headers, NotGiven
 from ..._utils import (
     maybe_transform,
@@ -29,7 +29,8 @@ from .users.users import (
     UsersResourceWithStreamingResponse,
     AsyncUsersResourceWithStreamingResponse,
 )
-from ..._base_client import make_request_options
+from ...pagination import SyncPage, AsyncPage
+from ..._base_client import AsyncPaginator, make_request_options
 
 __all__ = ["AppsResource", "AsyncAppsResource"]
 
@@ -42,7 +43,7 @@ class AppsResource(SyncAPIResource):
     @cached_property
     def with_raw_response(self) -> AppsResourceWithRawResponse:
         """
-        This property can be used as a prefix for any HTTP method call to return the
+        This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/plastic-labs/honcho-python#accessing-raw-response-data-eg-headers
@@ -114,6 +115,8 @@ class AppsResource(SyncAPIResource):
         Update an App
 
         Args:
+          app_id: ID of the app to update
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -139,21 +142,30 @@ class AppsResource(SyncAPIResource):
             cast_to=App,
         )
 
-    def get(
+    def list(
         self,
-        app_id: str,
         *,
+        page: int | NotGiven = NOT_GIVEN,
+        reverse: Optional[bool] | NotGiven = NOT_GIVEN,
+        size: int | NotGiven = NOT_GIVEN,
+        filter: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> App:
+    ) -> SyncPage[App]:
         """
-        Get an App by ID
+        Get all Apps
 
         Args:
+          page: Page number
+
+          reverse: Whether to reverse the order of results
+
+          size: Page size
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -162,12 +174,64 @@ class AppsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not app_id:
-            raise ValueError(f"Expected a non-empty value for `app_id` but received {app_id!r}")
-        return self._get(
-            f"/v1/apps/{app_id}",
+        return self._get_api_list(
+            "/v1/apps/list",
+            page=SyncPage[App],
+            body=maybe_transform({"filter": filter}, app_list_params.AppListParams),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "page": page,
+                        "reverse": reverse,
+                        "size": size,
+                    },
+                    app_list_params.AppListParams,
+                ),
+            ),
+            model=App,
+            method="post",
+        )
+
+    def get(
+        self,
+        *,
+        app_id: Optional[str] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> App:
+        """
+        Get an App by ID.
+
+        If app_id is provided as a query parameter, it uses that (must match JWT
+        app_id). Otherwise, it uses the app_id from the JWT token.
+
+        Args:
+          app_id: App ID to retrieve. If not provided, uses JWT token
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._get(
+            "/v1/apps",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform({"app_id": app_id}, app_get_params.AppGetParams),
             ),
             cast_to=App,
         )
@@ -187,6 +251,8 @@ class AppsResource(SyncAPIResource):
         Get an App by Name
 
         Args:
+          name: Name of the app to retrieve
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -220,6 +286,8 @@ class AppsResource(SyncAPIResource):
         Get or Create an App
 
         Args:
+          name: Name of the app to get or create
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -247,7 +315,7 @@ class AsyncAppsResource(AsyncAPIResource):
     @cached_property
     def with_raw_response(self) -> AsyncAppsResourceWithRawResponse:
         """
-        This property can be used as a prefix for any HTTP method call to return the
+        This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/plastic-labs/honcho-python#accessing-raw-response-data-eg-headers
@@ -319,6 +387,8 @@ class AsyncAppsResource(AsyncAPIResource):
         Update an App
 
         Args:
+          app_id: ID of the app to update
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -344,21 +414,30 @@ class AsyncAppsResource(AsyncAPIResource):
             cast_to=App,
         )
 
-    async def get(
+    def list(
         self,
-        app_id: str,
         *,
+        page: int | NotGiven = NOT_GIVEN,
+        reverse: Optional[bool] | NotGiven = NOT_GIVEN,
+        size: int | NotGiven = NOT_GIVEN,
+        filter: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> App:
+    ) -> AsyncPaginator[App, AsyncPage[App]]:
         """
-        Get an App by ID
+        Get all Apps
 
         Args:
+          page: Page number
+
+          reverse: Whether to reverse the order of results
+
+          size: Page size
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -367,12 +446,64 @@ class AsyncAppsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not app_id:
-            raise ValueError(f"Expected a non-empty value for `app_id` but received {app_id!r}")
-        return await self._get(
-            f"/v1/apps/{app_id}",
+        return self._get_api_list(
+            "/v1/apps/list",
+            page=AsyncPage[App],
+            body=maybe_transform({"filter": filter}, app_list_params.AppListParams),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "page": page,
+                        "reverse": reverse,
+                        "size": size,
+                    },
+                    app_list_params.AppListParams,
+                ),
+            ),
+            model=App,
+            method="post",
+        )
+
+    async def get(
+        self,
+        *,
+        app_id: Optional[str] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> App:
+        """
+        Get an App by ID.
+
+        If app_id is provided as a query parameter, it uses that (must match JWT
+        app_id). Otherwise, it uses the app_id from the JWT token.
+
+        Args:
+          app_id: App ID to retrieve. If not provided, uses JWT token
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._get(
+            "/v1/apps",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform({"app_id": app_id}, app_get_params.AppGetParams),
             ),
             cast_to=App,
         )
@@ -392,6 +523,8 @@ class AsyncAppsResource(AsyncAPIResource):
         Get an App by Name
 
         Args:
+          name: Name of the app to retrieve
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -425,6 +558,8 @@ class AsyncAppsResource(AsyncAPIResource):
         Get or Create an App
 
         Args:
+          name: Name of the app to get or create
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -454,6 +589,9 @@ class AppsResourceWithRawResponse:
         self.update = to_raw_response_wrapper(
             apps.update,
         )
+        self.list = to_raw_response_wrapper(
+            apps.list,
+        )
         self.get = to_raw_response_wrapper(
             apps.get,
         )
@@ -478,6 +616,9 @@ class AsyncAppsResourceWithRawResponse:
         )
         self.update = async_to_raw_response_wrapper(
             apps.update,
+        )
+        self.list = async_to_raw_response_wrapper(
+            apps.list,
         )
         self.get = async_to_raw_response_wrapper(
             apps.get,
@@ -504,6 +645,9 @@ class AppsResourceWithStreamingResponse:
         self.update = to_streamed_response_wrapper(
             apps.update,
         )
+        self.list = to_streamed_response_wrapper(
+            apps.list,
+        )
         self.get = to_streamed_response_wrapper(
             apps.get,
         )
@@ -528,6 +672,9 @@ class AsyncAppsResourceWithStreamingResponse:
         )
         self.update = async_to_streamed_response_wrapper(
             apps.update,
+        )
+        self.list = async_to_streamed_response_wrapper(
+            apps.list,
         )
         self.get = async_to_streamed_response_wrapper(
             apps.get,

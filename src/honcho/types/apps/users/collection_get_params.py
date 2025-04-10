@@ -2,16 +2,15 @@
 
 from __future__ import annotations
 
-from typing import Dict
+from typing import Optional
 from typing_extensions import Required, TypedDict
 
-__all__ = ["CollectionCreateParams"]
+__all__ = ["CollectionGetParams"]
 
 
-class CollectionCreateParams(TypedDict, total=False):
+class CollectionGetParams(TypedDict, total=False):
     app_id: Required[str]
     """ID of the app"""
 
-    name: Required[str]
-
-    metadata: Dict[str, object]
+    collection_id: Optional[str]
+    """Collection ID to retrieve. If not provided, uses JWT token"""

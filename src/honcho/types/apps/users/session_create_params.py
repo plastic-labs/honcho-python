@@ -10,5 +10,6 @@ __all__ = ["SessionCreateParams"]
 
 class SessionCreateParams(TypedDict, total=False):
     app_id: Required[str]
+    """ID of the app"""
 
     metadata: Dict[str, object]

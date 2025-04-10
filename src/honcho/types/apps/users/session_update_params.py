@@ -10,7 +10,9 @@ __all__ = ["SessionUpdateParams"]
 
 class SessionUpdateParams(TypedDict, total=False):
     app_id: Required[str]
+    """ID of the app"""
 
     user_id: Required[str]
+    """ID of the user"""
 
     metadata: Required[Dict[str, object]]

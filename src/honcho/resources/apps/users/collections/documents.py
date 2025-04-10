@@ -37,7 +37,7 @@ class DocumentsResource(SyncAPIResource):
     @cached_property
     def with_raw_response(self) -> DocumentsResourceWithRawResponse:
         """
-        This property can be used as a prefix for any HTTP method call to return the
+        This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/plastic-labs/honcho-python#accessing-raw-response-data-eg-headers
@@ -72,6 +72,12 @@ class DocumentsResource(SyncAPIResource):
         Embed text as a vector and create a Document
 
         Args:
+          app_id: ID of the app
+
+          user_id: ID of the user
+
+          collection_id: ID of the collection
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -121,6 +127,14 @@ class DocumentsResource(SyncAPIResource):
         Update the content and/or the metadata of a Document
 
         Args:
+          app_id: ID of the app
+
+          user_id: ID of the user
+
+          collection_id: ID of the collection
+
+          document_id: ID of the document to update
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -173,7 +187,15 @@ class DocumentsResource(SyncAPIResource):
         Get all of the Documents in a Collection
 
         Args:
+          app_id: ID of the app
+
+          user_id: ID of the user
+
+          collection_id: ID of the collection
+
           page: Page number
+
+          reverse: Whether to reverse the order of results
 
           size: Page size
 
@@ -231,6 +253,14 @@ class DocumentsResource(SyncAPIResource):
         Delete a Document by ID
 
         Args:
+          app_id: ID of the app
+
+          user_id: ID of the user
+
+          collection_id: ID of the collection
+
+          document_id: ID of the document to delete
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -273,6 +303,14 @@ class DocumentsResource(SyncAPIResource):
         Get a document by ID
 
         Args:
+          app_id: ID of the app
+
+          user_id: ID of the user
+
+          collection_id: ID of the collection
+
+          document_id: ID of the document to retrieve
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -317,6 +355,12 @@ class DocumentsResource(SyncAPIResource):
         Cosine Similarity Search for Documents
 
         Args:
+          app_id: ID of the app
+
+          user_id: ID of the user
+
+          collection_id: ID of the collection
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -352,7 +396,7 @@ class AsyncDocumentsResource(AsyncAPIResource):
     @cached_property
     def with_raw_response(self) -> AsyncDocumentsResourceWithRawResponse:
         """
-        This property can be used as a prefix for any HTTP method call to return the
+        This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/plastic-labs/honcho-python#accessing-raw-response-data-eg-headers
@@ -387,6 +431,12 @@ class AsyncDocumentsResource(AsyncAPIResource):
         Embed text as a vector and create a Document
 
         Args:
+          app_id: ID of the app
+
+          user_id: ID of the user
+
+          collection_id: ID of the collection
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -436,6 +486,14 @@ class AsyncDocumentsResource(AsyncAPIResource):
         Update the content and/or the metadata of a Document
 
         Args:
+          app_id: ID of the app
+
+          user_id: ID of the user
+
+          collection_id: ID of the collection
+
+          document_id: ID of the document to update
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -488,7 +546,15 @@ class AsyncDocumentsResource(AsyncAPIResource):
         Get all of the Documents in a Collection
 
         Args:
+          app_id: ID of the app
+
+          user_id: ID of the user
+
+          collection_id: ID of the collection
+
           page: Page number
+
+          reverse: Whether to reverse the order of results
 
           size: Page size
 
@@ -546,6 +612,14 @@ class AsyncDocumentsResource(AsyncAPIResource):
         Delete a Document by ID
 
         Args:
+          app_id: ID of the app
+
+          user_id: ID of the user
+
+          collection_id: ID of the collection
+
+          document_id: ID of the document to delete
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -588,6 +662,14 @@ class AsyncDocumentsResource(AsyncAPIResource):
         Get a document by ID
 
         Args:
+          app_id: ID of the app
+
+          user_id: ID of the user
+
+          collection_id: ID of the collection
+
+          document_id: ID of the document to retrieve
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -632,6 +714,12 @@ class AsyncDocumentsResource(AsyncAPIResource):
         Cosine Similarity Search for Documents
 
         Args:
+          app_id: ID of the app
+
+          user_id: ID of the user
+
+          collection_id: ID of the collection
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request

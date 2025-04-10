@@ -10,10 +10,13 @@ __all__ = ["DocumentUpdateParams"]
 
 class DocumentUpdateParams(TypedDict, total=False):
     app_id: Required[str]
+    """ID of the app"""
 
     user_id: Required[str]
+    """ID of the user"""
 
     collection_id: Required[str]
+    """ID of the collection"""
 
     content: Optional[str]
 

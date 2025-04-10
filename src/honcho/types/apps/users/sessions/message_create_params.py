@@ -10,8 +10,10 @@ __all__ = ["MessageCreateParams"]
 
 class MessageCreateParams(TypedDict, total=False):
     app_id: Required[str]
+    """ID of the app"""
 
     user_id: Required[str]
+    """ID of the user"""
 
     content: Required[str]
 
