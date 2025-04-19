@@ -1,5 +1,23 @@
 # Changelog
 
+## 0.1.1 (2025-04-19)
+
+Full Changelog: [v0.1.0...v0.1.1](https://github.com/plastic-labs/honcho-python/compare/v0.1.0...v0.1.1)
+
+### Bug Fixes
+
+* **perf:** optimize some hot paths ([cdda641](https://github.com/plastic-labs/honcho-python/commit/cdda6419061216c4a1a5dd5a13cca464d0497323))
+* **perf:** skip traversing types for NotGiven values ([e98b470](https://github.com/plastic-labs/honcho-python/commit/e98b470891968a1244f7f6e10938a56d50fc4f7c))
+
+
+### Chores
+
+* **client:** minor internal fixes ([3c2cd66](https://github.com/plastic-labs/honcho-python/commit/3c2cd66a3b95c803d9cff8daaa3dd6ede789d929))
+* **internal:** base client updates ([8c4985d](https://github.com/plastic-labs/honcho-python/commit/8c4985d2ee0b56899c4e17e8028c48fd0c976c30))
+* **internal:** bump pyright version ([f672b94](https://github.com/plastic-labs/honcho-python/commit/f672b94d6d0c92f69f6416fdd44b69f70bb327ca))
+* **internal:** update models test ([e98feff](https://github.com/plastic-labs/honcho-python/commit/e98feff770b4669d5c6e49a389af3352af9f4353))
+* **internal:** update pyright settings ([3d2ec51](https://github.com/plastic-labs/honcho-python/commit/3d2ec51a09e4548da3ea3bbd149a2f47a6e665d9))
+
 ## 0.1.0 (2025-04-10)
 
 Full Changelog: [v0.0.19...v0.1.0](https://github.com/plastic-labs/honcho-python/compare/v0.0.19...v0.1.0)
