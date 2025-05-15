@@ -1,5 +1,40 @@
 # Changelog
 
+## 0.2.0 (2025-05-15)
+
+Full Changelog: [v0.1.0...v0.2.0](https://github.com/plastic-labs/honcho-python/compare/v0.1.0...v0.2.0)
+
+### Features
+
+* **api:** api update ([8b5345b](https://github.com/plastic-labs/honcho-python/commit/8b5345bfd27696fc100fdc88cd9c13c8f3bf2867))
+
+
+### Bug Fixes
+
+* **package:** support direct resource imports ([115cfeb](https://github.com/plastic-labs/honcho-python/commit/115cfeb619e2663af9f96985e0f315a506fe5bf6))
+* **perf:** optimize some hot paths ([cdda641](https://github.com/plastic-labs/honcho-python/commit/cdda6419061216c4a1a5dd5a13cca464d0497323))
+* **perf:** skip traversing types for NotGiven values ([e98b470](https://github.com/plastic-labs/honcho-python/commit/e98b470891968a1244f7f6e10938a56d50fc4f7c))
+* **pydantic v1:** more robust ModelField.annotation check ([3705ebb](https://github.com/plastic-labs/honcho-python/commit/3705ebb7f325447daec9167c6a5c13d3fda4e514))
+
+
+### Chores
+
+* broadly detect json family of content-type headers ([4edaae5](https://github.com/plastic-labs/honcho-python/commit/4edaae507778ee9a9d480c915cd0bde9ecbeb275))
+* **ci:** add timeout thresholds for CI jobs ([37ffc48](https://github.com/plastic-labs/honcho-python/commit/37ffc480001e68df382d6fab12aeaf28454586dd))
+* **ci:** only use depot for staging repos ([8112338](https://github.com/plastic-labs/honcho-python/commit/81123387b5496a0ecba4adf08ead3724a27709bf))
+* **ci:** upload sdks to package manager ([1715d2a](https://github.com/plastic-labs/honcho-python/commit/1715d2af06a0d8495f15027e8bf9f110c15ffc35))
+* **client:** minor internal fixes ([3c2cd66](https://github.com/plastic-labs/honcho-python/commit/3c2cd66a3b95c803d9cff8daaa3dd6ede789d929))
+* **internal:** avoid errors for isinstance checks on proxies ([fbbd3c1](https://github.com/plastic-labs/honcho-python/commit/fbbd3c1068a1af6639cd0ab4095bad5fc44fd321))
+* **internal:** base client updates ([8c4985d](https://github.com/plastic-labs/honcho-python/commit/8c4985d2ee0b56899c4e17e8028c48fd0c976c30))
+* **internal:** bump pyright version ([f672b94](https://github.com/plastic-labs/honcho-python/commit/f672b94d6d0c92f69f6416fdd44b69f70bb327ca))
+* **internal:** codegen related update ([8644872](https://github.com/plastic-labs/honcho-python/commit/8644872ec648b5705cda992af42b3190388ec20d))
+* **internal:** fix list file params ([6fa0c14](https://github.com/plastic-labs/honcho-python/commit/6fa0c141c1dfc40666d4c99227e69ffb65943770))
+* **internal:** import reformatting ([3b79ce8](https://github.com/plastic-labs/honcho-python/commit/3b79ce84d59520a30cf7d37f45ba1cd509fe0114))
+* **internal:** minor formatting changes ([2006925](https://github.com/plastic-labs/honcho-python/commit/2006925d2c90a7a85739d12de167c3238942d82b))
+* **internal:** refactor retries to not use recursion ([fc856e3](https://github.com/plastic-labs/honcho-python/commit/fc856e3a04283fb030d00d4b736054ab599d06c6))
+* **internal:** update models test ([e98feff](https://github.com/plastic-labs/honcho-python/commit/e98feff770b4669d5c6e49a389af3352af9f4353))
+* **internal:** update pyright settings ([3d2ec51](https://github.com/plastic-labs/honcho-python/commit/3d2ec51a09e4548da3ea3bbd149a2f47a6e665d9))
+
 ## 0.1.0 (2025-04-10)
 
 Full Changelog: [v0.0.19...v0.1.0](https://github.com/plastic-labs/honcho-python/compare/v0.0.19...v0.1.0)

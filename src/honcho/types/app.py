@@ -1,6 +1,6 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Dict
+from typing import Dict, Optional
 from datetime import datetime
 
 from .._models import BaseModel
@@ -13,6 +13,6 @@ class App(BaseModel):
 
     created_at: datetime
 
-    metadata: Dict[str, object]
-
     name: str
+
+    metadata: Optional[Dict[str, object]] = None

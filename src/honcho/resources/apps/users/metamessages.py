@@ -7,10 +7,7 @@ from typing import Dict, Optional
 import httpx
 
 from ...._types import NOT_GIVEN, Body, Query, Headers, NotGiven
-from ...._utils import (
-    maybe_transform,
-    async_maybe_transform,
-)
+from ...._utils import maybe_transform, async_maybe_transform
 from ...._compat import cached_property
 from ...._resource import SyncAPIResource, AsyncAPIResource
 from ...._response import (
@@ -187,7 +184,7 @@ class MetamessagesResource(SyncAPIResource):
         - Filter by user only: No additional parameters needed
         - Filter by session: Provide session_id
         - Filter by message: Provide message_id (and session_id)
-        - Filter by type: Provide metamessage_type
+        - Filter by type: Provide label
         - Filter by metadata: Provide filter object
 
         Args:
@@ -449,7 +446,7 @@ class AsyncMetamessagesResource(AsyncAPIResource):
         - Filter by user only: No additional parameters needed
         - Filter by session: Provide session_id
         - Filter by message: Provide message_id (and session_id)
-        - Filter by type: Provide metamessage_type
+        - Filter by type: Provide label
         - Filter by metadata: Provide filter object
 
         Args:
