@@ -1,6 +1,6 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Dict
+from typing import Dict, Optional
 from datetime import datetime
 
 from ...._models import BaseModel
@@ -11,10 +11,12 @@ __all__ = ["Collection"]
 class Collection(BaseModel):
     id: str
 
-    created_at: datetime
+    app_id: str
 
-    metadata: Dict[str, object]
+    created_at: datetime
 
     name: str
 
     user_id: str
+
+    metadata: Optional[Dict[str, object]] = None
