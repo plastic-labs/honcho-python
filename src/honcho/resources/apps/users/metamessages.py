@@ -184,7 +184,7 @@ class MetamessagesResource(SyncAPIResource):
         - Filter by user only: No additional parameters needed
         - Filter by session: Provide session_id
         - Filter by message: Provide message_id (and session_id)
-        - Filter by type: Provide metamessage_type
+        - Filter by type: Provide label
         - Filter by metadata: Provide filter object
 
         Args:
@@ -446,7 +446,7 @@ class AsyncMetamessagesResource(AsyncAPIResource):
         - Filter by user only: No additional parameters needed
         - Filter by session: Provide session_id
         - Filter by message: Provide message_id (and session_id)
-        - Filter by type: Provide metamessage_type
+        - Filter by type: Provide label
         - Filter by metadata: Provide filter object
 
         Args:
