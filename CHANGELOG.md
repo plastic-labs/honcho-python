@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.2.1 (2025-05-28)
+
+Full Changelog: [v0.2.0...v0.2.1](https://github.com/plastic-labs/honcho-python/compare/v0.2.0...v0.2.1)
+
+### Bug Fixes
+
+* **docs/api:** remove references to nonexistent types ([ccfcd32](https://github.com/plastic-labs/honcho-python/commit/ccfcd3200531027cb5ebeed448663fd999bd8ce8))
+
+
+### Chores
+
+* **ci:** fix installation instructions ([1b96727](https://github.com/plastic-labs/honcho-python/commit/1b967270a5a01bb7448da46b516d53f57fa13459))
+* **docs:** grammar improvements ([a7df346](https://github.com/plastic-labs/honcho-python/commit/a7df3462af1393974722741784f37c36eb77d768))
+
 ## 0.2.0 (2025-05-15)
 
 Full Changelog: [v0.1.0...v0.2.0](https://github.com/plastic-labs/honcho-python/compare/v0.1.0...v0.2.0)
