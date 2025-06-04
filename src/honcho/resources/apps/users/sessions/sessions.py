@@ -277,6 +277,7 @@ class SessionsResource(SyncAPIResource):
         user_id: str,
         queries: Union[str, List[str]],
         stream: bool | NotGiven = NOT_GIVEN,
+        include_trace: bool | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -314,6 +315,7 @@ class SessionsResource(SyncAPIResource):
                 {
                     "queries": queries,
                     "stream": stream,
+                    "include_trace": include_trace,
                 },
                 session_chat_params.SessionChatParams,
             ),
@@ -672,6 +674,7 @@ class AsyncSessionsResource(AsyncAPIResource):
         user_id: str,
         queries: Union[str, List[str]],
         stream: bool | NotGiven = NOT_GIVEN,
+        include_trace: bool | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -709,6 +712,7 @@ class AsyncSessionsResource(AsyncAPIResource):
                 {
                     "queries": queries,
                     "stream": stream,
+                    "include_trace": include_trace,
                 },
                 session_chat_params.SessionChatParams,
             ),
@@ -768,7 +772,7 @@ class AsyncSessionsResource(AsyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=await async_maybe_transform(
+                query=maybe_transform(
                     {
                         "deep_copy": deep_copy,
                         "message_id": message_id,
@@ -824,7 +828,7 @@ class AsyncSessionsResource(AsyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=await async_maybe_transform({"session_id": session_id}, session_get_params.SessionGetParams),
+                query=maybe_transform({"session_id": session_id}, session_get_params.SessionGetParams),
             ),
             cast_to=Session,
         )

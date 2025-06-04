@@ -18,3 +18,5 @@ class SessionChatParams(TypedDict, total=False):
     queries: Required[Union[str, List[str]]]
 
     stream: bool
+
+    include_trace: bool

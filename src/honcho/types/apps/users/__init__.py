@@ -9,6 +9,8 @@ from .page_session import PageSession as PageSession
 from .page_collection import PageCollection as PageCollection
 from .page_metamessage import PageMetamessage as PageMetamessage
 from .dialectic_response import DialecticResponse as DialecticResponse
+from .chat_trace import ChatTrace as ChatTrace
+from .fact_with_source import FactWithSource as FactWithSource
 from .session_get_params import SessionGetParams as SessionGetParams
 from .session_chat_params import SessionChatParams as SessionChatParams
 from .session_list_params import SessionListParams as SessionListParams
