@@ -1,6 +1,6 @@
 # honcho-ai API library
 
-[![PyPI version](<https://img.shields.io/pypi/v/honcho-ai.svg?label=pypi%20(stable)>)](https://pypi.org/project/honcho-ai/)
+[![PyPI version](<https://img.shields.io/pypi/v/honcho-core.svg?label=pypi%20(stable)>)](https://pypi.org/project/honcho-core/)
 
 The honcho-ai library provides convenient access to the Honcho REST API from any Python 3.8+
 application. The library includes type definitions for all request params and response fields,
@@ -16,7 +16,7 @@ The REST API documentation can be found on [docs.honcho.dev](https://docs.honcho
 
 ```sh
 # install from PyPI
-pip install honcho-ai
+pip install honcho-core
 ```
 
 ## Usage
@@ -33,10 +33,10 @@ client = Honcho(
     environment="local",
 )
 
-app = client.apps.create(
-    name="x",
+workspace = client.workspaces.get_or_create(
+    id="x",
 )
-print(app.id)
+print(workspace.id)
 ```
 
 While you can provide an `api_key` keyword argument,
@@ -61,10 +61,10 @@ client = AsyncHoncho(
 
 
 async def main() -> None:
-    app = await client.apps.create(
-        name="x",
+    workspace = await client.workspaces.get_or_create(
+        id="x",
     )
-    print(app.id)
+    print(workspace.id)
 
 
 asyncio.run(main())
@@ -92,14 +92,14 @@ from honcho import Honcho
 
 client = Honcho()
 
-all_users = []
+all_peers = []
 # Automatically fetches more pages as needed.
-for user in client.apps.users.list(
-    app_id="REPLACE_ME",
+for peer in client.workspaces.peers.list(
+    workspace_id="REPLACE_ME",
 ):
-    # Do something with user here
-    all_users.append(user)
-print(all_users)
+    # Do something with peer here
+    all_peers.append(peer)
+print(all_peers)
 ```
 
 Or, asynchronously:
@@ -112,13 +112,13 @@ client = AsyncHoncho()
 
 
 async def main() -> None:
-    all_users = []
+    all_peers = []
     # Iterate through items across all pages, issuing requests as needed.
-    async for user in client.apps.users.list(
-        app_id="REPLACE_ME",
+    async for peer in client.workspaces.peers.list(
+        workspace_id="REPLACE_ME",
     ):
-        all_users.append(user)
-    print(all_users)
+        all_peers.append(peer)
+    print(all_peers)
 
 
 asyncio.run(main())
@@ -127,8 +127,8 @@ asyncio.run(main())
 Alternatively, you can use the `.has_next_page()`, `.next_page_info()`, or `.get_next_page()` methods for more granular control working with pages:
 
 ```python
-first_page = await client.apps.users.list(
-    app_id="REPLACE_ME",
+first_page = await client.workspaces.peers.list(
+    workspace_id="REPLACE_ME",
 )
 if first_page.has_next_page():
     print(f"will fetch next page using these details: {first_page.next_page_info()}")
@@ -141,13 +141,13 @@ if first_page.has_next_page():
 Or just work directly with the returned data:
 
 ```python
-first_page = await client.apps.users.list(
-    app_id="REPLACE_ME",
+first_page = await client.workspaces.peers.list(
+    workspace_id="REPLACE_ME",
 )
 
 print(f"page number: {first_page.page}")  # => "page number: 1"
-for user in first_page.items:
-    print(user.id)
+for peer in first_page.items:
+    print(peer.id)
 
 # Remove `await` for non-async usage.
 ```
@@ -168,8 +168,8 @@ from honcho import Honcho
 client = Honcho()
 
 try:
-    client.apps.create(
-        name="x",
+    client.workspaces.get_or_create(
+        id="x",
     )
 except honcho.APIConnectionError as e:
     print("The server could not be reached")
@@ -213,8 +213,8 @@ client = Honcho(
 )
 
 # Or, configure per-request:
-client.with_options(max_retries=5).apps.create(
-    name="x",
+client.with_options(max_retries=5).workspaces.get_or_create(
+    id="x",
 )
 ```
 
@@ -238,8 +238,8 @@ client = Honcho(
 )
 
 # Override per-request:
-client.with_options(timeout=5.0).apps.create(
-    name="x",
+client.with_options(timeout=5.0).workspaces.get_or_create(
+    id="x",
 )
 ```
 
@@ -281,18 +281,18 @@ The "raw" Response object can be accessed by prefixing `.with_raw_response.` to 
 from honcho import Honcho
 
 client = Honcho()
-response = client.apps.with_raw_response.create(
-    name="x",
+response = client.workspaces.with_raw_response.get_or_create(
+    id="x",
 )
 print(response.headers.get('X-My-Header'))
 
-app = response.parse()  # get the object that `apps.create()` would have returned
-print(app.id)
+workspace = response.parse()  # get the object that `workspaces.get_or_create()` would have returned
+print(workspace.id)
 ```
 
-These methods return an [`APIResponse`](https://github.com/plastic-labs/honcho-python/tree/main/src/honcho/_response.py) object.
+These methods return an [`APIResponse`](https://github.com/plastic-labs/honcho-python-core/tree/main/src/honcho/_response.py) object.
 
-The async client returns an [`AsyncAPIResponse`](https://github.com/plastic-labs/honcho-python/tree/main/src/honcho/_response.py) with the same structure, the only difference being `await`able methods for reading the response content.
+The async client returns an [`AsyncAPIResponse`](https://github.com/plastic-labs/honcho-python-core/tree/main/src/honcho/_response.py) with the same structure, the only difference being `await`able methods for reading the response content.
 
 #### `.with_streaming_response`
 
@@ -301,8 +301,8 @@ The above interface eagerly reads the full response body when you make the reque
 To stream the response body, use `.with_streaming_response` instead, which requires a context manager and only reads the response body once you call `.read()`, `.text()`, `.json()`, `.iter_bytes()`, `.iter_text()`, `.iter_lines()` or `.parse()`. In the async client, these are async methods.
 
 ```python
-with client.apps.with_streaming_response.create(
-    name="x",
+with client.workspaces.with_streaming_response.get_or_create(
+    id="x",
 ) as response:
     print(response.headers.get("X-My-Header"))
 
@@ -398,7 +398,7 @@ This package generally follows [SemVer](https://semver.org/spec/v2.0.0.html) con
 
 We take backwards-compatibility seriously and work hard to ensure you can rely on a smooth upgrade experience.
 
-We are keen for your feedback; please open an [issue](https://www.github.com/plastic-labs/honcho-python/issues) with questions, bugs, or suggestions.
+We are keen for your feedback; please open an [issue](https://www.github.com/plastic-labs/honcho-python-core/issues) with questions, bugs, or suggestions.
 
 ### Determining the installed version
 
