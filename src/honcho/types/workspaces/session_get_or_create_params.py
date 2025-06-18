@@ -5,20 +5,20 @@ from __future__ import annotations
 from typing import Dict, Optional
 from typing_extensions import Required, TypedDict
 
-__all__ = ["SessionGetOrCreateParams", "PeerNames"]
+__all__ = ["SessionGetOrCreateParams", "Peers"]
 
 
 class SessionGetOrCreateParams(TypedDict, total=False):
     id: Required[str]
 
-    feature_flags: Dict[str, object]
+    feature_flags: Optional[Dict[str, object]]
 
-    metadata: Dict[str, object]
+    metadata: Optional[Dict[str, object]]
 
-    peer_names: Optional[Dict[str, PeerNames]]
+    peers: Optional[Dict[str, Peers]]
 
 
-class PeerNames(TypedDict, total=False):
+class Peers(TypedDict, total=False):
     observe_me: bool
     """
     Whether other peers in this session should try to form a session-level

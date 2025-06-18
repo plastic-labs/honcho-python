@@ -34,7 +34,7 @@ client = Honcho(
 )
 
 workspace = client.workspaces.get_or_create(
-    id="x",
+    id="id",
 )
 print(workspace.id)
 ```
@@ -62,7 +62,7 @@ client = AsyncHoncho(
 
 async def main() -> None:
     workspace = await client.workspaces.get_or_create(
-        id="x",
+        id="id",
     )
     print(workspace.id)
 
@@ -169,7 +169,7 @@ client = Honcho()
 
 try:
     client.workspaces.get_or_create(
-        id="x",
+        id="id",
     )
 except honcho.APIConnectionError as e:
     print("The server could not be reached")
@@ -214,7 +214,7 @@ client = Honcho(
 
 # Or, configure per-request:
 client.with_options(max_retries=5).workspaces.get_or_create(
-    id="x",
+    id="id",
 )
 ```
 
@@ -239,7 +239,7 @@ client = Honcho(
 
 # Override per-request:
 client.with_options(timeout=5.0).workspaces.get_or_create(
-    id="x",
+    id="id",
 )
 ```
 
@@ -282,7 +282,7 @@ from honcho import Honcho
 
 client = Honcho()
 response = client.workspaces.with_raw_response.get_or_create(
-    id="x",
+    id="id",
 )
 print(response.headers.get('X-My-Header'))
 
@@ -302,7 +302,7 @@ To stream the response body, use `.with_streaming_response` instead, which requi
 
 ```python
 with client.workspaces.with_streaming_response.get_or_create(
-    id="x",
+    id="id",
 ) as response:
     print(response.headers.get("X-My-Header"))
 

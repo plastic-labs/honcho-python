@@ -82,9 +82,8 @@ class SessionsResource(SyncAPIResource):
         session_id: str,
         *,
         workspace_id: str,
-        metadata: Dict[str, object],
-        peer_id: Optional[str] | NotGiven = NOT_GIVEN,
         feature_flags: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
+        metadata: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -99,8 +98,6 @@ class SessionsResource(SyncAPIResource):
           workspace_id: ID of the workspace
 
           session_id: ID of the session to update
-
-          peer_id: Peer ID to verify access
 
           extra_headers: Send extra headers
 
@@ -118,17 +115,13 @@ class SessionsResource(SyncAPIResource):
             f"/v1/workspaces/{workspace_id}/sessions/{session_id}",
             body=maybe_transform(
                 {
-                    "metadata": metadata,
                     "feature_flags": feature_flags,
+                    "metadata": metadata,
                 },
                 session_update_params.SessionUpdateParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform({"peer_id": peer_id}, session_update_params.SessionUpdateParams),
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=Session,
         )
@@ -300,8 +293,13 @@ class SessionsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> SessionGetContextResponse:
-        """
-        Get Session Context
+        """Produce a context object from the session.
+
+        The caller provides a token limit
+        which the entire context must fit into. To do this, we allocate 40% of the token
+        limit to the summary, and 60% to recent messages -- as many as can fit. If the
+        caller does not want a summary, we allocate all the tokens to recent messages.
+        The default token limit if not provided is 2048. (TODO: make this configurable)
 
         Args:
           workspace_id: ID of the workspace
@@ -347,9 +345,9 @@ class SessionsResource(SyncAPIResource):
         workspace_id: str,
         *,
         id: str,
-        feature_flags: Dict[str, object] | NotGiven = NOT_GIVEN,
-        metadata: Dict[str, object] | NotGiven = NOT_GIVEN,
-        peer_names: Optional[Dict[str, session_get_or_create_params.PeerNames]] | NotGiven = NOT_GIVEN,
+        feature_flags: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
+        metadata: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
+        peers: Optional[Dict[str, session_get_or_create_params.Peers]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -360,8 +358,9 @@ class SessionsResource(SyncAPIResource):
         """
         Get a specific session in a workspace.
 
-        If peer_id is provided as a query parameter, it verifies the peer is in the
-        session. Otherwise, it uses the peer_id from the JWT token for verification.
+        If session_id is provided as a query parameter, it verifies the session is in
+        the workspace. Otherwise, it uses the session_id from the JWT token for
+        verification.
 
         Args:
           workspace_id: ID of the workspace
@@ -383,7 +382,7 @@ class SessionsResource(SyncAPIResource):
                     "id": id,
                     "feature_flags": feature_flags,
                     "metadata": metadata,
-                    "peer_names": peer_names,
+                    "peers": peers,
                 },
                 session_get_or_create_params.SessionGetOrCreateParams,
             ),
@@ -489,9 +488,8 @@ class AsyncSessionsResource(AsyncAPIResource):
         session_id: str,
         *,
         workspace_id: str,
-        metadata: Dict[str, object],
-        peer_id: Optional[str] | NotGiven = NOT_GIVEN,
         feature_flags: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
+        metadata: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -506,8 +504,6 @@ class AsyncSessionsResource(AsyncAPIResource):
           workspace_id: ID of the workspace
 
           session_id: ID of the session to update
-
-          peer_id: Peer ID to verify access
 
           extra_headers: Send extra headers
 
@@ -525,17 +521,13 @@ class AsyncSessionsResource(AsyncAPIResource):
             f"/v1/workspaces/{workspace_id}/sessions/{session_id}",
             body=await async_maybe_transform(
                 {
-                    "metadata": metadata,
                     "feature_flags": feature_flags,
+                    "metadata": metadata,
                 },
                 session_update_params.SessionUpdateParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=await async_maybe_transform({"peer_id": peer_id}, session_update_params.SessionUpdateParams),
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=Session,
         )
@@ -707,8 +699,13 @@ class AsyncSessionsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> SessionGetContextResponse:
-        """
-        Get Session Context
+        """Produce a context object from the session.
+
+        The caller provides a token limit
+        which the entire context must fit into. To do this, we allocate 40% of the token
+        limit to the summary, and 60% to recent messages -- as many as can fit. If the
+        caller does not want a summary, we allocate all the tokens to recent messages.
+        The default token limit if not provided is 2048. (TODO: make this configurable)
 
         Args:
           workspace_id: ID of the workspace
@@ -754,9 +751,9 @@ class AsyncSessionsResource(AsyncAPIResource):
         workspace_id: str,
         *,
         id: str,
-        feature_flags: Dict[str, object] | NotGiven = NOT_GIVEN,
-        metadata: Dict[str, object] | NotGiven = NOT_GIVEN,
-        peer_names: Optional[Dict[str, session_get_or_create_params.PeerNames]] | NotGiven = NOT_GIVEN,
+        feature_flags: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
+        metadata: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
+        peers: Optional[Dict[str, session_get_or_create_params.Peers]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -767,8 +764,9 @@ class AsyncSessionsResource(AsyncAPIResource):
         """
         Get a specific session in a workspace.
 
-        If peer_id is provided as a query parameter, it verifies the peer is in the
-        session. Otherwise, it uses the peer_id from the JWT token for verification.
+        If session_id is provided as a query parameter, it verifies the session is in
+        the workspace. Otherwise, it uses the session_id from the JWT token for
+        verification.
 
         Args:
           workspace_id: ID of the workspace
@@ -790,7 +788,7 @@ class AsyncSessionsResource(AsyncAPIResource):
                     "id": id,
                     "feature_flags": feature_flags,
                     "metadata": metadata,
-                    "peer_names": peer_names,
+                    "peers": peers,
                 },
                 session_get_or_create_params.SessionGetOrCreateParams,
             ),

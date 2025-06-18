@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Dict
+from typing import Dict, Optional
 from typing_extensions import Required, TypedDict
 
 __all__ = ["PeerGetOrCreateParams"]
@@ -11,6 +11,6 @@ __all__ = ["PeerGetOrCreateParams"]
 class PeerGetOrCreateParams(TypedDict, total=False):
     id: Required[str]
 
-    feature_flags: Dict[str, object]
+    feature_flags: Optional[Dict[str, object]]
 
-    metadata: Dict[str, object]
+    metadata: Optional[Dict[str, object]]

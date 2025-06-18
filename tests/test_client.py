@@ -722,7 +722,7 @@ class TestHoncho:
         respx_mock.post("/v1/workspaces").mock(side_effect=httpx.TimeoutException("Test timeout error"))
 
         with pytest.raises(APITimeoutError):
-            client.workspaces.with_streaming_response.get_or_create(id="x").__enter__()
+            client.workspaces.with_streaming_response.get_or_create(id="id").__enter__()
 
         assert _get_open_connections(self.client) == 0
 
@@ -732,7 +732,7 @@ class TestHoncho:
         respx_mock.post("/v1/workspaces").mock(return_value=httpx.Response(500))
 
         with pytest.raises(APIStatusError):
-            client.workspaces.with_streaming_response.get_or_create(id="x").__enter__()
+            client.workspaces.with_streaming_response.get_or_create(id="id").__enter__()
         assert _get_open_connections(self.client) == 0
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
@@ -761,7 +761,7 @@ class TestHoncho:
 
         respx_mock.post("/v1/workspaces").mock(side_effect=retry_handler)
 
-        response = client.workspaces.with_raw_response.get_or_create(id="x")
+        response = client.workspaces.with_raw_response.get_or_create(id="id")
 
         assert response.retries_taken == failures_before_success
         assert int(response.http_request.headers.get("x-stainless-retry-count")) == failures_before_success
@@ -786,7 +786,7 @@ class TestHoncho:
         respx_mock.post("/v1/workspaces").mock(side_effect=retry_handler)
 
         response = client.workspaces.with_raw_response.get_or_create(
-            id="x", extra_headers={"x-stainless-retry-count": Omit()}
+            id="id", extra_headers={"x-stainless-retry-count": Omit()}
         )
 
         assert len(response.http_request.headers.get_list("x-stainless-retry-count")) == 0
@@ -811,7 +811,7 @@ class TestHoncho:
         respx_mock.post("/v1/workspaces").mock(side_effect=retry_handler)
 
         response = client.workspaces.with_raw_response.get_or_create(
-            id="x", extra_headers={"x-stainless-retry-count": "42"}
+            id="id", extra_headers={"x-stainless-retry-count": "42"}
         )
 
         assert response.http_request.headers.get("x-stainless-retry-count") == "42"
@@ -1548,7 +1548,7 @@ class TestAsyncHoncho:
         respx_mock.post("/v1/workspaces").mock(side_effect=httpx.TimeoutException("Test timeout error"))
 
         with pytest.raises(APITimeoutError):
-            await async_client.workspaces.with_streaming_response.get_or_create(id="x").__aenter__()
+            await async_client.workspaces.with_streaming_response.get_or_create(id="id").__aenter__()
 
         assert _get_open_connections(self.client) == 0
 
@@ -1558,7 +1558,7 @@ class TestAsyncHoncho:
         respx_mock.post("/v1/workspaces").mock(return_value=httpx.Response(500))
 
         with pytest.raises(APIStatusError):
-            await async_client.workspaces.with_streaming_response.get_or_create(id="x").__aenter__()
+            await async_client.workspaces.with_streaming_response.get_or_create(id="id").__aenter__()
         assert _get_open_connections(self.client) == 0
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
@@ -1588,7 +1588,7 @@ class TestAsyncHoncho:
 
         respx_mock.post("/v1/workspaces").mock(side_effect=retry_handler)
 
-        response = await client.workspaces.with_raw_response.get_or_create(id="x")
+        response = await client.workspaces.with_raw_response.get_or_create(id="id")
 
         assert response.retries_taken == failures_before_success
         assert int(response.http_request.headers.get("x-stainless-retry-count")) == failures_before_success
@@ -1614,7 +1614,7 @@ class TestAsyncHoncho:
         respx_mock.post("/v1/workspaces").mock(side_effect=retry_handler)
 
         response = await client.workspaces.with_raw_response.get_or_create(
-            id="x", extra_headers={"x-stainless-retry-count": Omit()}
+            id="id", extra_headers={"x-stainless-retry-count": Omit()}
         )
 
         assert len(response.http_request.headers.get_list("x-stainless-retry-count")) == 0
@@ -1640,7 +1640,7 @@ class TestAsyncHoncho:
         respx_mock.post("/v1/workspaces").mock(side_effect=retry_handler)
 
         response = await client.workspaces.with_raw_response.get_or_create(
-            id="x", extra_headers={"x-stainless-retry-count": "42"}
+            id="id", extra_headers={"x-stainless-retry-count": "42"}
         )
 
         assert response.http_request.headers.get("x-stainless-retry-count") == "42"
