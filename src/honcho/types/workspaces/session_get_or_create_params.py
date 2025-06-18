@@ -11,7 +11,7 @@ __all__ = ["SessionGetOrCreateParams", "Peers"]
 class SessionGetOrCreateParams(TypedDict, total=False):
     id: Required[str]
 
-    feature_flags: Optional[Dict[str, object]]
+    configuration: Optional[Dict[str, object]]
 
     metadata: Optional[Dict[str, object]]
 

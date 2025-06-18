@@ -12,6 +12,6 @@ class PeerUpdateParams(TypedDict, total=False):
     workspace_id: Required[str]
     """ID of the workspace"""
 
-    feature_flags: Optional[Dict[str, object]]
+    configuration: Optional[Dict[str, object]]
 
     metadata: Optional[Dict[str, object]]

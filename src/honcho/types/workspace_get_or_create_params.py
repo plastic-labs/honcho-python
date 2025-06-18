@@ -11,6 +11,6 @@ __all__ = ["WorkspaceGetOrCreateParams"]
 class WorkspaceGetOrCreateParams(TypedDict, total=False):
     id: Required[str]
 
-    feature_flags: Dict[str, object]
+    configuration: Dict[str, object]
 
     metadata: Dict[str, object]

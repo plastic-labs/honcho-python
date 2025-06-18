@@ -78,7 +78,7 @@ class WorkspacesResource(SyncAPIResource):
         self,
         workspace_id: str,
         *,
-        feature_flags: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
+        configuration: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
         metadata: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -107,7 +107,7 @@ class WorkspacesResource(SyncAPIResource):
             f"/v1/workspaces/{workspace_id}",
             body=maybe_transform(
                 {
-                    "feature_flags": feature_flags,
+                    "configuration": configuration,
                     "metadata": metadata,
                 },
                 workspace_update_params.WorkspaceUpdateParams,
@@ -122,7 +122,6 @@ class WorkspacesResource(SyncAPIResource):
         self,
         *,
         page: int | NotGiven = NOT_GIVEN,
-        reverse: Optional[bool] | NotGiven = NOT_GIVEN,
         size: int | NotGiven = NOT_GIVEN,
         filter: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -137,8 +136,6 @@ class WorkspacesResource(SyncAPIResource):
 
         Args:
           page: Page number
-
-          reverse: Whether to reverse the order of results
 
           size: Page size
 
@@ -162,7 +159,6 @@ class WorkspacesResource(SyncAPIResource):
                 query=maybe_transform(
                     {
                         "page": page,
-                        "reverse": reverse,
                         "size": size,
                     },
                     workspace_list_params.WorkspaceListParams,
@@ -176,7 +172,7 @@ class WorkspacesResource(SyncAPIResource):
         self,
         *,
         id: str,
-        feature_flags: Dict[str, object] | NotGiven = NOT_GIVEN,
+        configuration: Dict[str, object] | NotGiven = NOT_GIVEN,
         metadata: Dict[str, object] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -205,7 +201,7 @@ class WorkspacesResource(SyncAPIResource):
             body=maybe_transform(
                 {
                     "id": id,
-                    "feature_flags": feature_flags,
+                    "configuration": configuration,
                     "metadata": metadata,
                 },
                 workspace_get_or_create_params.WorkspaceGetOrCreateParams,
@@ -306,7 +302,7 @@ class AsyncWorkspacesResource(AsyncAPIResource):
         self,
         workspace_id: str,
         *,
-        feature_flags: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
+        configuration: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
         metadata: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -335,7 +331,7 @@ class AsyncWorkspacesResource(AsyncAPIResource):
             f"/v1/workspaces/{workspace_id}",
             body=await async_maybe_transform(
                 {
-                    "feature_flags": feature_flags,
+                    "configuration": configuration,
                     "metadata": metadata,
                 },
                 workspace_update_params.WorkspaceUpdateParams,
@@ -350,7 +346,6 @@ class AsyncWorkspacesResource(AsyncAPIResource):
         self,
         *,
         page: int | NotGiven = NOT_GIVEN,
-        reverse: Optional[bool] | NotGiven = NOT_GIVEN,
         size: int | NotGiven = NOT_GIVEN,
         filter: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -365,8 +360,6 @@ class AsyncWorkspacesResource(AsyncAPIResource):
 
         Args:
           page: Page number
-
-          reverse: Whether to reverse the order of results
 
           size: Page size
 
@@ -390,7 +383,6 @@ class AsyncWorkspacesResource(AsyncAPIResource):
                 query=maybe_transform(
                     {
                         "page": page,
-                        "reverse": reverse,
                         "size": size,
                     },
                     workspace_list_params.WorkspaceListParams,
@@ -404,7 +396,7 @@ class AsyncWorkspacesResource(AsyncAPIResource):
         self,
         *,
         id: str,
-        feature_flags: Dict[str, object] | NotGiven = NOT_GIVEN,
+        configuration: Dict[str, object] | NotGiven = NOT_GIVEN,
         metadata: Dict[str, object] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -433,7 +425,7 @@ class AsyncWorkspacesResource(AsyncAPIResource):
             body=await async_maybe_transform(
                 {
                     "id": id,
-                    "feature_flags": feature_flags,
+                    "configuration": configuration,
                     "metadata": metadata,
                 },
                 workspace_get_or_create_params.WorkspaceGetOrCreateParams,

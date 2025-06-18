@@ -83,7 +83,7 @@ class PeersResource(SyncAPIResource):
         peer_id: str,
         *,
         workspace_id: str,
-        feature_flags: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
+        configuration: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
         metadata: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -116,7 +116,7 @@ class PeersResource(SyncAPIResource):
             f"/v1/workspaces/{workspace_id}/peers/{peer_id}",
             body=maybe_transform(
                 {
-                    "feature_flags": feature_flags,
+                    "configuration": configuration,
                     "metadata": metadata,
                 },
                 peer_update_params.PeerUpdateParams,
@@ -132,7 +132,6 @@ class PeersResource(SyncAPIResource):
         workspace_id: str,
         *,
         page: int | NotGiven = NOT_GIVEN,
-        reverse: bool | NotGiven = NOT_GIVEN,
         size: int | NotGiven = NOT_GIVEN,
         filter: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -149,8 +148,6 @@ class PeersResource(SyncAPIResource):
           workspace_id: ID of the workspace
 
           page: Page number
-
-          reverse: Whether to reverse the order of results
 
           size: Page size
 
@@ -176,7 +173,6 @@ class PeersResource(SyncAPIResource):
                 query=maybe_transform(
                     {
                         "page": page,
-                        "reverse": reverse,
                         "size": size,
                     },
                     peer_list_params.PeerListParams,
@@ -248,7 +244,7 @@ class PeersResource(SyncAPIResource):
         workspace_id: str,
         *,
         id: str,
-        feature_flags: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
+        configuration: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
         metadata: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -281,7 +277,7 @@ class PeersResource(SyncAPIResource):
             body=maybe_transform(
                 {
                     "id": id,
-                    "feature_flags": feature_flags,
+                    "configuration": configuration,
                     "metadata": metadata,
                 },
                 peer_get_or_create_params.PeerGetOrCreateParams,
@@ -445,7 +441,7 @@ class AsyncPeersResource(AsyncAPIResource):
         peer_id: str,
         *,
         workspace_id: str,
-        feature_flags: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
+        configuration: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
         metadata: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -478,7 +474,7 @@ class AsyncPeersResource(AsyncAPIResource):
             f"/v1/workspaces/{workspace_id}/peers/{peer_id}",
             body=await async_maybe_transform(
                 {
-                    "feature_flags": feature_flags,
+                    "configuration": configuration,
                     "metadata": metadata,
                 },
                 peer_update_params.PeerUpdateParams,
@@ -494,7 +490,6 @@ class AsyncPeersResource(AsyncAPIResource):
         workspace_id: str,
         *,
         page: int | NotGiven = NOT_GIVEN,
-        reverse: bool | NotGiven = NOT_GIVEN,
         size: int | NotGiven = NOT_GIVEN,
         filter: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -511,8 +506,6 @@ class AsyncPeersResource(AsyncAPIResource):
           workspace_id: ID of the workspace
 
           page: Page number
-
-          reverse: Whether to reverse the order of results
 
           size: Page size
 
@@ -538,7 +531,6 @@ class AsyncPeersResource(AsyncAPIResource):
                 query=maybe_transform(
                     {
                         "page": page,
-                        "reverse": reverse,
                         "size": size,
                     },
                     peer_list_params.PeerListParams,
@@ -610,7 +602,7 @@ class AsyncPeersResource(AsyncAPIResource):
         workspace_id: str,
         *,
         id: str,
-        feature_flags: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
+        configuration: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
         metadata: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -643,7 +635,7 @@ class AsyncPeersResource(AsyncAPIResource):
             body=await async_maybe_transform(
                 {
                     "id": id,
-                    "feature_flags": feature_flags,
+                    "configuration": configuration,
                     "metadata": metadata,
                 },
                 peer_get_or_create_params.PeerGetOrCreateParams,

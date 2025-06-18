@@ -9,6 +9,6 @@ __all__ = ["WorkspaceUpdateParams"]
 
 
 class WorkspaceUpdateParams(TypedDict, total=False):
-    feature_flags: Optional[Dict[str, object]]
+    configuration: Optional[Dict[str, object]]
 
     metadata: Optional[Dict[str, object]]

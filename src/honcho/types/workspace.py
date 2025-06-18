@@ -13,6 +13,6 @@ class Workspace(BaseModel):
 
     created_at: datetime
 
-    feature_flags: Optional[Dict[str, object]] = None
+    configuration: Optional[Dict[str, object]] = None
 
     metadata: Optional[Dict[str, object]] = None

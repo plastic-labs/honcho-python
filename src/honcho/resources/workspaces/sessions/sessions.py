@@ -82,7 +82,7 @@ class SessionsResource(SyncAPIResource):
         session_id: str,
         *,
         workspace_id: str,
-        feature_flags: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
+        configuration: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
         metadata: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -115,7 +115,7 @@ class SessionsResource(SyncAPIResource):
             f"/v1/workspaces/{workspace_id}/sessions/{session_id}",
             body=maybe_transform(
                 {
-                    "feature_flags": feature_flags,
+                    "configuration": configuration,
                     "metadata": metadata,
                 },
                 session_update_params.SessionUpdateParams,
@@ -131,7 +131,6 @@ class SessionsResource(SyncAPIResource):
         workspace_id: str,
         *,
         page: int | NotGiven = NOT_GIVEN,
-        reverse: Optional[bool] | NotGiven = NOT_GIVEN,
         size: int | NotGiven = NOT_GIVEN,
         filter: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
         is_active: bool | NotGiven = NOT_GIVEN,
@@ -149,8 +148,6 @@ class SessionsResource(SyncAPIResource):
           workspace_id: ID of the workspace
 
           page: Page number
-
-          reverse: Whether to reverse the order of results
 
           size: Page size
 
@@ -182,7 +179,6 @@ class SessionsResource(SyncAPIResource):
                 query=maybe_transform(
                     {
                         "page": page,
-                        "reverse": reverse,
                         "size": size,
                     },
                     session_list_params.SessionListParams,
@@ -345,7 +341,7 @@ class SessionsResource(SyncAPIResource):
         workspace_id: str,
         *,
         id: str,
-        feature_flags: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
+        configuration: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
         metadata: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
         peers: Optional[Dict[str, session_get_or_create_params.Peers]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -380,7 +376,7 @@ class SessionsResource(SyncAPIResource):
             body=maybe_transform(
                 {
                     "id": id,
-                    "feature_flags": feature_flags,
+                    "configuration": configuration,
                     "metadata": metadata,
                     "peers": peers,
                 },
@@ -488,7 +484,7 @@ class AsyncSessionsResource(AsyncAPIResource):
         session_id: str,
         *,
         workspace_id: str,
-        feature_flags: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
+        configuration: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
         metadata: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -521,7 +517,7 @@ class AsyncSessionsResource(AsyncAPIResource):
             f"/v1/workspaces/{workspace_id}/sessions/{session_id}",
             body=await async_maybe_transform(
                 {
-                    "feature_flags": feature_flags,
+                    "configuration": configuration,
                     "metadata": metadata,
                 },
                 session_update_params.SessionUpdateParams,
@@ -537,7 +533,6 @@ class AsyncSessionsResource(AsyncAPIResource):
         workspace_id: str,
         *,
         page: int | NotGiven = NOT_GIVEN,
-        reverse: Optional[bool] | NotGiven = NOT_GIVEN,
         size: int | NotGiven = NOT_GIVEN,
         filter: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
         is_active: bool | NotGiven = NOT_GIVEN,
@@ -555,8 +550,6 @@ class AsyncSessionsResource(AsyncAPIResource):
           workspace_id: ID of the workspace
 
           page: Page number
-
-          reverse: Whether to reverse the order of results
 
           size: Page size
 
@@ -588,7 +581,6 @@ class AsyncSessionsResource(AsyncAPIResource):
                 query=maybe_transform(
                     {
                         "page": page,
-                        "reverse": reverse,
                         "size": size,
                     },
                     session_list_params.SessionListParams,
@@ -751,7 +743,7 @@ class AsyncSessionsResource(AsyncAPIResource):
         workspace_id: str,
         *,
         id: str,
-        feature_flags: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
+        configuration: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
         metadata: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
         peers: Optional[Dict[str, session_get_or_create_params.Peers]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -786,7 +778,7 @@ class AsyncSessionsResource(AsyncAPIResource):
             body=await async_maybe_transform(
                 {
                     "id": id,
-                    "feature_flags": feature_flags,
+                    "configuration": configuration,
                     "metadata": metadata,
                     "peers": peers,
                 },
