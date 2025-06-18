@@ -25,11 +25,10 @@ class TestKeys:
     @parametrize
     def test_method_create_with_all_params(self, client: Honcho) -> None:
         key = client.keys.create(
-            app_id="app_id",
-            collection_id="collection_id",
             expires_at=parse_datetime("2019-12-27T18:11:19.117Z"),
+            peer_id="peer_id",
             session_id="session_id",
-            user_id="user_id",
+            workspace_id="workspace_id",
         )
         assert_matches_type(object, key, path=["response"])
 
@@ -65,11 +64,10 @@ class TestAsyncKeys:
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncHoncho) -> None:
         key = await async_client.keys.create(
-            app_id="app_id",
-            collection_id="collection_id",
             expires_at=parse_datetime("2019-12-27T18:11:19.117Z"),
+            peer_id="peer_id",
             session_id="session_id",
-            user_id="user_id",
+            workspace_id="workspace_id",
         )
         assert_matches_type(object, key, path=["response"])
 
