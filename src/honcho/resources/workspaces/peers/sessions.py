@@ -50,7 +50,6 @@ class SessionsResource(SyncAPIResource):
         *,
         workspace_id: str,
         page: int | NotGiven = NOT_GIVEN,
-        reverse: bool | NotGiven = NOT_GIVEN,
         size: int | NotGiven = NOT_GIVEN,
         filter: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
         is_active: bool | NotGiven = NOT_GIVEN,
@@ -70,8 +69,6 @@ class SessionsResource(SyncAPIResource):
           peer_id: ID of the peer
 
           page: Page number
-
-          reverse: Whether to reverse the order of results
 
           size: Page size
 
@@ -105,7 +102,6 @@ class SessionsResource(SyncAPIResource):
                 query=maybe_transform(
                     {
                         "page": page,
-                        "reverse": reverse,
                         "size": size,
                     },
                     session_list_params.SessionListParams,
@@ -142,7 +138,6 @@ class AsyncSessionsResource(AsyncAPIResource):
         *,
         workspace_id: str,
         page: int | NotGiven = NOT_GIVEN,
-        reverse: bool | NotGiven = NOT_GIVEN,
         size: int | NotGiven = NOT_GIVEN,
         filter: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
         is_active: bool | NotGiven = NOT_GIVEN,
@@ -162,8 +157,6 @@ class AsyncSessionsResource(AsyncAPIResource):
           peer_id: ID of the peer
 
           page: Page number
-
-          reverse: Whether to reverse the order of results
 
           size: Page size
 
@@ -197,7 +190,6 @@ class AsyncSessionsResource(AsyncAPIResource):
                 query=maybe_transform(
                     {
                         "page": page,
-                        "reverse": reverse,
                         "size": size,
                     },
                     session_list_params.SessionListParams,

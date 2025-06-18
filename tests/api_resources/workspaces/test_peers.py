@@ -36,7 +36,7 @@ class TestPeers:
         peer = client.workspaces.peers.update(
             peer_id="peer_id",
             workspace_id="workspace_id",
-            feature_flags={"foo": "bar"},
+            configuration={"foo": "bar"},
             metadata={"foo": "bar"},
         )
         assert_matches_type(Peer, peer, path=["response"])
@@ -93,7 +93,6 @@ class TestPeers:
         peer = client.workspaces.peers.list(
             workspace_id="workspace_id",
             page=1,
-            reverse=True,
             size=1,
             filter={"foo": "bar"},
         )
@@ -208,7 +207,7 @@ class TestPeers:
         peer = client.workspaces.peers.get_or_create(
             workspace_id="workspace_id",
             id="id",
-            feature_flags={"foo": "bar"},
+            configuration={"foo": "bar"},
             metadata={"foo": "bar"},
         )
         assert_matches_type(Peer, peer, path=["response"])
@@ -391,7 +390,7 @@ class TestAsyncPeers:
         peer = await async_client.workspaces.peers.update(
             peer_id="peer_id",
             workspace_id="workspace_id",
-            feature_flags={"foo": "bar"},
+            configuration={"foo": "bar"},
             metadata={"foo": "bar"},
         )
         assert_matches_type(Peer, peer, path=["response"])
@@ -448,7 +447,6 @@ class TestAsyncPeers:
         peer = await async_client.workspaces.peers.list(
             workspace_id="workspace_id",
             page=1,
-            reverse=True,
             size=1,
             filter={"foo": "bar"},
         )
@@ -563,7 +561,7 @@ class TestAsyncPeers:
         peer = await async_client.workspaces.peers.get_or_create(
             workspace_id="workspace_id",
             id="id",
-            feature_flags={"foo": "bar"},
+            configuration={"foo": "bar"},
             metadata={"foo": "bar"},
         )
         assert_matches_type(Peer, peer, path=["response"])

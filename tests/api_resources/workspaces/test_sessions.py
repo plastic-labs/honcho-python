@@ -35,7 +35,7 @@ class TestSessions:
         session = client.workspaces.sessions.update(
             session_id="session_id",
             workspace_id="workspace_id",
-            feature_flags={"foo": "bar"},
+            configuration={"foo": "bar"},
             metadata={"foo": "bar"},
         )
         assert_matches_type(Session, session, path=["response"])
@@ -92,7 +92,6 @@ class TestSessions:
         session = client.workspaces.sessions.list(
             workspace_id="workspace_id",
             page=1,
-            reverse=True,
             size=1,
             filter={"foo": "bar"},
             is_active=True,
@@ -306,7 +305,7 @@ class TestSessions:
         session = client.workspaces.sessions.get_or_create(
             workspace_id="workspace_id",
             id="id",
-            feature_flags={"foo": "bar"},
+            configuration={"foo": "bar"},
             metadata={"foo": "bar"},
             peers={
                 "foo": {
@@ -432,7 +431,7 @@ class TestAsyncSessions:
         session = await async_client.workspaces.sessions.update(
             session_id="session_id",
             workspace_id="workspace_id",
-            feature_flags={"foo": "bar"},
+            configuration={"foo": "bar"},
             metadata={"foo": "bar"},
         )
         assert_matches_type(Session, session, path=["response"])
@@ -489,7 +488,6 @@ class TestAsyncSessions:
         session = await async_client.workspaces.sessions.list(
             workspace_id="workspace_id",
             page=1,
-            reverse=True,
             size=1,
             filter={"foo": "bar"},
             is_active=True,
@@ -703,7 +701,7 @@ class TestAsyncSessions:
         session = await async_client.workspaces.sessions.get_or_create(
             workspace_id="workspace_id",
             id="id",
-            feature_flags={"foo": "bar"},
+            configuration={"foo": "bar"},
             metadata={"foo": "bar"},
             peers={
                 "foo": {

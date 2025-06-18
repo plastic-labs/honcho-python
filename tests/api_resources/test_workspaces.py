@@ -32,7 +32,7 @@ class TestWorkspaces:
     def test_method_update_with_all_params(self, client: Honcho) -> None:
         workspace = client.workspaces.update(
             workspace_id="workspace_id",
-            feature_flags={"foo": "bar"},
+            configuration={"foo": "bar"},
             metadata={"foo": "bar"},
         )
         assert_matches_type(Workspace, workspace, path=["response"])
@@ -77,7 +77,6 @@ class TestWorkspaces:
     def test_method_list_with_all_params(self, client: Honcho) -> None:
         workspace = client.workspaces.list(
             page=1,
-            reverse=True,
             size=1,
             filter={"foo": "bar"},
         )
@@ -114,7 +113,7 @@ class TestWorkspaces:
     def test_method_get_or_create_with_all_params(self, client: Honcho) -> None:
         workspace = client.workspaces.get_or_create(
             id="id",
-            feature_flags={"foo": "bar"},
+            configuration={"foo": "bar"},
             metadata={"foo": "bar"},
         )
         assert_matches_type(Workspace, workspace, path=["response"])
@@ -210,7 +209,7 @@ class TestAsyncWorkspaces:
     async def test_method_update_with_all_params(self, async_client: AsyncHoncho) -> None:
         workspace = await async_client.workspaces.update(
             workspace_id="workspace_id",
-            feature_flags={"foo": "bar"},
+            configuration={"foo": "bar"},
             metadata={"foo": "bar"},
         )
         assert_matches_type(Workspace, workspace, path=["response"])
@@ -255,7 +254,6 @@ class TestAsyncWorkspaces:
     async def test_method_list_with_all_params(self, async_client: AsyncHoncho) -> None:
         workspace = await async_client.workspaces.list(
             page=1,
-            reverse=True,
             size=1,
             filter={"foo": "bar"},
         )
@@ -292,7 +290,7 @@ class TestAsyncWorkspaces:
     async def test_method_get_or_create_with_all_params(self, async_client: AsyncHoncho) -> None:
         workspace = await async_client.workspaces.get_or_create(
             id="id",
-            feature_flags={"foo": "bar"},
+            configuration={"foo": "bar"},
             metadata={"foo": "bar"},
         )
         assert_matches_type(Workspace, workspace, path=["response"])

@@ -11,6 +11,6 @@ __all__ = ["PeerGetOrCreateParams"]
 class PeerGetOrCreateParams(TypedDict, total=False):
     id: Required[str]
 
-    feature_flags: Optional[Dict[str, object]]
+    configuration: Optional[Dict[str, object]]
 
     metadata: Optional[Dict[str, object]]

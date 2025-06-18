@@ -15,9 +15,6 @@ class SessionListParams(TypedDict, total=False):
     page: int
     """Page number"""
 
-    reverse: bool
-    """Whether to reverse the order of results"""
-
     size: int
     """Page size"""
 
