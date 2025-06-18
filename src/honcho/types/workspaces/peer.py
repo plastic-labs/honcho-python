@@ -13,7 +13,7 @@ class Peer(BaseModel):
 
     created_at: datetime
 
-    workspace_name: str
+    workspace_id: str
 
     feature_flags: Optional[Dict[str, object]] = None
 

@@ -27,7 +27,6 @@ class TestSessions:
         session = client.workspaces.sessions.update(
             session_id="session_id",
             workspace_id="workspace_id",
-            metadata={"foo": "bar"},
         )
         assert_matches_type(Session, session, path=["response"])
 
@@ -36,9 +35,8 @@ class TestSessions:
         session = client.workspaces.sessions.update(
             session_id="session_id",
             workspace_id="workspace_id",
-            metadata={"foo": "bar"},
-            peer_id="peer_id",
             feature_flags={"foo": "bar"},
+            metadata={"foo": "bar"},
         )
         assert_matches_type(Session, session, path=["response"])
 
@@ -47,7 +45,6 @@ class TestSessions:
         response = client.workspaces.sessions.with_raw_response.update(
             session_id="session_id",
             workspace_id="workspace_id",
-            metadata={"foo": "bar"},
         )
 
         assert response.is_closed is True
@@ -60,7 +57,6 @@ class TestSessions:
         with client.workspaces.sessions.with_streaming_response.update(
             session_id="session_id",
             workspace_id="workspace_id",
-            metadata={"foo": "bar"},
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -76,14 +72,12 @@ class TestSessions:
             client.workspaces.sessions.with_raw_response.update(
                 session_id="session_id",
                 workspace_id="",
-                metadata={"foo": "bar"},
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `session_id` but received ''"):
             client.workspaces.sessions.with_raw_response.update(
                 session_id="",
                 workspace_id="workspace_id",
-                metadata={"foo": "bar"},
             )
 
     @parametrize
@@ -303,7 +297,7 @@ class TestSessions:
     def test_method_get_or_create(self, client: Honcho) -> None:
         session = client.workspaces.sessions.get_or_create(
             workspace_id="workspace_id",
-            id="x",
+            id="id",
         )
         assert_matches_type(Session, session, path=["response"])
 
@@ -311,10 +305,10 @@ class TestSessions:
     def test_method_get_or_create_with_all_params(self, client: Honcho) -> None:
         session = client.workspaces.sessions.get_or_create(
             workspace_id="workspace_id",
-            id="x",
+            id="id",
             feature_flags={"foo": "bar"},
             metadata={"foo": "bar"},
-            peer_names={
+            peers={
                 "foo": {
                     "observe_me": True,
                     "observe_others": True,
@@ -327,7 +321,7 @@ class TestSessions:
     def test_raw_response_get_or_create(self, client: Honcho) -> None:
         response = client.workspaces.sessions.with_raw_response.get_or_create(
             workspace_id="workspace_id",
-            id="x",
+            id="id",
         )
 
         assert response.is_closed is True
@@ -339,7 +333,7 @@ class TestSessions:
     def test_streaming_response_get_or_create(self, client: Honcho) -> None:
         with client.workspaces.sessions.with_streaming_response.get_or_create(
             workspace_id="workspace_id",
-            id="x",
+            id="id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -354,7 +348,7 @@ class TestSessions:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `workspace_id` but received ''"):
             client.workspaces.sessions.with_raw_response.get_or_create(
                 workspace_id="",
-                id="x",
+                id="id",
             )
 
     @parametrize
@@ -430,7 +424,6 @@ class TestAsyncSessions:
         session = await async_client.workspaces.sessions.update(
             session_id="session_id",
             workspace_id="workspace_id",
-            metadata={"foo": "bar"},
         )
         assert_matches_type(Session, session, path=["response"])
 
@@ -439,9 +432,8 @@ class TestAsyncSessions:
         session = await async_client.workspaces.sessions.update(
             session_id="session_id",
             workspace_id="workspace_id",
-            metadata={"foo": "bar"},
-            peer_id="peer_id",
             feature_flags={"foo": "bar"},
+            metadata={"foo": "bar"},
         )
         assert_matches_type(Session, session, path=["response"])
 
@@ -450,7 +442,6 @@ class TestAsyncSessions:
         response = await async_client.workspaces.sessions.with_raw_response.update(
             session_id="session_id",
             workspace_id="workspace_id",
-            metadata={"foo": "bar"},
         )
 
         assert response.is_closed is True
@@ -463,7 +454,6 @@ class TestAsyncSessions:
         async with async_client.workspaces.sessions.with_streaming_response.update(
             session_id="session_id",
             workspace_id="workspace_id",
-            metadata={"foo": "bar"},
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -479,14 +469,12 @@ class TestAsyncSessions:
             await async_client.workspaces.sessions.with_raw_response.update(
                 session_id="session_id",
                 workspace_id="",
-                metadata={"foo": "bar"},
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `session_id` but received ''"):
             await async_client.workspaces.sessions.with_raw_response.update(
                 session_id="",
                 workspace_id="workspace_id",
-                metadata={"foo": "bar"},
             )
 
     @parametrize
@@ -706,7 +694,7 @@ class TestAsyncSessions:
     async def test_method_get_or_create(self, async_client: AsyncHoncho) -> None:
         session = await async_client.workspaces.sessions.get_or_create(
             workspace_id="workspace_id",
-            id="x",
+            id="id",
         )
         assert_matches_type(Session, session, path=["response"])
 
@@ -714,10 +702,10 @@ class TestAsyncSessions:
     async def test_method_get_or_create_with_all_params(self, async_client: AsyncHoncho) -> None:
         session = await async_client.workspaces.sessions.get_or_create(
             workspace_id="workspace_id",
-            id="x",
+            id="id",
             feature_flags={"foo": "bar"},
             metadata={"foo": "bar"},
-            peer_names={
+            peers={
                 "foo": {
                     "observe_me": True,
                     "observe_others": True,
@@ -730,7 +718,7 @@ class TestAsyncSessions:
     async def test_raw_response_get_or_create(self, async_client: AsyncHoncho) -> None:
         response = await async_client.workspaces.sessions.with_raw_response.get_or_create(
             workspace_id="workspace_id",
-            id="x",
+            id="id",
         )
 
         assert response.is_closed is True
@@ -742,7 +730,7 @@ class TestAsyncSessions:
     async def test_streaming_response_get_or_create(self, async_client: AsyncHoncho) -> None:
         async with async_client.workspaces.sessions.with_streaming_response.get_or_create(
             workspace_id="workspace_id",
-            id="x",
+            id="id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -757,7 +745,7 @@ class TestAsyncSessions:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `workspace_id` but received ''"):
             await async_client.workspaces.sessions.with_raw_response.get_or_create(
                 workspace_id="",
-                id="x",
+                id="id",
             )
 
     @parametrize

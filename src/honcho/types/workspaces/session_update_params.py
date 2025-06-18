@@ -12,9 +12,6 @@ class SessionUpdateParams(TypedDict, total=False):
     workspace_id: Required[str]
     """ID of the workspace"""
 
-    metadata: Required[Dict[str, object]]
-
-    peer_id: Optional[str]
-    """Peer ID to verify access"""
-
     feature_flags: Optional[Dict[str, object]]
+
+    metadata: Optional[Dict[str, object]]

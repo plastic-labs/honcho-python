@@ -165,6 +165,15 @@ class TestMessages:
             message_id="message_id",
             workspace_id="workspace_id",
             session_id="session_id",
+        )
+        assert_matches_type(Message, message, path=["response"])
+
+    @parametrize
+    def test_method_update_with_all_params(self, client: Honcho) -> None:
+        message = client.workspaces.sessions.messages.update(
+            message_id="message_id",
+            workspace_id="workspace_id",
+            session_id="session_id",
             metadata={"foo": "bar"},
         )
         assert_matches_type(Message, message, path=["response"])
@@ -175,7 +184,6 @@ class TestMessages:
             message_id="message_id",
             workspace_id="workspace_id",
             session_id="session_id",
-            metadata={"foo": "bar"},
         )
 
         assert response.is_closed is True
@@ -189,7 +197,6 @@ class TestMessages:
             message_id="message_id",
             workspace_id="workspace_id",
             session_id="session_id",
-            metadata={"foo": "bar"},
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -206,7 +213,6 @@ class TestMessages:
                 message_id="message_id",
                 workspace_id="",
                 session_id="session_id",
-                metadata={"foo": "bar"},
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `session_id` but received ''"):
@@ -214,7 +220,6 @@ class TestMessages:
                 message_id="message_id",
                 workspace_id="workspace_id",
                 session_id="",
-                metadata={"foo": "bar"},
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `message_id` but received ''"):
@@ -222,7 +227,6 @@ class TestMessages:
                 message_id="",
                 workspace_id="workspace_id",
                 session_id="session_id",
-                metadata={"foo": "bar"},
             )
 
     @parametrize
@@ -433,6 +437,15 @@ class TestAsyncMessages:
             message_id="message_id",
             workspace_id="workspace_id",
             session_id="session_id",
+        )
+        assert_matches_type(Message, message, path=["response"])
+
+    @parametrize
+    async def test_method_update_with_all_params(self, async_client: AsyncHoncho) -> None:
+        message = await async_client.workspaces.sessions.messages.update(
+            message_id="message_id",
+            workspace_id="workspace_id",
+            session_id="session_id",
             metadata={"foo": "bar"},
         )
         assert_matches_type(Message, message, path=["response"])
@@ -443,7 +456,6 @@ class TestAsyncMessages:
             message_id="message_id",
             workspace_id="workspace_id",
             session_id="session_id",
-            metadata={"foo": "bar"},
         )
 
         assert response.is_closed is True
@@ -457,7 +469,6 @@ class TestAsyncMessages:
             message_id="message_id",
             workspace_id="workspace_id",
             session_id="session_id",
-            metadata={"foo": "bar"},
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -474,7 +485,6 @@ class TestAsyncMessages:
                 message_id="message_id",
                 workspace_id="",
                 session_id="session_id",
-                metadata={"foo": "bar"},
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `session_id` but received ''"):
@@ -482,7 +492,6 @@ class TestAsyncMessages:
                 message_id="message_id",
                 workspace_id="workspace_id",
                 session_id="",
-                metadata={"foo": "bar"},
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `message_id` but received ''"):
@@ -490,7 +499,6 @@ class TestAsyncMessages:
                 message_id="",
                 workspace_id="workspace_id",
                 session_id="session_id",
-                metadata={"foo": "bar"},
             )
 
     @parametrize

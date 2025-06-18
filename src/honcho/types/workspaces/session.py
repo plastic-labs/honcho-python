@@ -15,7 +15,7 @@ class Session(BaseModel):
 
     is_active: bool
 
-    workspace_name: str
+    workspace_id: str
 
     feature_flags: Optional[Dict[str, object]] = None
 

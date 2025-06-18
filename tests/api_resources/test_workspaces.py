@@ -106,14 +106,14 @@ class TestWorkspaces:
     @parametrize
     def test_method_get_or_create(self, client: Honcho) -> None:
         workspace = client.workspaces.get_or_create(
-            id="x",
+            id="id",
         )
         assert_matches_type(Workspace, workspace, path=["response"])
 
     @parametrize
     def test_method_get_or_create_with_all_params(self, client: Honcho) -> None:
         workspace = client.workspaces.get_or_create(
-            id="x",
+            id="id",
             feature_flags={"foo": "bar"},
             metadata={"foo": "bar"},
         )
@@ -122,7 +122,7 @@ class TestWorkspaces:
     @parametrize
     def test_raw_response_get_or_create(self, client: Honcho) -> None:
         response = client.workspaces.with_raw_response.get_or_create(
-            id="x",
+            id="id",
         )
 
         assert response.is_closed is True
@@ -133,7 +133,7 @@ class TestWorkspaces:
     @parametrize
     def test_streaming_response_get_or_create(self, client: Honcho) -> None:
         with client.workspaces.with_streaming_response.get_or_create(
-            id="x",
+            id="id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -284,14 +284,14 @@ class TestAsyncWorkspaces:
     @parametrize
     async def test_method_get_or_create(self, async_client: AsyncHoncho) -> None:
         workspace = await async_client.workspaces.get_or_create(
-            id="x",
+            id="id",
         )
         assert_matches_type(Workspace, workspace, path=["response"])
 
     @parametrize
     async def test_method_get_or_create_with_all_params(self, async_client: AsyncHoncho) -> None:
         workspace = await async_client.workspaces.get_or_create(
-            id="x",
+            id="id",
             feature_flags={"foo": "bar"},
             metadata={"foo": "bar"},
         )
@@ -300,7 +300,7 @@ class TestAsyncWorkspaces:
     @parametrize
     async def test_raw_response_get_or_create(self, async_client: AsyncHoncho) -> None:
         response = await async_client.workspaces.with_raw_response.get_or_create(
-            id="x",
+            id="id",
         )
 
         assert response.is_closed is True
@@ -311,7 +311,7 @@ class TestAsyncWorkspaces:
     @parametrize
     async def test_streaming_response_get_or_create(self, async_client: AsyncHoncho) -> None:
         async with async_client.workspaces.with_streaming_response.get_or_create(
-            id="x",
+            id="id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"

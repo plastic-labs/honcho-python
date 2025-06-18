@@ -15,12 +15,12 @@ class Message(BaseModel):
 
     created_at: datetime
 
-    peer_name: str
+    peer_id: str
 
-    session_name: Optional[str] = None
+    session_id: Optional[str] = None
 
     token_count: int
 
-    workspace_name: str
+    workspace_id: str
 
     metadata: Optional[Dict[str, object]] = None

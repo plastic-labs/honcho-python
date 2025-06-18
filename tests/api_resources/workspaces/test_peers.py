@@ -199,7 +199,7 @@ class TestPeers:
     def test_method_get_or_create(self, client: Honcho) -> None:
         peer = client.workspaces.peers.get_or_create(
             workspace_id="workspace_id",
-            id="x",
+            id="id",
         )
         assert_matches_type(Peer, peer, path=["response"])
 
@@ -207,7 +207,7 @@ class TestPeers:
     def test_method_get_or_create_with_all_params(self, client: Honcho) -> None:
         peer = client.workspaces.peers.get_or_create(
             workspace_id="workspace_id",
-            id="x",
+            id="id",
             feature_flags={"foo": "bar"},
             metadata={"foo": "bar"},
         )
@@ -217,7 +217,7 @@ class TestPeers:
     def test_raw_response_get_or_create(self, client: Honcho) -> None:
         response = client.workspaces.peers.with_raw_response.get_or_create(
             workspace_id="workspace_id",
-            id="x",
+            id="id",
         )
 
         assert response.is_closed is True
@@ -229,7 +229,7 @@ class TestPeers:
     def test_streaming_response_get_or_create(self, client: Honcho) -> None:
         with client.workspaces.peers.with_streaming_response.get_or_create(
             workspace_id="workspace_id",
-            id="x",
+            id="id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -244,7 +244,7 @@ class TestPeers:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `workspace_id` but received ''"):
             client.workspaces.peers.with_raw_response.get_or_create(
                 workspace_id="",
-                id="x",
+                id="id",
             )
 
     @parametrize
@@ -554,7 +554,7 @@ class TestAsyncPeers:
     async def test_method_get_or_create(self, async_client: AsyncHoncho) -> None:
         peer = await async_client.workspaces.peers.get_or_create(
             workspace_id="workspace_id",
-            id="x",
+            id="id",
         )
         assert_matches_type(Peer, peer, path=["response"])
 
@@ -562,7 +562,7 @@ class TestAsyncPeers:
     async def test_method_get_or_create_with_all_params(self, async_client: AsyncHoncho) -> None:
         peer = await async_client.workspaces.peers.get_or_create(
             workspace_id="workspace_id",
-            id="x",
+            id="id",
             feature_flags={"foo": "bar"},
             metadata={"foo": "bar"},
         )
@@ -572,7 +572,7 @@ class TestAsyncPeers:
     async def test_raw_response_get_or_create(self, async_client: AsyncHoncho) -> None:
         response = await async_client.workspaces.peers.with_raw_response.get_or_create(
             workspace_id="workspace_id",
-            id="x",
+            id="id",
         )
 
         assert response.is_closed is True
@@ -584,7 +584,7 @@ class TestAsyncPeers:
     async def test_streaming_response_get_or_create(self, async_client: AsyncHoncho) -> None:
         async with async_client.workspaces.peers.with_streaming_response.get_or_create(
             workspace_id="workspace_id",
-            id="x",
+            id="id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -599,7 +599,7 @@ class TestAsyncPeers:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `workspace_id` but received ''"):
             await async_client.workspaces.peers.with_raw_response.get_or_create(
                 workspace_id="",
-                id="x",
+                id="id",
             )
 
     @parametrize
