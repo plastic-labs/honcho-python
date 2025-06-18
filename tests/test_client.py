@@ -23,9 +23,7 @@ from pydantic import ValidationError
 
 from honcho import Honcho, AsyncHoncho, APIResponseValidationError
 from honcho._types import Omit
-from honcho._utils import maybe_transform
 from honcho._models import BaseModel, FinalRequestOptions
-from honcho._constants import RAW_RESPONSE_HEADER
 from honcho._exceptions import APIStatusError, APITimeoutError, APIResponseValidationError
 from honcho._base_client import (
     DEFAULT_TIMEOUT,
@@ -35,7 +33,6 @@ from honcho._base_client import (
     DefaultAsyncHttpxClient,
     make_request_options,
 )
-from honcho.types.app_create_params import AppCreateParams
 
 from .utils import update_env
 
@@ -721,32 +718,21 @@ class TestHoncho:
 
     @mock.patch("honcho._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
-    def test_retrying_timeout_errors_doesnt_leak(self, respx_mock: MockRouter) -> None:
+    def test_retrying_timeout_errors_doesnt_leak(self, respx_mock: MockRouter, client: Honcho) -> None:
         respx_mock.post("/v1/apps").mock(side_effect=httpx.TimeoutException("Test timeout error"))
 
         with pytest.raises(APITimeoutError):
-            self.client.post(
-                "/v1/apps",
-                body=cast(object, maybe_transform(dict(name="x"), AppCreateParams)),
-                cast_to=httpx.Response,
-                options={"headers": {RAW_RESPONSE_HEADER: "stream"}},
-            )
+            client.apps.with_streaming_response.create(name="x").__enter__()
 
         assert _get_open_connections(self.client) == 0
 
     @mock.patch("honcho._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
-    def test_retrying_status_errors_doesnt_leak(self, respx_mock: MockRouter) -> None:
+    def test_retrying_status_errors_doesnt_leak(self, respx_mock: MockRouter, client: Honcho) -> None:
         respx_mock.post("/v1/apps").mock(return_value=httpx.Response(500))
 
         with pytest.raises(APIStatusError):
-            self.client.post(
-                "/v1/apps",
-                body=cast(object, maybe_transform(dict(name="x"), AppCreateParams)),
-                cast_to=httpx.Response,
-                options={"headers": {RAW_RESPONSE_HEADER: "stream"}},
-            )
-
+            client.apps.with_streaming_response.create(name="x").__enter__()
         assert _get_open_connections(self.client) == 0
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
@@ -1554,32 +1540,21 @@ class TestAsyncHoncho:
 
     @mock.patch("honcho._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
-    async def test_retrying_timeout_errors_doesnt_leak(self, respx_mock: MockRouter) -> None:
+    async def test_retrying_timeout_errors_doesnt_leak(self, respx_mock: MockRouter, async_client: AsyncHoncho) -> None:
         respx_mock.post("/v1/apps").mock(side_effect=httpx.TimeoutException("Test timeout error"))
 
         with pytest.raises(APITimeoutError):
-            await self.client.post(
-                "/v1/apps",
-                body=cast(object, maybe_transform(dict(name="x"), AppCreateParams)),
-                cast_to=httpx.Response,
-                options={"headers": {RAW_RESPONSE_HEADER: "stream"}},
-            )
+            await async_client.apps.with_streaming_response.create(name="x").__aenter__()
 
         assert _get_open_connections(self.client) == 0
 
     @mock.patch("honcho._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
-    async def test_retrying_status_errors_doesnt_leak(self, respx_mock: MockRouter) -> None:
+    async def test_retrying_status_errors_doesnt_leak(self, respx_mock: MockRouter, async_client: AsyncHoncho) -> None:
         respx_mock.post("/v1/apps").mock(return_value=httpx.Response(500))
 
         with pytest.raises(APIStatusError):
-            await self.client.post(
-                "/v1/apps",
-                body=cast(object, maybe_transform(dict(name="x"), AppCreateParams)),
-                cast_to=httpx.Response,
-                options={"headers": {RAW_RESPONSE_HEADER: "stream"}},
-            )
-
+            await async_client.apps.with_streaming_response.create(name="x").__aenter__()
         assert _get_open_connections(self.client) == 0
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
