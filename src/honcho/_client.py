@@ -29,7 +29,7 @@ from ._base_client import (
     SyncAPIClient,
     AsyncAPIClient,
 )
-from .resources.apps import apps
+from .resources.workspaces import workspaces
 
 __all__ = [
     "ENVIRONMENTS",
@@ -51,7 +51,7 @@ ENVIRONMENTS: Dict[str, str] = {
 
 
 class Honcho(SyncAPIClient):
-    apps: apps.AppsResource
+    workspaces: workspaces.WorkspacesResource
     keys: keys.KeysResource
     with_raw_response: HonchoWithRawResponse
     with_streaming_response: HonchoWithStreamedResponse
@@ -130,7 +130,7 @@ class Honcho(SyncAPIClient):
             _strict_response_validation=_strict_response_validation,
         )
 
-        self.apps = apps.AppsResource(self)
+        self.workspaces = workspaces.WorkspacesResource(self)
         self.keys = keys.KeysResource(self)
         self.with_raw_response = HonchoWithRawResponse(self)
         self.with_streaming_response = HonchoWithStreamedResponse(self)
@@ -245,7 +245,7 @@ class Honcho(SyncAPIClient):
 
 
 class AsyncHoncho(AsyncAPIClient):
-    apps: apps.AsyncAppsResource
+    workspaces: workspaces.AsyncWorkspacesResource
     keys: keys.AsyncKeysResource
     with_raw_response: AsyncHonchoWithRawResponse
     with_streaming_response: AsyncHonchoWithStreamedResponse
@@ -324,7 +324,7 @@ class AsyncHoncho(AsyncAPIClient):
             _strict_response_validation=_strict_response_validation,
         )
 
-        self.apps = apps.AsyncAppsResource(self)
+        self.workspaces = workspaces.AsyncWorkspacesResource(self)
         self.keys = keys.AsyncKeysResource(self)
         self.with_raw_response = AsyncHonchoWithRawResponse(self)
         self.with_streaming_response = AsyncHonchoWithStreamedResponse(self)
@@ -440,25 +440,25 @@ class AsyncHoncho(AsyncAPIClient):
 
 class HonchoWithRawResponse:
     def __init__(self, client: Honcho) -> None:
-        self.apps = apps.AppsResourceWithRawResponse(client.apps)
+        self.workspaces = workspaces.WorkspacesResourceWithRawResponse(client.workspaces)
         self.keys = keys.KeysResourceWithRawResponse(client.keys)
 
 
 class AsyncHonchoWithRawResponse:
     def __init__(self, client: AsyncHoncho) -> None:
-        self.apps = apps.AsyncAppsResourceWithRawResponse(client.apps)
+        self.workspaces = workspaces.AsyncWorkspacesResourceWithRawResponse(client.workspaces)
         self.keys = keys.AsyncKeysResourceWithRawResponse(client.keys)
 
 
 class HonchoWithStreamedResponse:
     def __init__(self, client: Honcho) -> None:
-        self.apps = apps.AppsResourceWithStreamingResponse(client.apps)
+        self.workspaces = workspaces.WorkspacesResourceWithStreamingResponse(client.workspaces)
         self.keys = keys.KeysResourceWithStreamingResponse(client.keys)
 
 
 class AsyncHonchoWithStreamedResponse:
     def __init__(self, client: AsyncHoncho) -> None:
-        self.apps = apps.AsyncAppsResourceWithStreamingResponse(client.apps)
+        self.workspaces = workspaces.AsyncWorkspacesResourceWithStreamingResponse(client.workspaces)
         self.keys = keys.AsyncKeysResourceWithStreamingResponse(client.keys)
 
 

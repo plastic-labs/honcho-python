@@ -1,13 +1,5 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from .apps import (
-    AppsResource,
-    AsyncAppsResource,
-    AppsResourceWithRawResponse,
-    AsyncAppsResourceWithRawResponse,
-    AppsResourceWithStreamingResponse,
-    AsyncAppsResourceWithStreamingResponse,
-)
 from .keys import (
     KeysResource,
     AsyncKeysResource,
@@ -16,14 +8,22 @@ from .keys import (
     KeysResourceWithStreamingResponse,
     AsyncKeysResourceWithStreamingResponse,
 )
+from .workspaces import (
+    WorkspacesResource,
+    AsyncWorkspacesResource,
+    WorkspacesResourceWithRawResponse,
+    AsyncWorkspacesResourceWithRawResponse,
+    WorkspacesResourceWithStreamingResponse,
+    AsyncWorkspacesResourceWithStreamingResponse,
+)
 
 __all__ = [
-    "AppsResource",
-    "AsyncAppsResource",
-    "AppsResourceWithRawResponse",
-    "AsyncAppsResourceWithRawResponse",
-    "AppsResourceWithStreamingResponse",
-    "AsyncAppsResourceWithStreamingResponse",
+    "WorkspacesResource",
+    "AsyncWorkspacesResource",
+    "WorkspacesResourceWithRawResponse",
+    "AsyncWorkspacesResourceWithRawResponse",
+    "WorkspacesResourceWithStreamingResponse",
+    "AsyncWorkspacesResourceWithStreamingResponse",
     "KeysResource",
     "AsyncKeysResource",
     "KeysResourceWithRawResponse",

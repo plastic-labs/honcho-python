@@ -30,7 +30,7 @@ class KeysResource(SyncAPIResource):
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
-        For more information, see https://www.github.com/plastic-labs/honcho-python#accessing-raw-response-data-eg-headers
+        For more information, see https://www.github.com/plastic-labs/honcho-python-core#accessing-raw-response-data-eg-headers
         """
         return KeysResourceWithRawResponse(self)
 
@@ -39,18 +39,17 @@ class KeysResource(SyncAPIResource):
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
-        For more information, see https://www.github.com/plastic-labs/honcho-python#with_streaming_response
+        For more information, see https://www.github.com/plastic-labs/honcho-python-core#with_streaming_response
         """
         return KeysResourceWithStreamingResponse(self)
 
     def create(
         self,
         *,
-        app_id: Optional[str] | NotGiven = NOT_GIVEN,
-        collection_id: Optional[str] | NotGiven = NOT_GIVEN,
         expires_at: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
+        peer_id: Optional[str] | NotGiven = NOT_GIVEN,
         session_id: Optional[str] | NotGiven = NOT_GIVEN,
-        user_id: Optional[str] | NotGiven = NOT_GIVEN,
+        workspace_id: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -62,13 +61,11 @@ class KeysResource(SyncAPIResource):
         Create a new Key
 
         Args:
-          app_id: ID of the app to scope the key to
-
-          collection_id: ID of the collection to scope the key to
+          peer_id: ID of the peer to scope the key to
 
           session_id: ID of the session to scope the key to
 
-          user_id: ID of the user to scope the key to
+          workspace_id: ID of the workspace to scope the key to
 
           extra_headers: Send extra headers
 
@@ -87,11 +84,10 @@ class KeysResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "app_id": app_id,
-                        "collection_id": collection_id,
                         "expires_at": expires_at,
+                        "peer_id": peer_id,
                         "session_id": session_id,
-                        "user_id": user_id,
+                        "workspace_id": workspace_id,
                     },
                     key_create_params.KeyCreateParams,
                 ),
@@ -107,7 +103,7 @@ class AsyncKeysResource(AsyncAPIResource):
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
-        For more information, see https://www.github.com/plastic-labs/honcho-python#accessing-raw-response-data-eg-headers
+        For more information, see https://www.github.com/plastic-labs/honcho-python-core#accessing-raw-response-data-eg-headers
         """
         return AsyncKeysResourceWithRawResponse(self)
 
@@ -116,18 +112,17 @@ class AsyncKeysResource(AsyncAPIResource):
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
-        For more information, see https://www.github.com/plastic-labs/honcho-python#with_streaming_response
+        For more information, see https://www.github.com/plastic-labs/honcho-python-core#with_streaming_response
         """
         return AsyncKeysResourceWithStreamingResponse(self)
 
     async def create(
         self,
         *,
-        app_id: Optional[str] | NotGiven = NOT_GIVEN,
-        collection_id: Optional[str] | NotGiven = NOT_GIVEN,
         expires_at: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
+        peer_id: Optional[str] | NotGiven = NOT_GIVEN,
         session_id: Optional[str] | NotGiven = NOT_GIVEN,
-        user_id: Optional[str] | NotGiven = NOT_GIVEN,
+        workspace_id: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -139,13 +134,11 @@ class AsyncKeysResource(AsyncAPIResource):
         Create a new Key
 
         Args:
-          app_id: ID of the app to scope the key to
-
-          collection_id: ID of the collection to scope the key to
+          peer_id: ID of the peer to scope the key to
 
           session_id: ID of the session to scope the key to
 
-          user_id: ID of the user to scope the key to
+          workspace_id: ID of the workspace to scope the key to
 
           extra_headers: Send extra headers
 
@@ -164,11 +157,10 @@ class AsyncKeysResource(AsyncAPIResource):
                 timeout=timeout,
                 query=await async_maybe_transform(
                     {
-                        "app_id": app_id,
-                        "collection_id": collection_id,
                         "expires_at": expires_at,
+                        "peer_id": peer_id,
                         "session_id": session_id,
-                        "user_id": user_id,
+                        "workspace_id": workspace_id,
                     },
                     key_create_params.KeyCreateParams,
                 ),

@@ -2,10 +2,9 @@
 
 from __future__ import annotations
 
-from .app import App as App
-from .page_app import PageApp as PageApp
-from .app_get_params import AppGetParams as AppGetParams
-from .app_list_params import AppListParams as AppListParams
-from .app_create_params import AppCreateParams as AppCreateParams
-from .app_update_params import AppUpdateParams as AppUpdateParams
+from .workspace import Workspace as Workspace
 from .key_create_params import KeyCreateParams as KeyCreateParams
+from .workspace_list_params import WorkspaceListParams as WorkspaceListParams
+from .workspace_search_params import WorkspaceSearchParams as WorkspaceSearchParams
+from .workspace_update_params import WorkspaceUpdateParams as WorkspaceUpdateParams
+from .workspace_get_or_create_params import WorkspaceGetOrCreateParams as WorkspaceGetOrCreateParams

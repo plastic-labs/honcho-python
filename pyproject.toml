@@ -1,6 +1,6 @@
 [project]
-name = "honcho-ai"
-version = "0.2.0"
+name = "honcho-core"
+version = "1.0.0"
 description = "The official Python library for the honcho API"
 dynamic = ["readme"]
 license = "Apache-2.0"
@@ -34,8 +34,8 @@ classifiers = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/plastic-labs/honcho-python"
-Repository = "https://github.com/plastic-labs/honcho-python"
+Homepage = "https://github.com/plastic-labs/honcho-python-core"
+Repository = "https://github.com/plastic-labs/honcho-python-core"
 
 
 [tool.rye]
@@ -54,6 +54,7 @@ dev-dependencies = [
     "importlib-metadata>=6.7.0",
     "rich>=13.7.1",
     "nest_asyncio==1.6.0",
+    "pytest-xdist>=3.6.1",
 ]
 
 [tool.rye.scripts]
@@ -121,11 +122,11 @@ path = "README.md"
 [[tool.hatch.metadata.hooks.fancy-pypi-readme.substitutions]]
 # replace relative links with absolute links
 pattern = '\[(.+?)\]\(((?!https?://)\S+?)\)'
-replacement = '[\1](https://github.com/plastic-labs/honcho-python/tree/main/\g<2>)'
+replacement = '[\1](https://github.com/plastic-labs/honcho-python-core/tree/main/\g<2>)'
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
-addopts = "--tb=short"
+addopts = "--tb=short -n auto"
 xfail_strict = true
 asyncio_mode = "auto"
 asyncio_default_fixture_loop_scope = "session"

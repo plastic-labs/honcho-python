@@ -12,16 +12,13 @@ __all__ = ["KeyCreateParams"]
 
 
 class KeyCreateParams(TypedDict, total=False):
-    app_id: Optional[str]
-    """ID of the app to scope the key to"""
-
-    collection_id: Optional[str]
-    """ID of the collection to scope the key to"""
-
     expires_at: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
+
+    peer_id: Optional[str]
+    """ID of the peer to scope the key to"""
 
     session_id: Optional[str]
     """ID of the session to scope the key to"""
 
-    user_id: Optional[str]
-    """ID of the user to scope the key to"""
+    workspace_id: Optional[str]
+    """ID of the workspace to scope the key to"""

@@ -1,6 +1,6 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import List, Generic, TypeVar, Optional, cast
+from typing import List, Generic, TypeVar, Optional
 from typing_extensions import override
 
 from ._base_client import BasePage, PageInfo, BaseSyncPage, BaseAsyncPage
@@ -30,9 +30,8 @@ class SyncPage(BaseSyncPage[_T], BasePage[_T], Generic[_T]):
         if current_page is None:
             current_page = 1
 
-        last_page = cast("int | None", self._options.params.get("page"))
-        if last_page is not None and current_page <= last_page:
-            # The API didn't return a new page in the last request
+        total_pages = self.pages
+        if total_pages is not None and current_page >= total_pages:
             return None
 
         return PageInfo(params={"page": current_page + 1})
@@ -58,9 +57,8 @@ class AsyncPage(BaseAsyncPage[_T], BasePage[_T], Generic[_T]):
         if current_page is None:
             current_page = 1
 
-        last_page = cast("int | None", self._options.params.get("page"))
-        if last_page is not None and current_page <= last_page:
-            # The API didn't return a new page in the last request
+        total_pages = self.pages
+        if total_pages is not None and current_page >= total_pages:
             return None
 
         return PageInfo(params={"page": current_page + 1})
