@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.0.1 (2025-06-19)
+
+Full Changelog: [v1.0.0...v1.0.1](https://github.com/plastic-labs/honcho-python-core/compare/v1.0.0...v1.0.1)
+
+### Features
+
+* **api:** change package name ([cd57239](https://github.com/plastic-labs/honcho-python-core/commit/cd57239edac29005febf65ffac274fb27024307b))
+
 ## 1.0.0 (2025-06-19)
 
 Full Changelog: [v0.2.0...v1.0.0](https://github.com/plastic-labs/honcho-python-core/compare/v0.2.0...v1.0.0)
