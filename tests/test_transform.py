@@ -8,15 +8,15 @@ from typing_extensions import Required, Annotated, TypedDict
 
 import pytest
 
-from honcho._types import NOT_GIVEN, Base64FileInput
-from honcho._utils import (
+from honcho_core._types import NOT_GIVEN, Base64FileInput
+from honcho_core._utils import (
     PropertyInfo,
     transform as _transform,
     parse_datetime,
     async_transform as _async_transform,
 )
-from honcho._compat import PYDANTIC_V2
-from honcho._models import BaseModel
+from honcho_core._compat import PYDANTIC_V2
+from honcho_core._models import BaseModel
 
 _T = TypeVar("_T")
 

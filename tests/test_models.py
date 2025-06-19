@@ -7,9 +7,9 @@ import pytest
 import pydantic
 from pydantic import Field
 
-from honcho._utils import PropertyInfo
-from honcho._compat import PYDANTIC_V2, parse_obj, model_dump, model_json
-from honcho._models import BaseModel, construct_type
+from honcho_core._utils import PropertyInfo
+from honcho_core._compat import PYDANTIC_V2, parse_obj, model_dump, model_json
+from honcho_core._models import BaseModel, construct_type
 
 
 class BasicModel(BaseModel):

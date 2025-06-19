@@ -4,8 +4,8 @@ from typing import Sequence
 
 import pytest
 
-from honcho._types import FileTypes
-from honcho._utils import extract_files
+from honcho_core._types import FileTypes
+from honcho_core._utils import extract_files
 
 
 def test_removes_files_from_input() -> None:

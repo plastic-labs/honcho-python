@@ -4,7 +4,7 @@ from urllib.parse import unquote
 
 import pytest
 
-from honcho._qs import Querystring, stringify
+from honcho_core._qs import Querystring, stringify
 
 
 def test_empty() -> None:
