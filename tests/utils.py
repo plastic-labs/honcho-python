@@ -8,8 +8,8 @@ from typing import Any, TypeVar, Iterator, cast
 from datetime import date, datetime
 from typing_extensions import Literal, get_args, get_origin, assert_type
 
-from honcho._types import Omit, NoneType
-from honcho._utils import (
+from honcho_core._types import Omit, NoneType
+from honcho_core._utils import (
     is_dict,
     is_list,
     is_list_type,
@@ -18,8 +18,8 @@ from honcho._utils import (
     is_annotated_type,
     is_type_alias_type,
 )
-from honcho._compat import PYDANTIC_V2, field_outer_type, get_model_fields
-from honcho._models import BaseModel
+from honcho_core._compat import PYDANTIC_V2, field_outer_type, get_model_fields
+from honcho_core._models import BaseModel
 
 BaseModelT = TypeVar("BaseModelT", bound=BaseModel)
 

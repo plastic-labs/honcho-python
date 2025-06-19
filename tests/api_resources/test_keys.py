@@ -7,9 +7,9 @@ from typing import Any, cast
 
 import pytest
 
-from honcho import Honcho, AsyncHoncho
+from honcho_core import Honcho, AsyncHoncho
 from tests.utils import assert_matches_type
-from honcho._utils import parse_datetime
+from honcho_core._utils import parse_datetime
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 

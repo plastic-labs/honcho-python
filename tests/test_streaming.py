@@ -5,8 +5,8 @@ from typing import Iterator, AsyncIterator
 import httpx
 import pytest
 
-from honcho import Honcho, AsyncHoncho
-from honcho._streaming import Stream, AsyncStream, ServerSentEvent
+from honcho_core import Honcho, AsyncHoncho
+from honcho_core._streaming import Stream, AsyncStream, ServerSentEvent
 
 
 @pytest.mark.asyncio

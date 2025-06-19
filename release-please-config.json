@@ -61,6 +61,6 @@
   ],
   "release-type": "python",
   "extra-files": [
-    "src/honcho/_version.py"
+    "src/honcho_core/_version.py"
   ]
 }

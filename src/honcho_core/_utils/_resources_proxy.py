@@ -7,17 +7,17 @@ from ._proxy import LazyProxy
 
 
 class ResourcesProxy(LazyProxy[Any]):
-    """A proxy for the `honcho.resources` module.
+    """A proxy for the `honcho_core.resources` module.
 
-    This is used so that we can lazily import `honcho.resources` only when
-    needed *and* so that users can just import `honcho` and reference `honcho.resources`
+    This is used so that we can lazily import `honcho_core.resources` only when
+    needed *and* so that users can just import `honcho_core` and reference `honcho_core.resources`
     """
 
     @override
     def __load__(self) -> Any:
         import importlib
 
-        mod = importlib.import_module("honcho.resources")
+        mod = importlib.import_module("honcho_core.resources")
         return mod
 
 

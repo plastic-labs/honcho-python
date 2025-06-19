@@ -2,7 +2,7 @@ import operator
 from typing import Any
 from typing_extensions import override
 
-from honcho._utils import LazyProxy
+from honcho_core._utils import LazyProxy
 
 
 class RecursiveLazyProxy(LazyProxy[Any]):

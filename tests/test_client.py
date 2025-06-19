@@ -21,11 +21,11 @@ import pytest
 from respx import MockRouter
 from pydantic import ValidationError
 
-from honcho import Honcho, AsyncHoncho, APIResponseValidationError
-from honcho._types import Omit
-from honcho._models import BaseModel, FinalRequestOptions
-from honcho._exceptions import APIStatusError, APITimeoutError, APIResponseValidationError
-from honcho._base_client import (
+from honcho_core import Honcho, AsyncHoncho, APIResponseValidationError
+from honcho_core._types import Omit
+from honcho_core._models import BaseModel, FinalRequestOptions
+from honcho_core._exceptions import APIStatusError, APITimeoutError, APIResponseValidationError
+from honcho_core._base_client import (
     DEFAULT_TIMEOUT,
     HTTPX_DEFAULT_TIMEOUT,
     BaseClient,
@@ -231,10 +231,10 @@ class TestHoncho:
                         # to_raw_response_wrapper leaks through the @functools.wraps() decorator.
                         #
                         # removing the decorator fixes the leak for reasons we don't understand.
-                        "honcho/_legacy_response.py",
-                        "honcho/_response.py",
+                        "honcho_core/_legacy_response.py",
+                        "honcho_core/_response.py",
                         # pydantic.BaseModel.model_dump || pydantic.BaseModel.dict leak memory for some reason.
-                        "honcho/_compat.py",
+                        "honcho_core/_compat.py",
                         # Standard library leaks we don't care about.
                         "/logging/__init__.py",
                     ]
@@ -716,7 +716,7 @@ class TestHoncho:
         calculated = client._calculate_retry_timeout(remaining_retries, options, headers)
         assert calculated == pytest.approx(timeout, 0.5 * 0.875)  # pyright: ignore[reportUnknownMemberType]
 
-    @mock.patch("honcho._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("honcho_core._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     def test_retrying_timeout_errors_doesnt_leak(self, respx_mock: MockRouter, client: Honcho) -> None:
         respx_mock.post("/v1/workspaces").mock(side_effect=httpx.TimeoutException("Test timeout error"))
@@ -726,7 +726,7 @@ class TestHoncho:
 
         assert _get_open_connections(self.client) == 0
 
-    @mock.patch("honcho._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("honcho_core._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     def test_retrying_status_errors_doesnt_leak(self, respx_mock: MockRouter, client: Honcho) -> None:
         respx_mock.post("/v1/workspaces").mock(return_value=httpx.Response(500))
@@ -736,7 +736,7 @@ class TestHoncho:
         assert _get_open_connections(self.client) == 0
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
-    @mock.patch("honcho._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("honcho_core._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     @pytest.mark.parametrize("failure_mode", ["status", "exception"])
     def test_retries_taken(
@@ -767,7 +767,7 @@ class TestHoncho:
         assert int(response.http_request.headers.get("x-stainless-retry-count")) == failures_before_success
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
-    @mock.patch("honcho._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("honcho_core._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     def test_omit_retry_count_header(
         self, client: Honcho, failures_before_success: int, respx_mock: MockRouter
@@ -792,7 +792,7 @@ class TestHoncho:
         assert len(response.http_request.headers.get_list("x-stainless-retry-count")) == 0
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
-    @mock.patch("honcho._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("honcho_core._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     def test_overwrite_retry_count_header(
         self, client: Honcho, failures_before_success: int, respx_mock: MockRouter
@@ -1041,10 +1041,10 @@ class TestAsyncHoncho:
                         # to_raw_response_wrapper leaks through the @functools.wraps() decorator.
                         #
                         # removing the decorator fixes the leak for reasons we don't understand.
-                        "honcho/_legacy_response.py",
-                        "honcho/_response.py",
+                        "honcho_core/_legacy_response.py",
+                        "honcho_core/_response.py",
                         # pydantic.BaseModel.model_dump || pydantic.BaseModel.dict leak memory for some reason.
-                        "honcho/_compat.py",
+                        "honcho_core/_compat.py",
                         # Standard library leaks we don't care about.
                         "/logging/__init__.py",
                     ]
@@ -1542,7 +1542,7 @@ class TestAsyncHoncho:
         calculated = client._calculate_retry_timeout(remaining_retries, options, headers)
         assert calculated == pytest.approx(timeout, 0.5 * 0.875)  # pyright: ignore[reportUnknownMemberType]
 
-    @mock.patch("honcho._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("honcho_core._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     async def test_retrying_timeout_errors_doesnt_leak(self, respx_mock: MockRouter, async_client: AsyncHoncho) -> None:
         respx_mock.post("/v1/workspaces").mock(side_effect=httpx.TimeoutException("Test timeout error"))
@@ -1552,7 +1552,7 @@ class TestAsyncHoncho:
 
         assert _get_open_connections(self.client) == 0
 
-    @mock.patch("honcho._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("honcho_core._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     async def test_retrying_status_errors_doesnt_leak(self, respx_mock: MockRouter, async_client: AsyncHoncho) -> None:
         respx_mock.post("/v1/workspaces").mock(return_value=httpx.Response(500))
@@ -1562,7 +1562,7 @@ class TestAsyncHoncho:
         assert _get_open_connections(self.client) == 0
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
-    @mock.patch("honcho._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("honcho_core._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     @pytest.mark.asyncio
     @pytest.mark.parametrize("failure_mode", ["status", "exception"])
@@ -1594,7 +1594,7 @@ class TestAsyncHoncho:
         assert int(response.http_request.headers.get("x-stainless-retry-count")) == failures_before_success
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
-    @mock.patch("honcho._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("honcho_core._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     @pytest.mark.asyncio
     async def test_omit_retry_count_header(
@@ -1620,7 +1620,7 @@ class TestAsyncHoncho:
         assert len(response.http_request.headers.get_list("x-stainless-retry-count")) == 0
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
-    @mock.patch("honcho._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("honcho_core._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     @pytest.mark.asyncio
     async def test_overwrite_retry_count_header(
@@ -1656,8 +1656,8 @@ class TestAsyncHoncho:
         import nest_asyncio
         import threading
 
-        from honcho._utils import asyncify
-        from honcho._base_client import get_platform
+        from honcho_core._utils import asyncify
+        from honcho_core._base_client import get_platform
 
         async def test_main() -> None:
             result = await asyncify(get_platform)()
