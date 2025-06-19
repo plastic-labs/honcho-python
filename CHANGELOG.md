@@ -1,5 +1,41 @@
 # Changelog
 
+## 1.0.0 (2025-06-19)
+
+Full Changelog: [v0.2.0...v1.0.0](https://github.com/plastic-labs/honcho-python-core/compare/v0.2.0...v1.0.0)
+
+### Features
+
+* **api:** manual updates ([467ea24](https://github.com/plastic-labs/honcho-python-core/commit/467ea247202d8ae78bdf62a02221d64af470d99d))
+* **api:** manual updates ([2759773](https://github.com/plastic-labs/honcho-python-core/commit/27597730108b1ac2e554eb6ab789de15a907efbb))
+* **api:** rewrite to peer paradigm ([5e2b28c](https://github.com/plastic-labs/honcho-python-core/commit/5e2b28c3fecca7c1cfffe2604066785a243e8f5b))
+* **client:** add follow_redirects request option ([a67087d](https://github.com/plastic-labs/honcho-python-core/commit/a67087d57139eca2156c81f20ce8e48ad6191c03))
+
+
+### Bug Fixes
+
+* **client:** correctly parse binary response | stream ([cbe4470](https://github.com/plastic-labs/honcho-python-core/commit/cbe4470d68ffc8109e2fb1630eac8a9c84efa343))
+* **docs/api:** remove references to nonexistent types ([ccfcd32](https://github.com/plastic-labs/honcho-python-core/commit/ccfcd3200531027cb5ebeed448663fd999bd8ce8))
+* **pagination:** correct next page check ([c32d3c8](https://github.com/plastic-labs/honcho-python-core/commit/c32d3c8d06393664d182b6647cf21c9d069cf159))
+* **tests:** fix: tests which call HTTP endpoints directly with the example parameters ([e4ad948](https://github.com/plastic-labs/honcho-python-core/commit/e4ad9482da0b352525b5bc646fb28d4d44735f51))
+
+
+### Chores
+
+* **ci:** enable for pull requests ([8727464](https://github.com/plastic-labs/honcho-python-core/commit/8727464315f8e3c92aa6f782211255667215cfbb))
+* **ci:** fix installation instructions ([1b96727](https://github.com/plastic-labs/honcho-python-core/commit/1b967270a5a01bb7448da46b516d53f57fa13459))
+* **docs:** grammar improvements ([a7df346](https://github.com/plastic-labs/honcho-python-core/commit/a7df3462af1393974722741784f37c36eb77d768))
+* **docs:** remove reference to rye shell ([8bf0600](https://github.com/plastic-labs/honcho-python-core/commit/8bf06005f6145e9e975faf9eb1ae6f7da55cc395))
+* **internal:** update conftest.py ([34853e1](https://github.com/plastic-labs/honcho-python-core/commit/34853e196e711efb8639c614b9f7aa442de5f2dd))
+* **readme:** update badges ([8c783f4](https://github.com/plastic-labs/honcho-python-core/commit/8c783f4488be656b7d0b5f2ba2c1280e1a2fcc2e))
+* **tests:** add tests for httpx client instantiation & proxies ([79cbe9d](https://github.com/plastic-labs/honcho-python-core/commit/79cbe9df0a3da4344f8fbd92af6b44d3405de19c))
+* **tests:** run tests in parallel ([1e601cc](https://github.com/plastic-labs/honcho-python-core/commit/1e601cc23c490f9310e9df904e10314b3f13e556))
+
+
+### Documentation
+
+* **client:** fix httpx.Timeout documentation reference ([def0a0c](https://github.com/plastic-labs/honcho-python-core/commit/def0a0cdc1785e52521af9a64d5157da644114a2))
+
 ## 0.2.0 (2025-05-15)
 
 Full Changelog: [v0.1.0...v0.2.0](https://github.com/plastic-labs/honcho-python/compare/v0.1.0...v0.2.0)
