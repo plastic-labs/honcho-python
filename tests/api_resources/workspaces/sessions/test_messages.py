@@ -7,10 +7,10 @@ from typing import Any, cast
 
 import pytest
 
-from honcho import Honcho, AsyncHoncho
+from honcho_core import Honcho, AsyncHoncho
 from tests.utils import assert_matches_type
-from honcho.pagination import SyncPage, AsyncPage
-from honcho.types.workspaces.sessions import (
+from honcho_core.pagination import SyncPage, AsyncPage
+from honcho_core.types.workspaces.sessions import (
     Message,
     MessageCreateResponse,
 )

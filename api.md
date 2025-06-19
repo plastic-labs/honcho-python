@@ -3,22 +3,22 @@
 Types:
 
 ```python
-from honcho.types import Workspace
+from honcho_core.types import Workspace
 ```
 
 Methods:
 
-- <code title="put /v1/workspaces/{workspace_id}">client.workspaces.<a href="./src/honcho/resources/workspaces/workspaces.py">update</a>(workspace_id, \*\*<a href="src/honcho/types/workspace_update_params.py">params</a>) -> <a href="./src/honcho/types/workspace.py">Workspace</a></code>
-- <code title="post /v1/workspaces/list">client.workspaces.<a href="./src/honcho/resources/workspaces/workspaces.py">list</a>(\*\*<a href="src/honcho/types/workspace_list_params.py">params</a>) -> <a href="./src/honcho/types/workspace.py">SyncPage[Workspace]</a></code>
-- <code title="post /v1/workspaces">client.workspaces.<a href="./src/honcho/resources/workspaces/workspaces.py">get_or_create</a>(\*\*<a href="src/honcho/types/workspace_get_or_create_params.py">params</a>) -> <a href="./src/honcho/types/workspace.py">Workspace</a></code>
-- <code title="post /v1/workspaces/{workspace_id}/search">client.workspaces.<a href="./src/honcho/resources/workspaces/workspaces.py">search</a>(workspace_id, \*\*<a href="src/honcho/types/workspace_search_params.py">params</a>) -> <a href="./src/honcho/types/workspaces/sessions/message.py">SyncPage[Message]</a></code>
+- <code title="put /v1/workspaces/{workspace_id}">client.workspaces.<a href="./src/honcho_core/resources/workspaces/workspaces.py">update</a>(workspace_id, \*\*<a href="src/honcho_core/types/workspace_update_params.py">params</a>) -> <a href="./src/honcho_core/types/workspace.py">Workspace</a></code>
+- <code title="post /v1/workspaces/list">client.workspaces.<a href="./src/honcho_core/resources/workspaces/workspaces.py">list</a>(\*\*<a href="src/honcho_core/types/workspace_list_params.py">params</a>) -> <a href="./src/honcho_core/types/workspace.py">SyncPage[Workspace]</a></code>
+- <code title="post /v1/workspaces">client.workspaces.<a href="./src/honcho_core/resources/workspaces/workspaces.py">get_or_create</a>(\*\*<a href="src/honcho_core/types/workspace_get_or_create_params.py">params</a>) -> <a href="./src/honcho_core/types/workspace.py">Workspace</a></code>
+- <code title="post /v1/workspaces/{workspace_id}/search">client.workspaces.<a href="./src/honcho_core/resources/workspaces/workspaces.py">search</a>(workspace_id, \*\*<a href="src/honcho_core/types/workspace_search_params.py">params</a>) -> <a href="./src/honcho_core/types/workspaces/sessions/message.py">SyncPage[Message]</a></code>
 
 ## Peers
 
 Types:
 
 ```python
-from honcho.types.workspaces import (
+from honcho_core.types.workspaces import (
     PageSession,
     Peer,
     SessionGet,
@@ -29,84 +29,84 @@ from honcho.types.workspaces import (
 
 Methods:
 
-- <code title="put /v1/workspaces/{workspace_id}/peers/{peer_id}">client.workspaces.peers.<a href="./src/honcho/resources/workspaces/peers/peers.py">update</a>(peer_id, \*, workspace_id, \*\*<a href="src/honcho/types/workspaces/peer_update_params.py">params</a>) -> <a href="./src/honcho/types/workspaces/peer.py">Peer</a></code>
-- <code title="post /v1/workspaces/{workspace_id}/peers/list">client.workspaces.peers.<a href="./src/honcho/resources/workspaces/peers/peers.py">list</a>(workspace_id, \*\*<a href="src/honcho/types/workspaces/peer_list_params.py">params</a>) -> <a href="./src/honcho/types/workspaces/peer.py">SyncPage[Peer]</a></code>
-- <code title="post /v1/workspaces/{workspace_id}/peers/{peer_id}/chat">client.workspaces.peers.<a href="./src/honcho/resources/workspaces/peers/peers.py">chat</a>(peer_id, \*, workspace_id, \*\*<a href="src/honcho/types/workspaces/peer_chat_params.py">params</a>) -> <a href="./src/honcho/types/workspaces/peer_chat_response.py">PeerChatResponse</a></code>
-- <code title="post /v1/workspaces/{workspace_id}/peers">client.workspaces.peers.<a href="./src/honcho/resources/workspaces/peers/peers.py">get_or_create</a>(workspace_id, \*\*<a href="src/honcho/types/workspaces/peer_get_or_create_params.py">params</a>) -> <a href="./src/honcho/types/workspaces/peer.py">Peer</a></code>
-- <code title="post /v1/workspaces/{workspace_id}/peers/{peer_id}/search">client.workspaces.peers.<a href="./src/honcho/resources/workspaces/peers/peers.py">search</a>(peer_id, \*, workspace_id, \*\*<a href="src/honcho/types/workspaces/peer_search_params.py">params</a>) -> <a href="./src/honcho/types/workspaces/sessions/message.py">SyncPage[Message]</a></code>
-- <code title="post /v1/workspaces/{workspace_id}/peers/{peer_id}/representation">client.workspaces.peers.<a href="./src/honcho/resources/workspaces/peers/peers.py">working_representation</a>(peer_id, \*, workspace_id, \*\*<a href="src/honcho/types/workspaces/peer_working_representation_params.py">params</a>) -> <a href="./src/honcho/types/workspaces/peer_working_representation_response.py">PeerWorkingRepresentationResponse</a></code>
+- <code title="put /v1/workspaces/{workspace_id}/peers/{peer_id}">client.workspaces.peers.<a href="./src/honcho_core/resources/workspaces/peers/peers.py">update</a>(peer_id, \*, workspace_id, \*\*<a href="src/honcho_core/types/workspaces/peer_update_params.py">params</a>) -> <a href="./src/honcho_core/types/workspaces/peer.py">Peer</a></code>
+- <code title="post /v1/workspaces/{workspace_id}/peers/list">client.workspaces.peers.<a href="./src/honcho_core/resources/workspaces/peers/peers.py">list</a>(workspace_id, \*\*<a href="src/honcho_core/types/workspaces/peer_list_params.py">params</a>) -> <a href="./src/honcho_core/types/workspaces/peer.py">SyncPage[Peer]</a></code>
+- <code title="post /v1/workspaces/{workspace_id}/peers/{peer_id}/chat">client.workspaces.peers.<a href="./src/honcho_core/resources/workspaces/peers/peers.py">chat</a>(peer_id, \*, workspace_id, \*\*<a href="src/honcho_core/types/workspaces/peer_chat_params.py">params</a>) -> <a href="./src/honcho_core/types/workspaces/peer_chat_response.py">PeerChatResponse</a></code>
+- <code title="post /v1/workspaces/{workspace_id}/peers">client.workspaces.peers.<a href="./src/honcho_core/resources/workspaces/peers/peers.py">get_or_create</a>(workspace_id, \*\*<a href="src/honcho_core/types/workspaces/peer_get_or_create_params.py">params</a>) -> <a href="./src/honcho_core/types/workspaces/peer.py">Peer</a></code>
+- <code title="post /v1/workspaces/{workspace_id}/peers/{peer_id}/search">client.workspaces.peers.<a href="./src/honcho_core/resources/workspaces/peers/peers.py">search</a>(peer_id, \*, workspace_id, \*\*<a href="src/honcho_core/types/workspaces/peer_search_params.py">params</a>) -> <a href="./src/honcho_core/types/workspaces/sessions/message.py">SyncPage[Message]</a></code>
+- <code title="post /v1/workspaces/{workspace_id}/peers/{peer_id}/representation">client.workspaces.peers.<a href="./src/honcho_core/resources/workspaces/peers/peers.py">working_representation</a>(peer_id, \*, workspace_id, \*\*<a href="src/honcho_core/types/workspaces/peer_working_representation_params.py">params</a>) -> <a href="./src/honcho_core/types/workspaces/peer_working_representation_response.py">PeerWorkingRepresentationResponse</a></code>
 
 ### Sessions
 
 Methods:
 
-- <code title="post /v1/workspaces/{workspace_id}/peers/{peer_id}/sessions">client.workspaces.peers.sessions.<a href="./src/honcho/resources/workspaces/peers/sessions.py">list</a>(peer_id, \*, workspace_id, \*\*<a href="src/honcho/types/workspaces/peers/session_list_params.py">params</a>) -> <a href="./src/honcho/types/workspaces/session.py">SyncPage[Session]</a></code>
+- <code title="post /v1/workspaces/{workspace_id}/peers/{peer_id}/sessions">client.workspaces.peers.sessions.<a href="./src/honcho_core/resources/workspaces/peers/sessions.py">list</a>(peer_id, \*, workspace_id, \*\*<a href="src/honcho_core/types/workspaces/peers/session_list_params.py">params</a>) -> <a href="./src/honcho_core/types/workspaces/session.py">SyncPage[Session]</a></code>
 
 ### Messages
 
 Types:
 
 ```python
-from honcho.types.workspaces.peers import MessageCreateResponse
+from honcho_core.types.workspaces.peers import MessageCreateResponse
 ```
 
 Methods:
 
-- <code title="post /v1/workspaces/{workspace_id}/peers/{peer_id}/messages">client.workspaces.peers.messages.<a href="./src/honcho/resources/workspaces/peers/messages.py">create</a>(peer_id, \*, workspace_id, \*\*<a href="src/honcho/types/workspaces/peers/message_create_params.py">params</a>) -> <a href="./src/honcho/types/workspaces/peers/message_create_response.py">MessageCreateResponse</a></code>
-- <code title="post /v1/workspaces/{workspace_id}/peers/{peer_id}/messages/list">client.workspaces.peers.messages.<a href="./src/honcho/resources/workspaces/peers/messages.py">list</a>(peer_id, \*, workspace_id, \*\*<a href="src/honcho/types/workspaces/peers/message_list_params.py">params</a>) -> <a href="./src/honcho/types/workspaces/sessions/message.py">SyncPage[Message]</a></code>
+- <code title="post /v1/workspaces/{workspace_id}/peers/{peer_id}/messages">client.workspaces.peers.messages.<a href="./src/honcho_core/resources/workspaces/peers/messages.py">create</a>(peer_id, \*, workspace_id, \*\*<a href="src/honcho_core/types/workspaces/peers/message_create_params.py">params</a>) -> <a href="./src/honcho_core/types/workspaces/peers/message_create_response.py">MessageCreateResponse</a></code>
+- <code title="post /v1/workspaces/{workspace_id}/peers/{peer_id}/messages/list">client.workspaces.peers.messages.<a href="./src/honcho_core/resources/workspaces/peers/messages.py">list</a>(peer_id, \*, workspace_id, \*\*<a href="src/honcho_core/types/workspaces/peers/message_list_params.py">params</a>) -> <a href="./src/honcho_core/types/workspaces/sessions/message.py">SyncPage[Message]</a></code>
 
 ## Sessions
 
 Types:
 
 ```python
-from honcho.types.workspaces import Session, SessionGetContextResponse
+from honcho_core.types.workspaces import Session, SessionGetContextResponse
 ```
 
 Methods:
 
-- <code title="put /v1/workspaces/{workspace_id}/sessions/{session_id}">client.workspaces.sessions.<a href="./src/honcho/resources/workspaces/sessions/sessions.py">update</a>(session_id, \*, workspace_id, \*\*<a href="src/honcho/types/workspaces/session_update_params.py">params</a>) -> <a href="./src/honcho/types/workspaces/session.py">Session</a></code>
-- <code title="post /v1/workspaces/{workspace_id}/sessions/list">client.workspaces.sessions.<a href="./src/honcho/resources/workspaces/sessions/sessions.py">list</a>(workspace_id, \*\*<a href="src/honcho/types/workspaces/session_list_params.py">params</a>) -> <a href="./src/honcho/types/workspaces/session.py">SyncPage[Session]</a></code>
-- <code title="delete /v1/workspaces/{workspace_id}/sessions/{session_id}">client.workspaces.sessions.<a href="./src/honcho/resources/workspaces/sessions/sessions.py">delete</a>(session_id, \*, workspace_id) -> object</code>
-- <code title="get /v1/workspaces/{workspace_id}/sessions/{session_id}/clone">client.workspaces.sessions.<a href="./src/honcho/resources/workspaces/sessions/sessions.py">clone</a>(session_id, \*, workspace_id, \*\*<a href="src/honcho/types/workspaces/session_clone_params.py">params</a>) -> <a href="./src/honcho/types/workspaces/session.py">Session</a></code>
-- <code title="get /v1/workspaces/{workspace_id}/sessions/{session_id}/context">client.workspaces.sessions.<a href="./src/honcho/resources/workspaces/sessions/sessions.py">get_context</a>(session_id, \*, workspace_id, \*\*<a href="src/honcho/types/workspaces/session_get_context_params.py">params</a>) -> <a href="./src/honcho/types/workspaces/session_get_context_response.py">SessionGetContextResponse</a></code>
-- <code title="post /v1/workspaces/{workspace_id}/sessions">client.workspaces.sessions.<a href="./src/honcho/resources/workspaces/sessions/sessions.py">get_or_create</a>(workspace_id, \*\*<a href="src/honcho/types/workspaces/session_get_or_create_params.py">params</a>) -> <a href="./src/honcho/types/workspaces/session.py">Session</a></code>
-- <code title="post /v1/workspaces/{workspace_id}/sessions/{session_id}/search">client.workspaces.sessions.<a href="./src/honcho/resources/workspaces/sessions/sessions.py">search</a>(session_id, \*, workspace_id, \*\*<a href="src/honcho/types/workspaces/session_search_params.py">params</a>) -> <a href="./src/honcho/types/workspaces/sessions/message.py">SyncPage[Message]</a></code>
+- <code title="put /v1/workspaces/{workspace_id}/sessions/{session_id}">client.workspaces.sessions.<a href="./src/honcho_core/resources/workspaces/sessions/sessions.py">update</a>(session_id, \*, workspace_id, \*\*<a href="src/honcho_core/types/workspaces/session_update_params.py">params</a>) -> <a href="./src/honcho_core/types/workspaces/session.py">Session</a></code>
+- <code title="post /v1/workspaces/{workspace_id}/sessions/list">client.workspaces.sessions.<a href="./src/honcho_core/resources/workspaces/sessions/sessions.py">list</a>(workspace_id, \*\*<a href="src/honcho_core/types/workspaces/session_list_params.py">params</a>) -> <a href="./src/honcho_core/types/workspaces/session.py">SyncPage[Session]</a></code>
+- <code title="delete /v1/workspaces/{workspace_id}/sessions/{session_id}">client.workspaces.sessions.<a href="./src/honcho_core/resources/workspaces/sessions/sessions.py">delete</a>(session_id, \*, workspace_id) -> object</code>
+- <code title="get /v1/workspaces/{workspace_id}/sessions/{session_id}/clone">client.workspaces.sessions.<a href="./src/honcho_core/resources/workspaces/sessions/sessions.py">clone</a>(session_id, \*, workspace_id, \*\*<a href="src/honcho_core/types/workspaces/session_clone_params.py">params</a>) -> <a href="./src/honcho_core/types/workspaces/session.py">Session</a></code>
+- <code title="get /v1/workspaces/{workspace_id}/sessions/{session_id}/context">client.workspaces.sessions.<a href="./src/honcho_core/resources/workspaces/sessions/sessions.py">get_context</a>(session_id, \*, workspace_id, \*\*<a href="src/honcho_core/types/workspaces/session_get_context_params.py">params</a>) -> <a href="./src/honcho_core/types/workspaces/session_get_context_response.py">SessionGetContextResponse</a></code>
+- <code title="post /v1/workspaces/{workspace_id}/sessions">client.workspaces.sessions.<a href="./src/honcho_core/resources/workspaces/sessions/sessions.py">get_or_create</a>(workspace_id, \*\*<a href="src/honcho_core/types/workspaces/session_get_or_create_params.py">params</a>) -> <a href="./src/honcho_core/types/workspaces/session.py">Session</a></code>
+- <code title="post /v1/workspaces/{workspace_id}/sessions/{session_id}/search">client.workspaces.sessions.<a href="./src/honcho_core/resources/workspaces/sessions/sessions.py">search</a>(session_id, \*, workspace_id, \*\*<a href="src/honcho_core/types/workspaces/session_search_params.py">params</a>) -> <a href="./src/honcho_core/types/workspaces/sessions/message.py">SyncPage[Message]</a></code>
 
 ### Messages
 
 Types:
 
 ```python
-from honcho.types.workspaces.sessions import Message, MessageCreate, MessageCreateResponse
+from honcho_core.types.workspaces.sessions import Message, MessageCreate, MessageCreateResponse
 ```
 
 Methods:
 
-- <code title="post /v1/workspaces/{workspace_id}/sessions/{session_id}/messages/">client.workspaces.sessions.messages.<a href="./src/honcho/resources/workspaces/sessions/messages.py">create</a>(session_id, \*, workspace_id, \*\*<a href="src/honcho/types/workspaces/sessions/message_create_params.py">params</a>) -> <a href="./src/honcho/types/workspaces/sessions/message_create_response.py">MessageCreateResponse</a></code>
-- <code title="get /v1/workspaces/{workspace_id}/sessions/{session_id}/messages/{message_id}">client.workspaces.sessions.messages.<a href="./src/honcho/resources/workspaces/sessions/messages.py">retrieve</a>(message_id, \*, workspace_id, session_id) -> <a href="./src/honcho/types/workspaces/sessions/message.py">Message</a></code>
-- <code title="put /v1/workspaces/{workspace_id}/sessions/{session_id}/messages/{message_id}">client.workspaces.sessions.messages.<a href="./src/honcho/resources/workspaces/sessions/messages.py">update</a>(message_id, \*, workspace_id, session_id, \*\*<a href="src/honcho/types/workspaces/sessions/message_update_params.py">params</a>) -> <a href="./src/honcho/types/workspaces/sessions/message.py">Message</a></code>
-- <code title="post /v1/workspaces/{workspace_id}/sessions/{session_id}/messages/list">client.workspaces.sessions.messages.<a href="./src/honcho/resources/workspaces/sessions/messages.py">list</a>(session_id, \*, workspace_id, \*\*<a href="src/honcho/types/workspaces/sessions/message_list_params.py">params</a>) -> <a href="./src/honcho/types/workspaces/sessions/message.py">SyncPage[Message]</a></code>
+- <code title="post /v1/workspaces/{workspace_id}/sessions/{session_id}/messages/">client.workspaces.sessions.messages.<a href="./src/honcho_core/resources/workspaces/sessions/messages.py">create</a>(session_id, \*, workspace_id, \*\*<a href="src/honcho_core/types/workspaces/sessions/message_create_params.py">params</a>) -> <a href="./src/honcho_core/types/workspaces/sessions/message_create_response.py">MessageCreateResponse</a></code>
+- <code title="get /v1/workspaces/{workspace_id}/sessions/{session_id}/messages/{message_id}">client.workspaces.sessions.messages.<a href="./src/honcho_core/resources/workspaces/sessions/messages.py">retrieve</a>(message_id, \*, workspace_id, session_id) -> <a href="./src/honcho_core/types/workspaces/sessions/message.py">Message</a></code>
+- <code title="put /v1/workspaces/{workspace_id}/sessions/{session_id}/messages/{message_id}">client.workspaces.sessions.messages.<a href="./src/honcho_core/resources/workspaces/sessions/messages.py">update</a>(message_id, \*, workspace_id, session_id, \*\*<a href="src/honcho_core/types/workspaces/sessions/message_update_params.py">params</a>) -> <a href="./src/honcho_core/types/workspaces/sessions/message.py">Message</a></code>
+- <code title="post /v1/workspaces/{workspace_id}/sessions/{session_id}/messages/list">client.workspaces.sessions.messages.<a href="./src/honcho_core/resources/workspaces/sessions/messages.py">list</a>(session_id, \*, workspace_id, \*\*<a href="src/honcho_core/types/workspaces/sessions/message_list_params.py">params</a>) -> <a href="./src/honcho_core/types/workspaces/sessions/message.py">SyncPage[Message]</a></code>
 
 ### Peers
 
 Types:
 
 ```python
-from honcho.types.workspaces.sessions import PeerGetConfigResponse
+from honcho_core.types.workspaces.sessions import PeerGetConfigResponse
 ```
 
 Methods:
 
-- <code title="get /v1/workspaces/{workspace_id}/sessions/{session_id}/peers">client.workspaces.sessions.peers.<a href="./src/honcho/resources/workspaces/sessions/peers.py">list</a>(session_id, \*, workspace_id, \*\*<a href="src/honcho/types/workspaces/sessions/peer_list_params.py">params</a>) -> <a href="./src/honcho/types/workspaces/peer.py">SyncPage[Peer]</a></code>
-- <code title="post /v1/workspaces/{workspace_id}/sessions/{session_id}/peers">client.workspaces.sessions.peers.<a href="./src/honcho/resources/workspaces/sessions/peers.py">add</a>(session_id, \*, workspace_id, \*\*<a href="src/honcho/types/workspaces/sessions/peer_add_params.py">params</a>) -> <a href="./src/honcho/types/workspaces/session.py">Session</a></code>
-- <code title="get /v1/workspaces/{workspace_id}/sessions/{session_id}/peers/{peer_id}/config">client.workspaces.sessions.peers.<a href="./src/honcho/resources/workspaces/sessions/peers.py">get_config</a>(peer_id, \*, workspace_id, session_id) -> <a href="./src/honcho/types/workspaces/sessions/peer_get_config_response.py">PeerGetConfigResponse</a></code>
-- <code title="delete /v1/workspaces/{workspace_id}/sessions/{session_id}/peers">client.workspaces.sessions.peers.<a href="./src/honcho/resources/workspaces/sessions/peers.py">remove</a>(session_id, \*, workspace_id, \*\*<a href="src/honcho/types/workspaces/sessions/peer_remove_params.py">params</a>) -> <a href="./src/honcho/types/workspaces/session.py">Session</a></code>
-- <code title="put /v1/workspaces/{workspace_id}/sessions/{session_id}/peers">client.workspaces.sessions.peers.<a href="./src/honcho/resources/workspaces/sessions/peers.py">set</a>(session_id, \*, workspace_id, \*\*<a href="src/honcho/types/workspaces/sessions/peer_set_params.py">params</a>) -> <a href="./src/honcho/types/workspaces/session.py">Session</a></code>
-- <code title="post /v1/workspaces/{workspace_id}/sessions/{session_id}/peers/{peer_id}/config">client.workspaces.sessions.peers.<a href="./src/honcho/resources/workspaces/sessions/peers.py">set_config</a>(peer_id, \*, workspace_id, session_id, \*\*<a href="src/honcho/types/workspaces/sessions/peer_set_config_params.py">params</a>) -> object</code>
+- <code title="get /v1/workspaces/{workspace_id}/sessions/{session_id}/peers">client.workspaces.sessions.peers.<a href="./src/honcho_core/resources/workspaces/sessions/peers.py">list</a>(session_id, \*, workspace_id, \*\*<a href="src/honcho_core/types/workspaces/sessions/peer_list_params.py">params</a>) -> <a href="./src/honcho_core/types/workspaces/peer.py">SyncPage[Peer]</a></code>
+- <code title="post /v1/workspaces/{workspace_id}/sessions/{session_id}/peers">client.workspaces.sessions.peers.<a href="./src/honcho_core/resources/workspaces/sessions/peers.py">add</a>(session_id, \*, workspace_id, \*\*<a href="src/honcho_core/types/workspaces/sessions/peer_add_params.py">params</a>) -> <a href="./src/honcho_core/types/workspaces/session.py">Session</a></code>
+- <code title="get /v1/workspaces/{workspace_id}/sessions/{session_id}/peers/{peer_id}/config">client.workspaces.sessions.peers.<a href="./src/honcho_core/resources/workspaces/sessions/peers.py">get_config</a>(peer_id, \*, workspace_id, session_id) -> <a href="./src/honcho_core/types/workspaces/sessions/peer_get_config_response.py">PeerGetConfigResponse</a></code>
+- <code title="delete /v1/workspaces/{workspace_id}/sessions/{session_id}/peers">client.workspaces.sessions.peers.<a href="./src/honcho_core/resources/workspaces/sessions/peers.py">remove</a>(session_id, \*, workspace_id, \*\*<a href="src/honcho_core/types/workspaces/sessions/peer_remove_params.py">params</a>) -> <a href="./src/honcho_core/types/workspaces/session.py">Session</a></code>
+- <code title="put /v1/workspaces/{workspace_id}/sessions/{session_id}/peers">client.workspaces.sessions.peers.<a href="./src/honcho_core/resources/workspaces/sessions/peers.py">set</a>(session_id, \*, workspace_id, \*\*<a href="src/honcho_core/types/workspaces/sessions/peer_set_params.py">params</a>) -> <a href="./src/honcho_core/types/workspaces/session.py">Session</a></code>
+- <code title="post /v1/workspaces/{workspace_id}/sessions/{session_id}/peers/{peer_id}/config">client.workspaces.sessions.peers.<a href="./src/honcho_core/resources/workspaces/sessions/peers.py">set_config</a>(peer_id, \*, workspace_id, session_id, \*\*<a href="src/honcho_core/types/workspaces/sessions/peer_set_config_params.py">params</a>) -> object</code>
 
 # Keys
 
 Methods:
 
-- <code title="post /v1/keys">client.keys.<a href="./src/honcho/resources/keys.py">create</a>(\*\*<a href="src/honcho/types/key_create_params.py">params</a>) -> object</code>
+- <code title="post /v1/keys">client.keys.<a href="./src/honcho_core/resources/keys.py">create</a>(\*\*<a href="src/honcho_core/types/key_create_params.py">params</a>) -> object</code>
