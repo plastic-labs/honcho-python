@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.1.0 (2025-06-21)
+
+Full Changelog: [v1.0.1...v1.1.0](https://github.com/plastic-labs/honcho-python-core/compare/v1.0.1...v1.1.0)
+
+### Features
+
+* **client:** add support for aiohttp ([263b57f](https://github.com/plastic-labs/honcho-python-core/commit/263b57f16f9d792a750424f313d2543743a51e8d))
+
 ## 1.0.1 (2025-06-19)
 
 Full Changelog: [v1.0.0...v1.0.1](https://github.com/plastic-labs/honcho-python-core/compare/v1.0.0...v1.0.1)
