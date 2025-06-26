@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Dict, List
+from typing import Dict, List, Optional
 
 import httpx
 
@@ -90,7 +90,7 @@ class PeersResource(SyncAPIResource):
         if not session_id:
             raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
         return self._get_api_list(
-            f"/v1/workspaces/{workspace_id}/sessions/{session_id}/peers",
+            f"/v2/workspaces/{workspace_id}/sessions/{session_id}/peers",
             page=SyncPage[Peer],
             options=make_request_options(
                 extra_headers=extra_headers,
@@ -144,7 +144,7 @@ class PeersResource(SyncAPIResource):
         if not session_id:
             raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
         return self._post(
-            f"/v1/workspaces/{workspace_id}/sessions/{session_id}/peers",
+            f"/v2/workspaces/{workspace_id}/sessions/{session_id}/peers",
             body=maybe_transform(body, peer_add_params.PeerAddParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -190,7 +190,7 @@ class PeersResource(SyncAPIResource):
         if not peer_id:
             raise ValueError(f"Expected a non-empty value for `peer_id` but received {peer_id!r}")
         return self._get(
-            f"/v1/workspaces/{workspace_id}/sessions/{session_id}/peers/{peer_id}/config",
+            f"/v2/workspaces/{workspace_id}/sessions/{session_id}/peers/{peer_id}/config",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -233,7 +233,7 @@ class PeersResource(SyncAPIResource):
         if not session_id:
             raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
         return self._delete(
-            f"/v1/workspaces/{workspace_id}/sessions/{session_id}/peers",
+            f"/v2/workspaces/{workspace_id}/sessions/{session_id}/peers",
             body=maybe_transform(body, List[str]),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -277,7 +277,7 @@ class PeersResource(SyncAPIResource):
         if not session_id:
             raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
         return self._put(
-            f"/v1/workspaces/{workspace_id}/sessions/{session_id}/peers",
+            f"/v2/workspaces/{workspace_id}/sessions/{session_id}/peers",
             body=maybe_transform(body, peer_set_params.PeerSetParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -291,7 +291,7 @@ class PeersResource(SyncAPIResource):
         *,
         workspace_id: str,
         session_id: str,
-        observe_me: bool | NotGiven = NOT_GIVEN,
+        observe_me: Optional[bool] | NotGiven = NOT_GIVEN,
         observe_others: bool | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -331,7 +331,7 @@ class PeersResource(SyncAPIResource):
         if not peer_id:
             raise ValueError(f"Expected a non-empty value for `peer_id` but received {peer_id!r}")
         return self._post(
-            f"/v1/workspaces/{workspace_id}/sessions/{session_id}/peers/{peer_id}/config",
+            f"/v2/workspaces/{workspace_id}/sessions/{session_id}/peers/{peer_id}/config",
             body=maybe_transform(
                 {
                     "observe_me": observe_me,
@@ -405,7 +405,7 @@ class AsyncPeersResource(AsyncAPIResource):
         if not session_id:
             raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
         return self._get_api_list(
-            f"/v1/workspaces/{workspace_id}/sessions/{session_id}/peers",
+            f"/v2/workspaces/{workspace_id}/sessions/{session_id}/peers",
             page=AsyncPage[Peer],
             options=make_request_options(
                 extra_headers=extra_headers,
@@ -459,7 +459,7 @@ class AsyncPeersResource(AsyncAPIResource):
         if not session_id:
             raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
         return await self._post(
-            f"/v1/workspaces/{workspace_id}/sessions/{session_id}/peers",
+            f"/v2/workspaces/{workspace_id}/sessions/{session_id}/peers",
             body=await async_maybe_transform(body, peer_add_params.PeerAddParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -505,7 +505,7 @@ class AsyncPeersResource(AsyncAPIResource):
         if not peer_id:
             raise ValueError(f"Expected a non-empty value for `peer_id` but received {peer_id!r}")
         return await self._get(
-            f"/v1/workspaces/{workspace_id}/sessions/{session_id}/peers/{peer_id}/config",
+            f"/v2/workspaces/{workspace_id}/sessions/{session_id}/peers/{peer_id}/config",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -548,7 +548,7 @@ class AsyncPeersResource(AsyncAPIResource):
         if not session_id:
             raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
         return await self._delete(
-            f"/v1/workspaces/{workspace_id}/sessions/{session_id}/peers",
+            f"/v2/workspaces/{workspace_id}/sessions/{session_id}/peers",
             body=await async_maybe_transform(body, List[str]),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -592,7 +592,7 @@ class AsyncPeersResource(AsyncAPIResource):
         if not session_id:
             raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
         return await self._put(
-            f"/v1/workspaces/{workspace_id}/sessions/{session_id}/peers",
+            f"/v2/workspaces/{workspace_id}/sessions/{session_id}/peers",
             body=await async_maybe_transform(body, peer_set_params.PeerSetParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -606,7 +606,7 @@ class AsyncPeersResource(AsyncAPIResource):
         *,
         workspace_id: str,
         session_id: str,
-        observe_me: bool | NotGiven = NOT_GIVEN,
+        observe_me: Optional[bool] | NotGiven = NOT_GIVEN,
         observe_others: bool | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -646,7 +646,7 @@ class AsyncPeersResource(AsyncAPIResource):
         if not peer_id:
             raise ValueError(f"Expected a non-empty value for `peer_id` but received {peer_id!r}")
         return await self._post(
-            f"/v1/workspaces/{workspace_id}/sessions/{session_id}/peers/{peer_id}/config",
+            f"/v2/workspaces/{workspace_id}/sessions/{session_id}/peers/{peer_id}/config",
             body=await async_maybe_transform(
                 {
                     "observe_me": observe_me,

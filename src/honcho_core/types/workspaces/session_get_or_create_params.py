@@ -19,7 +19,7 @@ class SessionGetOrCreateParams(TypedDict, total=False):
 
 
 class Peers(TypedDict, total=False):
-    observe_me: bool
+    observe_me: Optional[bool]
     """
     Whether other peers in this session should try to form a session-level
     theory-of-mind representation of this peer

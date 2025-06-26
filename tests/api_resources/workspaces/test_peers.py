@@ -251,7 +251,7 @@ class TestPeers:
         peer = client.workspaces.peers.search(
             peer_id="peer_id",
             workspace_id="workspace_id",
-            body="body",
+            query="query",
         )
         assert_matches_type(SyncPage[Message], peer, path=["response"])
 
@@ -260,9 +260,10 @@ class TestPeers:
         peer = client.workspaces.peers.search(
             peer_id="peer_id",
             workspace_id="workspace_id",
-            body="body",
+            query="query",
             page=1,
             size=1,
+            semantic=True,
         )
         assert_matches_type(SyncPage[Message], peer, path=["response"])
 
@@ -271,7 +272,7 @@ class TestPeers:
         response = client.workspaces.peers.with_raw_response.search(
             peer_id="peer_id",
             workspace_id="workspace_id",
-            body="body",
+            query="query",
         )
 
         assert response.is_closed is True
@@ -284,7 +285,7 @@ class TestPeers:
         with client.workspaces.peers.with_streaming_response.search(
             peer_id="peer_id",
             workspace_id="workspace_id",
-            body="body",
+            query="query",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -300,14 +301,14 @@ class TestPeers:
             client.workspaces.peers.with_raw_response.search(
                 peer_id="peer_id",
                 workspace_id="",
-                body="body",
+                query="query",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `peer_id` but received ''"):
             client.workspaces.peers.with_raw_response.search(
                 peer_id="",
                 workspace_id="workspace_id",
-                body="body",
+                query="query",
             )
 
     @parametrize
@@ -375,7 +376,9 @@ class TestPeers:
 
 
 class TestAsyncPeers:
-    parametrize = pytest.mark.parametrize("async_client", [False, True], indirect=True, ids=["loose", "strict"])
+    parametrize = pytest.mark.parametrize(
+        "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
+    )
 
     @parametrize
     async def test_method_update(self, async_client: AsyncHoncho) -> None:
@@ -605,7 +608,7 @@ class TestAsyncPeers:
         peer = await async_client.workspaces.peers.search(
             peer_id="peer_id",
             workspace_id="workspace_id",
-            body="body",
+            query="query",
         )
         assert_matches_type(AsyncPage[Message], peer, path=["response"])
 
@@ -614,9 +617,10 @@ class TestAsyncPeers:
         peer = await async_client.workspaces.peers.search(
             peer_id="peer_id",
             workspace_id="workspace_id",
-            body="body",
+            query="query",
             page=1,
             size=1,
+            semantic=True,
         )
         assert_matches_type(AsyncPage[Message], peer, path=["response"])
 
@@ -625,7 +629,7 @@ class TestAsyncPeers:
         response = await async_client.workspaces.peers.with_raw_response.search(
             peer_id="peer_id",
             workspace_id="workspace_id",
-            body="body",
+            query="query",
         )
 
         assert response.is_closed is True
@@ -638,7 +642,7 @@ class TestAsyncPeers:
         async with async_client.workspaces.peers.with_streaming_response.search(
             peer_id="peer_id",
             workspace_id="workspace_id",
-            body="body",
+            query="query",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -654,14 +658,14 @@ class TestAsyncPeers:
             await async_client.workspaces.peers.with_raw_response.search(
                 peer_id="peer_id",
                 workspace_id="",
-                body="body",
+                query="query",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `peer_id` but received ''"):
             await async_client.workspaces.peers.with_raw_response.search(
                 peer_id="",
                 workspace_id="workspace_id",
-                body="body",
+                query="query",
             )
 
     @parametrize

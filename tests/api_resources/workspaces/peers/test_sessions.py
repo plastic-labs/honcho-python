@@ -34,7 +34,6 @@ class TestSessions:
             page=1,
             size=1,
             filter={"foo": "bar"},
-            is_active=True,
         )
         assert_matches_type(SyncPage[Session], session, path=["response"])
 
@@ -80,7 +79,9 @@ class TestSessions:
 
 
 class TestAsyncSessions:
-    parametrize = pytest.mark.parametrize("async_client", [False, True], indirect=True, ids=["loose", "strict"])
+    parametrize = pytest.mark.parametrize(
+        "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
+    )
 
     @parametrize
     async def test_method_list(self, async_client: AsyncHoncho) -> None:
@@ -98,7 +99,6 @@ class TestAsyncSessions:
             page=1,
             size=1,
             filter={"foo": "bar"},
-            is_active=True,
         )
         assert_matches_type(AsyncPage[Session], session, path=["response"])
 

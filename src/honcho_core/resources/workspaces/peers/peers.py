@@ -113,7 +113,7 @@ class PeersResource(SyncAPIResource):
         if not peer_id:
             raise ValueError(f"Expected a non-empty value for `peer_id` but received {peer_id!r}")
         return self._put(
-            f"/v1/workspaces/{workspace_id}/peers/{peer_id}",
+            f"/v2/workspaces/{workspace_id}/peers/{peer_id}",
             body=maybe_transform(
                 {
                     "configuration": configuration,
@@ -162,7 +162,7 @@ class PeersResource(SyncAPIResource):
         if not workspace_id:
             raise ValueError(f"Expected a non-empty value for `workspace_id` but received {workspace_id!r}")
         return self._get_api_list(
-            f"/v1/workspaces/{workspace_id}/peers/list",
+            f"/v2/workspaces/{workspace_id}/peers/list",
             page=SyncPage[Peer],
             body=maybe_transform({"filter": filter}, peer_list_params.PeerListParams),
             options=make_request_options(
@@ -223,7 +223,7 @@ class PeersResource(SyncAPIResource):
         if not peer_id:
             raise ValueError(f"Expected a non-empty value for `peer_id` but received {peer_id!r}")
         return self._post(
-            f"/v1/workspaces/{workspace_id}/peers/{peer_id}/chat",
+            f"/v2/workspaces/{workspace_id}/peers/{peer_id}/chat",
             body=maybe_transform(
                 {
                     "queries": queries,
@@ -273,7 +273,7 @@ class PeersResource(SyncAPIResource):
         if not workspace_id:
             raise ValueError(f"Expected a non-empty value for `workspace_id` but received {workspace_id!r}")
         return self._post(
-            f"/v1/workspaces/{workspace_id}/peers",
+            f"/v2/workspaces/{workspace_id}/peers",
             body=maybe_transform(
                 {
                     "id": id,
@@ -293,9 +293,10 @@ class PeersResource(SyncAPIResource):
         peer_id: str,
         *,
         workspace_id: str,
-        body: str,
+        query: str,
         page: int | NotGiven = NOT_GIVEN,
         size: int | NotGiven = NOT_GIVEN,
+        semantic: Optional[bool] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -311,11 +312,13 @@ class PeersResource(SyncAPIResource):
 
           peer_id: ID of the peer
 
-          body: Search query
+          query: Search query
 
           page: Page number
 
           size: Page size
+
+          semantic: Whether to explicitly use semantic search to filter the results
 
           extra_headers: Send extra headers
 
@@ -330,9 +333,15 @@ class PeersResource(SyncAPIResource):
         if not peer_id:
             raise ValueError(f"Expected a non-empty value for `peer_id` but received {peer_id!r}")
         return self._get_api_list(
-            f"/v1/workspaces/{workspace_id}/peers/{peer_id}/search",
+            f"/v2/workspaces/{workspace_id}/peers/{peer_id}/search",
             page=SyncPage[Message],
-            body=maybe_transform(body, peer_search_params.PeerSearchParams),
+            body=maybe_transform(
+                {
+                    "query": query,
+                    "semantic": semantic,
+                },
+                peer_search_params.PeerSearchParams,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -367,8 +376,11 @@ class PeersResource(SyncAPIResource):
         """
         Get a peer's working representation for a session.
 
-        If peer_id is provided in body, the representation is of that peer, from our
-        perspective.
+        If a session_id is provided in the body, we get the working representation of
+        the peer in that session.
+
+        In the current implementation, we don't offer representations of `target` so
+        that parameter is ignored. Future releases will allow for this.
 
         Args:
           workspace_id: ID of the workspace
@@ -393,7 +405,7 @@ class PeersResource(SyncAPIResource):
         if not peer_id:
             raise ValueError(f"Expected a non-empty value for `peer_id` but received {peer_id!r}")
         return self._post(
-            f"/v1/workspaces/{workspace_id}/peers/{peer_id}/representation",
+            f"/v2/workspaces/{workspace_id}/peers/{peer_id}/representation",
             body=maybe_transform(
                 {
                     "session_id": session_id,
@@ -471,7 +483,7 @@ class AsyncPeersResource(AsyncAPIResource):
         if not peer_id:
             raise ValueError(f"Expected a non-empty value for `peer_id` but received {peer_id!r}")
         return await self._put(
-            f"/v1/workspaces/{workspace_id}/peers/{peer_id}",
+            f"/v2/workspaces/{workspace_id}/peers/{peer_id}",
             body=await async_maybe_transform(
                 {
                     "configuration": configuration,
@@ -520,7 +532,7 @@ class AsyncPeersResource(AsyncAPIResource):
         if not workspace_id:
             raise ValueError(f"Expected a non-empty value for `workspace_id` but received {workspace_id!r}")
         return self._get_api_list(
-            f"/v1/workspaces/{workspace_id}/peers/list",
+            f"/v2/workspaces/{workspace_id}/peers/list",
             page=AsyncPage[Peer],
             body=maybe_transform({"filter": filter}, peer_list_params.PeerListParams),
             options=make_request_options(
@@ -581,7 +593,7 @@ class AsyncPeersResource(AsyncAPIResource):
         if not peer_id:
             raise ValueError(f"Expected a non-empty value for `peer_id` but received {peer_id!r}")
         return await self._post(
-            f"/v1/workspaces/{workspace_id}/peers/{peer_id}/chat",
+            f"/v2/workspaces/{workspace_id}/peers/{peer_id}/chat",
             body=await async_maybe_transform(
                 {
                     "queries": queries,
@@ -631,7 +643,7 @@ class AsyncPeersResource(AsyncAPIResource):
         if not workspace_id:
             raise ValueError(f"Expected a non-empty value for `workspace_id` but received {workspace_id!r}")
         return await self._post(
-            f"/v1/workspaces/{workspace_id}/peers",
+            f"/v2/workspaces/{workspace_id}/peers",
             body=await async_maybe_transform(
                 {
                     "id": id,
@@ -651,9 +663,10 @@ class AsyncPeersResource(AsyncAPIResource):
         peer_id: str,
         *,
         workspace_id: str,
-        body: str,
+        query: str,
         page: int | NotGiven = NOT_GIVEN,
         size: int | NotGiven = NOT_GIVEN,
+        semantic: Optional[bool] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -669,11 +682,13 @@ class AsyncPeersResource(AsyncAPIResource):
 
           peer_id: ID of the peer
 
-          body: Search query
+          query: Search query
 
           page: Page number
 
           size: Page size
+
+          semantic: Whether to explicitly use semantic search to filter the results
 
           extra_headers: Send extra headers
 
@@ -688,9 +703,15 @@ class AsyncPeersResource(AsyncAPIResource):
         if not peer_id:
             raise ValueError(f"Expected a non-empty value for `peer_id` but received {peer_id!r}")
         return self._get_api_list(
-            f"/v1/workspaces/{workspace_id}/peers/{peer_id}/search",
+            f"/v2/workspaces/{workspace_id}/peers/{peer_id}/search",
             page=AsyncPage[Message],
-            body=maybe_transform(body, peer_search_params.PeerSearchParams),
+            body=maybe_transform(
+                {
+                    "query": query,
+                    "semantic": semantic,
+                },
+                peer_search_params.PeerSearchParams,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -725,8 +746,11 @@ class AsyncPeersResource(AsyncAPIResource):
         """
         Get a peer's working representation for a session.
 
-        If peer_id is provided in body, the representation is of that peer, from our
-        perspective.
+        If a session_id is provided in the body, we get the working representation of
+        the peer in that session.
+
+        In the current implementation, we don't offer representations of `target` so
+        that parameter is ignored. Future releases will allow for this.
 
         Args:
           workspace_id: ID of the workspace
@@ -751,7 +775,7 @@ class AsyncPeersResource(AsyncAPIResource):
         if not peer_id:
             raise ValueError(f"Expected a non-empty value for `peer_id` but received {peer_id!r}")
         return await self._post(
-            f"/v1/workspaces/{workspace_id}/peers/{peer_id}/representation",
+            f"/v2/workspaces/{workspace_id}/peers/{peer_id}/representation",
             body=await async_maybe_transform(
                 {
                     "session_id": session_id,

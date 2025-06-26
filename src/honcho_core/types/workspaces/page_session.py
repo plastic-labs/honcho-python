@@ -15,6 +15,6 @@ class PageSession(BaseModel):
 
     size: int
 
-    total: int
-
     pages: Optional[int] = None
+
+    total: Optional[int] = None

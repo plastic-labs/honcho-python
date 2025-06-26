@@ -94,7 +94,6 @@ class TestSessions:
             page=1,
             size=1,
             filter={"foo": "bar"},
-            is_active=True,
         )
         assert_matches_type(SyncPage[Session], session, path=["response"])
 
@@ -355,7 +354,7 @@ class TestSessions:
         session = client.workspaces.sessions.search(
             session_id="session_id",
             workspace_id="workspace_id",
-            body="body",
+            query="query",
         )
         assert_matches_type(SyncPage[Message], session, path=["response"])
 
@@ -364,9 +363,10 @@ class TestSessions:
         session = client.workspaces.sessions.search(
             session_id="session_id",
             workspace_id="workspace_id",
-            body="body",
+            query="query",
             page=1,
             size=1,
+            semantic=True,
         )
         assert_matches_type(SyncPage[Message], session, path=["response"])
 
@@ -375,7 +375,7 @@ class TestSessions:
         response = client.workspaces.sessions.with_raw_response.search(
             session_id="session_id",
             workspace_id="workspace_id",
-            body="body",
+            query="query",
         )
 
         assert response.is_closed is True
@@ -388,7 +388,7 @@ class TestSessions:
         with client.workspaces.sessions.with_streaming_response.search(
             session_id="session_id",
             workspace_id="workspace_id",
-            body="body",
+            query="query",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -404,19 +404,21 @@ class TestSessions:
             client.workspaces.sessions.with_raw_response.search(
                 session_id="session_id",
                 workspace_id="",
-                body="body",
+                query="query",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `session_id` but received ''"):
             client.workspaces.sessions.with_raw_response.search(
                 session_id="",
                 workspace_id="workspace_id",
-                body="body",
+                query="query",
             )
 
 
 class TestAsyncSessions:
-    parametrize = pytest.mark.parametrize("async_client", [False, True], indirect=True, ids=["loose", "strict"])
+    parametrize = pytest.mark.parametrize(
+        "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
+    )
 
     @parametrize
     async def test_method_update(self, async_client: AsyncHoncho) -> None:
@@ -490,7 +492,6 @@ class TestAsyncSessions:
             page=1,
             size=1,
             filter={"foo": "bar"},
-            is_active=True,
         )
         assert_matches_type(AsyncPage[Session], session, path=["response"])
 
@@ -751,7 +752,7 @@ class TestAsyncSessions:
         session = await async_client.workspaces.sessions.search(
             session_id="session_id",
             workspace_id="workspace_id",
-            body="body",
+            query="query",
         )
         assert_matches_type(AsyncPage[Message], session, path=["response"])
 
@@ -760,9 +761,10 @@ class TestAsyncSessions:
         session = await async_client.workspaces.sessions.search(
             session_id="session_id",
             workspace_id="workspace_id",
-            body="body",
+            query="query",
             page=1,
             size=1,
+            semantic=True,
         )
         assert_matches_type(AsyncPage[Message], session, path=["response"])
 
@@ -771,7 +773,7 @@ class TestAsyncSessions:
         response = await async_client.workspaces.sessions.with_raw_response.search(
             session_id="session_id",
             workspace_id="workspace_id",
-            body="body",
+            query="query",
         )
 
         assert response.is_closed is True
@@ -784,7 +786,7 @@ class TestAsyncSessions:
         async with async_client.workspaces.sessions.with_streaming_response.search(
             session_id="session_id",
             workspace_id="workspace_id",
-            body="body",
+            query="query",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -800,12 +802,12 @@ class TestAsyncSessions:
             await async_client.workspaces.sessions.with_raw_response.search(
                 session_id="session_id",
                 workspace_id="",
-                body="body",
+                query="query",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `session_id` but received ''"):
             await async_client.workspaces.sessions.with_raw_response.search(
                 session_id="",
                 workspace_id="workspace_id",
-                body="body",
+                query="query",
             )

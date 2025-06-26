@@ -76,7 +76,7 @@ class KeysResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._post(
-            "/v1/keys",
+            "/v2/keys",
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -149,7 +149,7 @@ class AsyncKeysResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return await self._post(
-            "/v1/keys",
+            "/v2/keys",
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,

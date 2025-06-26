@@ -80,7 +80,7 @@ class MessagesResource(SyncAPIResource):
         if not peer_id:
             raise ValueError(f"Expected a non-empty value for `peer_id` but received {peer_id!r}")
         return self._post(
-            f"/v1/workspaces/{workspace_id}/peers/{peer_id}/messages",
+            f"/v2/workspaces/{workspace_id}/peers/{peer_id}/messages",
             body=maybe_transform({"messages": messages}, message_create_params.MessageCreateParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -131,7 +131,7 @@ class MessagesResource(SyncAPIResource):
         if not peer_id:
             raise ValueError(f"Expected a non-empty value for `peer_id` but received {peer_id!r}")
         return self._get_api_list(
-            f"/v1/workspaces/{workspace_id}/peers/{peer_id}/messages/list",
+            f"/v2/workspaces/{workspace_id}/peers/{peer_id}/messages/list",
             page=SyncPage[Message],
             body=maybe_transform({"filter": filter}, message_list_params.MessageListParams),
             options=make_request_options(
@@ -207,7 +207,7 @@ class AsyncMessagesResource(AsyncAPIResource):
         if not peer_id:
             raise ValueError(f"Expected a non-empty value for `peer_id` but received {peer_id!r}")
         return await self._post(
-            f"/v1/workspaces/{workspace_id}/peers/{peer_id}/messages",
+            f"/v2/workspaces/{workspace_id}/peers/{peer_id}/messages",
             body=await async_maybe_transform({"messages": messages}, message_create_params.MessageCreateParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -258,7 +258,7 @@ class AsyncMessagesResource(AsyncAPIResource):
         if not peer_id:
             raise ValueError(f"Expected a non-empty value for `peer_id` but received {peer_id!r}")
         return self._get_api_list(
-            f"/v1/workspaces/{workspace_id}/peers/{peer_id}/messages/list",
+            f"/v2/workspaces/{workspace_id}/peers/{peer_id}/messages/list",
             page=AsyncPage[Message],
             body=maybe_transform({"filter": filter}, message_list_params.MessageListParams),
             options=make_request_options(

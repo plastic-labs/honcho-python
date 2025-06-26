@@ -11,6 +11,7 @@ from ...types import (
     workspace_search_params,
     workspace_update_params,
     workspace_get_or_create_params,
+    workspace_deriver_status_params,
 )
 from ..._types import NOT_GIVEN, Body, Query, Headers, NotGiven
 from ..._utils import maybe_transform, async_maybe_transform
@@ -41,6 +42,7 @@ from .sessions.sessions import (
     SessionsResourceWithStreamingResponse,
     AsyncSessionsResourceWithStreamingResponse,
 )
+from ...types.deriver_status import DeriverStatus
 from ...types.workspaces.sessions.message import Message
 
 __all__ = ["WorkspacesResource", "AsyncWorkspacesResource"]
@@ -104,7 +106,7 @@ class WorkspacesResource(SyncAPIResource):
         if not workspace_id:
             raise ValueError(f"Expected a non-empty value for `workspace_id` but received {workspace_id!r}")
         return self._put(
-            f"/v1/workspaces/{workspace_id}",
+            f"/v2/workspaces/{workspace_id}",
             body=maybe_transform(
                 {
                     "configuration": configuration,
@@ -148,7 +150,7 @@ class WorkspacesResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._get_api_list(
-            "/v1/workspaces/list",
+            "/v2/workspaces/list",
             page=SyncPage[Workspace],
             body=maybe_transform({"filter": filter}, workspace_list_params.WorkspaceListParams),
             options=make_request_options(
@@ -166,6 +168,61 @@ class WorkspacesResource(SyncAPIResource):
             ),
             model=Workspace,
             method="post",
+        )
+
+    def deriver_status(
+        self,
+        workspace_id: str,
+        *,
+        include_sender: bool | NotGiven = NOT_GIVEN,
+        peer_id: Optional[str] | NotGiven = NOT_GIVEN,
+        session_id: Optional[str] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> DeriverStatus:
+        """
+        Get the deriver processing status, optionally scoped to a peer and/or session
+
+        Args:
+          workspace_id: ID of the workspace
+
+          include_sender: Include work units triggered by this peer
+
+          peer_id: Optional peer ID to filter by
+
+          session_id: Optional session ID to filter by
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not workspace_id:
+            raise ValueError(f"Expected a non-empty value for `workspace_id` but received {workspace_id!r}")
+        return self._get(
+            f"/v2/workspaces/{workspace_id}/deriver/status",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "include_sender": include_sender,
+                        "peer_id": peer_id,
+                        "session_id": session_id,
+                    },
+                    workspace_deriver_status_params.WorkspaceDeriverStatusParams,
+                ),
+            ),
+            cast_to=DeriverStatus,
         )
 
     def get_or_create(
@@ -197,7 +254,7 @@ class WorkspacesResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._post(
-            "/v1/workspaces",
+            "/v2/workspaces",
             body=maybe_transform(
                 {
                     "id": id,
@@ -249,7 +306,7 @@ class WorkspacesResource(SyncAPIResource):
         if not workspace_id:
             raise ValueError(f"Expected a non-empty value for `workspace_id` but received {workspace_id!r}")
         return self._get_api_list(
-            f"/v1/workspaces/{workspace_id}/search",
+            f"/v2/workspaces/{workspace_id}/search",
             page=SyncPage[Message],
             body=maybe_transform(body, workspace_search_params.WorkspaceSearchParams),
             options=make_request_options(
@@ -328,7 +385,7 @@ class AsyncWorkspacesResource(AsyncAPIResource):
         if not workspace_id:
             raise ValueError(f"Expected a non-empty value for `workspace_id` but received {workspace_id!r}")
         return await self._put(
-            f"/v1/workspaces/{workspace_id}",
+            f"/v2/workspaces/{workspace_id}",
             body=await async_maybe_transform(
                 {
                     "configuration": configuration,
@@ -372,7 +429,7 @@ class AsyncWorkspacesResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._get_api_list(
-            "/v1/workspaces/list",
+            "/v2/workspaces/list",
             page=AsyncPage[Workspace],
             body=maybe_transform({"filter": filter}, workspace_list_params.WorkspaceListParams),
             options=make_request_options(
@@ -390,6 +447,61 @@ class AsyncWorkspacesResource(AsyncAPIResource):
             ),
             model=Workspace,
             method="post",
+        )
+
+    async def deriver_status(
+        self,
+        workspace_id: str,
+        *,
+        include_sender: bool | NotGiven = NOT_GIVEN,
+        peer_id: Optional[str] | NotGiven = NOT_GIVEN,
+        session_id: Optional[str] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> DeriverStatus:
+        """
+        Get the deriver processing status, optionally scoped to a peer and/or session
+
+        Args:
+          workspace_id: ID of the workspace
+
+          include_sender: Include work units triggered by this peer
+
+          peer_id: Optional peer ID to filter by
+
+          session_id: Optional session ID to filter by
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not workspace_id:
+            raise ValueError(f"Expected a non-empty value for `workspace_id` but received {workspace_id!r}")
+        return await self._get(
+            f"/v2/workspaces/{workspace_id}/deriver/status",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {
+                        "include_sender": include_sender,
+                        "peer_id": peer_id,
+                        "session_id": session_id,
+                    },
+                    workspace_deriver_status_params.WorkspaceDeriverStatusParams,
+                ),
+            ),
+            cast_to=DeriverStatus,
         )
 
     async def get_or_create(
@@ -421,7 +533,7 @@ class AsyncWorkspacesResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return await self._post(
-            "/v1/workspaces",
+            "/v2/workspaces",
             body=await async_maybe_transform(
                 {
                     "id": id,
@@ -473,7 +585,7 @@ class AsyncWorkspacesResource(AsyncAPIResource):
         if not workspace_id:
             raise ValueError(f"Expected a non-empty value for `workspace_id` but received {workspace_id!r}")
         return self._get_api_list(
-            f"/v1/workspaces/{workspace_id}/search",
+            f"/v2/workspaces/{workspace_id}/search",
             page=AsyncPage[Message],
             body=maybe_transform(body, workspace_search_params.WorkspaceSearchParams),
             options=make_request_options(
@@ -504,6 +616,9 @@ class WorkspacesResourceWithRawResponse:
         self.list = to_raw_response_wrapper(
             workspaces.list,
         )
+        self.deriver_status = to_raw_response_wrapper(
+            workspaces.deriver_status,
+        )
         self.get_or_create = to_raw_response_wrapper(
             workspaces.get_or_create,
         )
@@ -529,6 +644,9 @@ class AsyncWorkspacesResourceWithRawResponse:
         )
         self.list = async_to_raw_response_wrapper(
             workspaces.list,
+        )
+        self.deriver_status = async_to_raw_response_wrapper(
+            workspaces.deriver_status,
         )
         self.get_or_create = async_to_raw_response_wrapper(
             workspaces.get_or_create,
@@ -556,6 +674,9 @@ class WorkspacesResourceWithStreamingResponse:
         self.list = to_streamed_response_wrapper(
             workspaces.list,
         )
+        self.deriver_status = to_streamed_response_wrapper(
+            workspaces.deriver_status,
+        )
         self.get_or_create = to_streamed_response_wrapper(
             workspaces.get_or_create,
         )
@@ -581,6 +702,9 @@ class AsyncWorkspacesResourceWithStreamingResponse:
         )
         self.list = async_to_streamed_response_wrapper(
             workspaces.list,
+        )
+        self.deriver_status = async_to_streamed_response_wrapper(
+            workspaces.deriver_status,
         )
         self.get_or_create = async_to_streamed_response_wrapper(
             workspaces.get_or_create,
