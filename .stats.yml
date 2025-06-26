@@ -1,4 +1,4 @@
 configured_endpoints: 32
-openapi_spec_url: https://storage.googleapis.com/stainless-sdk-openapi-specs/plastic-labs%2Fhoncho-4095c1770b89fd1fdb6ca3a1f211bd434d6d378b43f3444b5b783cfb2762d5bb.yml
-openapi_spec_hash: 8b29386ce2c2a081c16e6a0d7ecc16f0
-config_hash: f592b344a4e11faed6df05cfb5522d5c
+openapi_spec_url: https://storage.googleapis.com/stainless-sdk-openapi-specs/plastic-labs%2Fhoncho-97e45ec65d0b4245b757ba17cbe7a42a96fcb617a2e0aaa3cf8afb7c91f94488.yml
+openapi_spec_hash: 1ee11ef5c85758dd48af6b5bdd8ec8d6
+config_hash: 6e7613b005bb1ff57a0daa84b8acafd9
