@@ -80,7 +80,7 @@ class MessagesResource(SyncAPIResource):
         if not session_id:
             raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
         return self._post(
-            f"/v1/workspaces/{workspace_id}/sessions/{session_id}/messages/",
+            f"/v2/workspaces/{workspace_id}/sessions/{session_id}/messages/",
             body=maybe_transform({"messages": messages}, message_create_params.MessageCreateParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -126,7 +126,7 @@ class MessagesResource(SyncAPIResource):
         if not message_id:
             raise ValueError(f"Expected a non-empty value for `message_id` but received {message_id!r}")
         return self._get(
-            f"/v1/workspaces/{workspace_id}/sessions/{session_id}/messages/{message_id}",
+            f"/v2/workspaces/{workspace_id}/sessions/{session_id}/messages/{message_id}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -172,7 +172,7 @@ class MessagesResource(SyncAPIResource):
         if not message_id:
             raise ValueError(f"Expected a non-empty value for `message_id` but received {message_id!r}")
         return self._put(
-            f"/v1/workspaces/{workspace_id}/sessions/{session_id}/messages/{message_id}",
+            f"/v2/workspaces/{workspace_id}/sessions/{session_id}/messages/{message_id}",
             body=maybe_transform({"metadata": metadata}, message_update_params.MessageUpdateParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -223,7 +223,7 @@ class MessagesResource(SyncAPIResource):
         if not session_id:
             raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
         return self._get_api_list(
-            f"/v1/workspaces/{workspace_id}/sessions/{session_id}/messages/list",
+            f"/v2/workspaces/{workspace_id}/sessions/{session_id}/messages/list",
             page=SyncPage[Message],
             body=maybe_transform({"filter": filter}, message_list_params.MessageListParams),
             options=make_request_options(
@@ -299,7 +299,7 @@ class AsyncMessagesResource(AsyncAPIResource):
         if not session_id:
             raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
         return await self._post(
-            f"/v1/workspaces/{workspace_id}/sessions/{session_id}/messages/",
+            f"/v2/workspaces/{workspace_id}/sessions/{session_id}/messages/",
             body=await async_maybe_transform({"messages": messages}, message_create_params.MessageCreateParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -345,7 +345,7 @@ class AsyncMessagesResource(AsyncAPIResource):
         if not message_id:
             raise ValueError(f"Expected a non-empty value for `message_id` but received {message_id!r}")
         return await self._get(
-            f"/v1/workspaces/{workspace_id}/sessions/{session_id}/messages/{message_id}",
+            f"/v2/workspaces/{workspace_id}/sessions/{session_id}/messages/{message_id}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -391,7 +391,7 @@ class AsyncMessagesResource(AsyncAPIResource):
         if not message_id:
             raise ValueError(f"Expected a non-empty value for `message_id` but received {message_id!r}")
         return await self._put(
-            f"/v1/workspaces/{workspace_id}/sessions/{session_id}/messages/{message_id}",
+            f"/v2/workspaces/{workspace_id}/sessions/{session_id}/messages/{message_id}",
             body=await async_maybe_transform({"metadata": metadata}, message_update_params.MessageUpdateParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -442,7 +442,7 @@ class AsyncMessagesResource(AsyncAPIResource):
         if not session_id:
             raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
         return self._get_api_list(
-            f"/v1/workspaces/{workspace_id}/sessions/{session_id}/messages/list",
+            f"/v2/workspaces/{workspace_id}/sessions/{session_id}/messages/list",
             page=AsyncPage[Message],
             body=maybe_transform({"filter": filter}, message_list_params.MessageListParams),
             options=make_request_options(

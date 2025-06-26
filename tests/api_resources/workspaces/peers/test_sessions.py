@@ -34,7 +34,6 @@ class TestSessions:
             page=1,
             size=1,
             filter={"foo": "bar"},
-            is_active=True,
         )
         assert_matches_type(SyncPage[Session], session, path=["response"])
 
@@ -100,7 +99,6 @@ class TestAsyncSessions:
             page=1,
             size=1,
             filter={"foo": "bar"},
-            is_active=True,
         )
         assert_matches_type(AsyncPage[Session], session, path=["response"])
 

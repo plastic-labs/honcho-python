@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from typing import Optional
 from typing_extensions import Required, TypedDict
 
 __all__ = ["PeerSetConfigParams"]
@@ -14,7 +15,7 @@ class PeerSetConfigParams(TypedDict, total=False):
     session_id: Required[str]
     """ID of the session"""
 
-    observe_me: bool
+    observe_me: Optional[bool]
     """
     Whether other peers in this session should try to form a session-level
     theory-of-mind representation of this peer

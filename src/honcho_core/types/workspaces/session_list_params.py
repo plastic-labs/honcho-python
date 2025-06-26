@@ -16,5 +16,3 @@ class SessionListParams(TypedDict, total=False):
     """Page size"""
 
     filter: Optional[Dict[str, object]]
-
-    is_active: bool

@@ -112,7 +112,7 @@ class SessionsResource(SyncAPIResource):
         if not session_id:
             raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
         return self._put(
-            f"/v1/workspaces/{workspace_id}/sessions/{session_id}",
+            f"/v2/workspaces/{workspace_id}/sessions/{session_id}",
             body=maybe_transform(
                 {
                     "configuration": configuration,
@@ -133,7 +133,6 @@ class SessionsResource(SyncAPIResource):
         page: int | NotGiven = NOT_GIVEN,
         size: int | NotGiven = NOT_GIVEN,
         filter: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
-        is_active: bool | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -162,15 +161,9 @@ class SessionsResource(SyncAPIResource):
         if not workspace_id:
             raise ValueError(f"Expected a non-empty value for `workspace_id` but received {workspace_id!r}")
         return self._get_api_list(
-            f"/v1/workspaces/{workspace_id}/sessions/list",
+            f"/v2/workspaces/{workspace_id}/sessions/list",
             page=SyncPage[Session],
-            body=maybe_transform(
-                {
-                    "filter": filter,
-                    "is_active": is_active,
-                },
-                session_list_params.SessionListParams,
-            ),
+            body=maybe_transform({"filter": filter}, session_list_params.SessionListParams),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -221,7 +214,7 @@ class SessionsResource(SyncAPIResource):
         if not session_id:
             raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
         return self._delete(
-            f"/v1/workspaces/{workspace_id}/sessions/{session_id}",
+            f"/v2/workspaces/{workspace_id}/sessions/{session_id}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -264,7 +257,7 @@ class SessionsResource(SyncAPIResource):
         if not session_id:
             raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
         return self._get(
-            f"/v1/workspaces/{workspace_id}/sessions/{session_id}/clone",
+            f"/v2/workspaces/{workspace_id}/sessions/{session_id}/clone",
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -319,7 +312,7 @@ class SessionsResource(SyncAPIResource):
         if not session_id:
             raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
         return self._get(
-            f"/v1/workspaces/{workspace_id}/sessions/{session_id}/context",
+            f"/v2/workspaces/{workspace_id}/sessions/{session_id}/context",
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -372,7 +365,7 @@ class SessionsResource(SyncAPIResource):
         if not workspace_id:
             raise ValueError(f"Expected a non-empty value for `workspace_id` but received {workspace_id!r}")
         return self._post(
-            f"/v1/workspaces/{workspace_id}/sessions",
+            f"/v2/workspaces/{workspace_id}/sessions",
             body=maybe_transform(
                 {
                     "id": id,
@@ -393,9 +386,10 @@ class SessionsResource(SyncAPIResource):
         session_id: str,
         *,
         workspace_id: str,
-        body: str,
+        query: str,
         page: int | NotGiven = NOT_GIVEN,
         size: int | NotGiven = NOT_GIVEN,
+        semantic: Optional[bool] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -411,11 +405,13 @@ class SessionsResource(SyncAPIResource):
 
           session_id: ID of the session
 
-          body: Search query
+          query: Search query
 
           page: Page number
 
           size: Page size
+
+          semantic: Whether to explicitly use semantic search to filter the results
 
           extra_headers: Send extra headers
 
@@ -430,9 +426,15 @@ class SessionsResource(SyncAPIResource):
         if not session_id:
             raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
         return self._get_api_list(
-            f"/v1/workspaces/{workspace_id}/sessions/{session_id}/search",
+            f"/v2/workspaces/{workspace_id}/sessions/{session_id}/search",
             page=SyncPage[Message],
-            body=maybe_transform(body, session_search_params.SessionSearchParams),
+            body=maybe_transform(
+                {
+                    "query": query,
+                    "semantic": semantic,
+                },
+                session_search_params.SessionSearchParams,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -514,7 +516,7 @@ class AsyncSessionsResource(AsyncAPIResource):
         if not session_id:
             raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
         return await self._put(
-            f"/v1/workspaces/{workspace_id}/sessions/{session_id}",
+            f"/v2/workspaces/{workspace_id}/sessions/{session_id}",
             body=await async_maybe_transform(
                 {
                     "configuration": configuration,
@@ -535,7 +537,6 @@ class AsyncSessionsResource(AsyncAPIResource):
         page: int | NotGiven = NOT_GIVEN,
         size: int | NotGiven = NOT_GIVEN,
         filter: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
-        is_active: bool | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -564,15 +565,9 @@ class AsyncSessionsResource(AsyncAPIResource):
         if not workspace_id:
             raise ValueError(f"Expected a non-empty value for `workspace_id` but received {workspace_id!r}")
         return self._get_api_list(
-            f"/v1/workspaces/{workspace_id}/sessions/list",
+            f"/v2/workspaces/{workspace_id}/sessions/list",
             page=AsyncPage[Session],
-            body=maybe_transform(
-                {
-                    "filter": filter,
-                    "is_active": is_active,
-                },
-                session_list_params.SessionListParams,
-            ),
+            body=maybe_transform({"filter": filter}, session_list_params.SessionListParams),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -623,7 +618,7 @@ class AsyncSessionsResource(AsyncAPIResource):
         if not session_id:
             raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
         return await self._delete(
-            f"/v1/workspaces/{workspace_id}/sessions/{session_id}",
+            f"/v2/workspaces/{workspace_id}/sessions/{session_id}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -666,7 +661,7 @@ class AsyncSessionsResource(AsyncAPIResource):
         if not session_id:
             raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
         return await self._get(
-            f"/v1/workspaces/{workspace_id}/sessions/{session_id}/clone",
+            f"/v2/workspaces/{workspace_id}/sessions/{session_id}/clone",
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -721,7 +716,7 @@ class AsyncSessionsResource(AsyncAPIResource):
         if not session_id:
             raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
         return await self._get(
-            f"/v1/workspaces/{workspace_id}/sessions/{session_id}/context",
+            f"/v2/workspaces/{workspace_id}/sessions/{session_id}/context",
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -774,7 +769,7 @@ class AsyncSessionsResource(AsyncAPIResource):
         if not workspace_id:
             raise ValueError(f"Expected a non-empty value for `workspace_id` but received {workspace_id!r}")
         return await self._post(
-            f"/v1/workspaces/{workspace_id}/sessions",
+            f"/v2/workspaces/{workspace_id}/sessions",
             body=await async_maybe_transform(
                 {
                     "id": id,
@@ -795,9 +790,10 @@ class AsyncSessionsResource(AsyncAPIResource):
         session_id: str,
         *,
         workspace_id: str,
-        body: str,
+        query: str,
         page: int | NotGiven = NOT_GIVEN,
         size: int | NotGiven = NOT_GIVEN,
+        semantic: Optional[bool] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -813,11 +809,13 @@ class AsyncSessionsResource(AsyncAPIResource):
 
           session_id: ID of the session
 
-          body: Search query
+          query: Search query
 
           page: Page number
 
           size: Page size
+
+          semantic: Whether to explicitly use semantic search to filter the results
 
           extra_headers: Send extra headers
 
@@ -832,9 +830,15 @@ class AsyncSessionsResource(AsyncAPIResource):
         if not session_id:
             raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
         return self._get_api_list(
-            f"/v1/workspaces/{workspace_id}/sessions/{session_id}/search",
+            f"/v2/workspaces/{workspace_id}/sessions/{session_id}/search",
             page=AsyncPage[Message],
-            body=maybe_transform(body, session_search_params.SessionSearchParams),
+            body=maybe_transform(
+                {
+                    "query": query,
+                    "semantic": semantic,
+                },
+                session_search_params.SessionSearchParams,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,

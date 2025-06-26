@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Dict
+from typing import Dict, Optional
 from typing_extensions import Required, TypedDict
 
 __all__ = ["PeerSetParams", "Body"]
@@ -17,7 +17,7 @@ class PeerSetParams(TypedDict, total=False):
 
 
 class Body(TypedDict, total=False):
-    observe_me: bool
+    observe_me: Optional[bool]
     """
     Whether other peers in this session should try to form a session-level
     theory-of-mind representation of this peer
