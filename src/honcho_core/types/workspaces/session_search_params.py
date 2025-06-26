@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from typing import Optional
 from typing_extensions import Required, TypedDict
 
 __all__ = ["SessionSearchParams"]
@@ -11,7 +12,7 @@ class SessionSearchParams(TypedDict, total=False):
     workspace_id: Required[str]
     """ID of the workspace"""
 
-    body: Required[str]
+    query: Required[str]
     """Search query"""
 
     page: int
@@ -19,3 +20,6 @@ class SessionSearchParams(TypedDict, total=False):
 
     size: int
     """Page size"""
+
+    semantic: Optional[bool]
+    """Whether to explicitly use semantic search to filter the results"""
