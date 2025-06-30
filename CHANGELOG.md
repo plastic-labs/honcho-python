@@ -1,5 +1,19 @@
 # Changelog
 
+## 1.1.1 (2025-06-30)
+
+Full Changelog: [v1.1.0...v1.1.1](https://github.com/plastic-labs/honcho-python-core/compare/v1.1.0...v1.1.1)
+
+### Bug Fixes
+
+* **ci:** correct conditional ([246a6eb](https://github.com/plastic-labs/honcho-python-core/commit/246a6eb5eebccece80c19d434e4e9cf896eaa2c6))
+* **ci:** release-doctor — report correct token name ([f3c44e3](https://github.com/plastic-labs/honcho-python-core/commit/f3c44e340fc7a2b60137e0a3185aea892b734806))
+
+
+### Chores
+
+* **ci:** only run for pushes and fork pull requests ([10c2fc7](https://github.com/plastic-labs/honcho-python-core/commit/10c2fc780f1963a515435a706e603f66c32d79f0))
+
 ## 1.1.0 (2025-06-26)
 
 Full Changelog: [v1.0.1...v1.1.0](https://github.com/plastic-labs/honcho-python-core/compare/v1.0.1...v1.1.0)
