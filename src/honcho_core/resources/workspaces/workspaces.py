@@ -174,8 +174,8 @@ class WorkspacesResource(SyncAPIResource):
         self,
         workspace_id: str,
         *,
-        include_sender: bool | NotGiven = NOT_GIVEN,
-        peer_id: Optional[str] | NotGiven = NOT_GIVEN,
+        observer_id: Optional[str] | NotGiven = NOT_GIVEN,
+        sender_id: Optional[str] | NotGiven = NOT_GIVEN,
         session_id: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -185,14 +185,15 @@ class WorkspacesResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> DeriverStatus:
         """
-        Get the deriver processing status, optionally scoped to a peer and/or session
+        Get the deriver processing status, optionally scoped to an observer, sender,
+        and/or session
 
         Args:
           workspace_id: ID of the workspace
 
-          include_sender: Include work units triggered by this peer
+          observer_id: Optional observer ID to filter by
 
-          peer_id: Optional peer ID to filter by
+          sender_id: Optional sender ID to filter by
 
           session_id: Optional session ID to filter by
 
@@ -215,8 +216,8 @@ class WorkspacesResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "include_sender": include_sender,
-                        "peer_id": peer_id,
+                        "observer_id": observer_id,
+                        "sender_id": sender_id,
                         "session_id": session_id,
                     },
                     workspace_deriver_status_params.WorkspaceDeriverStatusParams,
@@ -453,8 +454,8 @@ class AsyncWorkspacesResource(AsyncAPIResource):
         self,
         workspace_id: str,
         *,
-        include_sender: bool | NotGiven = NOT_GIVEN,
-        peer_id: Optional[str] | NotGiven = NOT_GIVEN,
+        observer_id: Optional[str] | NotGiven = NOT_GIVEN,
+        sender_id: Optional[str] | NotGiven = NOT_GIVEN,
         session_id: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -464,14 +465,15 @@ class AsyncWorkspacesResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> DeriverStatus:
         """
-        Get the deriver processing status, optionally scoped to a peer and/or session
+        Get the deriver processing status, optionally scoped to an observer, sender,
+        and/or session
 
         Args:
           workspace_id: ID of the workspace
 
-          include_sender: Include work units triggered by this peer
+          observer_id: Optional observer ID to filter by
 
-          peer_id: Optional peer ID to filter by
+          sender_id: Optional sender ID to filter by
 
           session_id: Optional session ID to filter by
 
@@ -494,8 +496,8 @@ class AsyncWorkspacesResource(AsyncAPIResource):
                 timeout=timeout,
                 query=await async_maybe_transform(
                     {
-                        "include_sender": include_sender,
-                        "peer_id": peer_id,
+                        "observer_id": observer_id,
+                        "sender_id": sender_id,
                         "session_id": session_id,
                     },
                     workspace_deriver_status_params.WorkspaceDeriverStatusParams,

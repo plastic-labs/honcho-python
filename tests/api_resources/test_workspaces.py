@@ -114,8 +114,8 @@ class TestWorkspaces:
     def test_method_deriver_status_with_all_params(self, client: Honcho) -> None:
         workspace = client.workspaces.deriver_status(
             workspace_id="workspace_id",
-            include_sender=True,
-            peer_id="peer_id",
+            observer_id="observer_id",
+            sender_id="sender_id",
             session_id="session_id",
         )
         assert_matches_type(DeriverStatus, workspace, path=["response"])
@@ -341,8 +341,8 @@ class TestAsyncWorkspaces:
     async def test_method_deriver_status_with_all_params(self, async_client: AsyncHoncho) -> None:
         workspace = await async_client.workspaces.deriver_status(
             workspace_id="workspace_id",
-            include_sender=True,
-            peer_id="peer_id",
+            observer_id="observer_id",
+            sender_id="sender_id",
             session_id="session_id",
         )
         assert_matches_type(DeriverStatus, workspace, path=["response"])
