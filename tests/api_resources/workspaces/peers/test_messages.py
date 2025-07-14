@@ -10,7 +10,10 @@ import pytest
 from honcho_core import Honcho, AsyncHoncho
 from tests.utils import assert_matches_type
 from honcho_core.pagination import SyncPage, AsyncPage
-from honcho_core.types.workspaces.peers import MessageCreateResponse
+from honcho_core.types.workspaces.peers import (
+    MessageCreateResponse,
+    MessageUploadResponse,
+)
 from honcho_core.types.workspaces.sessions import Message
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
@@ -157,6 +160,59 @@ class TestMessages:
                 workspace_id="workspace_id",
             )
 
+    @parametrize
+    def test_method_upload(self, client: Honcho) -> None:
+        message = client.workspaces.peers.messages.upload(
+            peer_id="peer_id",
+            workspace_id="workspace_id",
+            file=b"raw file contents",
+        )
+        assert_matches_type(MessageUploadResponse, message, path=["response"])
+
+    @parametrize
+    def test_raw_response_upload(self, client: Honcho) -> None:
+        response = client.workspaces.peers.messages.with_raw_response.upload(
+            peer_id="peer_id",
+            workspace_id="workspace_id",
+            file=b"raw file contents",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        message = response.parse()
+        assert_matches_type(MessageUploadResponse, message, path=["response"])
+
+    @parametrize
+    def test_streaming_response_upload(self, client: Honcho) -> None:
+        with client.workspaces.peers.messages.with_streaming_response.upload(
+            peer_id="peer_id",
+            workspace_id="workspace_id",
+            file=b"raw file contents",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            message = response.parse()
+            assert_matches_type(MessageUploadResponse, message, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    def test_path_params_upload(self, client: Honcho) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `workspace_id` but received ''"):
+            client.workspaces.peers.messages.with_raw_response.upload(
+                peer_id="peer_id",
+                workspace_id="",
+                file=b"raw file contents",
+            )
+
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `peer_id` but received ''"):
+            client.workspaces.peers.messages.with_raw_response.upload(
+                peer_id="",
+                workspace_id="workspace_id",
+                file=b"raw file contents",
+            )
+
 
 class TestAsyncMessages:
     parametrize = pytest.mark.parametrize(
@@ -299,4 +355,57 @@ class TestAsyncMessages:
             await async_client.workspaces.peers.messages.with_raw_response.list(
                 peer_id="",
                 workspace_id="workspace_id",
+            )
+
+    @parametrize
+    async def test_method_upload(self, async_client: AsyncHoncho) -> None:
+        message = await async_client.workspaces.peers.messages.upload(
+            peer_id="peer_id",
+            workspace_id="workspace_id",
+            file=b"raw file contents",
+        )
+        assert_matches_type(MessageUploadResponse, message, path=["response"])
+
+    @parametrize
+    async def test_raw_response_upload(self, async_client: AsyncHoncho) -> None:
+        response = await async_client.workspaces.peers.messages.with_raw_response.upload(
+            peer_id="peer_id",
+            workspace_id="workspace_id",
+            file=b"raw file contents",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        message = await response.parse()
+        assert_matches_type(MessageUploadResponse, message, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_upload(self, async_client: AsyncHoncho) -> None:
+        async with async_client.workspaces.peers.messages.with_streaming_response.upload(
+            peer_id="peer_id",
+            workspace_id="workspace_id",
+            file=b"raw file contents",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            message = await response.parse()
+            assert_matches_type(MessageUploadResponse, message, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_path_params_upload(self, async_client: AsyncHoncho) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `workspace_id` but received ''"):
+            await async_client.workspaces.peers.messages.with_raw_response.upload(
+                peer_id="peer_id",
+                workspace_id="",
+                file=b"raw file contents",
+            )
+
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `peer_id` but received ''"):
+            await async_client.workspaces.peers.messages.with_raw_response.upload(
+                peer_id="",
+                workspace_id="workspace_id",
+                file=b"raw file contents",
             )

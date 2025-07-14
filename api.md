@@ -48,13 +48,14 @@ Methods:
 Types:
 
 ```python
-from honcho_core.types.workspaces.peers import MessageCreateResponse
+from honcho_core.types.workspaces.peers import MessageCreateResponse, MessageUploadResponse
 ```
 
 Methods:
 
 - <code title="post /v2/workspaces/{workspace_id}/peers/{peer_id}/messages">client.workspaces.peers.messages.<a href="./src/honcho_core/resources/workspaces/peers/messages.py">create</a>(peer_id, \*, workspace_id, \*\*<a href="src/honcho_core/types/workspaces/peers/message_create_params.py">params</a>) -> <a href="./src/honcho_core/types/workspaces/peers/message_create_response.py">MessageCreateResponse</a></code>
 - <code title="post /v2/workspaces/{workspace_id}/peers/{peer_id}/messages/list">client.workspaces.peers.messages.<a href="./src/honcho_core/resources/workspaces/peers/messages.py">list</a>(peer_id, \*, workspace_id, \*\*<a href="src/honcho_core/types/workspaces/peers/message_list_params.py">params</a>) -> <a href="./src/honcho_core/types/workspaces/sessions/message.py">SyncPage[Message]</a></code>
+- <code title="post /v2/workspaces/{workspace_id}/peers/{peer_id}/messages/upload">client.workspaces.peers.messages.<a href="./src/honcho_core/resources/workspaces/peers/messages.py">upload</a>(peer_id, \*, workspace_id, \*\*<a href="src/honcho_core/types/workspaces/peers/message_upload_params.py">params</a>) -> <a href="./src/honcho_core/types/workspaces/peers/message_upload_response.py">MessageUploadResponse</a></code>
 
 ## Sessions
 
@@ -79,7 +80,12 @@ Methods:
 Types:
 
 ```python
-from honcho_core.types.workspaces.sessions import Message, MessageCreate, MessageCreateResponse
+from honcho_core.types.workspaces.sessions import (
+    Message,
+    MessageCreate,
+    MessageCreateResponse,
+    MessageUploadResponse,
+)
 ```
 
 Methods:
@@ -88,6 +94,7 @@ Methods:
 - <code title="get /v2/workspaces/{workspace_id}/sessions/{session_id}/messages/{message_id}">client.workspaces.sessions.messages.<a href="./src/honcho_core/resources/workspaces/sessions/messages.py">retrieve</a>(message_id, \*, workspace_id, session_id) -> <a href="./src/honcho_core/types/workspaces/sessions/message.py">Message</a></code>
 - <code title="put /v2/workspaces/{workspace_id}/sessions/{session_id}/messages/{message_id}">client.workspaces.sessions.messages.<a href="./src/honcho_core/resources/workspaces/sessions/messages.py">update</a>(message_id, \*, workspace_id, session_id, \*\*<a href="src/honcho_core/types/workspaces/sessions/message_update_params.py">params</a>) -> <a href="./src/honcho_core/types/workspaces/sessions/message.py">Message</a></code>
 - <code title="post /v2/workspaces/{workspace_id}/sessions/{session_id}/messages/list">client.workspaces.sessions.messages.<a href="./src/honcho_core/resources/workspaces/sessions/messages.py">list</a>(session_id, \*, workspace_id, \*\*<a href="src/honcho_core/types/workspaces/sessions/message_list_params.py">params</a>) -> <a href="./src/honcho_core/types/workspaces/sessions/message.py">SyncPage[Message]</a></code>
+- <code title="post /v2/workspaces/{workspace_id}/sessions/{session_id}/messages/upload">client.workspaces.sessions.messages.<a href="./src/honcho_core/resources/workspaces/sessions/messages.py">upload</a>(session_id, \*, workspace_id, \*\*<a href="src/honcho_core/types/workspaces/sessions/message_upload_params.py">params</a>) -> <a href="./src/honcho_core/types/workspaces/sessions/message_upload_response.py">MessageUploadResponse</a></code>
 
 ### Peers
 

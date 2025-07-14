@@ -9,11 +9,11 @@ __all__ = ["WorkspaceDeriverStatusParams"]
 
 
 class WorkspaceDeriverStatusParams(TypedDict, total=False):
-    observer_id: Optional[str]
-    """Optional observer ID to filter by"""
+    include_sender: bool
+    """Include work units triggered by this peer"""
 
-    sender_id: Optional[str]
-    """Optional sender ID to filter by"""
+    peer_id: Optional[str]
+    """Optional peer ID to filter by"""
 
     session_id: Optional[str]
     """Optional session ID to filter by"""
