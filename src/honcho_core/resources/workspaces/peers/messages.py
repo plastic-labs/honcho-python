@@ -2,12 +2,12 @@
 
 from __future__ import annotations
 
-from typing import Dict, Iterable, Optional
+from typing import Dict, Mapping, Iterable, Optional, cast
 
 import httpx
 
-from ...._types import NOT_GIVEN, Body, Query, Headers, NotGiven
-from ...._utils import maybe_transform, async_maybe_transform
+from ...._types import NOT_GIVEN, Body, Query, Headers, NotGiven, FileTypes
+from ...._utils import extract_files, maybe_transform, deepcopy_minimal, async_maybe_transform
 from ...._compat import cached_property
 from ...._resource import SyncAPIResource, AsyncAPIResource
 from ...._response import (
@@ -18,9 +18,10 @@ from ...._response import (
 )
 from ....pagination import SyncPage, AsyncPage
 from ...._base_client import AsyncPaginator, make_request_options
-from ....types.workspaces.peers import message_list_params, message_create_params
+from ....types.workspaces.peers import message_list_params, message_create_params, message_upload_params
 from ....types.workspaces.sessions.message import Message
 from ....types.workspaces.peers.message_create_response import MessageCreateResponse
+from ....types.workspaces.peers.message_upload_response import MessageUploadResponse
 from ....types.workspaces.sessions.message_create_param import MessageCreateParam
 
 __all__ = ["MessagesResource", "AsyncMessagesResource"]
@@ -152,6 +153,57 @@ class MessagesResource(SyncAPIResource):
             method="post",
         )
 
+    def upload(
+        self,
+        peer_id: str,
+        *,
+        workspace_id: str,
+        file: FileTypes,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> MessageUploadResponse:
+        """Create messages from uploaded files for a peer.
+
+        Files are converted to text and
+        split into multiple messages.
+
+        Args:
+          workspace_id: ID of the workspace
+
+          peer_id: ID of the peer
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not workspace_id:
+            raise ValueError(f"Expected a non-empty value for `workspace_id` but received {workspace_id!r}")
+        if not peer_id:
+            raise ValueError(f"Expected a non-empty value for `peer_id` but received {peer_id!r}")
+        body = deepcopy_minimal({"file": file})
+        files = extract_files(cast(Mapping[str, object], body), paths=[["file"]])
+        # It should be noted that the actual Content-Type header that will be
+        # sent to the server will contain a `boundary` parameter, e.g.
+        # multipart/form-data; boundary=---abc--
+        extra_headers = {"Content-Type": "multipart/form-data", **(extra_headers or {})}
+        return self._post(
+            f"/v2/workspaces/{workspace_id}/peers/{peer_id}/messages/upload",
+            body=maybe_transform(body, message_upload_params.MessageUploadParams),
+            files=files,
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=MessageUploadResponse,
+        )
+
 
 class AsyncMessagesResource(AsyncAPIResource):
     @cached_property
@@ -279,6 +331,57 @@ class AsyncMessagesResource(AsyncAPIResource):
             method="post",
         )
 
+    async def upload(
+        self,
+        peer_id: str,
+        *,
+        workspace_id: str,
+        file: FileTypes,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> MessageUploadResponse:
+        """Create messages from uploaded files for a peer.
+
+        Files are converted to text and
+        split into multiple messages.
+
+        Args:
+          workspace_id: ID of the workspace
+
+          peer_id: ID of the peer
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not workspace_id:
+            raise ValueError(f"Expected a non-empty value for `workspace_id` but received {workspace_id!r}")
+        if not peer_id:
+            raise ValueError(f"Expected a non-empty value for `peer_id` but received {peer_id!r}")
+        body = deepcopy_minimal({"file": file})
+        files = extract_files(cast(Mapping[str, object], body), paths=[["file"]])
+        # It should be noted that the actual Content-Type header that will be
+        # sent to the server will contain a `boundary` parameter, e.g.
+        # multipart/form-data; boundary=---abc--
+        extra_headers = {"Content-Type": "multipart/form-data", **(extra_headers or {})}
+        return await self._post(
+            f"/v2/workspaces/{workspace_id}/peers/{peer_id}/messages/upload",
+            body=await async_maybe_transform(body, message_upload_params.MessageUploadParams),
+            files=files,
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=MessageUploadResponse,
+        )
+
 
 class MessagesResourceWithRawResponse:
     def __init__(self, messages: MessagesResource) -> None:
@@ -289,6 +392,9 @@ class MessagesResourceWithRawResponse:
         )
         self.list = to_raw_response_wrapper(
             messages.list,
+        )
+        self.upload = to_raw_response_wrapper(
+            messages.upload,
         )
 
 
@@ -302,6 +408,9 @@ class AsyncMessagesResourceWithRawResponse:
         self.list = async_to_raw_response_wrapper(
             messages.list,
         )
+        self.upload = async_to_raw_response_wrapper(
+            messages.upload,
+        )
 
 
 class MessagesResourceWithStreamingResponse:
@@ -314,6 +423,9 @@ class MessagesResourceWithStreamingResponse:
         self.list = to_streamed_response_wrapper(
             messages.list,
         )
+        self.upload = to_streamed_response_wrapper(
+            messages.upload,
+        )
 
 
 class AsyncMessagesResourceWithStreamingResponse:
@@ -325,4 +437,7 @@ class AsyncMessagesResourceWithStreamingResponse:
         )
         self.list = async_to_streamed_response_wrapper(
             messages.list,
+        )
+        self.upload = async_to_streamed_response_wrapper(
+            messages.upload,
         )

@@ -11,6 +11,8 @@ from .message_list_params import MessageListParams as MessageListParams
 from .message_create_param import MessageCreateParam as MessageCreateParam
 from .message_create_params import MessageCreateParams as MessageCreateParams
 from .message_update_params import MessageUpdateParams as MessageUpdateParams
+from .message_upload_params import MessageUploadParams as MessageUploadParams
 from .peer_set_config_params import PeerSetConfigParams as PeerSetConfigParams
 from .message_create_response import MessageCreateResponse as MessageCreateResponse
+from .message_upload_response import MessageUploadResponse as MessageUploadResponse
 from .peer_get_config_response import PeerGetConfigResponse as PeerGetConfigResponse

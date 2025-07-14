@@ -187,6 +187,25 @@ for peer in first_page.items:
 # Remove `await` for non-async usage.
 ```
 
+## File uploads
+
+Request parameters that correspond to file uploads can be passed as `bytes`, or a [`PathLike`](https://docs.python.org/3/library/os.html#os.PathLike) instance or a tuple of `(filename, contents, media type)`.
+
+```python
+from pathlib import Path
+from honcho_core import Honcho
+
+client = Honcho()
+
+client.workspaces.peers.messages.upload(
+    peer_id="peer_id",
+    workspace_id="workspace_id",
+    file=Path("/path/to/file"),
+)
+```
+
+The async client uses the exact same interface. If you pass a [`PathLike`](https://docs.python.org/3/library/os.html#os.PathLike) instance, the file contents will be read asynchronously automatically.
+
 ## Handling errors
 
 When the library is unable to connect to the API (for example, due to network connection problems or a timeout), a subclass of `honcho_core.APIConnectionError` is raised.
