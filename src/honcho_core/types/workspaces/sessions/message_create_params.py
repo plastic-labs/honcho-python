@@ -12,6 +12,5 @@ __all__ = ["MessageCreateParams"]
 
 class MessageCreateParams(TypedDict, total=False):
     workspace_id: Required[str]
-    """ID of the workspace"""
 
     messages: Required[Iterable[MessageCreateParam]]
