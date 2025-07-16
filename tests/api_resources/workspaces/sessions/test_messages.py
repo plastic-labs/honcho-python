@@ -13,6 +13,7 @@ from honcho_core.pagination import SyncPage, AsyncPage
 from honcho_core.types.workspaces.sessions import (
     Message,
     MessageCreateResponse,
+    MessageUploadResponse,
 )
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
@@ -289,6 +290,64 @@ class TestMessages:
                 workspace_id="workspace_id",
             )
 
+    @parametrize
+    def test_method_upload(self, client: Honcho) -> None:
+        message = client.workspaces.sessions.messages.upload(
+            session_id="session_id",
+            workspace_id="workspace_id",
+            file=b"raw file contents",
+            peer_id="peer_id",
+        )
+        assert_matches_type(MessageUploadResponse, message, path=["response"])
+
+    @parametrize
+    def test_raw_response_upload(self, client: Honcho) -> None:
+        response = client.workspaces.sessions.messages.with_raw_response.upload(
+            session_id="session_id",
+            workspace_id="workspace_id",
+            file=b"raw file contents",
+            peer_id="peer_id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        message = response.parse()
+        assert_matches_type(MessageUploadResponse, message, path=["response"])
+
+    @parametrize
+    def test_streaming_response_upload(self, client: Honcho) -> None:
+        with client.workspaces.sessions.messages.with_streaming_response.upload(
+            session_id="session_id",
+            workspace_id="workspace_id",
+            file=b"raw file contents",
+            peer_id="peer_id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            message = response.parse()
+            assert_matches_type(MessageUploadResponse, message, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    def test_path_params_upload(self, client: Honcho) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `workspace_id` but received ''"):
+            client.workspaces.sessions.messages.with_raw_response.upload(
+                session_id="session_id",
+                workspace_id="",
+                file=b"raw file contents",
+                peer_id="peer_id",
+            )
+
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `session_id` but received ''"):
+            client.workspaces.sessions.messages.with_raw_response.upload(
+                session_id="",
+                workspace_id="workspace_id",
+                file=b"raw file contents",
+                peer_id="peer_id",
+            )
+
 
 class TestAsyncMessages:
     parametrize = pytest.mark.parametrize(
@@ -561,4 +620,62 @@ class TestAsyncMessages:
             await async_client.workspaces.sessions.messages.with_raw_response.list(
                 session_id="",
                 workspace_id="workspace_id",
+            )
+
+    @parametrize
+    async def test_method_upload(self, async_client: AsyncHoncho) -> None:
+        message = await async_client.workspaces.sessions.messages.upload(
+            session_id="session_id",
+            workspace_id="workspace_id",
+            file=b"raw file contents",
+            peer_id="peer_id",
+        )
+        assert_matches_type(MessageUploadResponse, message, path=["response"])
+
+    @parametrize
+    async def test_raw_response_upload(self, async_client: AsyncHoncho) -> None:
+        response = await async_client.workspaces.sessions.messages.with_raw_response.upload(
+            session_id="session_id",
+            workspace_id="workspace_id",
+            file=b"raw file contents",
+            peer_id="peer_id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        message = await response.parse()
+        assert_matches_type(MessageUploadResponse, message, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_upload(self, async_client: AsyncHoncho) -> None:
+        async with async_client.workspaces.sessions.messages.with_streaming_response.upload(
+            session_id="session_id",
+            workspace_id="workspace_id",
+            file=b"raw file contents",
+            peer_id="peer_id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            message = await response.parse()
+            assert_matches_type(MessageUploadResponse, message, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_path_params_upload(self, async_client: AsyncHoncho) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `workspace_id` but received ''"):
+            await async_client.workspaces.sessions.messages.with_raw_response.upload(
+                session_id="session_id",
+                workspace_id="",
+                file=b"raw file contents",
+                peer_id="peer_id",
+            )
+
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `session_id` but received ''"):
+            await async_client.workspaces.sessions.messages.with_raw_response.upload(
+                session_id="",
+                workspace_id="workspace_id",
+                file=b"raw file contents",
+                peer_id="peer_id",
             )
