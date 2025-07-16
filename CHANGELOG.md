@@ -1,5 +1,35 @@
 # Changelog
 
+## 1.2.0 (2025-07-16)
+
+Full Changelog: [v1.1.0...v1.2.0](https://github.com/plastic-labs/honcho-python-core/compare/v1.1.0...v1.2.0)
+
+### Features
+
+* **api:** manual updates ([9cf149f](https://github.com/plastic-labs/honcho-python-core/commit/9cf149fd36ca429cbf6ca2a880735a29ca9aa736))
+* **api:** manual updates ([8b91a94](https://github.com/plastic-labs/honcho-python-core/commit/8b91a940df27e96de8ba004871ea9a304b7bdad3))
+* **api:** manual updates ([24d5066](https://github.com/plastic-labs/honcho-python-core/commit/24d50661ead4916896b2c25d3c93c25c6de608c1))
+* **api:** manual updates -- add file upload endpoints ([6393896](https://github.com/plastic-labs/honcho-python-core/commit/6393896c740603b5e833edf91e6e75493d840145))
+* clean up environment call outs ([f92dab9](https://github.com/plastic-labs/honcho-python-core/commit/f92dab93e4321bd8e4c8e98bc8303d00eaf0a426))
+
+
+### Bug Fixes
+
+* **ci:** correct conditional ([246a6eb](https://github.com/plastic-labs/honcho-python-core/commit/246a6eb5eebccece80c19d434e4e9cf896eaa2c6))
+* **ci:** release-doctor — report correct token name ([f3c44e3](https://github.com/plastic-labs/honcho-python-core/commit/f3c44e340fc7a2b60137e0a3185aea892b734806))
+* **client:** don't send Content-Type header on GET requests ([88597e4](https://github.com/plastic-labs/honcho-python-core/commit/88597e413ff52bafbe3819ce40432b535f390cb2))
+* **parsing:** correctly handle nested discriminated unions ([1862c6d](https://github.com/plastic-labs/honcho-python-core/commit/1862c6d1ceb2f82199d1f29bca56118df6d475d6))
+
+
+### Chores
+
+* **ci:** change upload type ([0ba882f](https://github.com/plastic-labs/honcho-python-core/commit/0ba882fe8c0c0ed554dcc0173a91fe1c2229b652))
+* **ci:** only run for pushes and fork pull requests ([10c2fc7](https://github.com/plastic-labs/honcho-python-core/commit/10c2fc780f1963a515435a706e603f66c32d79f0))
+* **internal:** bump pinned h11 dep ([53c88c2](https://github.com/plastic-labs/honcho-python-core/commit/53c88c2ae0958811485140c3adc938a8f830c730))
+* **internal:** codegen related update ([e37634f](https://github.com/plastic-labs/honcho-python-core/commit/e37634f2e868664513bfe8b58a42bf0f8d7697f2))
+* **package:** mark python 3.13 as supported ([999dcc3](https://github.com/plastic-labs/honcho-python-core/commit/999dcc30daf3bf3d62d9242321fca4da8546da21))
+* **readme:** fix version rendering on pypi ([9d9391f](https://github.com/plastic-labs/honcho-python-core/commit/9d9391fa1d303123d4727087bd168a78b850f588))
+
 ## 1.1.0 (2025-06-26)
 
 Full Changelog: [v1.0.1...v1.1.0](https://github.com/plastic-labs/honcho-python-core/compare/v1.0.1...v1.1.0)

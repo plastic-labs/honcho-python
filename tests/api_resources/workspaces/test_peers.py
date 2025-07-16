@@ -134,7 +134,7 @@ class TestPeers:
         peer = client.workspaces.peers.chat(
             peer_id="peer_id",
             workspace_id="workspace_id",
-            queries="string",
+            query="x",
         )
         assert_matches_type(PeerChatResponse, peer, path=["response"])
 
@@ -143,7 +143,7 @@ class TestPeers:
         peer = client.workspaces.peers.chat(
             peer_id="peer_id",
             workspace_id="workspace_id",
-            queries="string",
+            query="x",
             session_id="session_id",
             stream=True,
             target="target",
@@ -155,7 +155,7 @@ class TestPeers:
         response = client.workspaces.peers.with_raw_response.chat(
             peer_id="peer_id",
             workspace_id="workspace_id",
-            queries="string",
+            query="x",
         )
 
         assert response.is_closed is True
@@ -168,7 +168,7 @@ class TestPeers:
         with client.workspaces.peers.with_streaming_response.chat(
             peer_id="peer_id",
             workspace_id="workspace_id",
-            queries="string",
+            query="x",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -184,14 +184,14 @@ class TestPeers:
             client.workspaces.peers.with_raw_response.chat(
                 peer_id="peer_id",
                 workspace_id="",
-                queries="string",
+                query="x",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `peer_id` but received ''"):
             client.workspaces.peers.with_raw_response.chat(
                 peer_id="",
                 workspace_id="workspace_id",
-                queries="string",
+                query="x",
             )
 
     @parametrize
@@ -491,7 +491,7 @@ class TestAsyncPeers:
         peer = await async_client.workspaces.peers.chat(
             peer_id="peer_id",
             workspace_id="workspace_id",
-            queries="string",
+            query="x",
         )
         assert_matches_type(PeerChatResponse, peer, path=["response"])
 
@@ -500,7 +500,7 @@ class TestAsyncPeers:
         peer = await async_client.workspaces.peers.chat(
             peer_id="peer_id",
             workspace_id="workspace_id",
-            queries="string",
+            query="x",
             session_id="session_id",
             stream=True,
             target="target",
@@ -512,7 +512,7 @@ class TestAsyncPeers:
         response = await async_client.workspaces.peers.with_raw_response.chat(
             peer_id="peer_id",
             workspace_id="workspace_id",
-            queries="string",
+            query="x",
         )
 
         assert response.is_closed is True
@@ -525,7 +525,7 @@ class TestAsyncPeers:
         async with async_client.workspaces.peers.with_streaming_response.chat(
             peer_id="peer_id",
             workspace_id="workspace_id",
-            queries="string",
+            query="x",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -541,14 +541,14 @@ class TestAsyncPeers:
             await async_client.workspaces.peers.with_raw_response.chat(
                 peer_id="peer_id",
                 workspace_id="",
-                queries="string",
+                query="x",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `peer_id` but received ''"):
             await async_client.workspaces.peers.with_raw_response.chat(
                 peer_id="",
                 workspace_id="workspace_id",
-                queries="string",
+                query="x",
             )
 
     @parametrize

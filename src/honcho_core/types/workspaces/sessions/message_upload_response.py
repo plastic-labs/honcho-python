@@ -3,8 +3,8 @@
 from typing import List
 from typing_extensions import TypeAlias
 
-from ..sessions.message import Message
+from .message import Message
 
-__all__ = ["MessageCreateResponse"]
+__all__ = ["MessageUploadResponse"]
 
-MessageCreateResponse: TypeAlias = List[Message]
+MessageUploadResponse: TypeAlias = List[Message]

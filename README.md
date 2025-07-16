@@ -1,6 +1,7 @@
 # honcho-ai API library
 
-[![PyPI version](<https://img.shields.io/pypi/v/honcho-core.svg?label=pypi%20(stable)>)](https://pypi.org/project/honcho-core/)
+<!-- prettier-ignore -->
+[![PyPI version](https://img.shields.io/pypi/v/honcho-core.svg?label=pypi%20(stable))](https://pypi.org/project/honcho-core/)
 
 The honcho-ai library provides convenient access to the Honcho REST API from any Python 3.8+
 application. The library includes type definitions for all request params and response fields,
@@ -86,7 +87,6 @@ pip install honcho-core[aiohttp]
 Then you can enable it by instantiating the client with `http_client=DefaultAioHttpClient()`:
 
 ```python
-import os
 import asyncio
 from honcho_core import DefaultAioHttpClient
 from honcho_core import AsyncHoncho
@@ -94,7 +94,7 @@ from honcho_core import AsyncHoncho
 
 async def main() -> None:
     async with AsyncHoncho(
-        api_key=os.environ.get("HONCHO_API_KEY"),  # This is the default and can be omitted
+        api_key="My API Key",
         http_client=DefaultAioHttpClient(),
     ) as client:
         workspace = await client.workspaces.get_or_create(
@@ -185,6 +185,26 @@ for peer in first_page.items:
 
 # Remove `await` for non-async usage.
 ```
+
+## File uploads
+
+Request parameters that correspond to file uploads can be passed as `bytes`, or a [`PathLike`](https://docs.python.org/3/library/os.html#os.PathLike) instance or a tuple of `(filename, contents, media type)`.
+
+```python
+from pathlib import Path
+from honcho_core import Honcho
+
+client = Honcho()
+
+client.workspaces.sessions.messages.upload(
+    session_id="session_id",
+    workspace_id="workspace_id",
+    file=Path("/path/to/file"),
+    peer_id="peer_id",
+)
+```
+
+The async client uses the exact same interface. If you pass a [`PathLike`](https://docs.python.org/3/library/os.html#os.PathLike) instance, the file contents will be read asynchronously automatically.
 
 ## Handling errors
 
