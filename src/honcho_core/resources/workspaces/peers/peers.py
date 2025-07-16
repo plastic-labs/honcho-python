@@ -2,18 +2,10 @@
 
 from __future__ import annotations
 
-from typing import Dict, List, Union, Optional
+from typing import Dict, Optional
 
 import httpx
 
-from .messages import (
-    MessagesResource,
-    AsyncMessagesResource,
-    MessagesResourceWithRawResponse,
-    AsyncMessagesResourceWithRawResponse,
-    MessagesResourceWithStreamingResponse,
-    AsyncMessagesResourceWithStreamingResponse,
-)
 from .sessions import (
     SessionsResource,
     AsyncSessionsResource,
@@ -54,10 +46,6 @@ class PeersResource(SyncAPIResource):
     @cached_property
     def sessions(self) -> SessionsResource:
         return SessionsResource(self._client)
-
-    @cached_property
-    def messages(self) -> MessagesResource:
-        return MessagesResource(self._client)
 
     @cached_property
     def with_raw_response(self) -> PeersResourceWithRawResponse:
@@ -187,7 +175,7 @@ class PeersResource(SyncAPIResource):
         peer_id: str,
         *,
         workspace_id: str,
-        queries: Union[str, List[str]],
+        query: str,
         session_id: Optional[str] | NotGiven = NOT_GIVEN,
         stream: bool | NotGiven = NOT_GIVEN,
         target: Optional[str] | NotGiven = NOT_GIVEN,
@@ -205,6 +193,8 @@ class PeersResource(SyncAPIResource):
           workspace_id: ID of the workspace
 
           peer_id: ID of the peer
+
+          query: Dialectic API Prompt
 
           session_id: ID of the session to scope the representation to
 
@@ -226,7 +216,7 @@ class PeersResource(SyncAPIResource):
             f"/v2/workspaces/{workspace_id}/peers/{peer_id}/chat",
             body=maybe_transform(
                 {
-                    "queries": queries,
+                    "query": query,
                     "session_id": session_id,
                     "stream": stream,
                     "target": target,
@@ -377,10 +367,9 @@ class PeersResource(SyncAPIResource):
         Get a peer's working representation for a session.
 
         If a session_id is provided in the body, we get the working representation of
-        the peer in that session.
-
-        In the current implementation, we don't offer representations of `target` so
-        that parameter is ignored. Future releases will allow for this.
+        the peer in that session. If a target is provided, we get the representation of
+        the target from the perspective of the peer. If no target is provided, we get
+        the global representation of the peer.
 
         Args:
           workspace_id: ID of the workspace
@@ -424,10 +413,6 @@ class AsyncPeersResource(AsyncAPIResource):
     @cached_property
     def sessions(self) -> AsyncSessionsResource:
         return AsyncSessionsResource(self._client)
-
-    @cached_property
-    def messages(self) -> AsyncMessagesResource:
-        return AsyncMessagesResource(self._client)
 
     @cached_property
     def with_raw_response(self) -> AsyncPeersResourceWithRawResponse:
@@ -557,7 +542,7 @@ class AsyncPeersResource(AsyncAPIResource):
         peer_id: str,
         *,
         workspace_id: str,
-        queries: Union[str, List[str]],
+        query: str,
         session_id: Optional[str] | NotGiven = NOT_GIVEN,
         stream: bool | NotGiven = NOT_GIVEN,
         target: Optional[str] | NotGiven = NOT_GIVEN,
@@ -575,6 +560,8 @@ class AsyncPeersResource(AsyncAPIResource):
           workspace_id: ID of the workspace
 
           peer_id: ID of the peer
+
+          query: Dialectic API Prompt
 
           session_id: ID of the session to scope the representation to
 
@@ -596,7 +583,7 @@ class AsyncPeersResource(AsyncAPIResource):
             f"/v2/workspaces/{workspace_id}/peers/{peer_id}/chat",
             body=await async_maybe_transform(
                 {
-                    "queries": queries,
+                    "query": query,
                     "session_id": session_id,
                     "stream": stream,
                     "target": target,
@@ -747,10 +734,9 @@ class AsyncPeersResource(AsyncAPIResource):
         Get a peer's working representation for a session.
 
         If a session_id is provided in the body, we get the working representation of
-        the peer in that session.
-
-        In the current implementation, we don't offer representations of `target` so
-        that parameter is ignored. Future releases will allow for this.
+        the peer in that session. If a target is provided, we get the representation of
+        the target from the perspective of the peer. If no target is provided, we get
+        the global representation of the peer.
 
         Args:
           workspace_id: ID of the workspace
@@ -817,10 +803,6 @@ class PeersResourceWithRawResponse:
     def sessions(self) -> SessionsResourceWithRawResponse:
         return SessionsResourceWithRawResponse(self._peers.sessions)
 
-    @cached_property
-    def messages(self) -> MessagesResourceWithRawResponse:
-        return MessagesResourceWithRawResponse(self._peers.messages)
-
 
 class AsyncPeersResourceWithRawResponse:
     def __init__(self, peers: AsyncPeersResource) -> None:
@@ -848,10 +830,6 @@ class AsyncPeersResourceWithRawResponse:
     @cached_property
     def sessions(self) -> AsyncSessionsResourceWithRawResponse:
         return AsyncSessionsResourceWithRawResponse(self._peers.sessions)
-
-    @cached_property
-    def messages(self) -> AsyncMessagesResourceWithRawResponse:
-        return AsyncMessagesResourceWithRawResponse(self._peers.messages)
 
 
 class PeersResourceWithStreamingResponse:
@@ -881,10 +859,6 @@ class PeersResourceWithStreamingResponse:
     def sessions(self) -> SessionsResourceWithStreamingResponse:
         return SessionsResourceWithStreamingResponse(self._peers.sessions)
 
-    @cached_property
-    def messages(self) -> MessagesResourceWithStreamingResponse:
-        return MessagesResourceWithStreamingResponse(self._peers.messages)
-
 
 class AsyncPeersResourceWithStreamingResponse:
     def __init__(self, peers: AsyncPeersResource) -> None:
@@ -912,7 +886,3 @@ class AsyncPeersResourceWithStreamingResponse:
     @cached_property
     def sessions(self) -> AsyncSessionsResourceWithStreamingResponse:
         return AsyncSessionsResourceWithStreamingResponse(self._peers.sessions)
-
-    @cached_property
-    def messages(self) -> AsyncMessagesResourceWithStreamingResponse:
-        return AsyncMessagesResourceWithStreamingResponse(self._peers.messages)

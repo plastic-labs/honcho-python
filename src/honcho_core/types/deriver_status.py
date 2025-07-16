@@ -20,9 +20,6 @@ class Sessions(BaseModel):
     total_work_units: int
     """Total work units"""
 
-    peer_id: Optional[str] = None
-    """ID of the peer (optional when filtering by session only)"""
-
     session_id: Optional[str] = None
     """Session ID if filtered by session"""
 
@@ -39,12 +36,6 @@ class DeriverStatus(BaseModel):
 
     total_work_units: int
     """Total work units"""
-
-    peer_id: Optional[str] = None
-    """ID of the peer (optional when filtering by session only)"""
-
-    session_id: Optional[str] = None
-    """Session ID if filtered by session"""
 
     sessions: Optional[Dict[str, Sessions]] = None
     """Per-session status when not filtered by session"""

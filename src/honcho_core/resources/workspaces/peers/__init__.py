@@ -8,14 +8,6 @@ from .peers import (
     PeersResourceWithStreamingResponse,
     AsyncPeersResourceWithStreamingResponse,
 )
-from .messages import (
-    MessagesResource,
-    AsyncMessagesResource,
-    MessagesResourceWithRawResponse,
-    AsyncMessagesResourceWithRawResponse,
-    MessagesResourceWithStreamingResponse,
-    AsyncMessagesResourceWithStreamingResponse,
-)
 from .sessions import (
     SessionsResource,
     AsyncSessionsResource,
@@ -32,12 +24,6 @@ __all__ = [
     "AsyncSessionsResourceWithRawResponse",
     "SessionsResourceWithStreamingResponse",
     "AsyncSessionsResourceWithStreamingResponse",
-    "MessagesResource",
-    "AsyncMessagesResource",
-    "MessagesResourceWithRawResponse",
-    "AsyncMessagesResourceWithRawResponse",
-    "MessagesResourceWithStreamingResponse",
-    "AsyncMessagesResourceWithStreamingResponse",
     "PeersResource",
     "AsyncPeersResource",
     "PeersResourceWithRawResponse",
