@@ -1,5 +1,19 @@
 # Changelog
 
+## 1.2.1 (2025-07-25)
+
+Full Changelog: [v1.2.0...v1.2.1](https://github.com/plastic-labs/honcho-python-core/compare/v1.2.0...v1.2.1)
+
+### Bug Fixes
+
+* **parsing:** ignore empty metadata ([c5a84e3](https://github.com/plastic-labs/honcho-python-core/commit/c5a84e3d14f1f4235efcb79813dd0640c8bba96d))
+* **parsing:** parse extra field types ([88bdac0](https://github.com/plastic-labs/honcho-python-core/commit/88bdac087da3dd1cae6170ec41be398b165e018b))
+
+
+### Chores
+
+* **project:** add settings file for vscode ([c54f786](https://github.com/plastic-labs/honcho-python-core/commit/c54f7860ab62b07ea5dcb10e66296804339f2b9d))
+
 ## 1.2.0 (2025-07-16)
 
 Full Changelog: [v1.1.0...v1.2.0](https://github.com/plastic-labs/honcho-python-core/compare/v1.1.0...v1.2.0)
