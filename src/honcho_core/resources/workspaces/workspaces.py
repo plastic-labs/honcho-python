@@ -43,7 +43,7 @@ from .sessions.sessions import (
     AsyncSessionsResourceWithStreamingResponse,
 )
 from ...types.deriver_status import DeriverStatus
-from ...types.workspaces.sessions.message import Message
+from ...types.workspace_search_response import WorkspaceSearchResponse
 
 __all__ = ["WorkspacesResource", "AsyncWorkspacesResource"]
 
@@ -274,27 +274,24 @@ class WorkspacesResource(SyncAPIResource):
         self,
         workspace_id: str,
         *,
-        body: str,
-        page: int | NotGiven = NOT_GIVEN,
-        size: int | NotGiven = NOT_GIVEN,
+        query: str,
+        limit: int | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> SyncPage[Message]:
+    ) -> WorkspaceSearchResponse:
         """
         Search a Workspace
 
         Args:
           workspace_id: ID of the workspace to search
 
-          body: Search query
+          query: Search query
 
-          page: Page number
-
-          size: Page size
+          limit: Number of results to return
 
           extra_headers: Send extra headers
 
@@ -306,25 +303,19 @@ class WorkspacesResource(SyncAPIResource):
         """
         if not workspace_id:
             raise ValueError(f"Expected a non-empty value for `workspace_id` but received {workspace_id!r}")
-        return self._get_api_list(
+        return self._post(
             f"/v2/workspaces/{workspace_id}/search",
-            page=SyncPage[Message],
-            body=maybe_transform(body, workspace_search_params.WorkspaceSearchParams),
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform(
-                    {
-                        "page": page,
-                        "size": size,
-                    },
-                    workspace_search_params.WorkspaceSearchParams,
-                ),
+            body=maybe_transform(
+                {
+                    "query": query,
+                    "limit": limit,
+                },
+                workspace_search_params.WorkspaceSearchParams,
             ),
-            model=Message,
-            method="post",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=WorkspaceSearchResponse,
         )
 
 
@@ -550,31 +541,28 @@ class AsyncWorkspacesResource(AsyncAPIResource):
             cast_to=Workspace,
         )
 
-    def search(
+    async def search(
         self,
         workspace_id: str,
         *,
-        body: str,
-        page: int | NotGiven = NOT_GIVEN,
-        size: int | NotGiven = NOT_GIVEN,
+        query: str,
+        limit: int | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> AsyncPaginator[Message, AsyncPage[Message]]:
+    ) -> WorkspaceSearchResponse:
         """
         Search a Workspace
 
         Args:
           workspace_id: ID of the workspace to search
 
-          body: Search query
+          query: Search query
 
-          page: Page number
-
-          size: Page size
+          limit: Number of results to return
 
           extra_headers: Send extra headers
 
@@ -586,25 +574,19 @@ class AsyncWorkspacesResource(AsyncAPIResource):
         """
         if not workspace_id:
             raise ValueError(f"Expected a non-empty value for `workspace_id` but received {workspace_id!r}")
-        return self._get_api_list(
+        return await self._post(
             f"/v2/workspaces/{workspace_id}/search",
-            page=AsyncPage[Message],
-            body=maybe_transform(body, workspace_search_params.WorkspaceSearchParams),
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform(
-                    {
-                        "page": page,
-                        "size": size,
-                    },
-                    workspace_search_params.WorkspaceSearchParams,
-                ),
+            body=await async_maybe_transform(
+                {
+                    "query": query,
+                    "limit": limit,
+                },
+                workspace_search_params.WorkspaceSearchParams,
             ),
-            model=Message,
-            method="post",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=WorkspaceSearchResponse,
         )
 
 
