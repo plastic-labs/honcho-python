@@ -35,8 +35,8 @@ from ....types.workspaces import (
     peer_working_representation_params,
 )
 from ....types.workspaces.peer import Peer
-from ....types.workspaces.sessions.message import Message
 from ....types.workspaces.peer_chat_response import PeerChatResponse
+from ....types.workspaces.peer_search_response import PeerSearchResponse
 from ....types.workspaces.peer_working_representation_response import PeerWorkingRepresentationResponse
 
 __all__ = ["PeersResource", "AsyncPeersResource"]
@@ -284,16 +284,14 @@ class PeersResource(SyncAPIResource):
         *,
         workspace_id: str,
         query: str,
-        page: int | NotGiven = NOT_GIVEN,
-        size: int | NotGiven = NOT_GIVEN,
-        semantic: Optional[bool] | NotGiven = NOT_GIVEN,
+        limit: int | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> SyncPage[Message]:
+    ) -> PeerSearchResponse:
         """
         Search a Peer
 
@@ -304,11 +302,7 @@ class PeersResource(SyncAPIResource):
 
           query: Search query
 
-          page: Page number
-
-          size: Page size
-
-          semantic: Whether to explicitly use semantic search to filter the results
+          limit: Number of results to return
 
           extra_headers: Send extra headers
 
@@ -322,31 +316,19 @@ class PeersResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `workspace_id` but received {workspace_id!r}")
         if not peer_id:
             raise ValueError(f"Expected a non-empty value for `peer_id` but received {peer_id!r}")
-        return self._get_api_list(
+        return self._post(
             f"/v2/workspaces/{workspace_id}/peers/{peer_id}/search",
-            page=SyncPage[Message],
             body=maybe_transform(
                 {
                     "query": query,
-                    "semantic": semantic,
+                    "limit": limit,
                 },
                 peer_search_params.PeerSearchParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform(
-                    {
-                        "page": page,
-                        "size": size,
-                    },
-                    peer_search_params.PeerSearchParams,
-                ),
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            model=Message,
-            method="post",
+            cast_to=PeerSearchResponse,
         )
 
     def working_representation(
@@ -645,22 +627,20 @@ class AsyncPeersResource(AsyncAPIResource):
             cast_to=Peer,
         )
 
-    def search(
+    async def search(
         self,
         peer_id: str,
         *,
         workspace_id: str,
         query: str,
-        page: int | NotGiven = NOT_GIVEN,
-        size: int | NotGiven = NOT_GIVEN,
-        semantic: Optional[bool] | NotGiven = NOT_GIVEN,
+        limit: int | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> AsyncPaginator[Message, AsyncPage[Message]]:
+    ) -> PeerSearchResponse:
         """
         Search a Peer
 
@@ -671,11 +651,7 @@ class AsyncPeersResource(AsyncAPIResource):
 
           query: Search query
 
-          page: Page number
-
-          size: Page size
-
-          semantic: Whether to explicitly use semantic search to filter the results
+          limit: Number of results to return
 
           extra_headers: Send extra headers
 
@@ -689,31 +665,19 @@ class AsyncPeersResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `workspace_id` but received {workspace_id!r}")
         if not peer_id:
             raise ValueError(f"Expected a non-empty value for `peer_id` but received {peer_id!r}")
-        return self._get_api_list(
+        return await self._post(
             f"/v2/workspaces/{workspace_id}/peers/{peer_id}/search",
-            page=AsyncPage[Message],
-            body=maybe_transform(
+            body=await async_maybe_transform(
                 {
                     "query": query,
-                    "semantic": semantic,
+                    "limit": limit,
                 },
                 peer_search_params.PeerSearchParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform(
-                    {
-                        "page": page,
-                        "size": size,
-                    },
-                    peer_search_params.PeerSearchParams,
-                ),
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            model=Message,
-            method="post",
+            cast_to=PeerSearchResponse,
         )
 
     async def working_representation(

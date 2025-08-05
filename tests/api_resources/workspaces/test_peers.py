@@ -13,9 +13,9 @@ from honcho_core.pagination import SyncPage, AsyncPage
 from honcho_core.types.workspaces import (
     Peer,
     PeerChatResponse,
+    PeerSearchResponse,
     PeerWorkingRepresentationResponse,
 )
-from honcho_core.types.workspaces.sessions import Message
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -253,7 +253,7 @@ class TestPeers:
             workspace_id="workspace_id",
             query="query",
         )
-        assert_matches_type(SyncPage[Message], peer, path=["response"])
+        assert_matches_type(PeerSearchResponse, peer, path=["response"])
 
     @parametrize
     def test_method_search_with_all_params(self, client: Honcho) -> None:
@@ -261,11 +261,9 @@ class TestPeers:
             peer_id="peer_id",
             workspace_id="workspace_id",
             query="query",
-            page=1,
-            size=1,
-            semantic=True,
+            limit=1,
         )
-        assert_matches_type(SyncPage[Message], peer, path=["response"])
+        assert_matches_type(PeerSearchResponse, peer, path=["response"])
 
     @parametrize
     def test_raw_response_search(self, client: Honcho) -> None:
@@ -278,7 +276,7 @@ class TestPeers:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         peer = response.parse()
-        assert_matches_type(SyncPage[Message], peer, path=["response"])
+        assert_matches_type(PeerSearchResponse, peer, path=["response"])
 
     @parametrize
     def test_streaming_response_search(self, client: Honcho) -> None:
@@ -291,7 +289,7 @@ class TestPeers:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             peer = response.parse()
-            assert_matches_type(SyncPage[Message], peer, path=["response"])
+            assert_matches_type(PeerSearchResponse, peer, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -610,7 +608,7 @@ class TestAsyncPeers:
             workspace_id="workspace_id",
             query="query",
         )
-        assert_matches_type(AsyncPage[Message], peer, path=["response"])
+        assert_matches_type(PeerSearchResponse, peer, path=["response"])
 
     @parametrize
     async def test_method_search_with_all_params(self, async_client: AsyncHoncho) -> None:
@@ -618,11 +616,9 @@ class TestAsyncPeers:
             peer_id="peer_id",
             workspace_id="workspace_id",
             query="query",
-            page=1,
-            size=1,
-            semantic=True,
+            limit=1,
         )
-        assert_matches_type(AsyncPage[Message], peer, path=["response"])
+        assert_matches_type(PeerSearchResponse, peer, path=["response"])
 
     @parametrize
     async def test_raw_response_search(self, async_client: AsyncHoncho) -> None:
@@ -635,7 +631,7 @@ class TestAsyncPeers:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         peer = await response.parse()
-        assert_matches_type(AsyncPage[Message], peer, path=["response"])
+        assert_matches_type(PeerSearchResponse, peer, path=["response"])
 
     @parametrize
     async def test_streaming_response_search(self, async_client: AsyncHoncho) -> None:
@@ -648,7 +644,7 @@ class TestAsyncPeers:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             peer = await response.parse()
-            assert_matches_type(AsyncPage[Message], peer, path=["response"])
+            assert_matches_type(PeerSearchResponse, peer, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 

@@ -8,11 +8,8 @@ __all__ = ["WorkspaceSearchParams"]
 
 
 class WorkspaceSearchParams(TypedDict, total=False):
-    body: Required[str]
+    query: Required[str]
     """Search query"""
 
-    page: int
-    """Page number"""
-
-    size: int
-    """Page size"""
+    limit: int
+    """Number of results to return"""

@@ -12,9 +12,9 @@ from tests.utils import assert_matches_type
 from honcho_core.pagination import SyncPage, AsyncPage
 from honcho_core.types.workspaces import (
     Session,
+    SessionSearchResponse,
     SessionGetContextResponse,
 )
-from honcho_core.types.workspaces.sessions import Message
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -247,7 +247,7 @@ class TestSessions:
             session_id="session_id",
             workspace_id="workspace_id",
             summary=True,
-            tokens=0,
+            tokens=100000,
         )
         assert_matches_type(SessionGetContextResponse, session, path=["response"])
 
@@ -356,7 +356,7 @@ class TestSessions:
             workspace_id="workspace_id",
             query="query",
         )
-        assert_matches_type(SyncPage[Message], session, path=["response"])
+        assert_matches_type(SessionSearchResponse, session, path=["response"])
 
     @parametrize
     def test_method_search_with_all_params(self, client: Honcho) -> None:
@@ -364,11 +364,9 @@ class TestSessions:
             session_id="session_id",
             workspace_id="workspace_id",
             query="query",
-            page=1,
-            size=1,
-            semantic=True,
+            limit=1,
         )
-        assert_matches_type(SyncPage[Message], session, path=["response"])
+        assert_matches_type(SessionSearchResponse, session, path=["response"])
 
     @parametrize
     def test_raw_response_search(self, client: Honcho) -> None:
@@ -381,7 +379,7 @@ class TestSessions:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         session = response.parse()
-        assert_matches_type(SyncPage[Message], session, path=["response"])
+        assert_matches_type(SessionSearchResponse, session, path=["response"])
 
     @parametrize
     def test_streaming_response_search(self, client: Honcho) -> None:
@@ -394,7 +392,7 @@ class TestSessions:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             session = response.parse()
-            assert_matches_type(SyncPage[Message], session, path=["response"])
+            assert_matches_type(SessionSearchResponse, session, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -645,7 +643,7 @@ class TestAsyncSessions:
             session_id="session_id",
             workspace_id="workspace_id",
             summary=True,
-            tokens=0,
+            tokens=100000,
         )
         assert_matches_type(SessionGetContextResponse, session, path=["response"])
 
@@ -754,7 +752,7 @@ class TestAsyncSessions:
             workspace_id="workspace_id",
             query="query",
         )
-        assert_matches_type(AsyncPage[Message], session, path=["response"])
+        assert_matches_type(SessionSearchResponse, session, path=["response"])
 
     @parametrize
     async def test_method_search_with_all_params(self, async_client: AsyncHoncho) -> None:
@@ -762,11 +760,9 @@ class TestAsyncSessions:
             session_id="session_id",
             workspace_id="workspace_id",
             query="query",
-            page=1,
-            size=1,
-            semantic=True,
+            limit=1,
         )
-        assert_matches_type(AsyncPage[Message], session, path=["response"])
+        assert_matches_type(SessionSearchResponse, session, path=["response"])
 
     @parametrize
     async def test_raw_response_search(self, async_client: AsyncHoncho) -> None:
@@ -779,7 +775,7 @@ class TestAsyncSessions:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         session = await response.parse()
-        assert_matches_type(AsyncPage[Message], session, path=["response"])
+        assert_matches_type(SessionSearchResponse, session, path=["response"])
 
     @parametrize
     async def test_streaming_response_search(self, async_client: AsyncHoncho) -> None:
@@ -792,7 +788,7 @@ class TestAsyncSessions:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             session = await response.parse()
-            assert_matches_type(AsyncPage[Message], session, path=["response"])
+            assert_matches_type(SessionSearchResponse, session, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 

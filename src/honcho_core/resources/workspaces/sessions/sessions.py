@@ -43,7 +43,7 @@ from ....types.workspaces import (
     session_get_or_create_params,
 )
 from ....types.workspaces.session import Session
-from ....types.workspaces.sessions.message import Message
+from ....types.workspaces.session_search_response import SessionSearchResponse
 from ....types.workspaces.session_get_context_response import SessionGetContextResponse
 
 __all__ = ["SessionsResource", "AsyncSessionsResource"]
@@ -284,20 +284,22 @@ class SessionsResource(SyncAPIResource):
     ) -> SessionGetContextResponse:
         """Produce a context object from the session.
 
-        The caller provides a token limit
-        which the entire context must fit into. To do this, we allocate 40% of the token
-        limit to the summary, and 60% to recent messages -- as many as can fit. If the
-        caller does not want a summary, we allocate all the tokens to recent messages.
-        The default token limit if not provided is 2048. (TODO: make this configurable)
+        The caller provides an optional token
+        limit which the entire context must fit into. If not provided, the context will
+        be exhaustive (within configured max tokens). To do this, we allocate 40% of the
+        token limit to the summary, and 60% to recent messages -- as many as can fit.
+        Note that the summary will usually take up less space than this. If the caller
+        does not want a summary, we allocate all the tokens to recent messages.
 
         Args:
           workspace_id: ID of the workspace
 
           session_id: ID of the session
 
-          summary: Whether to summarize the session history prior to the cutoff message
+          summary: Whether or not to include a summary _if_ one is available for the session
 
-          tokens: Number of tokens to use for the context. Includes summary if set to true
+          tokens: Number of tokens to use for the context. Includes summary if set to true. If not
+              provided, the context will be exhaustive (within 100000 tokens)
 
           extra_headers: Send extra headers
 
@@ -387,16 +389,14 @@ class SessionsResource(SyncAPIResource):
         *,
         workspace_id: str,
         query: str,
-        page: int | NotGiven = NOT_GIVEN,
-        size: int | NotGiven = NOT_GIVEN,
-        semantic: Optional[bool] | NotGiven = NOT_GIVEN,
+        limit: int | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> SyncPage[Message]:
+    ) -> SessionSearchResponse:
         """
         Search a Session
 
@@ -407,11 +407,7 @@ class SessionsResource(SyncAPIResource):
 
           query: Search query
 
-          page: Page number
-
-          size: Page size
-
-          semantic: Whether to explicitly use semantic search to filter the results
+          limit: Number of results to return
 
           extra_headers: Send extra headers
 
@@ -425,31 +421,19 @@ class SessionsResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `workspace_id` but received {workspace_id!r}")
         if not session_id:
             raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
-        return self._get_api_list(
+        return self._post(
             f"/v2/workspaces/{workspace_id}/sessions/{session_id}/search",
-            page=SyncPage[Message],
             body=maybe_transform(
                 {
                     "query": query,
-                    "semantic": semantic,
+                    "limit": limit,
                 },
                 session_search_params.SessionSearchParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform(
-                    {
-                        "page": page,
-                        "size": size,
-                    },
-                    session_search_params.SessionSearchParams,
-                ),
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            model=Message,
-            method="post",
+            cast_to=SessionSearchResponse,
         )
 
 
@@ -688,20 +672,22 @@ class AsyncSessionsResource(AsyncAPIResource):
     ) -> SessionGetContextResponse:
         """Produce a context object from the session.
 
-        The caller provides a token limit
-        which the entire context must fit into. To do this, we allocate 40% of the token
-        limit to the summary, and 60% to recent messages -- as many as can fit. If the
-        caller does not want a summary, we allocate all the tokens to recent messages.
-        The default token limit if not provided is 2048. (TODO: make this configurable)
+        The caller provides an optional token
+        limit which the entire context must fit into. If not provided, the context will
+        be exhaustive (within configured max tokens). To do this, we allocate 40% of the
+        token limit to the summary, and 60% to recent messages -- as many as can fit.
+        Note that the summary will usually take up less space than this. If the caller
+        does not want a summary, we allocate all the tokens to recent messages.
 
         Args:
           workspace_id: ID of the workspace
 
           session_id: ID of the session
 
-          summary: Whether to summarize the session history prior to the cutoff message
+          summary: Whether or not to include a summary _if_ one is available for the session
 
-          tokens: Number of tokens to use for the context. Includes summary if set to true
+          tokens: Number of tokens to use for the context. Includes summary if set to true. If not
+              provided, the context will be exhaustive (within 100000 tokens)
 
           extra_headers: Send extra headers
 
@@ -785,22 +771,20 @@ class AsyncSessionsResource(AsyncAPIResource):
             cast_to=Session,
         )
 
-    def search(
+    async def search(
         self,
         session_id: str,
         *,
         workspace_id: str,
         query: str,
-        page: int | NotGiven = NOT_GIVEN,
-        size: int | NotGiven = NOT_GIVEN,
-        semantic: Optional[bool] | NotGiven = NOT_GIVEN,
+        limit: int | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> AsyncPaginator[Message, AsyncPage[Message]]:
+    ) -> SessionSearchResponse:
         """
         Search a Session
 
@@ -811,11 +795,7 @@ class AsyncSessionsResource(AsyncAPIResource):
 
           query: Search query
 
-          page: Page number
-
-          size: Page size
-
-          semantic: Whether to explicitly use semantic search to filter the results
+          limit: Number of results to return
 
           extra_headers: Send extra headers
 
@@ -829,31 +809,19 @@ class AsyncSessionsResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `workspace_id` but received {workspace_id!r}")
         if not session_id:
             raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
-        return self._get_api_list(
+        return await self._post(
             f"/v2/workspaces/{workspace_id}/sessions/{session_id}/search",
-            page=AsyncPage[Message],
-            body=maybe_transform(
+            body=await async_maybe_transform(
                 {
                     "query": query,
-                    "semantic": semantic,
+                    "limit": limit,
                 },
                 session_search_params.SessionSearchParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform(
-                    {
-                        "page": page,
-                        "size": size,
-                    },
-                    session_search_params.SessionSearchParams,
-                ),
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            model=Message,
-            method="post",
+            cast_to=SessionSearchResponse,
         )
 
 

@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-from typing import Optional
 from typing_extensions import Required, TypedDict
 
 __all__ = ["SessionSearchParams"]
@@ -15,11 +14,5 @@ class SessionSearchParams(TypedDict, total=False):
     query: Required[str]
     """Search query"""
 
-    page: int
-    """Page number"""
-
-    size: int
-    """Page size"""
-
-    semantic: Optional[bool]
-    """Whether to explicitly use semantic search to filter the results"""
+    limit: int
+    """Number of results to return"""
