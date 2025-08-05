@@ -11,9 +11,11 @@ from .peer_chat_response import PeerChatResponse as PeerChatResponse
 from .peer_search_params import PeerSearchParams as PeerSearchParams
 from .peer_update_params import PeerUpdateParams as PeerUpdateParams
 from .session_list_params import SessionListParams as SessionListParams
+from .peer_search_response import PeerSearchResponse as PeerSearchResponse
 from .session_clone_params import SessionCloneParams as SessionCloneParams
 from .session_search_params import SessionSearchParams as SessionSearchParams
 from .session_update_params import SessionUpdateParams as SessionUpdateParams
+from .session_search_response import SessionSearchResponse as SessionSearchResponse
 from .peer_get_or_create_params import PeerGetOrCreateParams as PeerGetOrCreateParams
 from .session_get_context_params import SessionGetContextParams as SessionGetContextParams
 from .session_get_context_response import SessionGetContextResponse as SessionGetContextResponse

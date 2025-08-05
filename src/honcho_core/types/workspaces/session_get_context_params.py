@@ -13,7 +13,11 @@ class SessionGetContextParams(TypedDict, total=False):
     """ID of the workspace"""
 
     summary: bool
-    """Whether to summarize the session history prior to the cutoff message"""
+    """Whether or not to include a summary _if_ one is available for the session"""
 
     tokens: Optional[int]
-    """Number of tokens to use for the context. Includes summary if set to true"""
+    """Number of tokens to use for the context.
+
+    Includes summary if set to true. If not provided, the context will be exhaustive
+    (within 100000 tokens)
+    """

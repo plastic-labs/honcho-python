@@ -17,7 +17,7 @@ class Message(BaseModel):
 
     peer_id: str
 
-    session_id: Optional[str] = None
+    session_id: str
 
     token_count: int
 
