@@ -79,7 +79,7 @@ class TestWorkspaces:
         workspace = client.workspaces.list(
             page=1,
             size=1,
-            filter={"foo": "bar"},
+            filters={"foo": "bar"},
         )
         assert_matches_type(SyncPage[Workspace], workspace, path=["response"])
 
@@ -306,7 +306,7 @@ class TestAsyncWorkspaces:
         workspace = await async_client.workspaces.list(
             page=1,
             size=1,
-            filter={"foo": "bar"},
+            filters={"foo": "bar"},
         )
         assert_matches_type(AsyncPage[Workspace], workspace, path=["response"])
 

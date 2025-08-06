@@ -190,7 +190,7 @@ class MessagesResource(SyncAPIResource):
         page: int | NotGiven = NOT_GIVEN,
         reverse: Optional[bool] | NotGiven = NOT_GIVEN,
         size: int | NotGiven = NOT_GIVEN,
-        filter: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
+        filters: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -227,7 +227,7 @@ class MessagesResource(SyncAPIResource):
         return self._get_api_list(
             f"/v2/workspaces/{workspace_id}/sessions/{session_id}/messages/list",
             page=SyncPage[Message],
-            body=maybe_transform({"filter": filter}, message_list_params.MessageListParams),
+            body=maybe_transform({"filters": filters}, message_list_params.MessageListParams),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -458,7 +458,7 @@ class AsyncMessagesResource(AsyncAPIResource):
         page: int | NotGiven = NOT_GIVEN,
         reverse: Optional[bool] | NotGiven = NOT_GIVEN,
         size: int | NotGiven = NOT_GIVEN,
-        filter: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
+        filters: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -495,7 +495,7 @@ class AsyncMessagesResource(AsyncAPIResource):
         return self._get_api_list(
             f"/v2/workspaces/{workspace_id}/sessions/{session_id}/messages/list",
             page=AsyncPage[Message],
-            body=maybe_transform({"filter": filter}, message_list_params.MessageListParams),
+            body=maybe_transform({"filters": filters}, message_list_params.MessageListParams),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
