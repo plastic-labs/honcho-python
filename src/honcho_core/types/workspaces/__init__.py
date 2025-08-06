@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from .peer import Peer as Peer
 from .session import Session as Session
+from .page_peer import PagePeer as PagePeer
 from .page_session import PageSession as PageSession
 from .peer_chat_params import PeerChatParams as PeerChatParams
 from .peer_list_params import PeerListParams as PeerListParams

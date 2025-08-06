@@ -2,29 +2,17 @@
 
 from __future__ import annotations
 
-from typing import Dict, Optional
+from typing import Dict
 from typing_extensions import Required, TypedDict
 
-__all__ = ["PeerSetParams", "Body"]
+from .session_peer_config_param import SessionPeerConfigParam
+
+__all__ = ["PeerSetParams"]
 
 
 class PeerSetParams(TypedDict, total=False):
     workspace_id: Required[str]
     """ID of the workspace"""
 
-    body: Required[Dict[str, Body]]
+    body: Required[Dict[str, SessionPeerConfigParam]]
     """List of peer IDs to set for the session"""
-
-
-class Body(TypedDict, total=False):
-    observe_me: Optional[bool]
-    """
-    Whether other peers in this session should try to form a session-level
-    theory-of-mind representation of this peer
-    """
-
-    observe_others: bool
-    """
-    Whether this peer should form a session-level theory-of-mind representation of
-    other peers in the session
-    """

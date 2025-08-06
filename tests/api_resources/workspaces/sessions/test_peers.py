@@ -12,7 +12,7 @@ from tests.utils import assert_matches_type
 from honcho_core.pagination import SyncPage, AsyncPage
 from honcho_core.types.workspaces import Peer, Session
 from honcho_core.types.workspaces.sessions import (
-    PeerGetConfigResponse,
+    SessionPeerConfig,
 )
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
@@ -139,7 +139,7 @@ class TestPeers:
             workspace_id="workspace_id",
             session_id="session_id",
         )
-        assert_matches_type(PeerGetConfigResponse, peer, path=["response"])
+        assert_matches_type(SessionPeerConfig, peer, path=["response"])
 
     @parametrize
     def test_raw_response_get_config(self, client: Honcho) -> None:
@@ -152,7 +152,7 @@ class TestPeers:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         peer = response.parse()
-        assert_matches_type(PeerGetConfigResponse, peer, path=["response"])
+        assert_matches_type(SessionPeerConfig, peer, path=["response"])
 
     @parametrize
     def test_streaming_response_get_config(self, client: Honcho) -> None:
@@ -165,7 +165,7 @@ class TestPeers:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             peer = response.parse()
-            assert_matches_type(PeerGetConfigResponse, peer, path=["response"])
+            assert_matches_type(SessionPeerConfig, peer, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -493,7 +493,7 @@ class TestAsyncPeers:
             workspace_id="workspace_id",
             session_id="session_id",
         )
-        assert_matches_type(PeerGetConfigResponse, peer, path=["response"])
+        assert_matches_type(SessionPeerConfig, peer, path=["response"])
 
     @parametrize
     async def test_raw_response_get_config(self, async_client: AsyncHoncho) -> None:
@@ -506,7 +506,7 @@ class TestAsyncPeers:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         peer = await response.parse()
-        assert_matches_type(PeerGetConfigResponse, peer, path=["response"])
+        assert_matches_type(SessionPeerConfig, peer, path=["response"])
 
     @parametrize
     async def test_streaming_response_get_config(self, async_client: AsyncHoncho) -> None:
@@ -519,7 +519,7 @@ class TestAsyncPeers:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             peer = await response.parse()
-            assert_matches_type(PeerGetConfigResponse, peer, path=["response"])
+            assert_matches_type(SessionPeerConfig, peer, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
