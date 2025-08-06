@@ -33,7 +33,7 @@ class TestSessions:
             workspace_id="workspace_id",
             page=1,
             size=1,
-            filter={"foo": "bar"},
+            filters={"foo": "bar"},
         )
         assert_matches_type(SyncPage[Session], session, path=["response"])
 
@@ -98,7 +98,7 @@ class TestAsyncSessions:
             workspace_id="workspace_id",
             page=1,
             size=1,
-            filter={"foo": "bar"},
+            filters={"foo": "bar"},
         )
         assert_matches_type(AsyncPage[Session], session, path=["response"])
 
