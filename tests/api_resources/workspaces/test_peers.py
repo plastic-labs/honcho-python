@@ -94,7 +94,7 @@ class TestPeers:
             workspace_id="workspace_id",
             page=1,
             size=1,
-            filter={"foo": "bar"},
+            filters={"foo": "bar"},
         )
         assert_matches_type(SyncPage[Peer], peer, path=["response"])
 
@@ -450,7 +450,7 @@ class TestAsyncPeers:
             workspace_id="workspace_id",
             page=1,
             size=1,
-            filter={"foo": "bar"},
+            filters={"foo": "bar"},
         )
         assert_matches_type(AsyncPage[Peer], peer, path=["response"])
 

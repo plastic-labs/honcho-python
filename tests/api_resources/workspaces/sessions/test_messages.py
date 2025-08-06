@@ -246,7 +246,7 @@ class TestMessages:
             page=1,
             reverse=True,
             size=1,
-            filter={"foo": "bar"},
+            filters={"foo": "bar"},
         )
         assert_matches_type(SyncPage[Message], message, path=["response"])
 
@@ -578,7 +578,7 @@ class TestAsyncMessages:
             page=1,
             reverse=True,
             size=1,
-            filter={"foo": "bar"},
+            filters={"foo": "bar"},
         )
         assert_matches_type(AsyncPage[Message], message, path=["response"])
 

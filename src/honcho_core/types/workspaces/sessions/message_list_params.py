@@ -21,4 +21,4 @@ class MessageListParams(TypedDict, total=False):
     size: int
     """Page size"""
 
-    filter: Optional[Dict[str, object]]
+    filters: Optional[Dict[str, object]]

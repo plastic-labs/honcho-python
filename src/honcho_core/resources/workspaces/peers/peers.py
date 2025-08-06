@@ -121,7 +121,7 @@ class PeersResource(SyncAPIResource):
         *,
         page: int | NotGiven = NOT_GIVEN,
         size: int | NotGiven = NOT_GIVEN,
-        filter: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
+        filters: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -152,7 +152,7 @@ class PeersResource(SyncAPIResource):
         return self._get_api_list(
             f"/v2/workspaces/{workspace_id}/peers/list",
             page=SyncPage[Peer],
-            body=maybe_transform({"filter": filter}, peer_list_params.PeerListParams),
+            body=maybe_transform({"filters": filters}, peer_list_params.PeerListParams),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -247,7 +247,7 @@ class PeersResource(SyncAPIResource):
         Get a Peer by ID
 
         If peer_id is provided as a query parameter, it uses that (must match JWT
-        workspace_id). Otherwise, it uses the peer_id from the JWT token.
+        workspace_id). Otherwise, it uses the peer_id from the JWT.
 
         Args:
           workspace_id: ID of the workspace
@@ -474,7 +474,7 @@ class AsyncPeersResource(AsyncAPIResource):
         *,
         page: int | NotGiven = NOT_GIVEN,
         size: int | NotGiven = NOT_GIVEN,
-        filter: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
+        filters: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -505,7 +505,7 @@ class AsyncPeersResource(AsyncAPIResource):
         return self._get_api_list(
             f"/v2/workspaces/{workspace_id}/peers/list",
             page=AsyncPage[Peer],
-            body=maybe_transform({"filter": filter}, peer_list_params.PeerListParams),
+            body=maybe_transform({"filters": filters}, peer_list_params.PeerListParams),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -600,7 +600,7 @@ class AsyncPeersResource(AsyncAPIResource):
         Get a Peer by ID
 
         If peer_id is provided as a query parameter, it uses that (must match JWT
-        workspace_id). Otherwise, it uses the peer_id from the JWT token.
+        workspace_id). Otherwise, it uses the peer_id from the JWT.
 
         Args:
           workspace_id: ID of the workspace

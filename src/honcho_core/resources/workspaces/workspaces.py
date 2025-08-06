@@ -125,7 +125,7 @@ class WorkspacesResource(SyncAPIResource):
         *,
         page: int | NotGiven = NOT_GIVEN,
         size: int | NotGiven = NOT_GIVEN,
-        filter: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
+        filters: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -152,7 +152,7 @@ class WorkspacesResource(SyncAPIResource):
         return self._get_api_list(
             "/v2/workspaces/list",
             page=SyncPage[Workspace],
-            body=maybe_transform({"filter": filter}, workspace_list_params.WorkspaceListParams),
+            body=maybe_transform({"filters": filters}, workspace_list_params.WorkspaceListParams),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -243,7 +243,7 @@ class WorkspacesResource(SyncAPIResource):
         Get a Workspace by ID.
 
         If workspace_id is provided as a query parameter, it uses that (must match JWT
-        workspace_id). Otherwise, it uses the workspace_id from the JWT token.
+        workspace_id). Otherwise, it uses the workspace_id from the JWT.
 
         Args:
           extra_headers: Send extra headers
@@ -400,7 +400,7 @@ class AsyncWorkspacesResource(AsyncAPIResource):
         *,
         page: int | NotGiven = NOT_GIVEN,
         size: int | NotGiven = NOT_GIVEN,
-        filter: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
+        filters: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -427,7 +427,7 @@ class AsyncWorkspacesResource(AsyncAPIResource):
         return self._get_api_list(
             "/v2/workspaces/list",
             page=AsyncPage[Workspace],
-            body=maybe_transform({"filter": filter}, workspace_list_params.WorkspaceListParams),
+            body=maybe_transform({"filters": filters}, workspace_list_params.WorkspaceListParams),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -518,7 +518,7 @@ class AsyncWorkspacesResource(AsyncAPIResource):
         Get a Workspace by ID.
 
         If workspace_id is provided as a query parameter, it uses that (must match JWT
-        workspace_id). Otherwise, it uses the workspace_id from the JWT token.
+        workspace_id). Otherwise, it uses the workspace_id from the JWT.
 
         Args:
           extra_headers: Send extra headers

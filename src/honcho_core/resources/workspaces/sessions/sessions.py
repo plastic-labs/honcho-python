@@ -133,7 +133,7 @@ class SessionsResource(SyncAPIResource):
         *,
         page: int | NotGiven = NOT_GIVEN,
         size: int | NotGiven = NOT_GIVEN,
-        filter: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
+        filters: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -164,7 +164,7 @@ class SessionsResource(SyncAPIResource):
         return self._get_api_list(
             f"/v2/workspaces/{workspace_id}/sessions/list",
             page=SyncPage[Session],
-            body=maybe_transform({"filter": filter}, session_list_params.SessionListParams),
+            body=maybe_transform({"filters": filters}, session_list_params.SessionListParams),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -351,8 +351,7 @@ class SessionsResource(SyncAPIResource):
         Get a specific session in a workspace.
 
         If session_id is provided as a query parameter, it verifies the session is in
-        the workspace. Otherwise, it uses the session_id from the JWT token for
-        verification.
+        the workspace. Otherwise, it uses the session_id from the JWT for verification.
 
         Args:
           workspace_id: ID of the workspace
@@ -525,7 +524,7 @@ class AsyncSessionsResource(AsyncAPIResource):
         *,
         page: int | NotGiven = NOT_GIVEN,
         size: int | NotGiven = NOT_GIVEN,
-        filter: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
+        filters: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -556,7 +555,7 @@ class AsyncSessionsResource(AsyncAPIResource):
         return self._get_api_list(
             f"/v2/workspaces/{workspace_id}/sessions/list",
             page=AsyncPage[Session],
-            body=maybe_transform({"filter": filter}, session_list_params.SessionListParams),
+            body=maybe_transform({"filters": filters}, session_list_params.SessionListParams),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -743,8 +742,7 @@ class AsyncSessionsResource(AsyncAPIResource):
         Get a specific session in a workspace.
 
         If session_id is provided as a query parameter, it verifies the session is in
-        the workspace. Otherwise, it uses the session_id from the JWT token for
-        verification.
+        the workspace. Otherwise, it uses the session_id from the JWT for verification.
 
         Args:
           workspace_id: ID of the workspace
