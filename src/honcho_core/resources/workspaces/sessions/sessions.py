@@ -45,6 +45,7 @@ from ....types.workspaces import (
 from ....types.workspaces.session import Session
 from ....types.workspaces.session_search_response import SessionSearchResponse
 from ....types.workspaces.session_get_context_response import SessionGetContextResponse
+from ....types.workspaces.sessions.session_peer_config_param import SessionPeerConfigParam
 
 __all__ = ["SessionsResource", "AsyncSessionsResource"]
 
@@ -338,7 +339,7 @@ class SessionsResource(SyncAPIResource):
         id: str,
         configuration: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
         metadata: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
-        peers: Optional[Dict[str, session_get_or_create_params.Peers]] | NotGiven = NOT_GIVEN,
+        peers: Optional[Dict[str, SessionPeerConfigParam]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -389,6 +390,7 @@ class SessionsResource(SyncAPIResource):
         *,
         workspace_id: str,
         query: str,
+        filters: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
         limit: int | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -406,6 +408,8 @@ class SessionsResource(SyncAPIResource):
           session_id: ID of the session
 
           query: Search query
+
+          filters: Filters to scope the search
 
           limit: Number of results to return
 
@@ -426,6 +430,7 @@ class SessionsResource(SyncAPIResource):
             body=maybe_transform(
                 {
                     "query": query,
+                    "filters": filters,
                     "limit": limit,
                 },
                 session_search_params.SessionSearchParams,
@@ -726,7 +731,7 @@ class AsyncSessionsResource(AsyncAPIResource):
         id: str,
         configuration: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
         metadata: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
-        peers: Optional[Dict[str, session_get_or_create_params.Peers]] | NotGiven = NOT_GIVEN,
+        peers: Optional[Dict[str, SessionPeerConfigParam]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -777,6 +782,7 @@ class AsyncSessionsResource(AsyncAPIResource):
         *,
         workspace_id: str,
         query: str,
+        filters: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
         limit: int | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -794,6 +800,8 @@ class AsyncSessionsResource(AsyncAPIResource):
           session_id: ID of the session
 
           query: Search query
+
+          filters: Filters to scope the search
 
           limit: Number of results to return
 
@@ -814,6 +822,7 @@ class AsyncSessionsResource(AsyncAPIResource):
             body=await async_maybe_transform(
                 {
                     "query": query,
+                    "filters": filters,
                     "limit": limit,
                 },
                 session_search_params.SessionSearchParams,

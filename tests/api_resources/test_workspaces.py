@@ -204,6 +204,7 @@ class TestWorkspaces:
         workspace = client.workspaces.search(
             workspace_id="workspace_id",
             query="query",
+            filters={"foo": "bar"},
             limit=1,
         )
         assert_matches_type(WorkspaceSearchResponse, workspace, path=["response"])
@@ -430,6 +431,7 @@ class TestAsyncWorkspaces:
         workspace = await async_client.workspaces.search(
             workspace_id="workspace_id",
             query="query",
+            filters={"foo": "bar"},
             limit=1,
         )
         assert_matches_type(WorkspaceSearchResponse, workspace, path=["response"])

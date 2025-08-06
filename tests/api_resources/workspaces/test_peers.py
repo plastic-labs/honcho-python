@@ -261,6 +261,7 @@ class TestPeers:
             peer_id="peer_id",
             workspace_id="workspace_id",
             query="query",
+            filters={"foo": "bar"},
             limit=1,
         )
         assert_matches_type(PeerSearchResponse, peer, path=["response"])
@@ -616,6 +617,7 @@ class TestAsyncPeers:
             peer_id="peer_id",
             workspace_id="workspace_id",
             query="query",
+            filters={"foo": "bar"},
             limit=1,
         )
         assert_matches_type(PeerSearchResponse, peer, path=["response"])

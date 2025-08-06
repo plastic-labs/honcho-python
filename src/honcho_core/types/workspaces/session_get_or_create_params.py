@@ -5,7 +5,9 @@ from __future__ import annotations
 from typing import Dict, Optional
 from typing_extensions import Required, TypedDict
 
-__all__ = ["SessionGetOrCreateParams", "Peers"]
+from .sessions.session_peer_config_param import SessionPeerConfigParam
+
+__all__ = ["SessionGetOrCreateParams"]
 
 
 class SessionGetOrCreateParams(TypedDict, total=False):
@@ -15,18 +17,4 @@ class SessionGetOrCreateParams(TypedDict, total=False):
 
     metadata: Optional[Dict[str, object]]
 
-    peers: Optional[Dict[str, Peers]]
-
-
-class Peers(TypedDict, total=False):
-    observe_me: Optional[bool]
-    """
-    Whether other peers in this session should try to form a session-level
-    theory-of-mind representation of this peer
-    """
-
-    observe_others: bool
-    """
-    Whether this peer should form a session-level theory-of-mind representation of
-    other peers in the session
-    """
+    peers: Optional[Dict[str, SessionPeerConfigParam]]
