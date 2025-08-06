@@ -26,7 +26,8 @@ from ....types.workspaces.sessions import (
     peer_list_params,
     peer_set_config_params,
 )
-from ....types.workspaces.sessions.peer_get_config_response import PeerGetConfigResponse
+from ....types.workspaces.sessions.session_peer_config import SessionPeerConfig
+from ....types.workspaces.sessions.session_peer_config_param import SessionPeerConfigParam
 
 __all__ = ["PeersResource", "AsyncPeersResource"]
 
@@ -113,7 +114,7 @@ class PeersResource(SyncAPIResource):
         session_id: str,
         *,
         workspace_id: str,
-        body: Dict[str, peer_add_params.Body],
+        body: Dict[str, SessionPeerConfigParam],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -164,7 +165,7 @@ class PeersResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> PeerGetConfigResponse:
+    ) -> SessionPeerConfig:
         """
         Get the configuration for a peer in a session
 
@@ -194,7 +195,7 @@ class PeersResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=PeerGetConfigResponse,
+            cast_to=SessionPeerConfig,
         )
 
     def remove(
@@ -246,7 +247,7 @@ class PeersResource(SyncAPIResource):
         session_id: str,
         *,
         workspace_id: str,
-        body: Dict[str, peer_set_params.Body],
+        body: Dict[str, SessionPeerConfigParam],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -428,7 +429,7 @@ class AsyncPeersResource(AsyncAPIResource):
         session_id: str,
         *,
         workspace_id: str,
-        body: Dict[str, peer_add_params.Body],
+        body: Dict[str, SessionPeerConfigParam],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -479,7 +480,7 @@ class AsyncPeersResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> PeerGetConfigResponse:
+    ) -> SessionPeerConfig:
         """
         Get the configuration for a peer in a session
 
@@ -509,7 +510,7 @@ class AsyncPeersResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=PeerGetConfigResponse,
+            cast_to=SessionPeerConfig,
         )
 
     async def remove(
@@ -561,7 +562,7 @@ class AsyncPeersResource(AsyncAPIResource):
         session_id: str,
         *,
         workspace_id: str,
-        body: Dict[str, peer_set_params.Body],
+        body: Dict[str, SessionPeerConfigParam],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,

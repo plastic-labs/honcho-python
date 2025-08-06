@@ -364,6 +364,7 @@ class TestSessions:
             session_id="session_id",
             workspace_id="workspace_id",
             query="query",
+            filters={"foo": "bar"},
             limit=1,
         )
         assert_matches_type(SessionSearchResponse, session, path=["response"])
@@ -760,6 +761,7 @@ class TestAsyncSessions:
             session_id="session_id",
             workspace_id="workspace_id",
             query="query",
+            filters={"foo": "bar"},
             limit=1,
         )
         assert_matches_type(SessionSearchResponse, session, path=["response"])

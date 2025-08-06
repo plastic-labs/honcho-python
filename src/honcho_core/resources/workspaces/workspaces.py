@@ -275,6 +275,7 @@ class WorkspacesResource(SyncAPIResource):
         workspace_id: str,
         *,
         query: str,
+        filters: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
         limit: int | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -290,6 +291,8 @@ class WorkspacesResource(SyncAPIResource):
           workspace_id: ID of the workspace to search
 
           query: Search query
+
+          filters: Filters to scope the search
 
           limit: Number of results to return
 
@@ -308,6 +311,7 @@ class WorkspacesResource(SyncAPIResource):
             body=maybe_transform(
                 {
                     "query": query,
+                    "filters": filters,
                     "limit": limit,
                 },
                 workspace_search_params.WorkspaceSearchParams,
@@ -546,6 +550,7 @@ class AsyncWorkspacesResource(AsyncAPIResource):
         workspace_id: str,
         *,
         query: str,
+        filters: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
         limit: int | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -561,6 +566,8 @@ class AsyncWorkspacesResource(AsyncAPIResource):
           workspace_id: ID of the workspace to search
 
           query: Search query
+
+          filters: Filters to scope the search
 
           limit: Number of results to return
 
@@ -579,6 +586,7 @@ class AsyncWorkspacesResource(AsyncAPIResource):
             body=await async_maybe_transform(
                 {
                     "query": query,
+                    "filters": filters,
                     "limit": limit,
                 },
                 workspace_search_params.WorkspaceSearchParams,
