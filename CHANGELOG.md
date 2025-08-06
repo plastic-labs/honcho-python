@@ -1,5 +1,29 @@
 # Changelog
 
+## 1.3.0 (2025-08-06)
+
+Full Changelog: [v1.2.0...v1.3.0](https://github.com/plastic-labs/honcho-python-core/compare/v1.2.0...v1.3.0)
+
+### Features
+
+* **api:** manual updates ([a4637f5](https://github.com/plastic-labs/honcho-python-core/commit/a4637f5df79b0025ff2f446859256a8b363454d2))
+* **api:** manual updates ([d78eedd](https://github.com/plastic-labs/honcho-python-core/commit/d78eedd64878ab3dbf2ba1d86a7da1a0342d1e81))
+* **api:** pluralize filter*s* everywhere for consistency ([9883c7c](https://github.com/plastic-labs/honcho-python-core/commit/9883c7c930a29119016bebab2689a58b46b0329e))
+* **client:** support file upload requests ([0f96184](https://github.com/plastic-labs/honcho-python-core/commit/0f961844ed4e782ddc58496c292c18762ad4b144))
+
+
+### Bug Fixes
+
+* **parsing:** ignore empty metadata ([c5a84e3](https://github.com/plastic-labs/honcho-python-core/commit/c5a84e3d14f1f4235efcb79813dd0640c8bba96d))
+* **parsing:** parse extra field types ([88bdac0](https://github.com/plastic-labs/honcho-python-core/commit/88bdac087da3dd1cae6170ec41be398b165e018b))
+
+
+### Chores
+
+* **internal:** fix ruff target version ([a667674](https://github.com/plastic-labs/honcho-python-core/commit/a667674311761f01f183f82c65e07d144f4dc14c))
+* **project:** add settings file for vscode ([c54f786](https://github.com/plastic-labs/honcho-python-core/commit/c54f7860ab62b07ea5dcb10e66296804339f2b9d))
+* remove custom code ([de6327d](https://github.com/plastic-labs/honcho-python-core/commit/de6327d2e9ae4e7d8d2bc419139e47dc9d315117))
+
 ## 1.2.0 (2025-07-16)
 
 Full Changelog: [v1.1.0...v1.2.0](https://github.com/plastic-labs/honcho-python-core/compare/v1.1.0...v1.2.0)
