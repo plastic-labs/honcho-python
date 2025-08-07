@@ -106,6 +106,21 @@ Methods:
 - <code title="put /v2/workspaces/{workspace_id}/sessions/{session_id}/peers">client.workspaces.sessions.peers.<a href="./src/honcho_core/resources/workspaces/sessions/peers.py">set</a>(session_id, \*, workspace_id, \*\*<a href="src/honcho_core/types/workspaces/sessions/peer_set_params.py">params</a>) -> <a href="./src/honcho_core/types/workspaces/session.py">Session</a></code>
 - <code title="post /v2/workspaces/{workspace_id}/sessions/{session_id}/peers/{peer_id}/config">client.workspaces.sessions.peers.<a href="./src/honcho_core/resources/workspaces/sessions/peers.py">set_config</a>(peer_id, \*, workspace_id, session_id, \*\*<a href="src/honcho_core/types/workspaces/sessions/peer_set_config_params.py">params</a>) -> object</code>
 
+## Webhooks
+
+Types:
+
+```python
+from honcho_core.types.workspaces import WebhookEndpoint
+```
+
+Methods:
+
+- <code title="get /v2/workspaces/{workspace_id}/webhooks">client.workspaces.webhooks.<a href="./src/honcho_core/resources/workspaces/webhooks.py">list</a>(workspace_id, \*\*<a href="src/honcho_core/types/workspaces/webhook_list_params.py">params</a>) -> <a href="./src/honcho_core/types/workspaces/webhook_endpoint.py">SyncPage[WebhookEndpoint]</a></code>
+- <code title="delete /v2/workspaces/{workspace_id}/webhooks/{endpoint_id}">client.workspaces.webhooks.<a href="./src/honcho_core/resources/workspaces/webhooks.py">delete</a>(endpoint_id, \*, workspace_id) -> object</code>
+- <code title="post /v2/workspaces/{workspace_id}/webhooks">client.workspaces.webhooks.<a href="./src/honcho_core/resources/workspaces/webhooks.py">get_or_create</a>(workspace_id, \*\*<a href="src/honcho_core/types/workspaces/webhook_get_or_create_params.py">params</a>) -> <a href="./src/honcho_core/types/workspaces/webhook_endpoint.py">WebhookEndpoint</a></code>
+- <code title="get /v2/workspaces/{workspace_id}/webhooks/test">client.workspaces.webhooks.<a href="./src/honcho_core/resources/workspaces/webhooks.py">test_emit</a>(workspace_id) -> object</code>
+
 # Keys
 
 Methods:
