@@ -15,6 +15,14 @@ from ...types import (
 )
 from ..._types import NOT_GIVEN, Body, Query, Headers, NotGiven
 from ..._utils import maybe_transform, async_maybe_transform
+from .webhooks import (
+    WebhooksResource,
+    AsyncWebhooksResource,
+    WebhooksResourceWithRawResponse,
+    AsyncWebhooksResourceWithRawResponse,
+    WebhooksResourceWithStreamingResponse,
+    AsyncWebhooksResourceWithStreamingResponse,
+)
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
 from ..._response import (
@@ -56,6 +64,10 @@ class WorkspacesResource(SyncAPIResource):
     @cached_property
     def sessions(self) -> SessionsResource:
         return SessionsResource(self._client)
+
+    @cached_property
+    def webhooks(self) -> WebhooksResource:
+        return WebhooksResource(self._client)
 
     @cached_property
     def with_raw_response(self) -> WorkspacesResourceWithRawResponse:
@@ -331,6 +343,10 @@ class AsyncWorkspacesResource(AsyncAPIResource):
     @cached_property
     def sessions(self) -> AsyncSessionsResource:
         return AsyncSessionsResource(self._client)
+
+    @cached_property
+    def webhooks(self) -> AsyncWebhooksResource:
+        return AsyncWebhooksResource(self._client)
 
     @cached_property
     def with_raw_response(self) -> AsyncWorkspacesResourceWithRawResponse:
@@ -626,6 +642,10 @@ class WorkspacesResourceWithRawResponse:
     def sessions(self) -> SessionsResourceWithRawResponse:
         return SessionsResourceWithRawResponse(self._workspaces.sessions)
 
+    @cached_property
+    def webhooks(self) -> WebhooksResourceWithRawResponse:
+        return WebhooksResourceWithRawResponse(self._workspaces.webhooks)
+
 
 class AsyncWorkspacesResourceWithRawResponse:
     def __init__(self, workspaces: AsyncWorkspacesResource) -> None:
@@ -654,6 +674,10 @@ class AsyncWorkspacesResourceWithRawResponse:
     @cached_property
     def sessions(self) -> AsyncSessionsResourceWithRawResponse:
         return AsyncSessionsResourceWithRawResponse(self._workspaces.sessions)
+
+    @cached_property
+    def webhooks(self) -> AsyncWebhooksResourceWithRawResponse:
+        return AsyncWebhooksResourceWithRawResponse(self._workspaces.webhooks)
 
 
 class WorkspacesResourceWithStreamingResponse:
@@ -684,6 +708,10 @@ class WorkspacesResourceWithStreamingResponse:
     def sessions(self) -> SessionsResourceWithStreamingResponse:
         return SessionsResourceWithStreamingResponse(self._workspaces.sessions)
 
+    @cached_property
+    def webhooks(self) -> WebhooksResourceWithStreamingResponse:
+        return WebhooksResourceWithStreamingResponse(self._workspaces.webhooks)
+
 
 class AsyncWorkspacesResourceWithStreamingResponse:
     def __init__(self, workspaces: AsyncWorkspacesResource) -> None:
@@ -712,3 +740,7 @@ class AsyncWorkspacesResourceWithStreamingResponse:
     @cached_property
     def sessions(self) -> AsyncSessionsResourceWithStreamingResponse:
         return AsyncSessionsResourceWithStreamingResponse(self._workspaces.sessions)
+
+    @cached_property
+    def webhooks(self) -> AsyncWebhooksResourceWithStreamingResponse:
+        return AsyncWebhooksResourceWithStreamingResponse(self._workspaces.webhooks)

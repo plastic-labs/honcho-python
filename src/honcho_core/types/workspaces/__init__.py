@@ -8,10 +8,12 @@ from .page_peer import PagePeer as PagePeer
 from .page_session import PageSession as PageSession
 from .peer_chat_params import PeerChatParams as PeerChatParams
 from .peer_list_params import PeerListParams as PeerListParams
+from .webhook_endpoint import WebhookEndpoint as WebhookEndpoint
 from .peer_chat_response import PeerChatResponse as PeerChatResponse
 from .peer_search_params import PeerSearchParams as PeerSearchParams
 from .peer_update_params import PeerUpdateParams as PeerUpdateParams
 from .session_list_params import SessionListParams as SessionListParams
+from .webhook_list_params import WebhookListParams as WebhookListParams
 from .peer_search_response import PeerSearchResponse as PeerSearchResponse
 from .session_clone_params import SessionCloneParams as SessionCloneParams
 from .session_search_params import SessionSearchParams as SessionSearchParams
@@ -21,5 +23,6 @@ from .peer_get_or_create_params import PeerGetOrCreateParams as PeerGetOrCreateP
 from .session_get_context_params import SessionGetContextParams as SessionGetContextParams
 from .session_get_context_response import SessionGetContextResponse as SessionGetContextResponse
 from .session_get_or_create_params import SessionGetOrCreateParams as SessionGetOrCreateParams
+from .webhook_get_or_create_params import WebhookGetOrCreateParams as WebhookGetOrCreateParams
 from .peer_working_representation_params import PeerWorkingRepresentationParams as PeerWorkingRepresentationParams
 from .peer_working_representation_response import PeerWorkingRepresentationResponse as PeerWorkingRepresentationResponse

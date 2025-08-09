@@ -16,6 +16,14 @@ from .sessions import (
     SessionsResourceWithStreamingResponse,
     AsyncSessionsResourceWithStreamingResponse,
 )
+from .webhooks import (
+    WebhooksResource,
+    AsyncWebhooksResource,
+    WebhooksResourceWithRawResponse,
+    AsyncWebhooksResourceWithRawResponse,
+    WebhooksResourceWithStreamingResponse,
+    AsyncWebhooksResourceWithStreamingResponse,
+)
 from .workspaces import (
     WorkspacesResource,
     AsyncWorkspacesResource,
@@ -38,6 +46,12 @@ __all__ = [
     "AsyncSessionsResourceWithRawResponse",
     "SessionsResourceWithStreamingResponse",
     "AsyncSessionsResourceWithStreamingResponse",
+    "WebhooksResource",
+    "AsyncWebhooksResource",
+    "WebhooksResourceWithRawResponse",
+    "AsyncWebhooksResourceWithRawResponse",
+    "WebhooksResourceWithStreamingResponse",
+    "AsyncWebhooksResourceWithStreamingResponse",
     "WorkspacesResource",
     "AsyncWorkspacesResource",
     "WorkspacesResourceWithRawResponse",
