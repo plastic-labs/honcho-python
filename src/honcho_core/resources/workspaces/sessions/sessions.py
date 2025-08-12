@@ -44,6 +44,7 @@ from ....types.workspaces import (
 )
 from ....types.workspaces.session import Session
 from ....types.workspaces.session_search_response import SessionSearchResponse
+from ....types.workspaces.session_summaries_response import SessionSummariesResponse
 from ....types.workspaces.session_get_context_response import SessionGetContextResponse
 from ....types.workspaces.sessions.session_peer_config_param import SessionPeerConfigParam
 
@@ -440,6 +441,49 @@ class SessionsResource(SyncAPIResource):
             cast_to=SessionSearchResponse,
         )
 
+    def summaries(
+        self,
+        session_id: str,
+        *,
+        workspace_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> SessionSummariesResponse:
+        """
+        Get available summaries for a session.
+
+        Returns both short and long summaries if available, including metadata like the
+        message ID they cover up to, creation timestamp, and token count.
+
+        Args:
+          workspace_id: ID of the workspace
+
+          session_id: ID of the session
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not workspace_id:
+            raise ValueError(f"Expected a non-empty value for `workspace_id` but received {workspace_id!r}")
+        if not session_id:
+            raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
+        return self._get(
+            f"/v2/workspaces/{workspace_id}/sessions/{session_id}/summaries",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=SessionSummariesResponse,
+        )
+
 
 class AsyncSessionsResource(AsyncAPIResource):
     @cached_property
@@ -831,6 +875,49 @@ class AsyncSessionsResource(AsyncAPIResource):
             cast_to=SessionSearchResponse,
         )
 
+    async def summaries(
+        self,
+        session_id: str,
+        *,
+        workspace_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> SessionSummariesResponse:
+        """
+        Get available summaries for a session.
+
+        Returns both short and long summaries if available, including metadata like the
+        message ID they cover up to, creation timestamp, and token count.
+
+        Args:
+          workspace_id: ID of the workspace
+
+          session_id: ID of the session
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not workspace_id:
+            raise ValueError(f"Expected a non-empty value for `workspace_id` but received {workspace_id!r}")
+        if not session_id:
+            raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
+        return await self._get(
+            f"/v2/workspaces/{workspace_id}/sessions/{session_id}/summaries",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=SessionSummariesResponse,
+        )
+
 
 class SessionsResourceWithRawResponse:
     def __init__(self, sessions: SessionsResource) -> None:
@@ -856,6 +943,9 @@ class SessionsResourceWithRawResponse:
         )
         self.search = to_raw_response_wrapper(
             sessions.search,
+        )
+        self.summaries = to_raw_response_wrapper(
+            sessions.summaries,
         )
 
     @cached_property
@@ -892,6 +982,9 @@ class AsyncSessionsResourceWithRawResponse:
         self.search = async_to_raw_response_wrapper(
             sessions.search,
         )
+        self.summaries = async_to_raw_response_wrapper(
+            sessions.summaries,
+        )
 
     @cached_property
     def messages(self) -> AsyncMessagesResourceWithRawResponse:
@@ -927,6 +1020,9 @@ class SessionsResourceWithStreamingResponse:
         self.search = to_streamed_response_wrapper(
             sessions.search,
         )
+        self.summaries = to_streamed_response_wrapper(
+            sessions.summaries,
+        )
 
     @cached_property
     def messages(self) -> MessagesResourceWithStreamingResponse:
@@ -961,6 +1057,9 @@ class AsyncSessionsResourceWithStreamingResponse:
         )
         self.search = async_to_streamed_response_wrapper(
             sessions.search,
+        )
+        self.summaries = async_to_streamed_response_wrapper(
+            sessions.summaries,
         )
 
     @cached_property

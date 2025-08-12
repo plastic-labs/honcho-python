@@ -55,7 +55,12 @@ Methods:
 Types:
 
 ```python
-from honcho_core.types.workspaces import Session, SessionGetContextResponse, SessionSearchResponse
+from honcho_core.types.workspaces import (
+    Session,
+    SessionGetContextResponse,
+    SessionSearchResponse,
+    SessionSummariesResponse,
+)
 ```
 
 Methods:
@@ -67,6 +72,7 @@ Methods:
 - <code title="get /v2/workspaces/{workspace_id}/sessions/{session_id}/context">client.workspaces.sessions.<a href="./src/honcho_core/resources/workspaces/sessions/sessions.py">get_context</a>(session_id, \*, workspace_id, \*\*<a href="src/honcho_core/types/workspaces/session_get_context_params.py">params</a>) -> <a href="./src/honcho_core/types/workspaces/session_get_context_response.py">SessionGetContextResponse</a></code>
 - <code title="post /v2/workspaces/{workspace_id}/sessions">client.workspaces.sessions.<a href="./src/honcho_core/resources/workspaces/sessions/sessions.py">get_or_create</a>(workspace_id, \*\*<a href="src/honcho_core/types/workspaces/session_get_or_create_params.py">params</a>) -> <a href="./src/honcho_core/types/workspaces/session.py">Session</a></code>
 - <code title="post /v2/workspaces/{workspace_id}/sessions/{session_id}/search">client.workspaces.sessions.<a href="./src/honcho_core/resources/workspaces/sessions/sessions.py">search</a>(session_id, \*, workspace_id, \*\*<a href="src/honcho_core/types/workspaces/session_search_params.py">params</a>) -> <a href="./src/honcho_core/types/workspaces/session_search_response.py">SessionSearchResponse</a></code>
+- <code title="get /v2/workspaces/{workspace_id}/sessions/{session_id}/summaries">client.workspaces.sessions.<a href="./src/honcho_core/resources/workspaces/sessions/sessions.py">summaries</a>(session_id, \*, workspace_id) -> <a href="./src/honcho_core/types/workspaces/session_summaries_response.py">SessionSummariesResponse</a></code>
 
 ### Messages
 
