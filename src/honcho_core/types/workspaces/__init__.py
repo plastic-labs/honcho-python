@@ -21,6 +21,7 @@ from .session_update_params import SessionUpdateParams as SessionUpdateParams
 from .session_search_response import SessionSearchResponse as SessionSearchResponse
 from .peer_get_or_create_params import PeerGetOrCreateParams as PeerGetOrCreateParams
 from .session_get_context_params import SessionGetContextParams as SessionGetContextParams
+from .session_summaries_response import SessionSummariesResponse as SessionSummariesResponse
 from .session_get_context_response import SessionGetContextResponse as SessionGetContextResponse
 from .session_get_or_create_params import SessionGetOrCreateParams as SessionGetOrCreateParams
 from .webhook_get_or_create_params import WebhookGetOrCreateParams as WebhookGetOrCreateParams

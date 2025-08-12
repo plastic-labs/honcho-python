@@ -13,6 +13,7 @@ from honcho_core.pagination import SyncPage, AsyncPage
 from honcho_core.types.workspaces import (
     Session,
     SessionSearchResponse,
+    SessionSummariesResponse,
     SessionGetContextResponse,
 )
 
@@ -413,6 +414,54 @@ class TestSessions:
                 query="query",
             )
 
+    @parametrize
+    def test_method_summaries(self, client: Honcho) -> None:
+        session = client.workspaces.sessions.summaries(
+            session_id="session_id",
+            workspace_id="workspace_id",
+        )
+        assert_matches_type(SessionSummariesResponse, session, path=["response"])
+
+    @parametrize
+    def test_raw_response_summaries(self, client: Honcho) -> None:
+        response = client.workspaces.sessions.with_raw_response.summaries(
+            session_id="session_id",
+            workspace_id="workspace_id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        session = response.parse()
+        assert_matches_type(SessionSummariesResponse, session, path=["response"])
+
+    @parametrize
+    def test_streaming_response_summaries(self, client: Honcho) -> None:
+        with client.workspaces.sessions.with_streaming_response.summaries(
+            session_id="session_id",
+            workspace_id="workspace_id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            session = response.parse()
+            assert_matches_type(SessionSummariesResponse, session, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    def test_path_params_summaries(self, client: Honcho) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `workspace_id` but received ''"):
+            client.workspaces.sessions.with_raw_response.summaries(
+                session_id="session_id",
+                workspace_id="",
+            )
+
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `session_id` but received ''"):
+            client.workspaces.sessions.with_raw_response.summaries(
+                session_id="",
+                workspace_id="workspace_id",
+            )
+
 
 class TestAsyncSessions:
     parametrize = pytest.mark.parametrize(
@@ -808,4 +857,52 @@ class TestAsyncSessions:
                 session_id="",
                 workspace_id="workspace_id",
                 query="query",
+            )
+
+    @parametrize
+    async def test_method_summaries(self, async_client: AsyncHoncho) -> None:
+        session = await async_client.workspaces.sessions.summaries(
+            session_id="session_id",
+            workspace_id="workspace_id",
+        )
+        assert_matches_type(SessionSummariesResponse, session, path=["response"])
+
+    @parametrize
+    async def test_raw_response_summaries(self, async_client: AsyncHoncho) -> None:
+        response = await async_client.workspaces.sessions.with_raw_response.summaries(
+            session_id="session_id",
+            workspace_id="workspace_id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        session = await response.parse()
+        assert_matches_type(SessionSummariesResponse, session, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_summaries(self, async_client: AsyncHoncho) -> None:
+        async with async_client.workspaces.sessions.with_streaming_response.summaries(
+            session_id="session_id",
+            workspace_id="workspace_id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            session = await response.parse()
+            assert_matches_type(SessionSummariesResponse, session, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_path_params_summaries(self, async_client: AsyncHoncho) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `workspace_id` but received ''"):
+            await async_client.workspaces.sessions.with_raw_response.summaries(
+                session_id="session_id",
+                workspace_id="",
+            )
+
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `session_id` but received ''"):
+            await async_client.workspaces.sessions.with_raw_response.summaries(
+                session_id="",
+                workspace_id="workspace_id",
             )
