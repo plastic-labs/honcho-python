@@ -1,5 +1,21 @@
 # Changelog
 
+## 1.4.0 (2025-08-12)
+
+Full Changelog: [v1.3.0...v1.4.0](https://github.com/plastic-labs/honcho-python-core/compare/v1.3.0...v1.4.0)
+
+### Features
+
+* **api:** manual updates ([cc401f3](https://github.com/plastic-labs/honcho-python-core/commit/cc401f33cf29d3d9e7368b421c59088c28cf0ec8))
+* **api:** manual updates ([ffa0cb1](https://github.com/plastic-labs/honcho-python-core/commit/ffa0cb18fd084729c30f2f723cc3287103e1edd0))
+* **api:** Update Session Context ([8a2a705](https://github.com/plastic-labs/honcho-python-core/commit/8a2a705dca58f86b996f3110921a84d9763c66c5))
+
+
+### Chores
+
+* **internal:** update comment in script ([6c35b7f](https://github.com/plastic-labs/honcho-python-core/commit/6c35b7f9c214522f44cb8190b3f93ae91376f5d5))
+* update @stainless-api/prism-cli to v5.15.0 ([e5645fc](https://github.com/plastic-labs/honcho-python-core/commit/e5645fc3ac7d714de56bfc0f1e834fea38a7ae84))
+
 ## 1.3.0 (2025-08-06)
 
 Full Changelog: [v1.2.0...v1.3.0](https://github.com/plastic-labs/honcho-python-core/compare/v1.2.0...v1.3.0)
