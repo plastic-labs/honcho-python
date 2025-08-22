@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.4.1 (2025-08-22)
+
+Full Changelog: [v1.4.0...v1.4.1](https://github.com/plastic-labs/honcho-python-core/compare/v1.4.0...v1.4.1)
+
+### Chores
+
+* update github action ([11362ac](https://github.com/plastic-labs/honcho-python-core/commit/11362acaa7df7b01c1c7bf618f48a8ae0ae8a1cf))
+
 ## 1.4.0 (2025-08-12)
 
 Full Changelog: [v1.3.0...v1.4.0](https://github.com/plastic-labs/honcho-python-core/compare/v1.3.0...v1.4.0)
